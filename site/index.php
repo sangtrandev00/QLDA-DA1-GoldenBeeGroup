@@ -734,6 +734,11 @@ if (isset($_GET['act'])) {
         case 'blogdetail':
             include "./view/pages/blog/blog-detail.php";
             break;
+
+        case 'my-account':
+            include "./view/auth/my-account.php";
+            break;
+
         default:
             include "./view/component/carousel.php";
             // include "./view/component/catalog.php";
