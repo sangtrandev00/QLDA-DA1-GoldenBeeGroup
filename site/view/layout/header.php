@@ -70,7 +70,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=login">
+                                        <a href="./auth/login.php">
                                             <i class="zmdi zmdi-lock"></i>
                                             Đăng nhập
                                         </a>
