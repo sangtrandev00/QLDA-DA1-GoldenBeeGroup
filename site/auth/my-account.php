@@ -32,8 +32,7 @@
                             <div class="card-header" id="headingOne">
                                 <h4 class="card-title">
                                     <a href="#" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne">My Personal
-                                        Information</a>
+                                        aria-expanded="true" aria-controls="collapseOne">Thông tin tài khoản của tôi</a>
                                 </h4>
                             </div>
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
@@ -124,8 +123,7 @@
                             <div class="card-header" id="headingTwo">
                                 <h4 class="card-title">
                                     <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                        aria-controls="collapseTwo">My shipping
-                                        address</a>
+                                        aria-controls="collapseTwo">Địa chỉ gửi hàng</a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
@@ -195,8 +193,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">My billing
-                                        details</a>
+                                        aria-controls="collapseThree">Thay đổi mật khẩu</a>
                                 </h4>
                             </div>
                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
@@ -251,8 +248,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
-                                        aria-controls="collapseFour">My Order
-                                        info</a>
+                                        aria-controls="collapseFour">Lịch sử đơn hàng </a>
                                 </h4>
                             </div>
                             <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
@@ -299,8 +295,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">
                                     <a data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false"
-                                        aria-controls="collapseFive">Payment
-                                        Method</a>
+                                        aria-controls="collapseFive">Phương thức thanh toán</a>
                                 </h4>
                             </div>
                             <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
