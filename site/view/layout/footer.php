@@ -57,6 +57,9 @@
                                     <li>
                                         <a href="#"><i class="zmdi zmdi-circle"></i><span>Liên hệ</span></a>
                                     </li>
+                                    <li>
+                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>FAQ</span></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
