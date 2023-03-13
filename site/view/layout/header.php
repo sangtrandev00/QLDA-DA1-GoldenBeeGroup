@@ -56,25 +56,44 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="top-link clearfix">
-                                <ul class="link f-right">
-                                    <li>
-                                        <a href="index.php?act=my-account">
-                                            <i class="zmdi zmdi-account"></i>
-                                            Tài khoản của tôi
-                                        </a>
-                                    </li>
-                                    <li>
+                                <ul class="link f-right top-header-menu">
+                                    <?php
+if (isset($_SESSION['iduser'])) {
+    echo '
+                                            <li class="top-header-menu__item">
+                                                <a href="index.php?act=my-account">
+                                                    <i class="zmdi zmdi-account"></i>
+                                                    ' . $_SESSION['ho_ten'] . '
+                                                </a>
+                                                <ul class="top-header-menu__dropdown">
+                                                    <li><a href="">Quản lý tài khoản</a> </li>
+                                                    <li><a href="./index.php?act=logout">Đăng xuất</a></li>
+                                                </ul>
+                                            </li>
+                                            ';
+}
+?>
+
+                                    <li class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
                                             <i class="zmdi zmdi-favorite"></i>
                                             Yêu thích (0)
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="./auth/login.php">
-                                            <i class="zmdi zmdi-lock"></i>
-                                            Đăng nhập
-                                        </a>
-                                    </li>
+                                    <?php
+if (!isset($_SESSION['iduser'])) {
+    echo '
+                                            <li class="top-header-menu__item">
+                                                <a href="./auth/login.php">
+                                                    <i class="zmdi zmdi-lock"></i>
+                                                    Đăng nhập
+                                                </a>
+                                            </li>
+                                            ';
+}
+?>
+
+
                                 </ul>
                             </div>
                         </div>

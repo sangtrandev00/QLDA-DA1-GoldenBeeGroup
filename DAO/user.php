@@ -7,6 +7,13 @@ function user_insert($tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kic
     return true;
 }
 
+function user_register($ho_ten, $email, $mat_khau)
+{
+    $sql = "INSERT INTO tbl_nguoidung(ho_ten, email, mat_khau) VALUES (?, ?, ?)";
+    pdo_execute($sql, $ho_ten, $email, $mat_khau);
+    return true;
+}
+
 function user_update($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro)
 {
     $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?,kich_hoat=?,vai_tro=? WHERE id=?";
@@ -67,6 +74,12 @@ function email_exist_by_username($email, $username)
     return pdo_query_value($sql, $email, $username) > 0;
 }
 
+function email_exist($email)
+{
+    $sql = "SELECT count(*) FROM tbl_nguoidung WHERE email=?";
+    return pdo_query_value($sql, $email) > 0;
+}
+
 function admin_select($vai_tro1, $vai_tro2)
 {
 
@@ -90,4 +103,10 @@ function user_change_pass_by_username($username, $newpass)
 {
     $sql = "UPDATE tbl_nguoidung SET mat_khau=? WHERE tai_khoan=?";
     pdo_execute($sql, $newpass, $username);
+}
+
+function user_change_pass_by_email($email, $newpass)
+{
+    $sql = "UPDATE tbl_nguoidung SET mat_khau=? WHERE email=?";
+    pdo_execute($sql, $newpass, $email);
 }

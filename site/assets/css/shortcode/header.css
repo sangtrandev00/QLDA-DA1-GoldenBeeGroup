@@ -85,10 +85,43 @@ NOTE: This is Header style file. All Header related style included in this file.
   font-size: 14px;
   line-height: 20px;
 }
-.main-menu li:hover .dropdwn{
+.main-menu, li:hover .dropdwn{
   transform: scale(1);
   visibility: visible;
 }
+
+
+
+.top-header-menu__item {
+  position: relative;
+}
+
+.top-header-menu__dropdown {
+  max-width: 16rem;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  background-color: #222222;
+  display: none;
+}
+
+.top-header-menu__item:hover .top-header-menu__dropdown {
+  display: block;
+}
+
+.top-header-menu__dropdown li a {
+ 
+}
+
+.top-header-menu  .top-header-menu__item:hover .dropdwn {
+  visibility: hidden;
+  transform: scale(1);
+}
+
+
+
+
+
 .mega-menu-area {
   background: #ffffff none repeat scroll 0 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
@@ -254,11 +287,11 @@ NOTE: This is Header style file. All Header related style included in this file.
 }
 .top-link > ul.link > li a {
   color: #cccccc;
-  display: block;
-  font-size: 0;
+  /* display: block; */
+  /* font-size: 0; */
   height: 40px;
   line-height: 30px;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 10px 20px;
   text-align: center;
   text-transform: capitalize;

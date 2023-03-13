@@ -48,18 +48,19 @@ include "./auth-header.php";
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h5 class="card-title">Quên mật khẩu</h5>
-                                    <p class="card-text mb-5">Hãy nhập địa chỉ email của bạn để lấy lại mật khẩu</p>
-                                    <form class="form-body" action="./forgot.php" method="POST">
+                                    <h5 class="card-title">Nhập mã code</h5>
+                                    <p class="card-text mb-5">Nhập mã code đã gửi đến email của bạn để lấy lại mật khẩu
+                                    </p>
+                                    <form class="form-body" action="./verify-code.php" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
-                                                <label for="inputEmailid" class="form-label">Email</label>
-                                                <input type="email" name="email" class="form-control radius-30"
-                                                    id="inputEmailid" placeholder="Email">
+                                                <label for="inputEmailid" class="form-label">Mã code: </label>
+                                                <input type="password" name="code" class="form-control radius-30"
+                                                    id="inputEmailid" placeholder="Code">
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
-                                                    <input type="submit" name="forgotbtn"
+                                                    <input type="submit" name="verifycodebtn"
                                                         class="btn btn-primary radius-30" value="Gửi" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại
                                                         đăng nhập</a>
@@ -93,33 +94,25 @@ include "./auth-footer.php";
 </html>
 
 <?php
-if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
-    $email = $_POST['email'];
 
-    // Validate
+$error = array();
+if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
+    $code = $_POST['code'];
 
-    if (empty($email)) {
-        $error['email'] = "Không để trống email";
+    if (empty($code)) {
+        $error['code'] = "Không để trống mã code";
     }
-    // else if (is_email($email)) {
-    //     $error['email'] = "Định dạng email chưa chính xác!";
-    // }
 
-    if (!$error) {
-        if (email_exist($email)) {
-            // if (email_exist_by_username($email, $username)) {
-            $title = "Mã Code lấy lại mật khẩu";
-            $messageCode = random_int(100000, 999999);
-            $_SESSION['emailreset'] = $email;
-            $_SESSION['verifycode'] = $messageCode;
-            sendmail($email, $title, $messageCode);
-            header("location: ./verify-code.php");
-            // } else {
-            //     echo '<div class="alert alert-danger" >Email của bạn không đúng với tài khoản</div>';
-            // }
+    if (isset($_SESSION['verifycode'])) {
+        $verifycode = $_SESSION['verifycode'];
+        if ($code != $verifycode) {
+            echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác, mời nhập lại username và email</div>';
+            unset($_SESSION['verifycode']);
+            // header('location: index.php?act=forgotpass');
         } else {
-            echo '<div class="alert alert-danger" >Email của bạn không tồn tại</div>';
+            header('location: ./reset-pass.php');
         }
     }
+
 }
 ?>

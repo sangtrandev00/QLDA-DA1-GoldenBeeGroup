@@ -1,3 +1,12 @@
+<?php
+ob_start();
+session_start();
+include "../models/connectdb.php";
+include "../models/user.php";
+include "../../pdo-library.php";
+include "../../DAO/user.php";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -31,7 +40,7 @@ include "./auth-header.php";
         <!--start content-->
         <main class="authentication-content">
             <div class="container">
-                <div class="mt-4">
+                <div class="my-4">
                     <div class="card rounded-0 overflow-hidden shadow-none bg-white border">
                         <div class="row g-0">
                             <div
@@ -43,7 +52,7 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng ký</h5>
                                     <p class="card-text mb-4">Đăng ký tài khoản để trở thành khách hàng tại shop!</p>
-                                    <form class="form-body">
+                                    <form action="./signup.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12 ">
@@ -53,19 +62,20 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-person-circle"></i>
                                                     </div>
-                                                    <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputName" placeholder="Enter Name">
+                                                    <input type="text" name="fullname"
+                                                        class="form-control radius-30 ps-5" id="inputName"
+                                                        placeholder="Nhập họ tên của bạn">
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputEmailAddress" class="form-label">Đại chỉ email</label>
+                                                <label for="inputEmailAddress" class="form-label">Địa chỉ email</label>
                                                 <div class="ms-auto position-relative">
                                                     <div
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="Email">
+                                                        id="inputEmailAddress" placeholder="Email" name="email">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -76,8 +86,22 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputChoosePassword" placeholder="Password">
+                                                    <input type="password" name="password"
+                                                        class="form-control radius-30 ps-5" id="inputChoosePassword"
+                                                        placeholder="Mật khẩu">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputChooseRePassword" class="form-label">Nhập lại mật
+                                                    khẩu</label>
+                                                <div class="ms-auto position-relative">
+                                                    <div
+                                                        class="position-absolute top-50 translate-middle-y search-icon px-3">
+                                                        <i class="bi bi-lock-fill"></i>
+                                                    </div>
+                                                    <input type="password" name="reenterpass"
+                                                        class="form-control radius-30 ps-5" id="inputChooseRePassword"
+                                                        placeholder="Nhập lại mật khẩu">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -90,26 +114,10 @@ include "./auth-header.php";
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary radius-30">Đăng
-                                                        ký</button>
+                                                    <input type="submit" name="signupbtn"
+                                                        class="btn btn-primary radius-30" value="Đăng ký" />
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-12">
-                                                <div class="login-separater text-center"> <span>OR SIGN UP WITH
-                                                        EMAIL</span>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="d-flex align-items-center gap-3 justify-content-center">
-                                                    <button type="button" class="btn btn-white text-danger"><i
-                                                            class="bi bi-google me-0"></i></button>
-                                                    <button type="button" class="btn btn-white text-primary"><i
-                                                            class="bi bi-linkedin me-0"></i></button>
-                                                    <button type="button" class="btn btn-white text-info"><i
-                                                            class="bi bi-facebook me-0"></i></button>
-                                                </div>
-                                            </div> -->
                                             <div class="col-12 text-center">
                                                 <p class="mb-0">Đã có tài khoản ? <a href="./login.php">Đăng nhập
                                                         tại đây</a></p>
@@ -127,7 +135,7 @@ include "./auth-header.php";
         <!--end page main-->
 
         <?php
-include "./auth-footer.php";
+// include "./auth-footer.php";
 ?>
     </div>
     <!--end wrapper-->
@@ -144,3 +152,66 @@ include "./auth-footer.php";
 </body>
 
 </html>
+
+<?php
+// session_start();
+
+$error = array();
+
+if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
+    $fullname = $_POST['fullname'];
+    // $homeaddress = $_POST['address'];
+    // $phonenumber = $_POST['phonenumber'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    $reenterpass = $_POST['reenterpass'];
+
+    // Validate at server
+
+    echo $fullname, $password, $email, $reenterpass;
+
+    if (strlen($fullname) == 0) {
+        $error['fullname'] = "Không để trống họ tên!";
+    } else if (strlen($fullname) > 30) {
+        $error['fullname'] = "Họ tên không vượt quá 30 ký tự!";
+    }
+
+    if (empty($email)) {
+        $error['email'] = "không để trống email";
+    }
+    // else if (!is_email($email)) {
+    //     $error['email'] = "Email không đúng định dạng!";
+    // }
+    // else if (email_exist($email)) {
+    //     $error['email'] = "Email của bạn đã tồn tại!";
+    //     echo "Email của bạn đã tồn tại!";
+    // }
+
+    // if (strlen($phonenumber) == 0) {
+    //     $error['phonenumber'] = "Không để trống số điện thoại!";
+    // } else if (!validating($phonenumber)) {
+    //     $error['phonenumber'] = "Định dạng số điện thoại không chính xác!";
+    // }
+
+    if (empty($password)) {
+        $error['password'] = "không để trống password!";
+    }
+    if (empty($reenterpass)) {
+        $error['reenterpass'] = "không để trống repassword!";
+    }
+
+    if (!$error) {
+        $is_inserted = user_register($fullname, $email, $password);
+
+        echo 'Register successfully!';
+        // if ($is_inserted) {
+        //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
+        // }
+        if ($is_inserted) {
+            echo '<div class="alert alert-success">Sign up successfully</div>';
+        }
+        // Send email to success account
+    }
+
+}
+?>

@@ -2,12 +2,12 @@
 
 // Hàm lấy tất cả danh mục
 
-function checkuser($username, $password)
+function checkuser($email, $password)
 {
     // $kq = '';
     $conn = connectdb();
     // Lỗi cú pháp ở đây !!!
-    $sql = "SELECT * FROM tbl_nguoidung WHERE tai_khoan = '$username' AND mat_khau = '$password'";
+    $sql = "SELECT * FROM tbl_nguoidung WHERE email = '$email' AND mat_khau = '$password'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     // return $kq;
@@ -33,15 +33,15 @@ function insertuser($name, $homeaddress, $phonenumber, $username, $email, $passw
     return true;
 }
 
-function getuserinfo($username, $password)
+function getuserinfo($email, $password)
 {
     // $kq = '';
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_nguoidung WHERE tai_khoan = '$username' AND mat_khau = '$password'");
+    $stmt = $conn->prepare("SELECT * FROM tbl_nguoidung WHERE email = '$email' AND mat_khau = '$password'");
     $stmt->execute();
     // return $kq;
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-    $kq = $stmt->fetchAll();
+    $kq = $stmt->fetch();
     return $kq;
 }
 
