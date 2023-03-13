@@ -204,7 +204,7 @@ if (isset($_GET['act'])) {
                 if (cate_exist_by_name($catename)) {
                     echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
                 } else {
-                    
+
                     $is_added = add_cate($catename);
                     if ($is_added) {
                         echo '<div class="bg-success text-white p-2">Add category successully</div>';

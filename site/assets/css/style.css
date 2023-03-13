@@ -185,7 +185,7 @@
 .action-button > li:last-child {
   margin-right: 0;
 }
-.action-button > li > a {
+.action-button > li > a, button.add-to-cart {
   background: transparent;
   border: 1px solid #ddd;
   border-radius: 50%;
@@ -196,14 +196,16 @@
   text-align: center;
   width: 30px;
 }
-.action-button > li > a i {
+.action-button > li > a,button.add-to-cart i {
   line-height: 28px;
 }
-.action-button > li:hover > a {
+.action-button > li:hover > a, .action-button > li > button.add-to-cart:hover {
   background: #FF7F00;
   border-color: #FF7F00;
   color: #fff;
 }
+
+
 .product-item:hover {
   box-shadow: 0px 8px 13px rgba(0, 0, 0, 0.15);
 }
@@ -1304,7 +1306,13 @@ table {width: 100%}
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: uppercase;
-  white-space: nowrap;
+  /* white-space: nowrap; */
+
+  height:  3.8rem; /* Chiều cao để hiển thị dòng text */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;  /* Số dòng hiển thị lên */
 }
 .pro-thumbnail-info > p {
   margin-bottom: 0;
