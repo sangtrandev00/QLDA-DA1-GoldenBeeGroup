@@ -375,9 +375,9 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                         title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
+                                                </li> -->
                                                 <li>
                                                     <a href="#" title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></a>
