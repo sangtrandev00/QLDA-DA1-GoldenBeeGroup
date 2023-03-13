@@ -1,3 +1,12 @@
+<?php
+ob_start();
+session_start();
+include "../models/connectdb.php";
+include "../models/user.php";
+include "../../pdo-library.php";
+include "../../DAO/user.php";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -45,7 +54,7 @@ include "./auth-header.php";
                                     <p class="card-text mb-5">Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn.
                                         Vui lòng nhập của bạn
                                         mật khẩu mới!</p>
-                                    <form class="form-body">
+                                    <form action="./reset-pass.php" class="form-body" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputNewPassword" class="form-label">Mật khẩu mới</label>
@@ -54,8 +63,9 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputNewPassword" placeholder="Nhập mật khẩu mới">
+                                                    <input type="password" name="newpass"
+                                                        class="form-control radius-30 ps-5" id="inputNewPassword"
+                                                        placeholder="Nhập mật khẩu mới">
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -66,14 +76,15 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputConfirmPassword" placeholder="Xác nhận mật khẩu">
+                                                    <input type="password" name="renewpass"
+                                                        class="form-control radius-30 ps-5" id="inputConfirmPassword"
+                                                        placeholder="Xác nhận mật khẩu">
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
-                                                    <button type="submit" class="btn btn-primary radius-30">Thay đổi mật
-                                                        khẩu</button>
+                                                    <input type="submit" name="updatepassbtn"
+                                                        class="btn btn-primary radius-30" value="Thay đổi mật khẩu" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại đăng
                                                         nhập</a>
                                                 </div>
@@ -100,6 +111,23 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
+    <?php
+$error = array();
+if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+    $newpass = $_POST['newpass'];
+    $renewpass = $_POST['renewpass'];
+
+    if ($newpass != $renewpass) {
+        echo '<div class="alert alert-danger">Mật khẩu xác nhận không chính xác, hãy nhập lại!</div>';
+    } else {
+        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
+        unset($_SESSION['emailreset']);
+        unset($_SESSION['verifycode']);
+        header('location: ./login.php');
+        echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
+    }
+}
+?>
 
 </body>
 

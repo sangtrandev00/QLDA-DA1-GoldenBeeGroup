@@ -1,3 +1,11 @@
+<?php
+ob_start();
+session_start();
+include "../models/connectdb.php";
+include "../models/user.php";
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -42,7 +50,7 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng nhập</h5>
                                     <p class="card-text mb-4">Đăng nhập tài khoản để tham gia vào cửa hàng</p>
-                                    <form class="form-body">
+                                    <form action="./login.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12">
@@ -52,7 +60,7 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
-                                                    <input type="email" class="form-control radius-30 ps-5"
+                                                    <input type="email" name="email" class="form-control radius-30 ps-5"
                                                         id="inputEmailAddress" placeholder="Email">
                                                 </div>
                                             </div>
@@ -64,8 +72,9 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputChoosePassword" placeholder="Mật khẩu">
+                                                    <input type="password" name="password"
+                                                        class="form-control radius-30 ps-5" id="inputChoosePassword"
+                                                        placeholder="Mật khẩu">
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -80,8 +89,8 @@ include "./auth-header.php";
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary radius-30">Đăng
-                                                        nhập</button>
+                                                    <input type="submit" name="loginbtn"
+                                                        class="btn btn-primary radius-30" value="Đăng nhập" />
                                                 </div>
                                             </div>
                                             <!-- <div class="col-12">
@@ -134,3 +143,53 @@ include "./auth-footer.php";
 </body>
 
 </html>
+
+<?php
+// session_start();
+
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    $error = array();
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    echo $email, $password;
+    // Đối chiếu password
+
+    // Mã hóa password
+
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+
+    if (empty($password)) {
+        $error['password'] = "Không để trống password";
+    }
+
+    $password = md5($password);
+    // echo $password;
+
+    $islogined = checkuser($email, $password);
+    echo $islogined;
+    if ($islogined === -1) {
+        // $text_error = "username hoặc password không chính xác";
+
+        echo '<div class="alert-warning alert" style="">username hoặc password không chính xác</div>';
+        // include "./view/login-page.php";
+    } else {
+        $kq = getuserinfo($email, $password);
+        // var_dump($kq);
+        $role = $kq['vai_tro'];
+        // echo $role;
+        // if ($role == 3) {
+        $_SESSION['role'] = $role;
+        $_SESSION['email'] = $kq['email'];
+        $_SESSION['iduser'] = $kq['id'];
+        $_SESSION['ho_ten'] = $kq['ho_ten'];
+        header('location: ../../index.php');
+        // } else {
+        // }
+
+    }
+}
+?>
