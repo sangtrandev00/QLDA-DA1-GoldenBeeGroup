@@ -231,54 +231,25 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 <!-- single comments -->
                                                 <div class="media mt-30">
                                                     <div class="media-left">
-                                                        <a href="#"><img class="media-object" src="img/author/1.jpg"
-                                                                alt="#"></a>
+                                                        <!-- ảnh người đánh giá -->
+                                                        <a href="#"><img class="media-object" src="" alt="#"></a>
                                                     </div>
                                                     <div class="media-body">
                                                         <div class="clearfix">
                                                             <div class="name-commenter pull-left">
-                                                                <h6 class="media-heading"><a href="#">Gerald
-                                                                        Barnes</a>
-                                                                </h6>
-                                                                <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
-                                                            </div>
-                                                            <div class="pull-right">
-                                                                <ul class="reply-delate">
-                                                                    <li><a href="#">Reply</a></li>
-                                                                    <li>/</li>
-                                                                    <li><a href="#">Delate</a></li>
-                                                                </ul>
+                                                                <h6 class="media-heading"><a href="#">Lam Phối</a> </h6>
+                                                                <p class="mb-10">13 March, 2023 at 9:30pm</p>
                                                             </div>
                                                         </div>
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                            adipiscing elit. Integer accumsan egestas .</p>
+                                                        <p class="mb-0">Điện thoại rất đẹp, có nhiều ưu đãi khi mua điện thoại</p>
                                                     </div>
                                                 </div>
                                                 <!-- single comments -->
-                                                <div class="media mt-30">
-                                                    <div class="media-left">
-                                                        <a href="#"><img class="media-object" src="img/author/2.jpg"
-                                                                alt="#"></a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <div class="clearfix">
-                                                            <div class="name-commenter pull-left">
-                                                                <h6 class="media-heading"><a href="#">Gerald
-                                                                        Barnes</a>
-                                                                </h6>
-                                                                <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
-                                                            </div>
-                                                            <div class="pull-right">
-                                                                <ul class="reply-delate">
-                                                                    <li><a href="#">Reply</a></li>
-                                                                    <li>/</li>
-                                                                    <li><a href="#">Delate</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                            adipiscing elit. Integer accumsan egestas .</p>
-                                                    </div>
+                                                <div class="media-body mt-40">
+                                                        <input type="text" placeholder="Tên Của Bạn" name="">
+                                                        <input type="text" placeholder="Email Của Bạn" name="">
+                                                        <textarea name="review" id="" cols="30" rows="5" placeholder="Đánh Giá Của Bạn"></textarea>
+                                                        <input style="width: 100px; height: 40px; background-color: #ff7f00; color: white; border: none;text-transform: uppercase;font-weight: 700;" type="submit" value="Đánh Giá" >
                                                 </div>
                                             </div>
                                         </div>
