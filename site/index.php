@@ -10,9 +10,9 @@ if (!isset($_SESSION['giohang'])) {
     //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
     // ];
     $_SESSION['giohang'] = [
-        array("stt" => 1, "id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
-        array("stt" => 2, "id" => 2, "tensp" => "Điện thoại OPPO Reno8 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
-        array("stt" => 3, "id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
+        array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
+        array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
+        array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
 
     // var_dump($_SESSION['giohang']);
@@ -151,6 +151,11 @@ if (isset($_GET['act'])) {
             include "./view/pages/cart/checkout.php";
 
             break;
+
+        case 'ordercompleted':
+            include "./view/pages/cart/order-completed.php";
+            break;
+
         case 'checkoutbtn':
 
             $error = array();
@@ -233,23 +238,25 @@ if (isset($_GET['act'])) {
                     $id = $_POST['id'];
                     // $productitem = get_one_product($id)[0];
                     $iddm = $_POST['iddm'];
-                    $tendanhmuc = $_POST['tendanhmuc'];
-                    $tensp = $_POST['tensanpham'];
-                    $img = $_POST['img'];
-                    $gia = $_POST['giasp'];
+                    $tendanhmuc = $_POST['danhmuc'];
+                    $tensp = $_POST['tensp'];
+                    $hinh_anh = $_POST['hinh_anh'];
+                    $don_gia = $_POST['don_gia'];
 
-                    if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
-                        $sl = $_POST['cart_quantity'];
+                    $sl = $_POST['sl'];
 
-                        $product = product_select_by_id($id);
-                        if ($sl > $product['ton_kho']) {
-                            $sl = $product['ton_kho'];
-                            $GLOBALS['changed_cart'] = true;
-                        }
+                    // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+                    //     $sl = $_POST['cart_quantity'];
 
-                    } else {
-                        $sl = 1;
-                    }
+                    //     $product = product_select_by_id($id);
+                    //     if ($sl > $product['ton_kho']) {
+                    //         $sl = $product['ton_kho'];
+                    //         $GLOBALS['changed_cart'] = true;
+                    //     }
+
+                    // } else {
+                    //     $sl = 1;
+                    // }
 
                     $flag = 0;
 
@@ -265,12 +272,15 @@ if (isset($_GET['act'])) {
                     foreach ($_SESSION['giohang'] as $itemsp) {
                         # code...
                         // var_dump($itemsp);
-                        if ($itemsp[0] === $id) {
-                            $slnew = $sl + $itemsp[4];
+
+                        if ($itemsp['id'] === $id) {
+                            $slnew = $sl + $itemsp['sl'];
+
                             // echo "So LUONG MOI: " . $slnew;
 
-                            $_SESSION['giohang'][$i][4] = $slnew;
+                            $_SESSION['giohang'][$i]['sl'] = $slnew;
                             $flag = 1;
+
                             break;
                         }
 
@@ -278,7 +288,8 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;
 
@@ -292,10 +303,91 @@ if (isset($_GET['act'])) {
                     // echo "NOTTHING ELSE HERE";
                 }
             } else {
-                header('location: index.php?act=signinpage');
+                header('location: ./auth/login.php');
             }
-            include "./view/shopcart-page.php";
+
+            include "./view/pages/cart/shopping-cart.php";
             break;
+        case 'addtowishlist':
+            if (isset($_SESSION['iduser'])) {
+
+                if (isset($_POST['addtowishlistbtn']) && $_POST['addtowishlistbtn']) {
+
+                    // echo "HELLO WORLD";
+
+                    $id = $_POST['id'];
+                    // $productitem = get_one_product($id)[0];
+                    $iddm = $_POST['iddm'];
+                    $tendanhmuc = $_POST['danhmuc'];
+                    $tensp = $_POST['tensp'];
+                    $hinh_anh = $_POST['hinh_anh'];
+                    $don_gia = $_POST['don_gia'];
+
+                    $sl = $_POST['sl'];
+
+                    // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+                    //     $sl = $_POST['cart_quantity'];
+
+                    //     $product = product_select_by_id($id);
+                    //     if ($sl > $product['ton_kho']) {
+                    //         $sl = $product['ton_kho'];
+                    //         $GLOBALS['changed_cart'] = true;
+                    //     }
+
+                    // } else {
+                    //     $sl = 1;
+                    // }
+
+                    $flag = 0;
+
+                    // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+                    // Nếu có chỉ cập nhất lại số lượng
+
+                    // Ngược lại add mới sp vào giỏ hàng
+
+                    // Khởi tạo một mảng con trước khi đưa vào giỏ
+
+                    $i = 0;
+
+                    foreach ($_SESSION['wishlist'] as $itemsp) {
+                        # code...
+                        // var_dump($itemsp);
+
+                        if ($itemsp['id'] === $id) {
+                            $slnew = $sl + $itemsp['sl'];
+
+                            // echo "So LUONG MOI: " . $slnew;
+
+                            $_SESSION['wishlist'][$i]['sl'] = $slnew;
+                            $flag = 1;
+
+                            break;
+                        }
+
+                        $i++;
+                    }
+
+                    if ($flag == 0) {
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+                        // array_push($_SESSION['giohang'], $itemsp);
+                        // $_SESSION['giohang'][] = $itemsp;
+
+                        $_SESSION['wishlist'][] = $itemsp;
+
+                    }
+
+                    // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
+
+                } else {
+                    // echo "NOTTHING ELSE HERE";
+                }
+            } else {
+                header('location: ./auth/login.php');
+            }
+            include "./view/pages/cart/wishlist.php";
+            break;
+
         case 'viewcart':
             include "./view/pages/cart/shopping-cart.php";
             break;
@@ -395,124 +487,17 @@ if (isset($_GET['act'])) {
             include "./view/auth/signup.php";
             break;
         case 'login':
-            $error = array();
-            if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-                // Đối chiếu password
-
-                // Mã hóa password
-
-                if (empty($username)) {
-                    $error['username'] = "Không để trống username";
-                }
-
-                if (empty($password)) {
-                    $error['password'] = "Không để trống password";
-                }
-
-                $password = md5($password);
-                // echo $password;
-
-                $islogined = checkuser($username, $password);
-
-                if ($islogined === -1) {
-                    // $text_error = "username hoặc password không chính xác";
-
-                    echo '<div class="alert-warning alert" style="">username hoặc password không chính xác</div>';
-                    // include "./view/login-page.php";
-                } else {
-                    $kq = getuserinfo($username, $password);
-                    // echo $kq;
-                    // var_dump($kq);
-                    $role = $kq[0]['vai_tro'];
-                    // echo $role;
-                    if ($role == 3) {
-                        // $_SESSION['role'] = $role;
-                        // $_SESSION['username'] = $kq[0]['user'];
-                        // $_SESSION['iduser'] = $kq[0]['id'];
-                        // header('location: admin/index.php');
-                        $_SESSION['role'] = $role;
-                        $_SESSION['username'] = $kq[0]['tai_khoan'];
-                        $_SESSION['iduser'] = $kq[0]['id'];
-                        // echo 'LOGIN SUCCESSFULLY!';
-                        header('location: index.php');
-                    } else {
-                        // $_SESSION['role'] = $role;
-                        // $_SESSION['username'] = $kq[0]['user'];
-                        // $_SESSION['iduser'] = $kq[0]['id'];
-                        // header('location: index.php');
-                    }
-                }
-
-            }
             include "./view/auth/login.php";
             break;
         case 'forgotpass':
-            $error = array();
-            if (isset($_POST['forgotpassbtn']) && $_POST['forgotpassbtn']) {
-                $username = $_POST['username'];
-                $email = $_POST['email'];
-
-                // Validate
-                if (empty($username)) {
-                    $error['username'] = "Không để trống username";
-                }
-
-                if (empty($email)) {
-                    $error['email'] = "Không để trống email";
-                } else if (is_email($username)) {
-                    $error['email'] = "Định dạng email chưa chính xác!";
-                }
-
-                if (!$error) {
-                    if (user_exist_by_username($username)) {
-                        if (email_exist_by_username($email, $username)) {
-                            $title = "Mã Code lấy lại mật khẩu";
-                            $messageCode = random_int(100000, 999999);
-                            $_SESSION['usernamedb'] = $username;
-                            $_SESSION['verifycode'] = $messageCode;
-                            sendmail($email, $title, $messageCode);
-                            header("location: index.php?act=verifycode");
-                        } else {
-                            echo '<div class="alert alert-danger" >Email của bạn không đúng với tài khoản</div>';
-                        }
-                    } else {
-                        echo '<div class="alert alert-danger" >Tài khoản của bạn không tồn tại</div>';
-                    }
-                }
-
-            }
-
             include "./view/auth/forgot.php";
             break;
         case 'resetpass':
             include "./view/auth/reset-pass.php";
             break;
-
         case 'verifycode':
             $error = array();
-            if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
-                $code = $_POST['code'];
-
-                if (empty($code)) {
-                    $error['code'] = "Không để trống mã code";
-                }
-
-                if (isset($_SESSION['verifycode'])) {
-                    $verifycode = $_SESSION['verifycode'];
-                    if ($code != $verifycode) {
-                        echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác, mời nhập lại username và email</div>';
-                        unset($_SESSION['verifycode']);
-                        // header('location: index.php?act=forgotpass');
-                    } else {
-                        header('location: index.php?act=updatepass');
-                    }
-                }
-
-            }
-            include "./view/account/verifycode-page.php";
+            include "./view/auth/verifycode-page.php";
             break;
         case 'updateaccount':
             $error = array();
@@ -661,8 +646,8 @@ if (isset($_GET['act'])) {
 
             include "./view/account/changepass-page.php";
             break;
-        case 'settingacountpage':
-            include "./view/account/setting-acount-page.php";
+        case 'settingaccount':
+            include "./view/pages/account/my-account.php";
             break;
         case 'historyorderdetailpage':
             if (isset($_GET['id'])) {

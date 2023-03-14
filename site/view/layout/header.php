@@ -61,12 +61,12 @@
 if (isset($_SESSION['iduser'])) {
     echo '
                                             <li class="top-header-menu__item">
-                                                <a href="index.php?act=my-account">
+                                                <a href="index.php?act=settingaccount">
                                                     <i class="zmdi zmdi-account"></i>
                                                     ' . $_SESSION['ho_ten'] . '
                                                 </a>
                                                 <ul class="top-header-menu__dropdown">
-                                                    <li><a href="">Quản lý tài khoản</a> </li>
+                                                    <li><a href="index.php?act=settingaccount">Quản lý tài khoản</a> </li>
                                                     <li><a href="./index.php?act=logout">Đăng xuất</a></li>
                                                 </ul>
                                             </li>
@@ -77,7 +77,7 @@ if (isset($_SESSION['iduser'])) {
                                     <li class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
                                             <i class="zmdi zmdi-favorite"></i>
-                                            Yêu thích (0)
+                                            Yêu thích (<?php echo count($_SESSION['wishlist']) ?> sp)
                                         </a>
                                     </li>
                                     <?php
@@ -223,7 +223,8 @@ foreach ($cate_list as $cate_item) {
 
                                             <div class="cart-toggler">
                                                 <a href="./index.php?act=viewcart">
-                                                    <span class="cart-quantity">02</span><br>
+                                                    <span
+                                                        class="cart-quantity"><?php echo count($_SESSION['giohang']) ?></span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>

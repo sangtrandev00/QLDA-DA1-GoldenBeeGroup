@@ -1,5 +1,5 @@
 <?php
-var_dump($_SESSION['wishlist']);
+// var_dump($_SESSION['wishlist']);
 ?>
 
 <!-- BREADCRUMBS SETCTION START -->
@@ -30,9 +30,32 @@ var_dump($_SESSION['wishlist']);
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
-                    <?php
-include "./view/pages/cart/nav-tab.php";
-?>
+                    <ul class="nav cart-tab">
+                        <li>
+                            <a class="active" href="./index.php?act=viewcart">
+                                <span>01</span>
+                                Giỏ hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a class="active" href="./index.php?act=wishlist">
+                                <span>02</span>
+                                Sản phẩm yêu thích
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.php?act=checkout">
+                                <span>03</span>
+                                Thanh toán
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.php?act=ordercompleted">
+                                <span>04</span>
+                                Đặt hàng thành công
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-lg-10">
                     <!-- Tab panes -->
@@ -207,92 +230,52 @@ include "./view/pages/cart/nav-tab.php";
                                         <table class="text-center">
                                             <thead>
                                                 <tr>
-                                                    <th class="product-thumbnail">product</th>
-                                                    <th class="product-price">price</th>
-                                                    <th class="product-stock">Stock status</th>
-                                                    <th class="product-add-cart">add to cart</th>
-                                                    <th class="product-remove">remove</th>
+                                                    <th class="product-thumbnail">Sản phẩm</th>
+                                                    <th class="product-price">Đơn giá</th>
+                                                    <th class="product-stock">Còn lại trong kho</th>
+                                                    <th class="product-add-cart">Thêm vào giỏ hàng</th>
+                                                    <th class="product-remove">Xóa</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/1.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/2.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/3.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
+                                                <?php
+$wish_list = $_SESSION['wishlist'];
+
+// var_dump($wish_list)
+foreach ($wish_list as $item) {
+    # code...
+    $product_item = product_select_by_id($item['id']);
+    $ton_kho = $product_item['ton_kho'];
+
+    echo '
+                                                        <!-- tr -->
+                                                        <tr>
+                                                            <td class="product-thumbnail">
+                                                                <div class="pro-thumbnail-img">
+                                                                    <img src="../uploads/' . $item['hinh_anh'] . '" alt="' . $item['hinh_anh'] . '">
+                                                                </div>
+                                                                <div class="pro-thumbnail-info text-start">
+                                                                    <h6 class="product-title-2">
+                                                                        <a href="./index.php?act=detailproduct&id=' . $item['id'] . '">' . $item['tensp'] . '</a>
+                                                                    </h6>
+                                                                    <p>Thương hiệu: ' . $item['danhmuc'] . '</p>
+                                                                    <p>số lượng: ' . $item['sl'] . '</p>
+                                                                </div>
+                                                            </td>
+                                                            <td class="product-price">' . $item['don_gia'] . ' VND</td>
+                                                            <td class="product-stock text-uppercase">' . $ton_kho . '</td>
+                                                            <td class="product-add-cart">
+                                                                <a href="#" title="Add To Cart">
+                                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td class="product-remove">
+                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        ';
+}
+?>
                                             </tbody>
                                         </table>
                                     </div>

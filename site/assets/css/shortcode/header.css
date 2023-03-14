@@ -460,6 +460,8 @@ NOTE: This is Header style file. All Header related style included in this file.
 }
 .total-cart-pro {
   padding: 10px 15px 30px 30px;
+  height: 45rem;
+  overflow-y: auto;
 }
 .total-cart-pro .single-cart {
   padding: 20px 0 0;
