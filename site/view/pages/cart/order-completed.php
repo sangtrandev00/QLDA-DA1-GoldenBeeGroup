@@ -28,27 +28,27 @@
                 <div class="col-lg-2">
                     <ul class="nav cart-tab">
                         <li>
-                            <a class="active" href="#shopping-cart" data-bs-toggle="tab">
+                            <a class="active" href="./index.php?act=viewcart">
                                 <span>01</span>
-                                Shopping cart
+                                Giỏ hàng
                             </a>
                         </li>
                         <li>
-                            <a class="active" href="#wishlist" data-bs-toggle="tab">
+                            <a class="active" href="./index.php?act=wishlist">
                                 <span>02</span>
-                                Wishlist
+                                Sản phẩm yêu thích
                             </a>
                         </li>
                         <li>
-                            <a class="active" href="#checkout" data-bs-toggle="tab">
+                            <a class="active" href="./index.php?act=checkout">
                                 <span>03</span>
-                                Checkout
+                                Thanh toán
                             </a>
                         </li>
                         <li>
-                            <a class="active" href="#order-complete" data-bs-toggle="tab">
+                            <a class="active" href="./index.php?act=ordercompleted">
                                 <span>04</span>
-                                Order complete
+                                Đặt hàng thành công
                             </a>
                         </li>
                     </ul>

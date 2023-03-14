@@ -26,9 +26,32 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
-                    <?php
-include "./view/pages/cart/nav-tab.php";
-?>
+                    <ul class="nav cart-tab">
+                        <li>
+                            <a class="active" href="./index.php?act=viewcart">
+                                <span>01</span>
+                                Giỏ hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.php?act=wishlist">
+                                <span>02</span>
+                                Sản phẩm yêu thích
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.php?act=checkout">
+                                <span>03</span>
+                                Thanh toán
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.php?act=ordercompleted">
+                                <span>04</span>
+                                Đặt hàng thành công
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-lg-10">
                     <!-- Tab panes -->
@@ -74,7 +97,7 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                        <input type="text" value="02" name="qtybutton"
+                                                                        <input type="text" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
                                                                     </div>
                                                                 </td>

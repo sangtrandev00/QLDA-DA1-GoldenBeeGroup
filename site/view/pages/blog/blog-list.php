@@ -17,6 +17,7 @@
         </div>
     </div>
 </div>
+
 <!-- BREADCRUMBS SETCTION END -->
 
 <!-- Start page content -->
@@ -63,13 +64,14 @@
                                     <!-- product-item start -->
                                     <div class="product-item">
                                         <div class="product-img">
-                                            <a href="single-product.html">
+                                            <a href="./index.php?act=blogdetail">
                                                 <img src="img/cart/4.jpg" alt="" />
                                             </a>
                                         </div>
                                         <div class="product-info">
                                             <h6 class="product-title multi-line mt-10">
-                                                <a href="single-product.html">Dummy Blog Name</a>
+                                                <a href="./index.php?act=blogdetai./index.php?act=blogdetail">Dummy Blog
+                                                    Name</a>
                                             </h6>
                                         </div>
                                     </div>
@@ -77,13 +79,14 @@
                                     <!-- product-item start -->
                                     <div class="product-item">
                                         <div class="product-img">
-                                            <a href="single-product.html">
+                                            <a href="./index.php?act=blogdetail">
                                                 <img src="img/cart/5.jpg" alt="" />
                                             </a>
                                         </div>
                                         <div class="product-info">
                                             <h6 class="product-title multi-line mt-10">
-                                                <a href="single-product.html">Dummy Blog Name</a>
+                                                <a href="./index.php?act=blogdetai./index.php?act=blogdetail">Dummy Blog
+                                                    Name</a>
                                             </h6>
                                         </div>
                                     </div>
@@ -91,13 +94,14 @@
                                     <!-- product-item start -->
                                     <div class="product-item">
                                         <div class="product-img">
-                                            <a href="single-product.html">
+                                            <a href="./index.php?act=blogdetail">
                                                 <img src="img/cart/6.jpg" alt="" />
                                             </a>
                                         </div>
                                         <div class="product-info">
                                             <h6 class="product-title multi-line mt-10">
-                                                <a href="single-product.html">Dummy Blog Name</a>
+                                                <a href="./index.php?act=blogdetai./index.php?act=blogdetail">Dummy Blog
+                                                    Name</a>
                                             </h6>
                                         </div>
                                     </div>
@@ -137,13 +141,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-1.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
                                             alt="blog-post-thumbnail-1.jpg"></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">
@@ -161,13 +166,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-2.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-2.jpg"
                                             alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">
@@ -185,13 +191,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-1.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
                                             alt="blog-post-thumbnail-1.jpg"></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">
@@ -209,13 +216,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-2.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-2.jpg"
                                             alt=""></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">
@@ -233,13 +241,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-1.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
                                             alt="blog-post-thumbnail-1.jpg"></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">
@@ -257,13 +266,14 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog-image">
-                                    <a href="single-blog.html"><img src="../uploads/blog-post-thumbnail-2.jpg"
+                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-2.jpg"
                                             alt="blog-post-thumbnail-2.jpg"></a>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="#">dummy Blog name</a></h5>
+                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
+                                    </h5>
                                     <p>There are many variations of passages of in psum available, but the
                                         majority have sufe ered on in some form...</p>
                                     <div class="read-more">

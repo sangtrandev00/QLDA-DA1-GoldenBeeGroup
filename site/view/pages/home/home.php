@@ -39,7 +39,7 @@
                                 <div class="slider-brief text-black-2">
                                     <p>There are many variations of passages of Lorem Ipsum available, but the
                                         majority
-                                        have suffered alteration in some form, by injected humour, or randomised
+                                        have suffered alteration in some forma, by injected humour, or randomised
                                         words
                                         which don't look even slightly believable. If you are going to use a
                                         passage of
@@ -179,7 +179,8 @@ foreach ($featured_products as $item) {
 
     #Thumbnail Image
     $image_list = explode(',', $item['images']);
-
+    // var_dump(catename_select_by_id($item['ma_danhmuc']));
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia']);
 
     foreach ($image_list as $image_item) {
@@ -191,9 +192,11 @@ foreach ($featured_products as $item) {
         }
 
     }
+    echo $item['masanpham'];
 
     # code...
     echo '
+                        <form action="./index.php?act=addtocart" method="post">
                                 <div class="product-item">
                                     <div class="product-img">
                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
@@ -212,21 +215,32 @@ foreach ($featured_products as $item) {
                                             <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                         </div>
                                         <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-                                        <ul class="action-button">
-                                            <li>
-                                                <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                    title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="./index.php?act=addtocart&id' . $item['masanpham'] . '" title="Add to cart"><i
-                                                        class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </li>
+
+                                            <ul class="action-button">
+                                                <li>
+                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                </li>
+
+                                                <li>
+                                                    <button class="add-to-cart"  title="Add to cart"><i
+                                                            class="zmdi zmdi-shopping-cart-plus"></i></button>
+                                                    <input type="submit" class="d-none" name="addtocartbtn" value="add to cart">
+                                                </li>
+                                                <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
+                                                <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
+                                                <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
+                                                <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
+                                                <input type="hidden" name="sl" value="1">
+                                                <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
+                                                <input type="hidden" name="iddm" value="' . $item['ma_danhmuc'] . '"/>
                                         </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                                 ';
 }
 ?>
@@ -348,7 +362,7 @@ foreach ($product_list as $item) {
     # code...
     echo '
                                         <div class="col-lg-3 col-md-4">
-                                            <div class="product-item">
+                                                <div class="product-item">
                                                 <div class="product-img">
                                                     <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
@@ -366,7 +380,8 @@ foreach ($product_list as $item) {
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-                                                    <ul class="action-button">
+                                                    <form action="./index.php?act=addtocart" method="post">
+                                                        <ul class="action-button">
                                                         <li>
                                                             <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                         </li>
@@ -375,10 +390,13 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <a href="./index.php?act=addtocart&id' . $item['masanpham'] . '" title="Add to cart"><i
-                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                            <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
+                                                                    class="zmdi zmdi-shopping-cart-plus"></i></button>
+                                                            <input type="submit" class="d-none" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
+
                                                     </ul>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -430,9 +448,9 @@ foreach ($product_list as $item) {
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                         title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
+                                                </li> -->
                                                 <li>
                                                     <a href="#" title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></a>
@@ -1614,7 +1632,24 @@ foreach ($product_list as $item) {
     <!-- END Modal -->
 </div>
 <!-- END QUICKVIEW PRODUCT -->
+<script>
+const addToCart = () => {
+    const addToCartBtns = document.querySelectorAll('button.add-to-cart');
+    console.log('btns', addToCartBtns);
+    [...addToCartBtns].forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('event target: ', e.currentTarget);
+            const submitBtn = e.currentTarget.nextElementSibling;
+            console.log('submit Btn: ', submitBtn);
+            submitBtn.click();
 
+        })
+    })
+}
+
+addToCart();
+</script>
 
 </div>
 <!-- Body main wrapper end -->
