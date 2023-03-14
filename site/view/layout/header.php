@@ -223,7 +223,8 @@ foreach ($cate_list as $cate_item) {
 
                                             <div class="cart-toggler">
                                                 <a href="./index.php?act=viewcart">
-                                                    <span class="cart-quantity">02</span><br>
+                                                    <span
+                                                        class="cart-quantity"><?php echo count($_SESSION['giohang']) ?></span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>

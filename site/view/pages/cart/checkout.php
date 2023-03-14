@@ -5,10 +5,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Checkout</h1>
+                            <h1 class="breadcrumbs-title">Thanh toán</h1>
                             <ul class="breadcrumb-list">
-                                <li><a href="index.html">Home</a></li>
-                                <li>Checkout</li>
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li>Giỏ hàng</li>
+                                <li>Thanh toán</li>
                             </ul>
                         </div>
                     </div>
@@ -327,11 +328,11 @@
                                             <!-- billing details -->
                                             <div class="col-md-6">
                                                 <div class="billing-details pr-10">
-                                                    <h6 class="widget-title border-left mb-20">billing details</h6>
-                                                    <input type="text" placeholder="Your Name Here...">
-                                                    <input type="text" placeholder="Email address here...">
-                                                    <input type="text" placeholder="Phone here...">
-                                                    <input type="text" placeholder="Company neme here...">
+                                                    <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
+                                                    <input type="text" name="name" placeholder="Tên của bạn ...">
+                                                    <input type="text" name="email" placeholder="Địa chỉ email...">
+                                                    <input type="text" name="phone" placeholder="Số điện thoại...">
+                                                    <input type="text" name="company" placeholder="Tên công ty...">
                                                     <select class="custom-select">
                                                         <option value="defalt">country</option>
                                                         <option value="c-1">Australia</option>
@@ -340,28 +341,31 @@
                                                         <option value="c-4">Unitd Kingdom</option>
                                                     </select>
                                                     <select class="custom-select">
-                                                        <option value="defalt">State</option>
+                                                        <option value="defalt">Tỉnh</option>
                                                         <option value="c-1">Melbourne</option>
                                                         <option value="c-2">Dhaka</option>
                                                         <option value="c-3">New York</option>
                                                         <option value="c-4">London</option>
                                                     </select>
                                                     <select class="custom-select">
-                                                        <option value="defalt">Town/City</option>
+                                                        <option value="defalt">Thành phố</option>
                                                         <option value="c-1">Victoria</option>
                                                         <option value="c-2">Chittagong</option>
                                                         <option value="c-3">Boston</option>
                                                         <option value="c-4">Cambridge</option>
                                                     </select>
-                                                    <textarea class="custom-textarea"
-                                                        placeholder="Your address here..."></textarea>
+                                                    <textarea name="shippingaddress" class="custom-textarea"
+                                                        placeholder="Địa chỉ của bạn..."></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <!-- our order -->
                                                 <div class="payment-details pl-10 mb-50">
-                                                    <h6 class="widget-title border-left mb-20">our order</h6>
+                                                    <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
                                                     <table>
+                                                        <?php
+                                                            
+                                                        ?>
                                                         <tr>
                                                             <td class="td-title-1">Dummy Product Name x 2</td>
                                                             <td class="td-title-2">$1855.00</td>
