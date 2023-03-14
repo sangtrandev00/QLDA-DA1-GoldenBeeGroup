@@ -62,6 +62,13 @@ function catename_select_by_id($ma_loai)
 
 }
 
+function subcatename_select_by_id($id_dmphu)
+{
+    $sql = "SELECT ten_danhmucphu FROM tbl_danhmucphu WHERE id=?";
+    return pdo_query_one($sql, $id_dmphu);
+
+}
+
 function cate_exist($ma_loai)
 {
     $sql = "SELECT count(*) FROM tbl_danhmuc WHERE ma_danhmuc=?";

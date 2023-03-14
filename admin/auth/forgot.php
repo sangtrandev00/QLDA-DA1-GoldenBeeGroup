@@ -17,7 +17,7 @@
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
 
-    <title>Onedash - Bootstrap 5 Admin Template</title>
+    <title>Bootstrap 5 Admin Template</title>
 </head>
 
 <body class="bg-surface">

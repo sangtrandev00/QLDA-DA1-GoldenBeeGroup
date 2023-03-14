@@ -192,7 +192,7 @@ foreach ($featured_products as $item) {
         }
 
     }
-    echo $item['masanpham'];
+    // echo $item['masanpham'];
 
     # code...
     echo '
@@ -218,10 +218,11 @@ foreach ($featured_products as $item) {
 
                                             <ul class="action-button">
                                                 <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                    <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                    <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                 </li>
                                                 <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                    <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                         title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                 </li>
 
@@ -362,6 +363,7 @@ foreach ($product_list as $item) {
     # code...
     echo '
                                         <div class="col-lg-3 col-md-4">
+                                        <form action="./index.php?act=addtocart" method="post">
                                                 <div class="product-item">
                                                 <div class="product-img">
                                                     <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
@@ -380,10 +382,11 @@ foreach ($product_list as $item) {
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-                                                    <form action="./index.php?act=addtocart" method="post">
+
                                                         <ul class="action-button">
                                                         <li>
-                                                            <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                         </li>
                                                         <li>
                                                             <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
@@ -392,13 +395,22 @@ foreach ($product_list as $item) {
                                                         <li>
                                                             <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
-                                                            <input type="submit" class="d-none" name="addtocartbtn" value="Thêm vào giỏ hàng" >
+                                                            <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
 
                                                     </ul>
-                                                    </form>
+
+                                                    <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
+                                                    <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
+                                                    <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
+                                                    <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
+                                                    <input type="hidden" name="sl" value="1">
+                                                    <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
+                                                    <input type="hidden" name="iddm" value="' . $item['ma_danhmuc'] . '"/>
+
                                                 </div>
                                             </div>
+                                            </form>
                                         </div>
                                         ';
 }
@@ -1451,12 +1463,12 @@ foreach ($product_list as $item) {
                             <div class="blog-item">
                                 <img src="../uploads/lastest-blog-1.jpg" alt="lastest-blog-1.jpg">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a></h5>
+                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
                                     <p>There are many variations of passages of psum available, but the majority
                                         have suffered alterat on in some form, by injected humour, randomis
                                         words which don't look even slightly.</p>
                                     <div class="read-more">
-                                        <a href="single-blog.html">Read more</a>
+                                        <a href="./index.php?act=blogdetail">Read more</a>
                                     </div>
                                     <ul class="blog-meta">
                                         <li>
@@ -1474,12 +1486,12 @@ foreach ($product_list as $item) {
                             <div class="blog-item">
                                 <img src="../uploads/latest-blog-2.jpg" alt="latest-blog-2.jpg">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a></h5>
+                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
                                     <p>There are many variations of passages of psum available, but the majority
                                         have suffered alterat on in some form, by injected humour, randomis
                                         words which don't look even slightly.</p>
                                     <div class="read-more">
-                                        <a href="single-blog.html">Read more</a>
+                                        <a href="./index.php?act=blogdetail">Read more</a>
                                     </div>
                                     <ul class="blog-meta">
                                         <li>
@@ -1497,12 +1509,12 @@ foreach ($product_list as $item) {
                             <div class="blog-item">
                                 <img src="../uploads/latest-blog-3.jpg" alt="latest-blog-3.jpg">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a></h5>
+                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
                                     <p>There are many variations of passages of psum available, but the majority
                                         have suffered alterat on in some form, by injected humour, randomis
                                         words which don't look even slightly.</p>
                                     <div class="read-more">
-                                        <a href="single-blog.html">Read more</a>
+                                        <a href="./index.php?act=blogdetail">Read more</a>
                                     </div>
                                     <ul class="blog-meta">
                                         <li>
@@ -1520,12 +1532,12 @@ foreach ($product_list as $item) {
                             <div class="blog-item">
                                 <img src="assets/img/blog/1.jpg" alt="">
                                 <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="single-blog.html">dummy Blog name</a></h5>
+                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
                                     <p>There are many variations of passages of psum available, but the majority
                                         have suffered alterat on in some form, by injected humour, randomis
                                         words which don't look even slightly.</p>
                                     <div class="read-more">
-                                        <a href="single-blog.html">Read more</a>
+                                        <a href="./index.php?act=blogdetail">Read more</a>
                                     </div>
                                     <ul class="blog-meta">
                                         <li>
@@ -1549,107 +1561,6 @@ foreach ($product_list as $item) {
     <!-- BLOG SECTION END -->
 </section>
 <!-- End page content -->
-
-
-
-<!-- START QUICKVIEW PRODUCT -->
-<div id="quickview-wrapper">
-    <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-product clearfix">
-                        <div class="product-images">
-                            <div class="main-image images">
-                                <img alt="" src="assets/img/product/quickview.jpg">
-                            </div>
-                        </div><!-- .product-images -->
-
-                        <div class="product-info">
-                            <h1>Aenean eu tristique</h1>
-                            <div class="price-box-3">
-                                <div class="s-price-box">
-                                    <span class="new-price">£160.00</span>
-                                    <span class="old-price">£190.00</span>
-                                </div>
-                            </div>
-                            <a href="single-product-left-sidebar.html" class="see-all">See all features</a>
-                            <div class="quick-add-to-cart">
-                                <form method="post" class="cart">
-                                    <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="3" min="1">
-                                    </div>
-                                    <button class="single_add_to_cart_button" type="submit">Add to cart</button>
-                                </form>
-                            </div>
-                            <div class="quick-desc">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
-                                est tristique auctor. Donec non est at libero.
-                            </div>
-                            <div class="social-sharing">
-                                <div class="widget widget_socialsharing_widget">
-                                    <h3 class="widget-title-modal">Share this product</h3>
-                                    <ul class="social-icons clearfix">
-                                        <li>
-                                            <a class="facebook" href="#" target="_blank" title="Facebook">
-                                                <i class="zmdi zmdi-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="google-plus" href="#" target="_blank" title="Google +">
-                                                <i class="zmdi zmdi-google-plus"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="twitter" href="#" target="_blank" title="Twitter">
-                                                <i class="zmdi zmdi-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="pinterest" href="#" target="_blank" title="Pinterest">
-                                                <i class="zmdi zmdi-pinterest"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="rss" href="#" target="_blank" title="RSS">
-                                                <i class="zmdi zmdi-rss"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div><!-- .product-info -->
-                    </div><!-- .modal-product -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div>
-    <!-- END Modal -->
-</div>
-<!-- END QUICKVIEW PRODUCT -->
-<script>
-const addToCart = () => {
-    const addToCartBtns = document.querySelectorAll('button.add-to-cart');
-    console.log('btns', addToCartBtns);
-    [...addToCartBtns].forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('event target: ', e.currentTarget);
-            const submitBtn = e.currentTarget.nextElementSibling;
-            console.log('submit Btn: ', submitBtn);
-            submitBtn.click();
-
-        })
-    })
-}
-
-addToCart();
-</script>
 
 </div>
 <!-- Body main wrapper end -->
