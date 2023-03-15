@@ -121,18 +121,20 @@ if (isset($_GET['act'])) {
             if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) > 0) {
                 // template này có thể phải nhớ !!!
                 if (isset($_GET['idcart'])) {
+                    echo '<div class="alert alert-success" style="">Sản phẩm ' . $_SESSION['giohang'][$_GET['idcart']]['tensp'] . ' đã được xóa!</div>';
                     array_splice($_SESSION['giohang'], $_GET['idcart'], 1);
-                    echo '<div class="alert alert-success" style="">Xóa sản phẩm thành công</div>';
 
-                } else {
-                    unset($_SESSION['giohang']);
                 }
 
-                if (count($_SESSION['giohang']) > 0) {
-                    include "./view/shopcart-page.php";
-                } else {
-                    header('location: ./index.php');
-                }
+                // else {
+                //     unset($_SESSION['giohang']);
+                // }
+
+                // if (count($_SESSION['giohang']) > 0) {
+                include "./view/pages/cart/shopping-cart.php";
+                // } else {
+                //     header('location: ./index.php');
+                // }
             }
 
             break;
@@ -237,12 +239,15 @@ if (isset($_GET['act'])) {
 
                     $id = $_POST['id'];
                     // $productitem = get_one_product($id)[0];
-                    $iddm = $_POST['iddm'];
+                    // $iddm = $_POST['iddm'];
                     $tendanhmuc = $_POST['danhmuc'];
                     $tensp = $_POST['tensp'];
                     $hinh_anh = $_POST['hinh_anh'];
                     $don_gia = $_POST['don_gia'];
+                    $giam_gia = $_POST['giam_gia'];
 
+                    echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
                     // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
@@ -288,7 +293,7 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
                         // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;
@@ -322,7 +327,8 @@ if (isset($_GET['act'])) {
                     $tensp = $_POST['tensp'];
                     $hinh_anh = $_POST['hinh_anh'];
                     $don_gia = $_POST['don_gia'];
-
+                    $giam_gia = $_POST['giam_gia'];
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
                     // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
@@ -368,7 +374,7 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
                         // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;
