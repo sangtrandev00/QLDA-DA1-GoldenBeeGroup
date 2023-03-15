@@ -1,3 +1,22 @@
+<?php
+if (!in_array('ob_gzhandler', ob_list_handlers())) {
+    ob_start('ob_gzhandler');
+} else {
+    ob_start();
+}
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// var_dump($_SERVER);
+// if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+//     echo "called directly";
+//     include "../DAO/category.php";
+// } else {
+//     echo "included/required";
+// }
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -41,10 +60,10 @@
     <![endif]-->
 
     <!-- Body main wrapper start -->
-    <div class="wrapper">
+    <div id="main" class="wrapper">
 
         <!-- START HEADER AREA -->
-        <header class="header-area header-wrapper">
+        <header id="header" class="header-area header-wrapper">
             <!-- header-top-bar -->
             <div class="header-top-bar plr-185">
                 <div class="container-fluid">
@@ -111,7 +130,7 @@ if (!isset($_SESSION['iduser'])) {
                                     <a href="index.php">
                                         <!-- <img src="assets/img/logo/logo.png" alt="main logo"> -->
                                         <?php
-include "./view/components/logo.php";
+// include "./view/components/logo.php";
 ?>
                                     </a>
                                 </div>
@@ -398,28 +417,3 @@ foreach ($cart_list as $cart_item) {
             </div>
         </div>
         <!-- END MOBILE MENU AREA -->
-
-
-        <script>
-        function deleteCart() {
-            const deleteCartBtns = document.querySelectorAll('.del-icon a');
-            console.log(deleteCartBtns);
-
-            [...deleteCartBtns].forEach((btn) => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-
-                    console.log('clicked');
-
-                    const xhttp = new XMLHttpRequest();
-                    xhttp.onload = function() {
-                        console.log('this: ', this);
-                    }
-
-                    xhttp.open('GET', "")
-                })
-            })
-        }
-
-        deleteCart();
-        </script>

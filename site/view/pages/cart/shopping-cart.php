@@ -75,11 +75,14 @@
                                                 <?php
 $cart_list = $_SESSION['giohang'];
 $i = 0;
+$subtotal = 0;
 foreach ($cart_list as $cart_item) {
     # code...
     $price_item = number_format($cart_item['don_gia']);
     $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
+    // echo $cart_item['sl'] * $cart_item['don_gia'];
 
+    $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
     echo '
                                                         <!-- tr -->
                                                         <tr class="product-item__row">
@@ -131,11 +134,11 @@ foreach ($cart_list as $cart_item) {
                                                 <table>
                                                     <tr>
                                                         <td class="td-title-1">Tổng phụ đơn hàng</td>
-                                                        <td class="td-title-2">155.00 VND</td>
+                                                        <td class="td-title-2"><?php echo $subtotal ?> VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Chi phí vận chuyển</td>
-                                                        <td class="td-title-2">15.00 VND</td>
+                                                        <td class="td-title-2">00.00 VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Vat</td>
@@ -143,7 +146,7 @@ foreach ($cart_list as $cart_item) {
                                                     </tr>
                                                     <tr>
                                                         <td class="order-total">Tổng đơn hàng</td>
-                                                        <td class="order-total-price">170.00 VND</td>
+                                                        <td class="order-total-price"><?php echo $subtotal ?> VND</td>
                                                     </tr>
                                                 </table>
                                             </div>

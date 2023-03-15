@@ -13,10 +13,10 @@ include "../view/components/logo.php";
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="../../index.php">Trang chủ</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    </li> -->
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="../../index.php?act=shop">Cửa
                             hàng</a>
                         <ul class="dropdown-menu">
@@ -38,7 +38,7 @@ include "../view/components/logo.php";
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../../index.php?act=contact">Liên hệ</a>
-                    </li>
+                    </li> -->
                 </ul>
 
                 <!-- <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

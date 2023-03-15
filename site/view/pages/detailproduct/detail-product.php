@@ -283,7 +283,8 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 <div class="col-lg-12 mb-30">
                                                     <textarea class="custom-textarea" name="com_message"
                                                         placeholder="Nội dung Bình Luận"></textarea>
-                                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Bình Luận</button>
+                                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Bình
+                                                        Luận</button>
                                                 </div>
                                                 <div class="col-lg-12 comment">
                                                     <div class="name-comment">
@@ -299,21 +300,22 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                             <li>3/14/2023</li>
                                                         </ul>
                                                     </div>
-                                                        <div class="reply-commnet">
-                                                            <div class="name-comment">
-                                                                <p>Goden Bee Group</p>
-                                                            </div>
-                                                            <div>
-                                                                <p>Hiện vẫn còn hàng trên cách chi nhánh bạn có thể cho mình biết bạn ở khu vực nào không ạ</p>
-                                                            </div>
-                                                            <div>
-                                                                <ul class="reply">
-                                                                    <li>Trả Lời</li>
-                                                                    <li><i class="zmdi zmdi-favorite"></i> Thích</li>
-                                                                    <li>3/14/2023</li>
-                                                                </ul>
-                                                            </div>
+                                                    <div class="reply-commnet">
+                                                        <div class="name-comment">
+                                                            <p>Goden Bee Group</p>
                                                         </div>
+                                                        <div>
+                                                            <p>Hiện vẫn còn hàng trên cách chi nhánh bạn có thể cho mình
+                                                                biết bạn ở khu vực nào không ạ</p>
+                                                        </div>
+                                                        <div>
+                                                            <ul class="reply">
+                                                                <li>Trả Lời</li>
+                                                                <li><i class="zmdi zmdi-favorite"></i> Thích</li>
+                                                                <li>3/14/2023</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     <hr>
                                                 </div>
                                                 <div class="col-lg-12 comment">
@@ -434,27 +436,32 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
 <?php
 }
 ?>
- <style>
-    .reply-commnet{
-        margin-left: 30px;
-    }
-    .comment{
-        color: black;
-        cursor: pointer;
-    }
-    .comment p{
-        color: black;
-        font-weight: 500;
-        font-size: 14px;
-    }
-    ul>li{
-        margin: 0 20px 0 0;
-    }
-    li>.zmdi-favorite{
-        color: red;
-    }
-    .reply{
-        display: flex;
-        margin-bottom: 10px;
-    }
+<style>
+.reply-commnet {
+    margin-left: 30px;
+}
+
+.comment {
+    color: black;
+    cursor: pointer;
+}
+
+.comment p {
+    color: black;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+ul>li {
+    margin: 0 20px 0 0;
+}
+
+li>.zmdi-favorite {
+    color: red;
+}
+
+.reply {
+    display: flex;
+    margin-bottom: 10px;
+}
 </style>

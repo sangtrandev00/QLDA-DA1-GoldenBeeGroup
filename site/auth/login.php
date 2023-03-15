@@ -24,8 +24,17 @@ include "../models/user.php";
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="style.css">
     <title>Bootstrap 5 Admin Template</title>
+    <style>
+    .btn.btn-primary {
+        background-color: orange;
+        border: 1px solid orange;
+    }
+    </style>
+    <style>
+
+    </style>
 </head>
 
 <body class="bg-surface">

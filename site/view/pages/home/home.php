@@ -45,8 +45,8 @@
                                         passage of
                                         Lorem Ipsum,</p>
                                 </div>
-                                <a href="#" class="button extra-small button-black">
-                                    <span class="text-uppercase">Buy now</span>
+                                <a href="./index.php?act=shop" class="button extra-small button-black">
+                                    <span class="text-uppercase">Shop ngay</span>
                                 </a>
                             </div>
                         </div>
@@ -72,8 +72,8 @@
                                         passage of
                                         Lorem Ipsum,</p>
                                 </div>
-                                <a href="#" class="button extra-small button-black">
-                                    <span class="text-uppercase">Buy now</span>
+                                <a href="./index.php?act=shop" class="button extra-small button-black">
+                                    <span class="text-uppercase">Shop ngay</span>
                                 </a>
                             </div>
                         </div>
@@ -99,8 +99,8 @@
                                         passage of
                                         Lorem Ipsum,</p>
                                 </div>
-                                <a href="#" class="button extra-small button-black">
-                                    <span class="text-uppercase">Buy now</span>
+                                <a href="./index.php?act=shop" class="button extra-small button-black">
+                                    <span class="text-uppercase">Shop ngay</span>
                                 </a>
                             </div>
                         </div>
@@ -182,7 +182,8 @@ foreach ($featured_products as $item) {
     // var_dump(catename_select_by_id($item['ma_danhmuc']));
     $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-
+    $addcartfunc = "handleAddCart('addtocart')";
+    $addwishlistfunc = "handleWishlist('addtowishlist)";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -228,7 +229,7 @@ foreach ($featured_products as $item) {
                                                 </li>
 
                                                 <li>
-                                                    <button class="add-to-cart" title="Add to cart"><i
+                                                    <button onclick="' . $addcartfunc . '" class="add-to-cart" data-bs-toggle="modal" data-bs-target="#cartModal"  title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                     <input type="submit" class="d-none" name="addtocartbtn" value="add to cart">
                                                 </li>
@@ -397,7 +398,7 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart" data-bs-toggle="modal" data-bs-target="#cartModal" type="submit"  type="submit"  title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
@@ -491,7 +492,7 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
+                                                            <button class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
@@ -1081,6 +1082,7 @@ foreach ($product_list as $item) {
     <!-- BLOG SECTION END -->
 </section>
 <!-- End page content -->
+
 
 </div>
 <!-- Body main wrapper end -->

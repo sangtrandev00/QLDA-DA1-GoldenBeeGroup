@@ -132,6 +132,7 @@ if (isset($_GET['act'])) {
 
                 // if (count($_SESSION['giohang']) > 0) {
                 include "./view/pages/cart/shopping-cart.php";
+                // header('location: ./index.php?act=viewcart');
                 // } else {
                 //     header('location: ./index.php');
                 // }

@@ -20,22 +20,86 @@ function getParent(element, selector) {
     }
 }
 
-const handleAddCart = (cartBtnSelector, formAction) => {
-    const handleCartBtns = document.querySelectorAll(cartBtnSelector);
+// const handleAddCart = (cartBtnSelector, formAction) => {
+//     const handleCartBtns = document.querySelectorAll(cartBtnSelector);
+//     [...handleCartBtns].forEach((btn) => {
+//         btn.addEventListener('click', (e) => {
+//             e.preventDefault();
+
+//             // console.log('event target: ', e.currentTarget);
+//             const submitBtn = e.currentTarget.nextElementSibling;
+//             // console.log('submit Btn: ', submitBtn);
+//             const formElement = getParent(e.currentTarget, 'form');
+//             // console.log('form: ', formElement);
+//             formElement.action = "index.php?act=" + formAction;
+//             submitBtn.click();
+//         })
+//     })
+// }
+
+const handleAddCart = () => {
+    event.preventDefault();
+    // const handleCartBtns = document.querySelectorAll(cartBtnSelector);
     // console.log('btns', addToCartBtns);
-    [...handleCartBtns].forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
+    console.log('this: ', event.currentTarget);
+    // [...handleCartBtns].forEach((btn) => {
+        // btn.addEventListener('click', (e) => {
+
+            // e.preventDefault();
             
             // console.log('event target: ', e.currentTarget);
-            const submitBtn = e.currentTarget.nextElementSibling;
+            const submitBtn = event.currentTarget.nextElementSibling;
             // console.log('submit Btn: ', submitBtn);
-            const formElement = getParent(e.currentTarget, 'form');
-            // console.log('form: ', formElement);
-            formElement.action = "index.php?act=" + formAction;
-            submitBtn.click();
-        })
-    })
+            const formElement = getParent(event.currentTarget, 'form');
+            console.log('form: ', formElement.elements);
+            // formElement.action = "index.php?act=" + formAction;
+            // submitBtn.click();
+
+            // USING LOGIC AJAX HERE
+            const productId = formElement.elements['id'].value;
+            const sl = formElement.elements['sl'].value;
+            const danhmuc = formElement.elements['danhmuc'].value;
+            const hinh_anh = formElement.elements['hinh_anh'].value;
+
+            $.ajax({
+                url: "./logic/cart.php?act=addtocart",
+                type: "POST",
+                data: {
+                    id: productId,
+                    sl: sl,
+                    danhmuc: danhmuc,
+                    hinh_anh: hinh_anh,
+                },
+                // dataType: "dataType",
+                success: function (response) {
+
+                    // $('body').html(response);
+
+                    console.log('res: ', response);
+                    // location.reload();
+                    $('#header').load("./view/layout/header.php", function(response, status, xhr) {
+                            if(status == "error") {
+                                console.log('message : '+ xhr.status +xhr.statusText);
+                            }
+                    });
+                //    $("#header").load("");
+                        
+                    
+                    // location.reload();
+
+                    $("#cartModal .modal-footer button").click(function(e) {
+                        e.preventDefault();
+                        console.log('clicked');
+                        location.reload();
+                    })
+
+                    $("#cartModal .modal-header .btn-close").click(function(e) {
+                        e.preventDefault();
+                        console.log('clicked');
+                        location.reload();
+                    })
+                }
+            });
 }
 
 const zoomProductDetail = () => {
@@ -95,14 +159,38 @@ const zoomProductDetail = () => {
             formCartElements['giam_gia'].value = giam_gia;
             formCartElements['mo_ta'].value = mo_ta;
 
+            
             // console.log(modalImgElement, modalProductnameElement, modalProductpriceElement, modalProductoldpriceElement, modalProductQtyElement, modalProductDescElement)
         })
     })
 }
 
+// jquery ajax here
+
+// $('.del-icon a').click(function(event) {
+//     event.preventDefault();
+
+//     console.log('clicked here!!!');
+
+//     // $.ajax({
+//     //     url: "./index.php?act=deletecart",
+//     //     type: 'GET',
+//     //     success: function(response) {
+//     //         console.log('res: ', response);
+//     //     }h
+//     // });
+
+//     $.get('./logic/cart.php?idcart=0', function(res) {
+//         console.log('res: ', res);
+//     })
+// })
+
+
+
+
 
 (() => {
     zoomProductDetail();
-    handleAddCart('.add-to-cart', 'addtocart');
-    handleAddCart('.add-to-wishlist', 'addtowishlist');
+    // handleAddCart('.add-to-cart', 'addtocart');
+    // handleAddCart('.add-to-wishlist', 'addtowishlist');
 })();
