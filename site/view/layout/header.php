@@ -223,7 +223,8 @@ foreach ($cate_list as $cate_item) {
 
                                             <div class="cart-toggler">
                                                 <a href="./index.php?act=viewcart">
-                                                    <span class="cart-quantity">02</span><br>
+                                                    <span
+                                                        class="cart-quantity"><?php echo count($_SESSION['giohang']) ?></span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>
@@ -242,6 +243,7 @@ foreach ($cate_list as $cate_item) {
 $cart_list = $_SESSION['giohang'];
 // var_dump($cart_list);
 $total_cart = 0;
+$i = 0;
 foreach ($cart_list as $cart_item) {
     # code...
     $total_cart += $cart_item['sl'] * $cart_item['don_gia'];
@@ -255,7 +257,7 @@ foreach ($cart_list as $cart_item) {
                                                                                 alt="Cart Product" />
                                                                         </a>
                                                                         <div class="del-icon">
-                                                                            <a href="#">
+                                                                            <a href="./index.php?act=deletecart&idcart=">
                                                                                 <i class="zmdi zmdi-close"></i>
                                                                             </a>
                                                                         </div>
@@ -273,6 +275,7 @@ foreach ($cart_list as $cart_item) {
                                                                     </div>
                                                                 </div>
                                                             ';
+    $i++;
 }
 ?>
                                                     </div>
@@ -395,3 +398,28 @@ foreach ($cart_list as $cart_item) {
             </div>
         </div>
         <!-- END MOBILE MENU AREA -->
+
+
+        <script>
+        function deleteCart() {
+            const deleteCartBtns = document.querySelectorAll('.del-icon a');
+            console.log(deleteCartBtns);
+
+            [...deleteCartBtns].forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    console.log('clicked');
+
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onload = function() {
+                        console.log('this: ', this);
+                    }
+
+                    xhttp.open('GET', "")
+                })
+            })
+        }
+
+        deleteCart();
+        </script>

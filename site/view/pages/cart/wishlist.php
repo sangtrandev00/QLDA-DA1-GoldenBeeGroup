@@ -1,5 +1,5 @@
 <?php
-var_dump($_SESSION['wishlist']);
+// var_dump($_SESSION['wishlist']);
 ?>
 
 <!-- BREADCRUMBS SETCTION START -->
@@ -225,32 +225,34 @@ var_dump($_SESSION['wishlist']);
                         <!-- wishlist start -->
                         <div class="tab-pane active" id="wishlist">
                             <div class="wishlist-content">
-                                <form action="#">
-                                    <div class="table-content table-responsive mb-50">
-                                        <table class="text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th class="product-thumbnail">Sản phẩm</th>
-                                                    <th class="product-price">Đơn giá</th>
-                                                    <th class="product-stock">Còn lại trong kho</th>
-                                                    <th class="product-add-cart">Thêm vào giỏ hàng</th>
-                                                    <th class="product-remove">Xóa</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
+                                <div class="table-content table-responsive mb-50">
+                                    <table class="text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-thumbnail">Sản phẩm</th>
+                                                <th class="product-price">Đơn giá</th>
+                                                <th class="product-stock">Còn lại trong kho</th>
+                                                <th class="product-add-cart">Thêm vào giỏ hàng</th>
+                                                <th class="product-remove">Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
 $wish_list = $_SESSION['wishlist'];
 
 // var_dump($wish_list)
 foreach ($wish_list as $item) {
     # code...
     $product_item = product_select_by_id($item['id']);
+    // $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
+    $old_price = number_format($product_item['don_gia']);
+    $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
     $ton_kho = $product_item['ton_kho'];
 
     echo '
                                                         <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
+                                                            <tr>
+                                                                <td class="product-thumbnail">
                                                                 <div class="pro-thumbnail-img">
                                                                     <img src="../uploads/' . $item['hinh_anh'] . '" alt="' . $item['hinh_anh'] . '">
                                                                 </div>
@@ -259,104 +261,47 @@ foreach ($wish_list as $item) {
                                                                         <a href="./index.php?act=detailproduct&id=' . $item['id'] . '">' . $item['tensp'] . '</a>
                                                                     </h6>
                                                                     <p>Thương hiệu: ' . $item['danhmuc'] . '</p>
+                                                                    <p>số lượng: ' . $item['sl'] . '</p>
                                                                 </div>
-                                                            </td>
-                                                            <td class="product-price">' . $item['don_gia'] . ' VND</td>
-                                                            <td class="product-stock text-uppercase">' . $ton_kho . '</td>
-                                                            <td class="product-add-cart">
-                                                                <a href="#" title="Add To Cart">
-                                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+
+                                                                <td class="product-price">' . $new_price . ' VND</td>
+                                                                <td class="product-stock text-uppercase">' . $ton_kho . '</td>
+                                                                <td class="product-add-cart">
+                                                                    <form action="" method="post">
+                                                                        <a class="add-to-cart" href="#" title="Add To Cart">
+                                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
+                                                                        </a>
+                                                                        <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng"/>
+
+                                                                        <input type="hidden" name="id" value="' . $item['id'] . '"/>
+                                                                        <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
+                                                                        <input type="hidden" name="hinh_anh" value="' . $item['hinh_anh'] . '"/>
+                                                                        <input type="hidden" name="sl" value="' . $item['sl'] . '">
+                                                                        <input type="hidden" name="danhmuc" value="' . $item['danhmuc'] . '"/>
+                                                                        <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
+                                                                        <input type="hidden" name="giam_gia" value="' . $product_item['giam_gia'] . '">
+                                                                        </form>
+
+                                                                </td>
+
+                                                                <td class="product-remove">
+                                                                    <a href="#" ><i class="zmdi zmdi-close"></i></a>
+                                                                </td>
+
+
+                                                                </tr>
                                                         ';
 }
 ?>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/1.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/2.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img src="img/cart/3.jpg" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-start">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">dummy product name</a>
-                                                            </h6>
-                                                            <p>Brand: Brand Name</p>
-                                                            <p>Model: Grand s2</p>
-                                                            <p> Color: Black, White</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">$560.00</td>
-                                                    <td class="product-stock text-uppercase">in stoct</td>
-                                                    <td class="product-add-cart">
-                                                        <a href="#" title="Add To Cart">
-                                                            <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        </tbody>
+
+                                    </table>
+                                    <div class="d-flex justify-content-end">
+                                        <!-- <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Thêm tất cả vào
+                                                giỏ</button> -->
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <!-- wishlist end -->

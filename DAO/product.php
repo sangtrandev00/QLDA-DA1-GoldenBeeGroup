@@ -52,6 +52,19 @@ function product_select_all_lastest()
     return pdo_query($sql);
 }
 
+function product_select_all_discounts()
+{
+    $sql = "SELECT * FROM tbl_sanpham WHERE giam_gia > 0 order by giam_gia desc";
+    return pdo_query($sql);
+}
+
+function product_select_all_by_sales()
+{
+    $sql = "SELECT masanpham, tbl_sanpham.tensp, tbl_sanpham.don_gia, giam_gia, ton_kho, tbl_sanpham.ma_danhmuc,  , count(soluong) from tbl_order inner join tbl_cart on tbl_order.id = tbl_cart.iddonhang inner join tbl_sanpham on masanpham = idsanpham group by idsanpham having trangthai = 5 ORDER by count(soluong);";
+    // Trang thai = 5; Đã giao hàng thành công!
+    return pdo_query($sql);
+}
+
 function product_select_by_id($masanpham)
 {
     $sql = "SELECT * FROM tbl_sanpham WHERE masanpham=?";

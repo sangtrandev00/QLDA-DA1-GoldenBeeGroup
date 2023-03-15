@@ -74,7 +74,7 @@
                                             <tbody>
                                                 <?php
 $cart_list = $_SESSION['giohang'];
-
+$i = 0;
 foreach ($cart_list as $cart_item) {
     # code...
     $price_item = number_format($cart_item['don_gia']);
@@ -103,10 +103,11 @@ foreach ($cart_list as $cart_item) {
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
                                                                 <td class="product-remove">
-                                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                                    <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
                                                             </tr>
                                                         ';
+    $i++;
 }
 ?>
 
@@ -219,7 +220,9 @@ foreach ($cart_list as $cart_item) {
                                                         </a>
                                                     </td>
                                                     <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#cartModal"><i
+                                                                class="zmdi zmdi-close"></i></a>
                                                     </td>
                                                 </tr>
                                                 <!-- tr -->

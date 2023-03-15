@@ -1,3 +1,87 @@
+<!-- START QUICKVIEW PRODUCT -->
+<div id="quickview-wrapper">
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-product clearfix">
+                        <div class="product-images">
+                            <div class="main-image images">
+                                <img alt="" src="assets/img/product/quickview.jpg">
+                            </div>
+                        </div><!-- .product-images -->
+
+                        <div class="product-info">
+                            <h1>Aenean eu tristique</h1>
+                            <div class="price-box-3">
+                                <div class="s-price-box">
+                                    <span class="new-price">£160.00</span>
+                                    <span class="old-price">£190.00</span>
+                                </div>
+                            </div>
+                            <a href="single-product-left-sidebar.html" class="see-all">Xem tất cả các thông tin</a>
+                            <div class="quick-add-to-cart">
+                                <form action="./index.php?act=addtocart" method="post" class="cart">
+                                    <div class="numbers-row">
+                                        <input type="number" name="sl" id="french-hens" value="1" min="1" max="10">
+                                    </div>
+                                    <input class="single_add_to_cart_button" name="addtocartbtn" type="submit"
+                                        value="Thêm vào giỏ hàng"></input>
+
+                                    <input type="hidden" name="id" value="" />
+                                    <input type="hidden" name="tensp" value="" />
+                                    <input type="hidden" name="hinh_anh" value="" />
+                                    <input type="hidden" name="danhmuc" value="" />
+                                    <input type="hidden" name="iddm" value="" />
+                                    <input type="hidden" name="don_gia" value="" />
+                                    <input type="hidden" name="mo_ta" value="">
+                                    <input type="hidden" name="giam_gia" value="">
+                                </form>
+                            </div>
+                            <div class="quick-desc">
+                                <p class="quick-desc__paragraph">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
+                                    est tristique auctor. Donec non est at libero.
+                                </p>
+                            </div>
+
+                        </div><!-- .product-info -->
+                    </div><!-- .modal-product -->
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div>
+    <!-- END Modal -->
+
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cartModalLabel">Cart Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Nội dung ở đây!!!
+                </div>
+                <div class="modal-footer">
+                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                        <input type="submit" name="deletecartbtn" class="btn btn-secondary" value="Tiếp tục" />
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END QUICKVIEW PRODUCT -->
+
 <!-- START FOOTER AREA -->
 <footer id="footer" class="footer-area section">
     <div class="footer-top">
@@ -170,6 +254,49 @@
 <!-- Main js file that contents all jQuery plugins activation. -->
 <script src="assets/js/main.js"></script>
 
+
+<!-- Custom config javascript -->
+<script src="assets/js/config.js"></script>
+<script src="assets/js/validate.js"></script>
+
+<?php
+if (isset($_GET['act'])) {
+    switch ($_GET['act']) {
+        case 'detailproduct':
+            # code...
+            echo '
+                <script src="assets/js/pages/detailproduct.js"></script>
+            ';
+            break;
+        case 'shop':
+            # code...
+            echo '
+            <script src="assets/js/pages/shop.js"></script>
+        ';
+            break;
+        case 'viewcart':
+        case 'deletecart':
+        case 'shoppingcart':
+        case 'checkout':
+        case 'addtocart':
+        case 'wishlist':
+            echo '
+                <script src="assets/js/pages/cart.js"></script>
+            ';
+            break;
+        default:
+            # code...
+            echo '
+                <script src="assets/js/pages/home.js"></script>
+            ';
+            break;
+    }
+} else {
+    echo '
+        <script src="assets/js/pages/home.js"></script>
+    ';
+}
+?>
 </body>
 
 </html>

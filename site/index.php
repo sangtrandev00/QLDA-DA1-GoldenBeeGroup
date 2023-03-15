@@ -121,18 +121,20 @@ if (isset($_GET['act'])) {
             if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) > 0) {
                 // template này có thể phải nhớ !!!
                 if (isset($_GET['idcart'])) {
+                    echo '<div class="alert alert-success" style="">Sản phẩm ' . $_SESSION['giohang'][$_GET['idcart']]['tensp'] . ' đã được xóa!</div>';
                     array_splice($_SESSION['giohang'], $_GET['idcart'], 1);
-                    echo '<div class="alert alert-success" style="">Xóa sản phẩm thành công</div>';
 
-                } else {
-                    unset($_SESSION['giohang']);
                 }
 
-                if (count($_SESSION['giohang']) > 0) {
-                    include "./view/shopcart-page.php";
-                } else {
-                    header('location: ./index.php');
-                }
+                // else {
+                //     unset($_SESSION['giohang']);
+                // }
+
+                // if (count($_SESSION['giohang']) > 0) {
+                include "./view/pages/cart/shopping-cart.php";
+                // } else {
+                //     header('location: ./index.php');
+                // }
             }
 
             break;
@@ -233,16 +235,19 @@ if (isset($_GET['act'])) {
 
                 if (isset($_POST['addtocartbtn']) && $_POST['addtocartbtn']) {
 
-                    echo "HELLO WORLD";
+                    // echo "HELLO WORLD";
 
                     $id = $_POST['id'];
                     // $productitem = get_one_product($id)[0];
-                    $iddm = $_POST['iddm'];
+                    // $iddm = $_POST['iddm'];
                     $tendanhmuc = $_POST['danhmuc'];
                     $tensp = $_POST['tensp'];
                     $hinh_anh = $_POST['hinh_anh'];
                     $don_gia = $_POST['don_gia'];
+                    $giam_gia = $_POST['giam_gia'];
 
+                    echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
                     // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
@@ -273,8 +278,6 @@ if (isset($_GET['act'])) {
                         # code...
                         // var_dump($itemsp);
 
-                        var_dump($itemsp);
-
                         if ($itemsp['id'] === $id) {
                             $slnew = $sl + $itemsp['sl'];
 
@@ -290,7 +293,7 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
                         // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;
@@ -309,6 +312,86 @@ if (isset($_GET['act'])) {
             }
 
             include "./view/pages/cart/shopping-cart.php";
+            break;
+        case 'addtowishlist':
+            if (isset($_SESSION['iduser'])) {
+
+                if (isset($_POST['addtowishlistbtn']) && $_POST['addtowishlistbtn']) {
+
+                    // echo "HELLO WORLD";
+
+                    $id = $_POST['id'];
+                    // $productitem = get_one_product($id)[0];
+                    $iddm = $_POST['iddm'];
+                    $tendanhmuc = $_POST['danhmuc'];
+                    $tensp = $_POST['tensp'];
+                    $hinh_anh = $_POST['hinh_anh'];
+                    $don_gia = $_POST['don_gia'];
+                    $giam_gia = $_POST['giam_gia'];
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
+                    $sl = $_POST['sl'];
+
+                    // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+                    //     $sl = $_POST['cart_quantity'];
+
+                    //     $product = product_select_by_id($id);
+                    //     if ($sl > $product['ton_kho']) {
+                    //         $sl = $product['ton_kho'];
+                    //         $GLOBALS['changed_cart'] = true;
+                    //     }
+
+                    // } else {
+                    //     $sl = 1;
+                    // }
+
+                    $flag = 0;
+
+                    // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+                    // Nếu có chỉ cập nhất lại số lượng
+
+                    // Ngược lại add mới sp vào giỏ hàng
+
+                    // Khởi tạo một mảng con trước khi đưa vào giỏ
+
+                    $i = 0;
+
+                    foreach ($_SESSION['wishlist'] as $itemsp) {
+                        # code...
+                        // var_dump($itemsp);
+
+                        if ($itemsp['id'] === $id) {
+                            $slnew = $sl + $itemsp['sl'];
+
+                            // echo "So LUONG MOI: " . $slnew;
+
+                            $_SESSION['wishlist'][$i]['sl'] = $slnew;
+                            $flag = 1;
+
+                            break;
+                        }
+
+                        $i++;
+                    }
+
+                    if ($flag == 0) {
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
+                        // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+                        // array_push($_SESSION['giohang'], $itemsp);
+                        // $_SESSION['giohang'][] = $itemsp;
+
+                        $_SESSION['wishlist'][] = $itemsp;
+
+                    }
+
+                    // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
+
+                } else {
+                    // echo "NOTTHING ELSE HERE";
+                }
+            } else {
+                header('location: ./auth/login.php');
+            }
+            include "./view/pages/cart/wishlist.php";
             break;
 
         case 'viewcart':
