@@ -30,11 +30,34 @@
                       <div class="col-lg-9">
                           <div class="blog-details-area">
                               <!-- blog-details-photo -->
+                              <?php
+                                if (isset($_GET['id']) && $_GET['id'] > 0) {
+
+                                    $blog_id = $_GET['id'];
+                                    $blog = blog_select_by_id($blog_id);
+                                    // var_dump($blog);
+                                    // $cate_name = catename_select_by_id($product['ma_danhmuc'])['ten_danhmuc'];
+                                    // $subcate_name = subcatename_select_by_id($product['id_dmphu'])['ten_danhmucphu'];
+                                    #Thumbnail Image
+                                    $image_list = explode(',', $blog['images']);                             
+                                    foreach ($image_list as $image_item) {
+                                        if (substr($image_item, 0, 6) == "thumb-") {
+                                            // echo $image_item;
+                                            $thumbnail = "../uploads/" . $image_item;
+                                            break;
+                                        }
+                                
+                                    }
+                                                                    
+
+                                }
+                              ?>
                               <div class="blog-details-photo bg-img-1 p-20 mb-30">
                                   <img src="img/blog/10.jpg" alt="">
-                                  <div class="today-date bg-img-1">
-                                      <span class="meta-date">30</span>
-                                      <span class="meta-month">June</span>
+                                  <div class="f-right bg-img-3">
+                                      <!-- <span class="meta-date"><?php echo $blog['create_time'] ?></span> -->
+                                      <p><?php echo $blog['create_time'] ?></p>
+                                      <!-- <span class="meta-month">June</span> -->
                                   </div>
                               </div>
                               <!-- blog-like-share -->
@@ -49,42 +72,11 @@
                                       <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
                                   </li>
                               </ul>
-                              <!-- blog-details-title -->
-                              <h3 class="blog-details-title mb-30">Dumm`y single blog name</h3>
-
-
-                              <!-- blog-description -->
+                              
+                              <h3 class="blog-details-title mb-30"><?php echo $blog['blog_title'] ?></h3>
+                              <img src="<?php echo $thumbnail ?>" alt="">
                               <div class="blog-description mb-60">
-                                  <p>On the other hand, we denounce with righteous indignation and dislike men who are
-                                      so beguiled and demoralized by the charms of plea sure of the moment, so blinded
-                                      by desire, that they cannot foresee the pain and trouble that are bound to
-                                      ensue; and equal blame belon gs to those who fail in their duty through weakness
-                                      of will, which is the same as saying through shrink ing from toil and pain.
-                                      These cases are perfectly simple and easy to distinguish. In a free hour.</p>
-
-                                  <div class="quote-author pl-30">
-                                      <p class="quote-border pl-30">On the other hand, we denounce with righteous
-                                          indignation and dislike men who are so beguiled and demoralized by the charm
-                                          of pleas ure of the moment, so blinded by desire, that they cannot foresee
-                                          the pain and trouble that are bound to ensue; and equal blame belongs to
-                                          those who fail in their duty through weakness of will</p>
-                                  </div>
-
-                                  <p>Which is the same as saying through shrink ing from toil and pain. These cases
-                                      are perfectly simple and easy to distinguish. In a free hour. One the other
-                                      hand, we denounce with righteous indignation and dislike men who are so beguiled
-                                      and demoralized by the charms of plea sure of the moment, so blinded by desire,
-                                      that they cannot foresee the pain and trouble that are bound to ensue; and equal
-                                      blame belong to those who fail in their duty through weakness of will, which is
-                                      the same as saying through shrink ing from toil and pain. These cases are
-                                      perfectly simple and easy to distinguish.</p>
-
-                                  <p>On the other hand, we denounce with righteous indignation and dislike men who are
-                                      so beguiled and demoralized by the charms of plea sure of the moment, so blinded
-                                      by desire, that they cannot foresee the pain and trouble that are bound to
-                                      ensue; and equal blame belon gs to those who fail in their duty through weakness
-                                      of will, which is the same as saying through shrink ing from toil and pain.
-                                      These cases are perfectly simple and easy to distinguish. In a free hour.</p>
+                                  <?php echo $blog['noi_dung'] ?>
                               </div>
                               <!-- blog-share-tags -->
                               <div class="blog-share-tags box-shadow clearfix mb-60">
@@ -111,10 +103,7 @@
                                   <div class="blog-tags f-right">
                                       <p class="share-tags-title f-left">Tags</p>
                                       <ul class="blog-tags-list f-left">
-                                          <li><a href="#">Mobile</a></li>
-                                          <li><a href="#">IOS</a></li>
-                                          <li><a href="#">Windows</a></li>
-                                          <li><a href="#">Tab</a></li>
+                                          <li><a href="#"><?php echo $blog['tags'] ?></a></li>
                                       </ul>
                                   </div>
                               </div>
