@@ -16,6 +16,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     $image_list = explode(',', $product['images']);
     $price_format = number_format($product['don_gia']);
 
+    $old_price = number_format($product['don_gia']);
+    $new_price = number_format($product['don_gia'] * (1 - $product['giam_gia'] / 100));
+
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -158,7 +161,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <!-- hr -->
                                         <hr>
                                         <!-- single-product-price -->
-                                        <h3 class="pro-price">Giá sản phẩm: <?php echo $price_format ?> VND</h3>
+                                        <h3 class="pro-price">Giá sản phẩm: <?php echo $new_price ?> VND <del
+                                                class="ms-3 fs-3 fw-lighter text-text-decoration-line-through"><?php echo $old_price ?>
+                                                VND</del>
+                                        </h3>
                                         <!--  hr -->
                                         <hr>
                                         <div>
@@ -276,12 +282,14 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
         $cate_name = catename_select_by_id($product_item['ma_danhmuc'])['ten_danhmuc'];
         $thumbnail = getthumbnail($image_list);
         // var_dump($thumbnail);
-        // var_dump($thumbnail);
+        $old_price = number_format($product_item['don_gia']);
+        $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
 
         # code...
         echo '
         <form action="./index.php?act=addtocart" method="post">
-                <div class="product-item">
+                <div class="product-item position-relatve">
+                <span class="ms-2 badge bg-secondary">' . $product_item['giam_gia'] . '%</span>
                 <div class="product-img">
                     <a href="./index.php?act=detailproduct&id=' . $product_item['masanpham'] . '">
                         <img src="' . $thumbnail . '" alt="" />
@@ -298,7 +306,7 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
                         <a href="#"><i class="zmdi zmdi-star-half"></i></a>
                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                     </div>
-                    <h3 class="pro-price">' . $product_item['don_gia'] . ' VND</h3>
+                    <h3 class="pro-price">' . $new_price . ' VND</h3>
                     <ul class="action-button">
                         <li>
                             <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -306,7 +314,7 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
 
                         </li>
                         <li>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                            <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                         </li>
                         <li>
@@ -318,10 +326,12 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
                         <input type="hidden" name="id" value="' . $product_item['masanpham'] . '"/>
                         <input type="hidden" name="tensp" value="' . $product_item['tensp'] . '"/>
                         <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
-                        <input type="hidden" name="don_gia" value="' . $product_item['don_gia'] . '"/>
                         <input type="hidden" name="sl" value="1">
                         <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
                         <input type="hidden" name="iddm" value="' . $product_item['ma_danhmuc'] . '"/>
+                        <input type="hidden" name="don_gia" value="' . $product_item['don_gia'] . '"/>
+                        <input type="hidden" name="mo_ta" value="' . $product_item['mo_ta'] . '">
+                        <input type="hidden" name="giam_gia" value="' . $product_item['giam_gia'] . '">
                     </ul>
                 </div>
             </div>

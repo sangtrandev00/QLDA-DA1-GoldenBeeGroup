@@ -364,8 +364,8 @@
                                                     <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
                                                     <table>
                                                         <?php
-                                                            
-                                                        ?>
+
+?>
                                                         <tr>
                                                             <td class="td-title-1">Dummy Product Name x 2</td>
                                                             <td class="td-title-2">$1855.00</td>
