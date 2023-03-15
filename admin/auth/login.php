@@ -16,6 +16,30 @@
 
     <!-- loader-->
     <link href="../assets/css/pace.min.css" rel="stylesheet" />
+    <style>
+         .btn-primary-login{
+            background-color: #ff7f00;
+            color: white;
+            border: none;
+        }
+        .btn-primary-login:hover{
+            background-color: #ff7f00;
+            border: none;
+        }
+        .mb-0 a{
+            color: #ff7f00;
+        }
+        .form-check-input-change:checked{
+            border: #ff7f00;
+            background-color:#ff7f00;
+        }
+        .text-end a{
+            color: #ff7f00;
+        }
+        .images img{
+            width: 70%;
+        }
+    </style>
 
     <title>Bootstrap 5 Admin Template</title>
 </head>
@@ -31,8 +55,8 @@
                 <div class="authentication-card">
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
-                            <div class="col-lg-6 bg-login d-flex align-items-center justify-content-center">
-                                <img src="../assets/images/error/login-img.jpg" class="img-fluid" alt="">
+                            <div class="col-lg-6 d-flex align-items-center justify-content-center images">
+                                <img src="../assets/images/error/login-admin.png" class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
@@ -78,7 +102,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox"
+                                                    <input class="form-check-input form-check-input-change" type="checkbox"
                                                         id="flexSwitchCheckChecked" checked="">
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ
                                                         thông tin</label>
@@ -88,7 +112,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary radius-30">Đăng
+                                                    <button type="submit" class="btn btn-primary radius-30 btn-primary-login">Đăng
                                                         nhập</button>
                                                 </div>
                                             </div>
