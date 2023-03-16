@@ -1,20 +1,29 @@
-
+<style>
+    .change .change-p{
+        color:black;
+        font-size: 16px;
+    }
+    .change .ul-about{
+        color:black;
+        font-size: 14px;
+        
+    }
+    .ul-about li{
+        list-style:disc;
+        margin-left: 20px;
+    }
+</style>
 
 <!-- BREADCRUMBS SETCTION START -->
-<div class="breadcrumbs-section plr-200 mb-80 section">
-    <div class="breadcrumbs overlay-bg">
+<div class="breadcrumbs-section plr-200 mb-80">
+    <div class="">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="breadcrumbs-inner">
-                      
-                        <h1 class="breadcrumbs-title">About</h1>
-                        <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>About</li>
-                        </ul>
-                    </div>
-                </div>
+                   <div class="about-photo">
+                        <img class="col-12 col-xl-8 d-flex align-items-center justify-content-center"  src="assets/images/banner/about-us-img.jpeg" alt="Error">
+                   </div>
+               </div>
             </div>
         </div>
     </div>
@@ -37,25 +46,25 @@
             </div>
             <div class="row">
                 <div class="col-lg-5">
-                    <div class="about-photo p-20 bg-img-1">
-                        <img src="" alt="">
+                    <div class="about-photo p-10 bg-img-1">
+                        <img src="assets/images/banner/about-us.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-lg-7">
-                    <div class="about-description mt-50">
-                        <p>Hệ thống bán lẻ The Phoner Store là một trong những điểm đến tin cậy của người tiêu 
+                    <div class="mt-20 change">
+                        <p class="change-p">Hệ thống bán lẻ The Phoner Store là một trong những điểm đến tin cậy của người tiêu 
                             dùng thông thái bắt nguồn từ diễn đàn mua bán - diễn đàn công nghệ lớn nhất Việt Nam.</p>
 
-                        <p>Với tinh thần bán hàng trung thực, hài hước, lấy 4 đối tượng sản phẩm, khách hàng, 
+                        <p class="change-p">Với tinh thần bán hàng trung thực, hài hước, lấy 4 đối tượng sản phẩm, khách hàng, 
                             chất lượng dịch vụ, nhân sự làm trọng tâm, chúng tôi cực kì chú trọng đến xây dựng quy 
                             trình cung cấp dịch vụ chuẩn, không ngừng nâng cấp để:</p>
 
-                        <ul style="">
+                        <ul class="ul-about">
                             <li>Luôn nhập được hàng tốt với giá đầu vào tốt, các sản phẩm được kiểm tra kĩ càng bởi đội ngũ kiểm tra chất lượng chuẩn trước khi bán ra.</li>
                             <li>Luôn làm hài lòng khách hàng về giá bán, thời gian phục vụ nhanh chóng, và giải quyết thỏa đáng các vấn đề trong bảo hành.</li>
                         </ul>
 
-                        <p>Chúng tôi lấy khách hàng làm trung tâm, lấy tổ chức chức chuyên nghiệp làm sức mạnh cạnh tranh, 
+                        <p class="change-p">Chúng tôi lấy khách hàng làm trung tâm, lấy tổ chức chức chuyên nghiệp làm sức mạnh cạnh tranh, 
                             không ngừng nỗ lực cung cấp những sản phẩm, dịch vụ giá trị mới, chất lượng cao với giá hợp lý 
                             để đóng góp vào mục tiêu nâng cao chất lượng cuộc sống thông tin.</p>
                     </div>
@@ -79,27 +88,27 @@
                         <div class="team-member-item">
                             <div class="team-member box-shadow">
                                 <div class="team-member-photo">
-                                    <img src="../../../assets/images/images-member/Ellipse 6.png" alt="">
+                                    <img src="assets/img/team/nhatsang-img.png" alt="">
                                 </div>
                                 <div class="team-member-info pt-20">
-                                    <h5 class="member-name"><a href="#">Trần Nhật Sang</a></h5>
+                                    <h5 class="member-name"><a href="#!">Nhật Sang</a></h5>
                                     <p class="member-position">Leader</p>
                                     <p class="mb-20">Là người phụ trách quản lý công việc và phân chia các thành viên</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="" title="Facebook"><i
+                                            <a class="facebook" href="#!" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>
-                                            <a class="google-plus" href="" title="Google Plus"><i
+                                            <a class="google-plus" href="#!" title="Google Plus"><i
                                                     class="zmdi zmdi-google-plus"></i></a>
                                         </li>
                                         <li>
-                                            <a class="twitter" href="" title="Twitter"><i
+                                            <a class="twitter" href="#!" title="Twitter"><i
                                                     class="zmdi zmdi-twitter"></i></a>
                                         </li>
                                         <li>
-                                            <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                            <a class="rss" href="#!" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -110,58 +119,27 @@
                         <div class="team-member-item">
                             <div class="team-member box-shadow">
                                 <div class="team-member-photo">
-                                    <img src="img/team/2.png" alt="">
+                                    <img src="assets/img/team/minhdan-img.png" alt="">
                                 </div>
                                 <div class="team-member-info pt-20">
-                                    <h5 class="member-name"><a href="#">Nguyễn Ngọc Minh Đan</a></h5>
+                                    <h5 class="member-name"><a href="#!">Minh Đan</a></h5>
                                     <p class="member-position">Member</p>
                                     <p class="mb-20">Phụ trách công việc thiết kế trang giao diện của The Phoner Store</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="" title="Facebook"><i
+                                            <a class="facebook" href="#!" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>
-                                            <a class="google-plus" href="" title="Google Plus"><i
+                                            <a class="google-plus" href="#!" title="Google Plus"><i
                                                     class="zmdi zmdi-google-plus"></i></a>
                                         </li>
                                         <li>
-                                            <a class="twitter" href="" title="Twitter"><i
+                                            <a class="twitter" href="#!" title="Twitter"><i
                                                     class="zmdi zmdi-twitter"></i></a>
                                         </li>
                                         <li>
-                                            <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- team-member end -->
-                        <!-- team-member start -->
-                        <div class="team-member-item">
-                            <div class="team-member box-shadow bg-shape">
-                                <div class="team-member-photo">
-                                    <img src="img/team/3.png" alt="">
-                                </div>
-                                <div class="team-member-info pt-20">
-                                    <h5 class="member-name"><a href="#">Nguyễn Hoàng Trung</a></h5>
-                                    <p class="member-position">Member</p>
-                                    <p class="mb-20">Là người phụ trách công việc thiết kế trang giao diện front-end</p>
-                                    <ul class="footer-social">
-                                        <li>
-                                            <a class="facebook" href="" title="Facebook"><i
-                                                    class="zmdi zmdi-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="google-plus" href="" title="Google Plus"><i
-                                                    class="zmdi zmdi-google-plus"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="twitter" href="" title="Twitter"><i
-                                                    class="zmdi zmdi-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                            <a class="rss" href="#!" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -172,27 +150,58 @@
                         <div class="team-member-item">
                             <div class="team-member box-shadow">
                                 <div class="team-member-photo">
-                                    <img src="img/team/1.png" alt="">
+                                    <img src="assets/img/team/hoangtrung-img.png" alt="">
                                 </div>
                                 <div class="team-member-info pt-20">
-                                    <h5 class="member-name"><a href="#">Vòong Đình Lam Phối</a></h5>
+                                    <h5 class="member-name"><a href="#!">Hoàng Trung</a></h5>
+                                    <p class="member-position">Member</p>
+                                    <p class="mb-20">Là người phụ trách công việc thiết kế trang giao diện front-end</p>
+                                    <ul class="footer-social">
+                                        <li>
+                                            <a class="facebook" href="#!" title="Facebook"><i
+                                                    class="zmdi zmdi-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a class="google-plus" href="#!" title="Google Plus"><i
+                                                    class="zmdi zmdi-google-plus"></i></a>
+                                        </li>
+                                        <li>
+                                            <a class="twitter" href="#!" title="Twitter"><i
+                                                    class="zmdi zmdi-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a class="rss" href="#!" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- team-member end -->
+                        <!-- team-member start -->
+                        <div class="team-member-item">
+                            <div class="team-member box-shadow">
+                                <div class="team-member-photo">
+                                    <img src="assets/img/team/lamphoi-img.png" alt="">
+                                </div>
+                                <div class="team-member-info pt-20">
+                                    <h5 class="member-name"><a href="#">Lam Phối</a></h5>
                                     <p class="member-position">Member</p>
                                     <p class="mb-20">Là người chịu trách nhiệm về back-end, thiết kế database</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="" title="Facebook"><i
+                                            <a class="facebook" href="#!" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>
-                                            <a class="google-plus" href="" title="Google Plus"><i
+                                            <a class="google-plus" href="#!" title="Google Plus"><i
                                                     class="zmdi zmdi-google-plus"></i></a>
                                         </li>
                                         <li>
-                                            <a class="twitter" href="" title="Twitter"><i
+                                            <a class="twitter" href="#!" title="Twitter"><i
                                                     class="zmdi zmdi-twitter"></i></a>
                                         </li>
                                         <li>
-                                            <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
+                                            <a class="rss" href="#!" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                         </li>
                                     </ul>
                                 </div>

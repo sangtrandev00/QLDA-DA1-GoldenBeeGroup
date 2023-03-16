@@ -86,7 +86,7 @@
 <footer id="footer" class="footer-area section">
     <div class="footer-top">
         <div class="container-fluid">
-            <div class="plr-185">
+            <div class="plr-150">
                 <div class="footer-top-inner gray-bg">
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-5">
