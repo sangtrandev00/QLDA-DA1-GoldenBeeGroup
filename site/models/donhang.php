@@ -9,7 +9,7 @@ function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $s
         // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
         // ";
 
-        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang,ghichu, iduser, timeorder)
+        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder)
         VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder' )";
 
         // use exec() because no results are returned
@@ -26,17 +26,17 @@ function addtocart($iddh, $idsp, $tensp, $img, $gia, $sl)
     $conn = connectdb();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "INSERT INTO tbl_cart (idsanpham, iddonhang, soluong, dongia,tensp,hinhanh)
+    $sql = "INSERT INTO tbl_order_detail (idsanpham, iddonhang, soluong, dongia,tensp,hinhanh)
     VALUES ('$idsp', '$iddh', '$sl', '$gia','$tensp','$img')";
 
     // use exec() because no results are returned
     $conn->exec($sql);
 }
 
-function getshowcart($iddh)
+function getshoworderdetail($iddh)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_cart WHERE iddonhang = " . $iddh);
+    $stmt = $conn->prepare("SELECT * FROM tbl_order_detail WHERE iddonhang = " . $iddh);
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetchAll();
@@ -75,7 +75,7 @@ function get_all_orders()
 function getshowcartbyiduser($iduser)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_cart  INNER JOIN tbl_order on tbl_cart.iddonhang = tbl_order.id WHERE iduser='$iduser'");
+    $stmt = $conn->prepare("SELECT * FROM tbl_order_detail  INNER JOIN tbl_order on tbl_cart.iddonhang = tbl_order.id WHERE iduser='$iduser'");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetchAll();

@@ -323,16 +323,24 @@
                             <!-- checkout start -->
                             <div class="tab-pane active" id="checkout">
                                 <div class="checkout-content box-shadow p-30">
-                                    <form action="#">
+                                    <form action="./index.php?act=checkoutbtn" method="POST">
                                         <div class="row">
                                             <!-- billing details -->
                                             <div class="col-md-6">
                                                 <div class="billing-details pr-10">
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
+                                                    <p class="error-message text-danger mb-0">
+                                                        <?php if (isset($error['hoten'])) {echo $error['hoten'];}?></p>
                                                     <input type="text" name="name" placeholder="Tên của bạn ...">
+                                                    <p class="error-message text-danger mb-0">
+                                                        <?php if (isset($error['email'])) {echo $error['email'];}?></p>
                                                     <input type="text" name="email" placeholder="Địa chỉ email...">
+                                                    <p class="error-message text-danger mb-0">
+                                                        <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
                                                     <input type="text" name="phone" placeholder="Số điện thoại...">
+                                                    <p class="error-message text-danger mb-0"></p>
                                                     <input type="text" name="company" placeholder="Tên công ty...">
+
                                                     <select class="custom-select">
                                                         <option value="defalt">country</option>
                                                         <option value="c-1">Australia</option>
@@ -354,8 +362,15 @@
                                                         <option value="c-3">Boston</option>
                                                         <option value="c-4">Cambridge</option>
                                                     </select>
-                                                    <textarea name="shippingaddress" class="custom-textarea"
+                                                    <p class="error-message text-danger mb-0">
+                                                        <?php if (isset($error['address'])) {echo $error['address'];}?>
+                                                    </p>
+                                                    <textarea name="address" class="custom-textarea shipping-address"
                                                         placeholder="Địa chỉ của bạn..."></textarea>
+                                                    <p class="error-message text-danger mb-0"></p>
+                                                    <textarea name="ghichu" class="custom-textarea mt-3"
+                                                        placeholder="Ghi chú cho người bán..."></textarea>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -364,42 +379,46 @@
                                                     <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
                                                     <table>
                                                         <?php
-
+$subtotal = 0;
+if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
+    foreach ($_SESSION['giohang'] as $cart_item) {
+        # code...
+        $price_item = $cart_item['don_gia'] * $cart_item['sl'];
+        $subtotal += $price_item;
+        echo '
+                                                                    <tr>
+                                                                        <td class="td-title-1">' . $cart_item['tensp'] . ' x ' . $cart_item['sl'] . '</td>
+                                                                        <td class="td-title-2">' . number_format($price_item) . ' VND</td>
+                                                                    </tr>
+                                                                    ';
+    }
+}
 ?>
                                                         <tr>
-                                                            <td class="td-title-1">Dummy Product Name x 2</td>
-                                                            <td class="td-title-2">$1855.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Dummy Product Name</td>
-                                                            <td class="td-title-2">$555.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Cart Subtotal</td>
-                                                            <td class="td-title-2">$2410.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Shipping and Handing</td>
-                                                            <td class="td-title-2">$15.00</td>
+                                                            <td class="td-title-1">Vận chuyển và bàn giao</td>
+                                                            <td class="td-title-2">
+                                                                <?php echo 0 ?> VND</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Vat</td>
-                                                            <td class="td-title-2">$00.00</td>
+                                                            <td class="td-title-2">00.00 VND</td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="order-total">Order Total</td>
-                                                            <td class="order-total-price">$2425.00</td>
+                                                            <td class="order-total">Tổng giá trị đơn hàng</td>
+                                                            <td class="order-total-price">
+                                                                <?php echo number_format($subtotal) ?> VND</td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                                 <!-- payment-method -->
                                                 <div class="payment-method">
-                                                    <h6 class="widget-title border-left mb-20">payment method</h6>
+                                                    <h6 class="widget-title border-left mb-20">Phương thức thanh toán
+                                                    </h6>
                                                     <div id="accordion">
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a data-bs-toggle="collapse" href="#bank-transfer">
-                                                                    direct bank transfer
+                                                                    Thanh toán trực tiếp tại nhà
                                                                 </a>
                                                             </h4>
                                                             <div id="bank-transfer" class="panel-collapse collapse show"
@@ -415,7 +434,7 @@
                                                             <h4 class="payment-title box-shadow">
                                                                 <a class="collapsed" data-bs-toggle="collapse"
                                                                     href="#collapseTwo">
-                                                                    cheque payment
+                                                                    Thanh toán MOMO
                                                                 </a>
                                                             </h4>
                                                             <div id="collapseTwo" class="panel-collapse collapse"
@@ -430,7 +449,7 @@
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a data-bs-toggle="collapse" href="#collapseThree">
-                                                                    paypal
+                                                                    Thanh toán VNpay
                                                                 </a>
                                                             </h4>
                                                             <div id="collapseThree" class="panel-collapse collapse"
@@ -454,8 +473,12 @@
                                                     </div>
                                                 </div>
                                                 <!-- payment-method end -->
-                                                <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">place
-                                                    order</button>
+                                                <!-- <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Đặt
+                                                    hàng</button> -->
+                                                <input class="submit-btn-1 mt-30 btn-hover-1" name="checkoutbtn"
+                                                    type="submit" value="Đặt hàng">
+                                                <input type="hidden" name="tongdonhang" value="<?php echo $subtotal ?>">
+                                                <input type="hidden" name="pttt" value="1">
                                             </div>
                                         </div>
                                     </form>

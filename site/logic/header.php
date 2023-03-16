@@ -1,20 +1,23 @@
 <?php
-// if (!in_array('ob_gzhandler', ob_list_handlers())) {
-//     ob_start('ob_gzhandler');
-// } else {
-//     ob_start();
-// }
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
+if (!in_array('ob_gzhandler', ob_list_handlers())) {
+    ob_start('ob_gzhandler');
+} else {
+    ob_start();
+}
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// // var_dump($_SERVER);
-// if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-//     echo "called directly";
-//     include "../DAO/category.php";
-// } else {
-//     echo "included/required";
-// }
+// var_dump($_SERVER);
+if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+    echo "called directly";
+    // include "../DAO/category.php";
+    include "../../pdo-library.php";
+} else {
+    echo "included/required";
+}
+
+// var_dump($_SESSION);
 
 function connectdb()
 {
@@ -284,7 +287,7 @@ foreach ($cate_list as $cate_item) {
                                         </div>
                                     </div>
                                     <!-- total-cart -->
-                                    <div class="total-cart f-left">
+                                    <div id="topHeaderCart" class="total-cart f-left">
                                         <div class="total-cart-in">
 
 

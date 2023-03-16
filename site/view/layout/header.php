@@ -236,14 +236,23 @@ foreach ($cate_list as $cate_item) {
                                         </div>
                                     </div>
                                     <!-- total-cart -->
-                                    <div class="total-cart f-left">
+                                    <div id="topHeaderCart" class="total-cart f-left">
                                         <div class="total-cart-in">
 
 
                                             <div class="cart-toggler">
                                                 <a href="./index.php?act=viewcart">
-                                                    <span
-                                                        class="cart-quantity"><?php echo count($_SESSION['giohang']) ?></span><br>
+
+                                                    <?php
+$amount_carts = array_reduce($_SESSION['giohang'], function ($prev_value, $curr_val) {
+    // var_dump($prev_value);
+    // var_dump($curr_val['sl']);
+
+    return $curr_val['sl'] + $prev_value;
+}, 0);
+// echo $amount_carts;
+?>
+                                                    <span class="cart-quantity"><?php echo $amount_carts ?></span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>

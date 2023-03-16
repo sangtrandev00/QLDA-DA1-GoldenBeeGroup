@@ -70,15 +70,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="cartModalLabel">Cart Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close main-color" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Nội dung ở đây!!!
                 </div>
                 <div class="modal-footer">
                     <form action="./index.php?act=deletecart&idcart=" method="post">
-                        <input type="submit" name="deletecartbtn" class="btn btn-secondary continue-btn"
-                            value="Tiếp tục" />
+                        <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn"
                             data-bs-dismiss="modal">Đóng</button>
                     </form>

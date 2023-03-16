@@ -72,6 +72,8 @@ foreach ($product_list as $item) {
     $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia']);
 
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -106,7 +108,7 @@ foreach ($product_list as $item) {
                                        <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                        <ul class="action-button">
                                            <li>
-                                               <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                               <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                            </li>
                                            <li>
@@ -114,7 +116,7 @@ foreach ($product_list as $item) {
                                                    title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                            </li>
                                            <li>
-                                               <a class="add-to-cart" href="#" title="Add to cart"><i
+                                               <a onclick="' . $addcartfunc . '" class="add-to-cart" href="#" title="Add to cart"><i
                                                        class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                 <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng"/>
                                            </li>
@@ -153,7 +155,8 @@ foreach ($product_list as $item) {
     $image_list = explode(',', $item['images']);
 
     $price_format = number_format($item['don_gia']);
-
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -191,14 +194,14 @@ foreach ($product_list as $item) {
                                         </p>
                                         <ul class="action-button">
                                             <li>
-                                                <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                <a onclick="' . $addwishlistfunc . '"  href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                             </li>
                                             <li>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                <a  href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                     title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                             </li>
                                             <li>
-                                                <a href="./index.php?act=addtocart&id' . $item['masanpham'] . '" title="Add to cart"><i
+                                                <a onclick="' . $addcartfunc . '" href="./index.php?act=addtocart&id' . $item['masanpham'] . '" title="Add to cart"><i
                                                         class="zmdi zmdi-shopping-cart-plus"></i></a>
                                             </li>
                                         </ul>

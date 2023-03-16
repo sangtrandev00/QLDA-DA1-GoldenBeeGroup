@@ -7,8 +7,77 @@ include "../../DAO/product.php";
 include "../../pdo-library.php";
 
 switch ($_GET['act']) {
-    case 'wishlist':
-        include "./view/pages/cart/wishlist.php";
+    case 'addtowishlist':
+        if (isset($_SESSION['iduser'])) {
+            echo 'hello wishlist action';
+
+            $id = $_POST['id'];
+            $product_item = product_select_by_id($id);
+            $tendanhmuc = $_POST['danhmuc'];
+            $tensp = $product_item['tensp'];
+            $hinh_anh = $_POST['hinh_anh'];
+            $don_gia = $product_item['don_gia'];
+            $giam_gia = $product_item['giam_gia'];
+            $gia_moi = $don_gia * (1 - $giam_gia / 100);
+            $sl = $_POST['sl'];
+
+            // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+            //     $sl = $_POST['cart_quantity'];
+
+            //     $product = product_select_by_id($id);
+            //     if ($sl > $product['ton_kho']) {
+            //         $sl = $product['ton_kho'];
+            //         $GLOBALS['changed_cart'] = true;
+            //     }
+
+            // } else {
+            //     $sl = 1;
+            // }
+
+            $flag = 0;
+
+            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+            // Nếu có chỉ cập nhất lại số lượng
+
+            // Ngược lại add mới sp vào giỏ hàng
+
+            // Khởi tạo một mảng con trước khi đưa vào giỏ
+
+            $i = 0;
+
+            foreach ($_SESSION['wishlist'] as $itemsp) {
+                # code...
+                // var_dump($itemsp);
+
+                if ($itemsp['id'] === $id) {
+                    $slnew = $sl + $itemsp['sl'];
+
+                    // echo "So LUONG MOI: " . $slnew;
+
+                    $_SESSION['wishlist'][$i]['sl'] = $slnew;
+                    $flag = 1;
+
+                    break;
+                }
+
+                $i++;
+            }
+
+            if ($flag == 0) {
+                $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
+                // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+                // array_push($_SESSION['giohang'], $itemsp);
+                // $_SESSION['giohang'][] = $itemsp;
+
+                $_SESSION['wishlist'][] = $itemsp;
+
+            }
+
+            // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
+            var_dump($_SESSION['wishlist']);
+        } else {
+            header('location: ./auth/login.php');
+        }
         break;
 
     case 'updatecart':
@@ -55,8 +124,10 @@ switch ($_GET['act']) {
         break;
     case 'deletecart':
         if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) > 0) {
+            var_dump($_POST['id']);
+            // var_dump(json_encode($_POST));
 
-            // var_dump($_POST);
+            // $id = json_encode($_POST);
             $cart_list = $_SESSION['giohang'];
             $idcart = $_POST['id'];
             function filter_cart($item)
@@ -64,21 +135,22 @@ switch ($_GET['act']) {
                 return $item['id'] != $_POST['id'];
             }
 
-            $result = array_filter($cart_list, "filter_cart");
+            $cartResult = array_filter($cart_list, "filter_cart");
             // var_dump($result);
 
             // UPDATE Giohang;
-            // $_SESSION['giohang'] = $result;
-            $header = include "./header.php";
-            $topcart = include "./topcart.php";
-            $table_cart = include "./table-cart.php";
+            $_SESSION['giohang'] = $cartResult;
+            // $result = array('header' => json_decode(include "./header.php"), 'topcart' => json_decode(include "./topcart.php"), 'tablecart' => json_decode(include "./table-cart.php"));
 
-            // echo $header;
-            // echo $topcart;
-            // echo $table_cart;
-            $result = array('header' => $header, 'topcart' => $topcart, 'tablecart' => $table_cart);
-            echo json_encode($result);
+            $result = array(
+                "message" => "Xóa sản phẩm thành công",
+                "status" => 1,
+            );
+
+            // echo json_encode($result);
+
             // include "./table-cart.php";
+
         } else {
 
         }
@@ -149,8 +221,8 @@ switch ($_GET['act']) {
             }
 
             // echo $itemsp['tensp'];
-            $header = include "./header.php";
-            echo $header;
+            // $header = include "./header.php";
+            // echo $header;
         } else {
             header('location: ./auth/login.php');
         }
@@ -168,6 +240,12 @@ switch ($_GET['act']) {
         }
 
         include "./view/pages/cart/checkout.php";
+
+        break;
+
+    case 'buynow':
+
+        var_dump($_POST);
 
         break;
 

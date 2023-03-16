@@ -1,3 +1,16 @@
+<?php
+if (isset($iddh)) {
+    $order_list = getshoworderdetail($iddh);
+    $order = getorderinfo($iddh);
+
+    // var_dump($order_list);
+    // var_dump($order);
+} else {
+    $order_list = [];
+    $order = [];
+}
+?>
+
 <!-- BREADCRUMBS SETCTION START -->
 <div class="breadcrumbs-section plr-200 mb-80 section">
     <div class="breadcrumbs overlay-bg">
@@ -360,11 +373,33 @@
                                         <div class="col-md-6">
                                             <!-- our order -->
                                             <div class="payment-details pl-10 mb-50">
-                                                <h6 class="widget-title border-left mb-20">our order</h6>
+                                                <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
                                                 <table>
+                                                    <?php
+foreach ($order_list as $order_detail) {
+    # code...
+    $price_item = $order_detail['dongia'] * $order_detail['soluong'];
+    echo '
+                                                            <tr>
+                                                                <td class="td-title-1">
+                                                                    ' . $order_detail['tensp'] . 'x ' . $order_detail['soluong'] . '
+                                                                </td>
+                                                                <td class="td-title-2">
+                                                                        ' . number_format($price_item) . '
+                                                                </td>
+                                                            </tr>
+                                                            ';
+
+}
+?>
                                                     <tr>
-                                                        <td class="td-title-1">Dummy Product Name x 2</td>
-                                                        <td class="td-title-2">$1855.00</td>
+                                                        <td class="td-title-1">
+                                                            <?php echo $order_detail['tensp'] . "x" . $order_detail['soluong'] ?>
+                                                        </td>
+                                                        <td class="td-title-2">
+                                                            <?php $price_item = $order_detail['dongia'] * $order_detail['soluong'];
+echo number_format($price_item);?>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Dummy Product Name</td>
@@ -462,26 +497,30 @@
                         <div class="tab-pane active" id="order-complete">
                             <div class="order-complete-content box-shadow">
                                 <div class="thank-you p-30 text-center">
-                                    <h6 class="text-black-5 mb-0">Thank you. Your order has been received.</h6>
+                                    <h6 class="text-black-5 mb-0 alert alert-warning">Cảm ơn. Đơn đặt hàng của bạn đã
+                                        được tiếp nhận; Chúng
+                                        tôi sẽ gửi đơn hàng đến bạn một cách sớm nhất.</h6>
                                 </div>
                                 <div class="order-info p-30 mb-10">
                                     <ul class="order-info-list">
                                         <li>
+                                            <h6>Đơn hàng số</h6>
+                                            <p> #<?php if (isset($iddh)) {
+    echo $iddh;
+}?></p>
+                                        </li>
+                                        <li>
+                                            <h6>Mã đơn hàng</h6>
+                                            <p>YOURORDER9010779</p>
+                                        </li>
+                                        <!-- <li>
                                             <h6>order no</h6>
                                             <p>m 2653257</p>
                                         </li>
                                         <li>
                                             <h6>order no</h6>
                                             <p>m 2653257</p>
-                                        </li>
-                                        <li>
-                                            <h6>order no</h6>
-                                            <p>m 2653257</p>
-                                        </li>
-                                        <li>
-                                            <h6>order no</h6>
-                                            <p>m 2653257</p>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="row">
@@ -490,28 +529,45 @@
                                         <div class="payment-details p-30">
                                             <h6 class="widget-title border-left mb-20">our order</h6>
                                             <table>
-                                                <tr>
+                                                <?php
+foreach ($order_list as $order_detail) {
+    # code...
+    $price_item = $order_detail['dongia'] * $order_detail['soluong'];
+    echo '
+                                                            <tr>
+                                                                <td class="td-title-1">
+                                                                    ' . $order_detail['tensp'] . 'x ' . $order_detail['soluong'] . '
+                                                                </td>
+                                                                <td class="td-title-2">
+                                                                        ' . number_format($price_item) . ' VND
+                                                                </td>
+                                                            </tr>
+                                                            ';
+
+}
+?>
+                                                <!-- <tr>
                                                     <td class="td-title-1">Dummy Product Name x 2</td>
                                                     <td class="td-title-2">$1855.00</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td-title-1">Dummy Product Name</td>
                                                     <td class="td-title-2">$555.00</td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td class="td-title-1">Tổng phụ</td>
+                                                    <td class="td-title-2"><?php ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="td-title-1">Cart Subtotal</td>
-                                                    <td class="td-title-2">$2410.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td-title-1">Shipping and Handing</td>
-                                                    <td class="td-title-2">$15.00</td>
+                                                    <td class="td-title-1">Chi phí vận chuyển</td>
+                                                    <td class="td-title-2">0 VND</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td-title-1">Vat</td>
-                                                    <td class="td-title-2">$00.00</td>
+                                                    <td class="td-title-2">0 VND</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="order-total">Order Total</td>
+                                                    <td class="order-total">Tổng đơn hàng</td>
                                                     <td class="order-total-price">$2425.00</td>
                                                 </tr>
                                             </table>
@@ -519,6 +575,31 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="bill-details p-30">
+                                            <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
+                                            <ul class="bill-address">
+                                                <li>
+                                                    <span>Địa chỉ:</span>
+                                                    <?php echo $order['address'] ?>
+                                                </li>
+                                                <li>
+                                                    <span>email:</span>
+                                                    <?php echo $order['email'] ?>
+                                                </li>
+                                                <li>
+                                                    <span>Điện thoại : </span>
+                                                    <?php echo $order['dienThoai'] ?>
+                                                </li>
+                                                <li>
+                                                    <span>Phương thức thanh toán : </span>
+                                                    Thanh toán khi nhận hàng
+                                                </li>
+                                                <li>
+                                                    <span>Ghi chú : </span>
+                                                    <?php echo $order['ghichu'] ?>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="bill-details pl-30">
                                             <h6 class="widget-title border-left mb-20">billing details</h6>
                                             <ul class="bill-address">
                                                 <li>
@@ -534,24 +615,7 @@
                                                     (+880) 19453 821758
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <div class="bill-details pl-30">
-                                            <h6 class="widget-title border-left mb-20">billing details</h6>
-                                            <ul class="bill-address">
-                                                <li>
-                                                    <span>Address:</span>
-                                                    28 Green Tower, Street Name, New York City, USA
-                                                </li>
-                                                <li>
-                                                    <span>email:</span>
-                                                    info@companyname.com
-                                                </li>
-                                                <li>
-                                                    <span>phone : </span>
-                                                    (+880) 19453 821758
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

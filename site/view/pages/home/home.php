@@ -182,8 +182,8 @@ foreach ($featured_products as $item) {
     // var_dump(catename_select_by_id($item['ma_danhmuc']));
     $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-    $addcartfunc = "handleAddCart('addtocart')";
-    $addwishlistfunc = "handleWishlist('addtowishlist)";
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -220,7 +220,7 @@ foreach ($featured_products as $item) {
 
                                             <ul class="action-button">
                                                 <li>
-                                                    <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                    <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                     <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                 </li>
                                                 <li>
@@ -353,7 +353,8 @@ foreach ($product_list as $item) {
     $image_list = explode(',', $item['images']);
 
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -390,7 +391,7 @@ foreach ($product_list as $item) {
 
                                                         <ul class="action-button">
                                                         <li>
-                                                            <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                             <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                         </li>
                                                         <li>
@@ -447,7 +448,8 @@ foreach ($product_list as $item) {
     $image_list = explode(',', $item['images']);
 
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -484,7 +486,7 @@ foreach ($product_list as $item) {
 
                                                         <ul class="action-button">
                                                         <li>
-                                                            <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                             <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                         </li>
                                                         <li>
@@ -880,7 +882,8 @@ foreach ($product_list as $item) {
     $image_list = explode(',', $item['images']);
 
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -898,7 +901,7 @@ foreach ($product_list as $item) {
                                                 <div class="product-item">
                                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
                                                 <div class="product-img">
-                                                    <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
+                                                    <a onclick="' . $addwishlistfunc . '" href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
                                                     </a>
                                                 </div>
@@ -917,7 +920,7 @@ foreach ($product_list as $item) {
 
                                                         <ul class="action-button">
                                                         <li>
-                                                            <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                                             <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                         </li>
                                                         <li>

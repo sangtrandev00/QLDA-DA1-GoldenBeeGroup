@@ -60,7 +60,9 @@
                         <div class="tab-pane active" id="shopping-cart">
                             <div class="shopping-cart-content">
                                 <form action="#">
+
                                     <div id="table-content-wrapper" class="table-content table-responsive mb-50">
+
                                         <table class="text-center">
                                             <thead>
                                                 <tr>
@@ -118,8 +120,11 @@ foreach ($cart_list as $cart_item) {
 
                                             </tbody>
                                         </table>
-                                    </div>
 
+                                    </div>
+                                    <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
+                                        thành công
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">
@@ -131,12 +136,13 @@ foreach ($cart_list as $cart_item) {
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="payment-details box-shadow p-30 mb-50">
+                                            <div id="paymentDetails" class="payment-details box-shadow p-30 mb-50">
                                                 <h6 class="widget-title border-left mb-20">Thanh toán chi tiết</h6>
                                                 <table>
                                                     <tr>
                                                         <td class="td-title-1">Tổng phụ đơn hàng</td>
-                                                        <td class="td-title-2"><?php echo $subtotal ?> VND</td>
+                                                        <td class="td-title-2"><?php echo number_format($subtotal) ?>
+                                                            VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Chi phí vận chuyển</td>
@@ -148,7 +154,8 @@ foreach ($cart_list as $cart_item) {
                                                     </tr>
                                                     <tr>
                                                         <td class="order-total">Tổng đơn hàng</td>
-                                                        <td class="order-total-price"><?php echo $subtotal ?> VND</td>
+                                                        <td class="order-total-price">
+                                                            <?php echo number_format($subtotal) ?> VND</td>
                                                     </tr>
                                                 </table>
                                             </div>

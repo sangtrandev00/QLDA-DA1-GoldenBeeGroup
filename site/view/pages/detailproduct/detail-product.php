@@ -77,7 +77,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                             <div class="col-lg-7">
                                 <form action="./index.php?act=addtocart" method="post" method="POST">
                                     <div class="single-product-info">
-                                        <h3 class="text-black-1"><?php echo $product['tensp'] ?> </h3>
+                                        <h3 class="text-black-1"><?php echo $product['tensp'] ?> <span
+                                                class="fs-4 fw-light"> (20 đã bán )</span>
+                                        </h3>
                                         <h6 class="my-4">Thương hiệu: <?php echo $cate_name ?> </h6>
                                         <h6 class="my-4">Dòng sản phẩm: <?php echo $subcate_name ?></h6>
                                         <h6 class="single-product__views">
@@ -90,9 +92,20 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <!-- single-pro-color-rating -->
                                         <div class="single-pro-color-rating clearfix">
                                             <div class="sin-pro-color f-left">
-                                                <p class="color-title f-left">Tồn kho: <span
+                                                <?php
+if ($product['ton_kho'] > 0) {
+
+        ?>
+                                                <p class="remain-quatity-pro f-left">Tồn kho: <span
                                                         class="inventory-number fw-bold fs-3"><?php echo $product['ton_kho'] ?></span>
                                                 </p>
+
+                                                <?php
+
+    } else {
+        echo '<div class="alert alert-warning">Hết hàng</div>';
+    }
+    ?>
                                                 <!-- <div class="widget-color f-left">
                                                 <ul>
                                                     <li class="color-1"><a href="#"></a></li>
@@ -123,22 +136,44 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 </div>
                                             </div>
 
-                                            <div class="sin-pro-action f-right">
+
+                                        </div>
+                                        <!-- plus-minus-pro-action end -->
+                                        <!-- hr -->
+                                        <hr>
+                                        <!-- single-product-price -->
+                                        <h3 class="pro-price">Giá sản phẩm: <?php echo $new_price ?> VND <del
+                                                class="ms-3 fs-3 fw-lighter text-text-decoration-line-through"><?php echo $old_price ?>
+                                                VND</del>
+                                        </h3>
+                                        <!--  hr -->
+                                        <hr>
+                                        <div class="">
+                                            <a onclick="handleAddCart('addtocart', 'buynow')" href="#"
+                                                class="button extra-small button-black " tabindex="-1">
+                                                <span class="text-uppercase"> Mua
+                                                    ngay</span>
+                                            </a>
+                                            <div class="sin-pro-action f-right mr-100">
                                                 <ul class="action-button">
-                                                    <li>
-                                                        <a class="add-to-wishlist" href="#" title="Wishlist"
-                                                            tabindex="0"><i class="zmdi zmdi-favorite"></i></a>
+                                                    <li class="text-center d-flex justify-content-center">
+                                                        <a onclick="handleAddCart('addtowishlist', 'addwishlist')"
+                                                            class="add-to-wishlist text-center" href="#"
+                                                            title="Wishlist" tabindex="0"><i
+                                                                class="zmdi zmdi-favorite"></i></a>
                                                         <input type="submit"
                                                             class="add-to-wishlist__submit-input d-none"
                                                             name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
+                                                        <label for="">Yêu thích</label>
                                                     </li>
-                                                    <li>
-                                                        <a class="add-to-cart" href="#" title="Add to cart"
+                                                    <li class="text-center d-flex justify-content-center">
+                                                        <a onclick="handleAddCart('addtocart', 'addcart');"
+                                                            class="add-to-cart text-center" href="#" title="Add to cart"
                                                             tabindex="0"><i
                                                                 class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                         <input type="submit" class="d-none" name="addtocartbtn"
                                                             value="add to cart">
-
+                                                        <label for="">Thêm vào giỏ hàng</label>
                                                     </li>
 
                                                     <input type="hidden" name="id"
@@ -156,23 +191,6 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                         value="<?php echo $product['ma_danhmuc'] ?>" />
                                                 </ul>
                                             </div>
-                                        </div>
-                                        <!-- plus-minus-pro-action end -->
-                                        <!-- hr -->
-                                        <hr>
-                                        <!-- single-product-price -->
-                                        <h3 class="pro-price">Giá sản phẩm: <?php echo $new_price ?> VND <del
-                                                class="ms-3 fs-3 fw-lighter text-text-decoration-line-through"><?php echo $old_price ?>
-                                                VND</del>
-                                        </h3>
-                                        <!--  hr -->
-                                        <hr>
-                                        <div>
-                                            <a href="#" class="button extra-small button-black " tabindex="-1">
-                                                <span class="text-uppercase"> Mua
-                                                    ngay</span>
-                                            </a>
-
                                         </div>
                                     </div>
 
@@ -365,7 +383,8 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
         // var_dump($thumbnail);
         $old_price = number_format($product_item['don_gia']);
         $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
-
+        $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+        $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
         # code...
         echo '
         <form action="./index.php?act=addtocart" method="post">
@@ -388,9 +407,9 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                     </div>
                     <h3 class="pro-price">' . $new_price . ' VND</h3>
-                    <ul class="action-button">
+                    <ul class="action-button w-100">
                         <li>
-                            <a class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                             <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
 
                         </li>
@@ -399,7 +418,7 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                         </li>
                         <li>
-                            <a class="add-to-cart" href="#" title="Add to cart"><i
+                            <a onclick="' . $addcartfunc . '" class="add-to-cart" href="#" title="Add to cart"><i
                                     class="zmdi zmdi-shopping-cart-plus"></i></a>
                             <input type="submit" class="d-none" name="addtocartbtn" value="add to cart">
 

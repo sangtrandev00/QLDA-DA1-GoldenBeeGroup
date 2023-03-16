@@ -286,7 +286,7 @@ foreach ($wish_list as $item) {
                                                                 </td>
 
                                                                 <td class="product-remove">
-                                                                    <a href="#" ><i class="zmdi zmdi-close"></i></a>
+                                                                    <a onclick="handleDeleteCart(' . $item['id'] . ', "wishlist")" data-name="' . $item['tensp'] . '" href="#" ><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
 
 
