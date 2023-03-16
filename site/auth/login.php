@@ -24,53 +24,44 @@ include "../models/user.php";
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
-    <<<<<<< HEAD <link rel="stylesheet" href="style.css">
-        =======
+    <link rel="stylesheet" href="style.css">
+    <style>
+    .btn-primary-login {
+        background-color: #ff7f00;
+        color: white;
+        border: none;
+    }
 
-        <style>
-        .btn-primary-login {
-            background-color: #ff7f00;
-            color: white;
-            border: none;
-        }
+    .btn-primary-login:hover {
+        background-color: #ff7f00;
+        border: none;
+    }
 
-        .btn-primary-login:hover {
-            background-color: #ff7f00;
-            border: none;
-        }
+    .color-regis {
+        color: #ff7f00;
+    }
 
-        .color-regis {
-            color: #ff7f00;
-        }
+    .mb-0 a {
+        color: #ff7f00;
+    }
 
-        .mb-0 a {
-            color: #ff7f00;
-        }
+    .form-check-input-change:checked {
+        border: #ff7f00;
+        background-color: #ff7f00;
+    }
 
-        .form-check-input-change:checked {
-            border: #ff7f00;
-            background-color: #ff7f00;
-        }
+    .text-end a {
+        color: #ff7f00;
+    }
 
-        .text-end a {
-            color: #ff7f00;
-        }
+    .images img {
+        width: 50%;
+    }
+    </style>
+    <title>Bootstrap 5 Admin Template</title>
+    <style>
 
-        .images img {
-            width: 50%;
-        }
-        </style>
-        >>>>>>> bcd72e30e7a0832b7cf48dfd6afe0b98c4e6a1a3
-        <title>Bootstrap 5 Admin Template</title>
-        <style>
-        .btn.btn-primary {
-            background-color: orange;
-            border: 1px solid orange;
-        }
-        </style>
-        <style>
-
-        </style>
+    </style>
 </head>
 
 <body class="bg-surface">

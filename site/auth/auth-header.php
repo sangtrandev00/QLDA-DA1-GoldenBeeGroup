@@ -1,14 +1,14 @@
 <style>
-    .nav-item a{
-        font-size: 16px;
-        font-weight: 500;
-    }
-    .dangnhap .bg-dangnhapp{
-        background-color: #fd7e00;
-        border: none;
-        color: white;
-    }
-    
+.nav-item a {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.dangnhap .bg-dangnhapp {
+    background-color: #fd7e00;
+    border: none;
+    color: white;
+}
 </style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white rounded-0 border-bottom">
