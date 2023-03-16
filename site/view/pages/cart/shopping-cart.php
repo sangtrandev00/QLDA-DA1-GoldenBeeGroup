@@ -60,7 +60,9 @@
                         <div class="tab-pane active" id="shopping-cart">
                             <div class="shopping-cart-content">
                                 <form action="#">
-                                    <div class="table-content table-responsive mb-50">
+
+                                    <div id="table-content-wrapper" class="table-content table-responsive mb-50">
+
                                         <table class="text-center">
                                             <thead>
                                                 <tr>
@@ -74,12 +76,17 @@
                                             <tbody>
                                                 <?php
 $cart_list = $_SESSION['giohang'];
-
+$i = 0;
+$subtotal = 0;
 foreach ($cart_list as $cart_item) {
     # code...
     $price_item = number_format($cart_item['don_gia']);
     $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
+    // echo $cart_item['sl'] * $cart_item['don_gia'];
+    $id = $cart_item['id'];
+    $delcartfunc = "handleDeleteCart($id)";
 
+    $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
     echo '
                                                         <!-- tr -->
                                                         <tr class="product-item__row">
@@ -102,18 +109,22 @@ foreach ($cart_list as $cart_item) {
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
-                                                                <td class="product-remove">
-                                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                                <td onclick="' . $delcartfunc . '" class="product-remove">
+                                                                    <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
                                                             </tr>
                                                         ';
+    $i++;
 }
 ?>
 
                                             </tbody>
                                         </table>
-                                    </div>
 
+                                    </div>
+                                    <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
+                                        thành công
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">
@@ -125,16 +136,17 @@ foreach ($cart_list as $cart_item) {
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="payment-details box-shadow p-30 mb-50">
+                                            <div id="paymentDetails" class="payment-details box-shadow p-30 mb-50">
                                                 <h6 class="widget-title border-left mb-20">Thanh toán chi tiết</h6>
                                                 <table>
                                                     <tr>
                                                         <td class="td-title-1">Tổng phụ đơn hàng</td>
-                                                        <td class="td-title-2">155.00 VND</td>
+                                                        <td class="td-title-2"><?php echo number_format($subtotal) ?>
+                                                            VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Chi phí vận chuyển</td>
-                                                        <td class="td-title-2">15.00 VND</td>
+                                                        <td class="td-title-2">00.00 VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Vat</td>
@@ -142,7 +154,8 @@ foreach ($cart_list as $cart_item) {
                                                     </tr>
                                                     <tr>
                                                         <td class="order-total">Tổng đơn hàng</td>
-                                                        <td class="order-total-price">170.00 VND</td>
+                                                        <td class="order-total-price">
+                                                            <?php echo number_format($subtotal) ?> VND</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -219,7 +232,9 @@ foreach ($cart_list as $cart_item) {
                                                         </a>
                                                     </td>
                                                     <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#cartModal"><i
+                                                                class="zmdi zmdi-close"></i></a>
                                                     </td>
                                                 </tr>
                                                 <!-- tr -->

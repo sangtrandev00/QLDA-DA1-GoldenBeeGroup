@@ -1,3 +1,22 @@
+<?php
+// if (!in_array('ob_gzhandler', ob_list_handlers())) {
+//     ob_start('ob_gzhandler');
+// } else {
+//     ob_start();
+// }
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
+
+// // var_dump($_SERVER);
+// if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
+//     echo "called directly";
+//     include "../DAO/category.php";
+// } else {
+//     echo "included/required";
+// }
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -41,10 +60,10 @@
     <![endif]-->
 
     <!-- Body main wrapper start -->
-    <div class="wrapper">
+    <div id="main" class="wrapper">
 
         <!-- START HEADER AREA -->
-        <header class="header-area header-wrapper">
+        <header id="header" class="header-area header-wrapper">
             <!-- header-top-bar -->
             <div class="header-top-bar plr-185">
                 <div class="container-fluid">
@@ -217,20 +236,29 @@ foreach ($cate_list as $cate_item) {
                                         </div>
                                     </div>
                                     <!-- total-cart -->
-                                    <div class="total-cart f-left">
+                                    <div id="topHeaderCart" class="total-cart f-left">
                                         <div class="total-cart-in">
 
 
                                             <div class="cart-toggler">
                                                 <a href="./index.php?act=viewcart">
-                                                    <span
-                                                        class="cart-quantity"><?php echo count($_SESSION['giohang']) ?></span><br>
+
+                                                    <?php
+$amount_carts = array_reduce($_SESSION['giohang'], function ($prev_value, $curr_val) {
+    // var_dump($prev_value);
+    // var_dump($curr_val['sl']);
+
+    return $curr_val['sl'] + $prev_value;
+}, 0);
+// echo $amount_carts;
+?>
+                                                    <span class="cart-quantity"><?php echo $amount_carts ?></span><br>
                                                     <span class="cart-icon">
                                                         <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                     </span>
                                                 </a>
                                             </div>
-                                            <ul class="top-cart-inner-wrapper">
+                                            <ul id="topCartInnerWrapper" class="top-cart-inner-wrapper">
                                                 <li>
                                                     <div class="top-cart-inner your-cart">
                                                         <h5 class="text-capitalize">Giỏ hàng của bạn</h5>
@@ -243,10 +271,13 @@ foreach ($cate_list as $cate_item) {
 $cart_list = $_SESSION['giohang'];
 // var_dump($cart_list);
 $total_cart = 0;
+$i = 0;
 foreach ($cart_list as $cart_item) {
     # code...
     $total_cart += $cart_item['sl'] * $cart_item['don_gia'];
     $price_item = number_format($cart_item['don_gia']);
+    $idcart = $cart_item['id'];
+    $delcartfunc = "handleDeleteCart($idcart)";
     echo '
                                                             <!-- single-cart -->
                                                                 <div class="single-cart clearfix">
@@ -256,7 +287,7 @@ foreach ($cart_list as $cart_item) {
                                                                                 alt="Cart Product" />
                                                                         </a>
                                                                         <div class="del-icon">
-                                                                            <a href="#">
+                                                                            <a onclick="' . $delcartfunc . '" href="./index.php?act=deletecart&idcart=">
                                                                                 <i class="zmdi zmdi-close"></i>
                                                                             </a>
                                                                         </div>
@@ -274,6 +305,7 @@ foreach ($cart_list as $cart_item) {
                                                                     </div>
                                                                 </div>
                                                             ';
+    $i++;
 }
 ?>
                                                     </div>

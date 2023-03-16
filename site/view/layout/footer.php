@@ -24,51 +24,32 @@
                                     <span class="old-price">£190.00</span>
                                 </div>
                             </div>
-                            <a href="single-product-left-sidebar.html" class="see-all">See all features</a>
+                            <a href="single-product-left-sidebar.html" class="see-all">Xem tất cả các thông tin</a>
                             <div class="quick-add-to-cart">
-                                <form method="post" class="cart">
+                                <form action="./index.php?act=addtocart" method="post" class="cart">
                                     <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="3" min="1">
+                                        <input type="number" name="sl" id="french-hens" value="1" min="1" max="10">
                                     </div>
-                                    <button class="single_add_to_cart_button" type="submit">Add to cart</button>
+                                    <input class="single_add_to_cart_button" name="addtocartbtn" type="submit"
+                                        value="Thêm vào giỏ hàng"></input>
+
+                                    <input type="hidden" name="id" value="" />
+                                    <input type="hidden" name="tensp" value="" />
+                                    <input type="hidden" name="hinh_anh" value="" />
+                                    <input type="hidden" name="danhmuc" value="" />
+                                    <input type="hidden" name="iddm" value="" />
+                                    <input type="hidden" name="don_gia" value="" />
+                                    <input type="hidden" name="mo_ta" value="">
+                                    <input type="hidden" name="giam_gia" value="">
                                 </form>
                             </div>
                             <div class="quick-desc">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
-                                est tristique auctor. Donec non est at libero.
+                                <p class="quick-desc__paragraph">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
+                                    est tristique auctor. Donec non est at libero.
+                                </p>
                             </div>
-                            <div class="social-sharing">
-                                <div class="widget widget_socialsharing_widget">
-                                    <h3 class="widget-title-modal">Share this product</h3>
-                                    <ul class="social-icons clearfix">
-                                        <li>
-                                            <a class="facebook" href="#" target="_blank" title="Facebook">
-                                                <i class="zmdi zmdi-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="google-plus" href="#" target="_blank" title="Google +">
-                                                <i class="zmdi zmdi-google-plus"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="twitter" href="#" target="_blank" title="Twitter">
-                                                <i class="zmdi zmdi-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="pinterest" href="#" target="_blank" title="Pinterest">
-                                                <i class="zmdi zmdi-pinterest"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="rss" href="#" target="_blank" title="RSS">
-                                                <i class="zmdi zmdi-rss"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+
                         </div><!-- .product-info -->
                     </div><!-- .modal-product -->
                 </div><!-- .modal-body -->
@@ -76,6 +57,35 @@
         </div><!-- .modal-dialog -->
     </div>
     <!-- END Modal -->
+
+
+    <!-- Cart Modal -->
+    <button type="button" id="cartModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#cartModal">
+        Launch demo modal
+    </button>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cartModalLabel">Cart Modal title</h1>
+                    <button type="button" class="btn-close main-color" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Nội dung ở đây!!!
+                </div>
+                <div class="modal-footer">
+                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                        <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
+                        <button type="button" class="btn btn-primary close-modal-btn"
+                            data-bs-dismiss="modal">Đóng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- END QUICKVIEW PRODUCT -->
 
@@ -83,7 +93,7 @@
 <footer id="footer" class="footer-area section">
     <div class="footer-top">
         <div class="container-fluid">
-            <div class="plr-185">
+            <div class="plr-150">
                 <div class="footer-top-inner gray-bg">
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-5">
@@ -267,8 +277,20 @@ if (isset($_GET['act'])) {
             break;
         case 'shop':
             # code...
+            echo '
+            <script src="assets/js/pages/shop.js"></script>
+        ';
             break;
-
+        case 'viewcart':
+        case 'deletecart':
+        case 'shoppingcart':
+        case 'checkout':
+        case 'addtocart':
+        case 'wishlist':
+            echo '
+                <script src="assets/js/pages/cart.js"></script>
+            ';
+            break;
         default:
             # code...
             echo '

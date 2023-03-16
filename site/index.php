@@ -10,9 +10,9 @@ if (!isset($_SESSION['giohang'])) {
     //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
     // ];
     $_SESSION['giohang'] = [
-        array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
-        array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
-        array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
+        array("id" => 10000, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
+        array("id" => 200001, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
+        array("id" => 400004, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
 
     // var_dump($_SESSION['giohang']);
@@ -123,18 +123,21 @@ if (isset($_GET['act'])) {
             if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) > 0) {
                 // template này có thể phải nhớ !!!
                 if (isset($_GET['idcart'])) {
+                    echo '<div class="alert alert-success" style="">Sản phẩm ' . $_SESSION['giohang'][$_GET['idcart']]['tensp'] . ' đã được xóa!</div>';
                     array_splice($_SESSION['giohang'], $_GET['idcart'], 1);
-                    echo '<div class="alert alert-success" style="">Xóa sản phẩm thành công</div>';
 
-                } else {
-                    unset($_SESSION['giohang']);
                 }
 
-                if (count($_SESSION['giohang']) > 0) {
-                    include "./view/shopcart-page.php";
-                } else {
-                    header('location: ./index.php');
-                }
+                // else {
+                //     unset($_SESSION['giohang']);
+                // }
+
+                // if (count($_SESSION['giohang']) > 0) {
+                include "./view/pages/cart/shopping-cart.php";
+                // header('location: ./index.php?act=viewcart');
+                // } else {
+                //     header('location: ./index.php');
+                // }
             }
 
             break;
@@ -162,18 +165,20 @@ if (isset($_GET['act'])) {
 
             $error = array();
             // Khi nút thanh toán được tồn tại và nó được click !!!
+            // echo "HELLO WORLD";
             if (isset($_POST['checkoutbtn']) && $_POST['checkoutbtn']) {
+                // echo "HELLO WORLD checkout";
                 // 1. Lấy dữ liệu
                 $iduser = $_SESSION['iduser'];
                 $tongdonhang = $_POST['tongdonhang'];
-                $hoten = $_POST['fullname'];
+                $hoten = $_POST['name'];
                 $diachi = $_POST['address'];
                 $email = $_POST['email'];
-                $sodienthoai = $_POST['phonenumber'];
+                $sodienthoai = $_POST['phone'];
                 $ghichu = $_POST['ghichu'];
                 $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
                 // Sinh ra mã đơn hàng
-                $madonhang = "YOURORDER" . random_int(2000, 9999999);
+                $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -187,26 +192,26 @@ if (isset($_GET['act'])) {
                 }
 
                 if (empty($sodienthoai)) {
-                    $error['sodienthoai'] = "Không để trống số điện thoại!";
+                    $error['phone'] = "Không để trống số điện thoại!";
                 }
 
                 if (empty($email)) {
                     $error['email'] = "Không để trống email";
                 }
                 if (empty($diachi)) {
-                    $error['diachi'] = "Không để trống địa chỉ";
+                    $error['address'] = "Không để trống địa chỉ";
                 }
 
                 if (!$error) {
                     // Trừ số lượng trong hàng tồn kho đi.
-                    $cartList = $_SESSION['giohang'];
-                    foreach ($cartList as $cartItem) {
+                    $cart_list = $_SESSION['giohang'];
+                    foreach ($cart_list as $cart_item) {
                         # code...
-                        $product = product_select_by_id($cartItem[0]);
+                        $product = product_select_by_id($cart_item['id']);
 
-                        $productQtyRemain = $product['ton_kho'] - $cartItem[4];
+                        $productQtyRemain = $product['ton_kho'] - $cart_item['sl'];
                         // echo "So luong con lai trong kho: " . $productQtyRemain;
-                        product_update_quantity($cartItem[0], $productQtyRemain);
+                        product_update_quantity($cart_item['id'], $productQtyRemain);
                     }
 
                     // 3. tạo đơn hàng và trả về một id đơn hàng
@@ -215,16 +220,15 @@ if (isset($_GET['act'])) {
                     if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                         foreach ($_SESSION['giohang'] as $item) {
                             # code...
-                            addtocart($iddh, $item[0], $item[1], $item[2], $item[3], $item[4]);
+                            addtocart($iddh, $item['id'], $item['tensp'], $item['hinh_anh'], $item['don_gia'], $item['sl']);
                         }
                         // Xóa đơn hàng sau khi add to cart (database)
-
                         unset($_SESSION['giohang']);
                         unset($_SESSION['iddh']);
                     }
-                    include "./view/detailorder-page.php";
+                    include "./view/pages/cart/order-completed.php";
                 } else {
-                    include "./view/checkout-page.php";
+                    include "./view/pages/cart/checkout.php";
                 }
             }
             break;
@@ -239,12 +243,15 @@ if (isset($_GET['act'])) {
 
                     $id = $_POST['id'];
                     // $productitem = get_one_product($id)[0];
-                    $iddm = $_POST['iddm'];
+                    // $iddm = $_POST['iddm'];
                     $tendanhmuc = $_POST['danhmuc'];
                     $tensp = $_POST['tensp'];
                     $hinh_anh = $_POST['hinh_anh'];
                     $don_gia = $_POST['don_gia'];
+                    $giam_gia = $_POST['giam_gia'];
 
+                    echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
                     // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
@@ -290,7 +297,7 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
                         // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;
@@ -324,7 +331,8 @@ if (isset($_GET['act'])) {
                     $tensp = $_POST['tensp'];
                     $hinh_anh = $_POST['hinh_anh'];
                     $don_gia = $_POST['don_gia'];
-
+                    $giam_gia = $_POST['giam_gia'];
+                    $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
                     // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
@@ -370,7 +378,7 @@ if (isset($_GET['act'])) {
                     }
 
                     if ($flag == 0) {
-                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $don_gia);
+                        $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
                         // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
                         // array_push($_SESSION['giohang'], $itemsp);
                         // $_SESSION['giohang'][] = $itemsp;

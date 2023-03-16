@@ -8,7 +8,7 @@
 
 -----------------------------------------------------------------------------------  */
  /*----------------------------------------------------------------------------------- 
-    
+  
   CSS INDEX
   ===================
 	
@@ -80,11 +80,26 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway:400,500,600,700|Roboto:400,500,700';
 
 
-
-
 /*************************************
   6. Custom-content all   
  **************************************/
+
+:root {
+  --main--color: #ff7f00;
+}
+
+.main-color {
+  color: var(--main--color);
+}
+
+.main-bg-color {
+  background-color: var(--main-color);
+}
+
+.border-color {
+  border: 1px 
+}
+
 .boxed-layout .wrapper {
     box-shadow: -3px 0 50px -2px rgba(0, 0, 0, 0.14);
     margin: auto;
@@ -777,7 +792,7 @@ transform: scale(1);
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 0;
-  padding: 115px 0 85px;
+  padding: 60px 0 30px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -1406,6 +1421,12 @@ table {width: 100%}
 .custom-textarea {
   height: 110px;
 }
+
+.custom-textarea.shipping-address {
+  height: 80px;
+}
+
+
 /* -------------------------------------
     11.4 Payment-method
 ------------------------------------- */

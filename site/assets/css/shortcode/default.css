@@ -838,8 +838,18 @@ textarea:focus {
   max-width: 96%;
   min-height: 300px;
   padding: 20px;
-  width: 870px;
+  width: 870px
 }
+
+#cartModal {
+  margin: 20% auto;
+  max-width: 100%;
+  min-height: 300px;
+  padding: 20px;
+  /* width: 870px; */
+}
+
+
 #quickview-wrapper .modal-content {
   border-radius: 0;
 }
@@ -854,6 +864,7 @@ textarea:focus {
   transition: all 0.3s ease 0s;
   z-index: 2;
 }
+
 #productModal button.close span {
   border: 1px solid #909295;
   border-radius: 60px;
@@ -865,7 +876,7 @@ textarea:focus {
   text-align: center;
   width: 30px;
 }
-#productModal button.close:hover {
+#productModal button.close:hover{
   opacity: 1;
 }
 .modal-product .product-images {
@@ -951,7 +962,14 @@ textarea:focus {
   color: #909295;
   margin-bottom: 10px;
   padding: 0 0 15px;
+
+ 
 }
+
+.quick-desc__paragraph {
+
+}
+
 .widget-title-modal {
   color: #42414f;
   font-size: 16px;

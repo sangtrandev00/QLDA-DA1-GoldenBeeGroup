@@ -16,6 +16,18 @@
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
+    <style>
+        .bg-guii{
+            background-color: #ff7f00;
+            border: none;
+        }
+        .bg-guii:hover{
+            background-color: #ff7f00;
+        }
+        .images img{
+            width: 80%;
+        }
+    </style>
 
     <title>Bootstrap 5 Admin Template</title>
 </head>
@@ -31,8 +43,8 @@
                 <div class="authentication-card">
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
-                            <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/forgot-password-frent-img.jpg"
+                            <div class="col-lg-6 d-flex align-items-center justify-content-center border-end images">
+                                <img src="../../admin/assets/images/error/forgot-password-img.png"
                                     class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-6">
@@ -48,7 +60,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
-                                                    <button type="submit" class="btn btn-primary radius-30">Gửi
+                                                    <button type="submit" class="btn btn-primary radius-30 bg-guii">Gửi
                                                     </button>
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại
                                                         đăng nhập</a>
