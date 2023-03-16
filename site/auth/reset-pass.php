@@ -25,6 +25,18 @@ include "../../DAO/user.php";
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
+    <style>
+        .bg-reset-pass{
+            background-color: #ff7f00;
+            border: none;
+        }
+        .bg-reset-pass:hover{
+            background-color: #ff7f00;
+        }
+        .images img{
+            width: 70%;
+        }
+    </style>
 
     <title>Bootstrap 5 Admin Template</title>
 </head>
@@ -44,8 +56,8 @@ include "./auth-header.php";
                 <div class="mt-4">
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
-                            <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/forgot-password-frent-img.jpg"
+                            <div class="col-lg-6 d-flex align-items-center justify-content-center border-end images">
+                                <img src="../../admin/assets/images/error/reset-pass.png"
                                     class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-6">
@@ -84,7 +96,7 @@ include "./auth-header.php";
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
                                                     <input type="submit" name="updatepassbtn"
-                                                        class="btn btn-primary radius-30" value="Thay đổi mật khẩu" />
+                                                        class="btn btn-primary radius-30 bg-reset-pass" value="Thay đổi mật khẩu" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại đăng
                                                         nhập</a>
                                                 </div>

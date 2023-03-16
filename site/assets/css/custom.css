@@ -36,8 +36,9 @@ ul.top-cart-inner-wrapper {
 
 /* Code here */
 
-/* Checkout page */
-
-.error-message {
-  /* padding-bottom: 0; */
+.box-banner-about{
+  background-color: #ff7f00;
+}
+.change-ul .ul-about{
+  background-color: #ff7f00;
 }

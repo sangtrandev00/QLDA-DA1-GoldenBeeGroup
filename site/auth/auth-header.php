@@ -1,3 +1,15 @@
+<style>
+    .nav-item a{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .dangnhap .bg-dangnhapp{
+        background-color: #fd7e00;
+        border: none;
+        color: white;
+    }
+    
+</style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white rounded-0 border-bottom">
         <div class="container">
@@ -59,9 +71,9 @@ include "../view/components/logo.php";
                         <a class="nav-link" href="javascript:;">Support</a>
                     </li>
                 </ul> -->
-                <div class="d-flex ms-3 gap-3">
-                    <a href="./login.php" class="btn btn-primary btn-sm px-4 radius-30">Đăng nhập</a>
-                    <a href="./signup.php" class="btn btn-white btn-sm px-4 radius-30">Đăng ký</a>
+                <div class="d-flex ms-3 gap-3 dangnhap">
+                    <a href="./login.php" class="btn btn-primary btn-m px-4 radius-30 bg-dangnhapp">Đăng nhập</a>
+                    <a href="./signup.php" class="btn btn-white btn-m px-4 radius-30">Đăng ký</a>
                 </div>
             </div>
         </div>

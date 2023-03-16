@@ -25,6 +25,21 @@ include "../../DAO/user.php";
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
+    <style>
+        .bg-dangky{
+            background-color: #ff7f00;
+            border: none;
+        }
+        .bg-dangky:hover{
+            background-color: #ff7f00;
+        }
+        .text-center a{
+            color: #ff7f00;
+        }
+        .images img{
+            width: 50%;
+        }
+    </style>
 
     <title>Bootstrap 5 Admin Template</title>
 </head>
@@ -44,8 +59,8 @@ include "./auth-header.php";
                     <div class="card rounded-0 overflow-hidden shadow-none bg-white border">
                         <div class="row g-0">
                             <div
-                                class="col-12 order-1 col-xl-8 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/auth-img-register3.png" class="img-fluid"
+                                class="col-12 order-1 col-xl-8 d-flex align-items-center justify-content-center border-end images bg-surface">
+                                <img src="../../admin/assets/images/error/auth-img-regis-3.png" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="col-12 col-xl-4 order-xl-2">
@@ -115,7 +130,7 @@ include "./auth-header.php";
                                             <div class="col-12">
                                                 <div class="d-grid">
                                                     <input type="submit" name="signupbtn"
-                                                        class="btn btn-primary radius-30" value="Đăng ký" />
+                                                        class="btn btn-primary radius-30 bg-dangky" value="Đăng ký" />
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center">

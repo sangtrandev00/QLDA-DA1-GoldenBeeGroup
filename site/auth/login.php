@@ -24,17 +24,53 @@ include "../models/user.php";
 
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
-    <title>Bootstrap 5 Admin Template</title>
-    <style>
-    .btn.btn-primary {
-        background-color: orange;
-        border: 1px solid orange;
-    }
-    </style>
-    <style>
+    <<<<<<< HEAD <link rel="stylesheet" href="style.css">
+        =======
 
-    </style>
+        <style>
+        .btn-primary-login {
+            background-color: #ff7f00;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary-login:hover {
+            background-color: #ff7f00;
+            border: none;
+        }
+
+        .color-regis {
+            color: #ff7f00;
+        }
+
+        .mb-0 a {
+            color: #ff7f00;
+        }
+
+        .form-check-input-change:checked {
+            border: #ff7f00;
+            background-color: #ff7f00;
+        }
+
+        .text-end a {
+            color: #ff7f00;
+        }
+
+        .images img {
+            width: 50%;
+        }
+        </style>
+        >>>>>>> bcd72e30e7a0832b7cf48dfd6afe0b98c4e6a1a3
+        <title>Bootstrap 5 Admin Template</title>
+        <style>
+        .btn.btn-primary {
+            background-color: orange;
+            border: 1px solid orange;
+        }
+        </style>
+        <style>
+
+        </style>
 </head>
 
 <body class="bg-surface">
@@ -49,15 +85,15 @@ include "./auth-header.php";
         <main class="authentication-content">
             <div class="container">
                 <div class="mt-4">
-                    <div class="card rounded-0 overflow-hidden shadow-none border mb-5 mb-lg-0">
+                    <div class="card rounded-0 overflow-hidden shadow-none mb-5 mb-lg-0">
                         <div class="row g-0">
                             <div
-                                class="col-12 order-1 col-xl-8 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/auth-img-7.png" class="img-fluid" alt="">
+                                class="col-12 order-1 col-xl-8 d-flex align-items-center justify-content-center border-end images">
+                                <img src="../../admin/assets/images/error/auth-img-1.png" class="img-fluid" alt="">
                             </div>
                             <div class="col-12 col-xl-4 order-xl-2">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h5 class="card-title">Đăng nhập</h5>
+                                    <h5 class="card-title dangnhap-title">Đăng nhập</h5>
                                     <p class="card-text mb-4">Đăng nhập tài khoản để tham gia vào cửa hàng</p>
                                     <form action="./login.php" class="form-body" method="POST">
 
@@ -88,9 +124,9 @@ include "./auth-header.php";
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="flexSwitchCheckChecked" checked="">
-                                                    <label class="form-check-label" for="flexSwitchCheckChecked">lưu
+                                                    <input class="form-check-input form-check-input-change"
+                                                        type="checkbox" id="flexSwitchCheckChecked" checked="">
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">Lưu
                                                         thông tin</label>
                                                 </div>
                                             </div>
@@ -99,7 +135,8 @@ include "./auth-header.php";
                                             <div class="col-12">
                                                 <div class="d-grid">
                                                     <input type="submit" name="loginbtn"
-                                                        class="btn btn-primary radius-30" value="Đăng nhập" />
+                                                        class="btn btn-primary radius-30 btn-primary-login"
+                                                        value="Đăng nhập" />
                                                 </div>
                                             </div>
                                             <!-- <div class="col-12">
