@@ -60,6 +60,11 @@
 
 
     <!-- Cart Modal -->
+    <button type="button" id="cartModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#cartModal">
+        Launch demo modal
+    </button>
+
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -72,8 +77,10 @@
                 </div>
                 <div class="modal-footer">
                     <form action="./index.php?act=deletecart&idcart=" method="post">
-                        <input type="submit" name="deletecartbtn" class="btn btn-secondary" value="Tiếp tục" />
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                        <input type="submit" name="deletecartbtn" class="btn btn-secondary continue-btn"
+                            value="Tiếp tục" />
+                        <button type="button" class="btn btn-primary close-modal-btn"
+                            data-bs-dismiss="modal">Đóng</button>
                     </form>
                 </div>
             </div>

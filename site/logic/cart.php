@@ -55,101 +55,105 @@ switch ($_GET['act']) {
         break;
     case 'deletecart':
         if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) > 0) {
-            // template này có thể phải nhớ !!!
-            if (isset($_GET['idcart'])) {
-                echo '<div class="alert alert-success" style="">Sản phẩm ' . $_SESSION['giohang'][$_GET['idcart']]['tensp'] . ' đã được xóa!</div>';
-                array_splice($_SESSION['giohang'], $_GET['idcart'], 1);
 
+            // var_dump($_POST);
+            $cart_list = $_SESSION['giohang'];
+            $idcart = $_POST['id'];
+            function filter_cart($item)
+        {
+                return $item['id'] != $_POST['id'];
             }
 
-            // else {
-            //     unset($_SESSION['giohang']);
-            // }
+            $result = array_filter($cart_list, "filter_cart");
+            // var_dump($result);
 
-            // if (count($_SESSION['giohang']) > 0) {
-            include "./view/pages/cart/shopping-cart.php";
-            // } else {
-            //     header('location: ./index.php');
-            // }
+            // UPDATE Giohang;
+            // $_SESSION['giohang'] = $result;
+            $header = include "./header.php";
+            $topcart = include "./topcart.php";
+            $table_cart = include "./table-cart.php";
+
+            // echo $header;
+            // echo $topcart;
+            // echo $table_cart;
+            $result = array('header' => $header, 'topcart' => $topcart, 'tablecart' => $table_cart);
+            echo json_encode($result);
+            // include "./table-cart.php";
+        } else {
+
         }
 
         break;
     case 'addtocart':
-        echo 'Add to cart demo using Ajax: ';
-        print_r($_POST);
-        // Handle logic cart here
-        echo $_POST['id'];
-        echo $_POST['sl'];
-        echo $_POST['danhmuc'];
-        $id = $_POST['id'];
-        $product_item = product_select_by_id($id);
-        var_dump($product_item);
+        if (isset($_SESSION['iduser'])) {
+            $id = $_POST['id'];
+            $product_item = product_select_by_id($id);
+            $tendanhmuc = $_POST['danhmuc'];
+            $tensp = $product_item['tensp'];
+            $hinh_anh = $_POST['hinh_anh'];
+            $don_gia = $product_item['don_gia'];
+            $giam_gia = $product_item['giam_gia'];
+            $gia_moi = $don_gia * (1 - $giam_gia / 100);
+            $sl = $_POST['sl'];
 
-        $tendanhmuc = $_POST['danhmuc'];
-        $tensp = $product_item['tensp'];
-        $hinh_anh = $_POST['hinh_anh'];
-        $don_gia = $product_item['don_gia'];
-        $giam_gia = $product_item['giam_gia'];
+            // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+            //     $sl = $_POST['cart_quantity'];
 
-        echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
-        $gia_moi = $don_gia * (1 - $giam_gia / 100);
-        $sl = $_POST['sl'];
+            //     $product = product_select_by_id($id);
+            //     if ($sl > $product['ton_kho']) {
+            //         $sl = $product['ton_kho'];
+            //         $GLOBALS['changed_cart'] = true;
+            //     }
 
-        // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
-        //     $sl = $_POST['cart_quantity'];
+            // } else {
+            //     $sl = 1;
+            // }
 
-        //     $product = product_select_by_id($id);
-        //     if ($sl > $product['ton_kho']) {
-        //         $sl = $product['ton_kho'];
-        //         $GLOBALS['changed_cart'] = true;
-        //     }
+            $flag = 0;
 
-        // } else {
-        //     $sl = 1;
-        // }
+            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+            // Nếu có chỉ cập nhất lại số lượng
 
-        $flag = 0;
+            // Ngược lại add mới sp vào giỏ hàng
 
-        // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
-        // Nếu có chỉ cập nhất lại số lượng
+            // Khởi tạo một mảng con trước khi đưa vào giỏ
 
-        // Ngược lại add mới sp vào giỏ hàng
+            $i = 0;
 
-        // Khởi tạo một mảng con trước khi đưa vào giỏ
+            foreach ($_SESSION['giohang'] as $itemsp) {
+                # code...
+                // var_dump($itemsp);
 
-        $i = 0;
+                if ($itemsp['id'] === $id) {
+                    $slnew = $sl + $itemsp['sl'];
 
-        foreach ($_SESSION['giohang'] as $itemsp) {
-            # code...
-            // var_dump($itemsp);
+                    // echo "So LUONG MOI: " . $slnew;
 
-            if ($itemsp['id'] === $id) {
-                $slnew = $sl + $itemsp['sl'];
+                    $_SESSION['giohang'][$i]['sl'] = $slnew;
+                    $flag = 1;
 
-                // echo "So LUONG MOI: " . $slnew;
+                    break;
+                }
 
-                $_SESSION['giohang'][$i]['sl'] = $slnew;
-                $flag = 1;
-
-                break;
+                $i++;
             }
 
-            $i++;
+            if ($flag == 0) {
+                $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
+                // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+                // array_push($_SESSION['giohang'], $itemsp);
+                // $_SESSION['giohang'][] = $itemsp;
+
+                $_SESSION['giohang'][] = $itemsp;
+
+            }
+
+            // echo $itemsp['tensp'];
+            $header = include "./header.php";
+            echo $header;
+        } else {
+            header('location: ./auth/login.php');
         }
-
-        if ($flag == 0) {
-            $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
-            // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
-            // array_push($_SESSION['giohang'], $itemsp);
-            // $_SESSION['giohang'][] = $itemsp;
-
-            $_SESSION['giohang'][] = $itemsp;
-
-        }
-
-        echo json_encode($_SESSION['giohang']);
-        // header('location: ./index.php');
-
         break;
     case 'checkout':
 

@@ -15,6 +15,54 @@
 // } else {
 //     echo "included/required";
 // }
+
+function connectdb()
+{
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=duan1_database", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // echo "Connected successfully";
+    } catch (PDOException $e) {
+        // echo "Connection failed: " . $e->getMessage();
+
+    }
+
+    return $conn;
+
+}
+
+function cate_select_all()
+{
+    $sql = "SELECT * FROM tbl_danhmuc";
+    return pdo_query($sql);
+
+}
+
+function cate_select_join_all()
+{
+    $sql = "SELECT * from tbl_danhmuc dm inner join tbl_danhmucphu dmp on dm.ma_danhmuc = dmp.iddm";
+    return pdo_query($sql);
+}
+
+function subcate_select_all_by_id($iddm)
+{
+    $sql = "SELECT * from tbl_danhmucphu where iddm = $iddm";
+    return pdo_query($sql);
+}
+
+function cate_select_by_id($ma_loai)
+{
+    $sql = "SELECT * FROM tbl_danhmuc WHERE ma_danhmuc=?";
+    return pdo_query_one($sql, $ma_loai);
+
+}
+
 ?>
 
 <!doctype html>
@@ -130,7 +178,7 @@ if (!isset($_SESSION['iduser'])) {
                                     <a href="index.php">
                                         <!-- <img src="assets/img/logo/logo.png" alt="main logo"> -->
                                         <?php
-include "./view/components/logo.php";
+// include "./view/components/logo.php";
 ?>
                                     </a>
                                 </div>
@@ -267,8 +315,6 @@ foreach ($cart_list as $cart_item) {
     # code...
     $total_cart += $cart_item['sl'] * $cart_item['don_gia'];
     $price_item = number_format($cart_item['don_gia']);
-    $idcart = $cart_item['id'];
-    $delcartfunc = "handleDeleteCart($idcart)";
     echo '
                                                             <!-- single-cart -->
                                                                 <div class="single-cart clearfix">
@@ -278,7 +324,7 @@ foreach ($cart_list as $cart_item) {
                                                                                 alt="Cart Product" />
                                                                         </a>
                                                                         <div class="del-icon">
-                                                                            <a onclick="' . $delcartfunc . '" href="./index.php?act=deletecart&idcart=">
+                                                                            <a href="./index.php?act=deletecart&idcart=">
                                                                                 <i class="zmdi zmdi-close"></i>
                                                                             </a>
                                                                         </div>

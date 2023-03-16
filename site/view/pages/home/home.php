@@ -229,7 +229,7 @@ foreach ($featured_products as $item) {
                                                 </li>
 
                                                 <li>
-                                                    <button onclick="' . $addcartfunc . '" class="add-to-cart" data-bs-toggle="modal" data-bs-target="#cartModal"  title="Add to cart"><i
+                                                    <button onclick="' . $addcartfunc . '" class="add-to-cart" title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                     <input type="submit" class="d-none" name="addtocartbtn" value="add to cart">
                                                 </li>

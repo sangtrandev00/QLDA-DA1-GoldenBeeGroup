@@ -60,7 +60,7 @@
                         <div class="tab-pane active" id="shopping-cart">
                             <div class="shopping-cart-content">
                                 <form action="#">
-                                    <div class="table-content table-responsive mb-50">
+                                    <div id="table-content-wrapper" class="table-content table-responsive mb-50">
                                         <table class="text-center">
                                             <thead>
                                                 <tr>
@@ -81,6 +81,8 @@ foreach ($cart_list as $cart_item) {
     $price_item = number_format($cart_item['don_gia']);
     $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
     // echo $cart_item['sl'] * $cart_item['don_gia'];
+    $id = $cart_item['id'];
+    $delcartfunc = "handleDeleteCart($id)";
 
     $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
     echo '
@@ -105,7 +107,7 @@ foreach ($cart_list as $cart_item) {
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
-                                                                <td class="product-remove">
+                                                                <td onclick="' . $delcartfunc . '" class="product-remove">
                                                                     <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
                                                             </tr>
