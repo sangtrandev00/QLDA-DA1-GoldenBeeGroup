@@ -250,7 +250,7 @@ if (isset($_GET['act'])) {
                     $don_gia = $_POST['don_gia'];
                     $giam_gia = $_POST['giam_gia'];
 
-                    echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
+                    // echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
                     $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 

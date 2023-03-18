@@ -331,7 +331,7 @@
                                                     <?php
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
-    echo $iduser;
+    // echo $iduser;
 }
 ?>
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
@@ -351,7 +351,7 @@ if (isset($_SESSION['iduser'])) {
                                                     <input type="text" name="company" value=""
                                                         placeholder="Tên công ty...">
 
-                                                    <select class="custom-select">
+                                                    <!-- <select class="custom-select">
                                                         <option value="defalt">country</option>
                                                         <option value="c-1">Australia</option>
                                                         <option value="c-2">Bangladesh</option>
@@ -371,7 +371,7 @@ if (isset($_SESSION['iduser'])) {
                                                         <option value="c-2">Chittagong</option>
                                                         <option value="c-3">Boston</option>
                                                         <option value="c-4">Cambridge</option>
-                                                    </select>
+                                                    </select> -->
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['address'])) {echo $error['address'];}?>
                                                     </p>
