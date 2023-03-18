@@ -58,7 +58,7 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                        <input type="text" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                        <input type="number" min="1" max="10" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
                                                                     </div>
                                                                 </td>
@@ -73,12 +73,13 @@ foreach ($cart_list as $cart_item) {
 ?>
 
                 </tbody>
-            </table>
 
+            </table>
+            <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
+                thành công
+            </div>
         </div>
-        <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
-            thành công
-        </div>
+
         <div class="row">
             <div class="col-md-6">
                 <div class="coupon-discount box-shadow p-30 mb-50">

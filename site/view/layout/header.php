@@ -93,10 +93,18 @@ if (isset($_SESSION['iduser'])) {
 }
 ?>
 
-                                    <li class="top-header-menu__item">
+                                    <li id="topWishlist" class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
                                             <i class="zmdi zmdi-favorite"></i>
-                                            Yêu thích (<?php echo count($_SESSION['wishlist']) ?> sp)
+                                            <?php
+$amount_wishlists = array_reduce($_SESSION['wishlist'], function ($prev_value, $curr_val) {
+    // var_dump($prev_value);
+    // var_dump($curr_val['sl']);
+
+    return $curr_val['sl'] + $prev_value;
+}, 0);
+?>
+                                            Yêu thích (<?php echo $amount_wishlists ?> sp)
                                         </a>
                                     </li>
                                     <?php

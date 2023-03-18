@@ -5,10 +5,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumbs-inner">
-                        <h1 class="breadcrumbs-title">Shopping Cart</h1>
+                        <h1 class="breadcrumbs-title">Giỏ hàng</h1>
                         <ul class="breadcrumb-list">
-                            <li><a href="index.html">Home</a></li>
-                            <li>Shopping Cart</li>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li>Giỏ hàng</li>
                         </ul>
                     </div>
                 </div>
@@ -119,12 +119,13 @@ foreach ($cart_list as $cart_item) {
 ?>
 
                                             </tbody>
-                                        </table>
 
+                                        </table>
+                                        <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
+                                            thành công
+                                        </div>
                                     </div>
-                                    <div id="notify-update-cart" class="alert alert-warning d-none">Xóa sản phẩm
-                                        thành công
-                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">

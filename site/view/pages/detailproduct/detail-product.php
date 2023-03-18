@@ -167,7 +167,7 @@ if ($product['ton_kho'] > 0) {
                                                         <label for="">Yêu thích</label>
                                                     </li>
                                                     <li class="text-center d-flex justify-content-center">
-                                                        <a onclick="handleAddCart('addtocart', 'addcart');"
+                                                        <a onclick="handleAddCart('addtocart', 'buynow');"
                                                             class="add-to-cart text-center" href="#" title="Add to cart"
                                                             tabindex="0"><i
                                                                 class="zmdi zmdi-shopping-cart-plus"></i></a>

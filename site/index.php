@@ -10,9 +10,9 @@ if (!isset($_SESSION['giohang'])) {
     //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
     // ];
     $_SESSION['giohang'] = [
-        array("id" => 10000, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
-        array("id" => 200001, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
-        array("id" => 400004, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
+        array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
+        array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
+        array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
 
     // var_dump($_SESSION['giohang']);
@@ -510,15 +510,16 @@ if (isset($_GET['act'])) {
         case 'updateaccount':
             $error = array();
             if (isset($_POST['updateacountinfobtn']) && $_POST['updateacountinfobtn']) {
-                $tai_khoan = $_POST['tai_khoan'];
+                // $tai_khoan = $_POST['tai_khoan'];
+
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
                 $email = $_POST['email'];
-                $target_dir = "content/";
-                $target_file = $target_dir . basename($_FILES["hinh_anh"]["name"]);
+                // $password = $_POST[''];
+                $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
-                move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], "../" . $target_file);
+                move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
 
                 // validate at server
 
@@ -547,48 +548,37 @@ if (isset($_GET['act'])) {
                     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
                 }
 
-                if (empty($tai_khoan)) {
-                    $error['tai_khoan'] = "Không để trống tài khoản!";
-                }
+                // if (empty($tai_khoan)) {
+                //     $error['tai_khoan'] = "Không để trống tài khoản!";
+                // }
 
                 if (!$error) {
-                    $is_updated = user_update_info($iduser, $tai_khoan, $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1);
+                    echo 'Success!';
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1);
 
                     if ($is_updated) {
-                        echo '<div class="p-3 bg-success">Chúc mừng bạn đã cập nhật người dùng thành công</div>';
+
                         echo '
                         <script>
-                        const collapseOneElement = document.getElementById("collapseOne");
-                        if(collapseOneElement) {
-                            collapseOneElement.classList.add("show");
-                            collapseOneElement.classList.remove("collapse");
-                        }
-                    </script>
+
+                        </script>
                         ';
                     } else {
 
                     }
                 } else {
+                    echo "Error: ";
                     echo '
-                    <script>
-                    const collapseOneElement = document.getElementById("collapseOne");
-                    const buttonOne = document.querySelector("#headingOne button");
-                    if(buttonOne) {
-                        buttonOne.classList.add("show");
-                        buttonOne.classList.remove("collapse");
-                    }
-                    if(collapseOneElement) {
-                        collapseOneElement.classList.add("show");
-                        collapseOneElement.classList.remove("collapse");
-                    }
-                </script>
+                        <script>
+                            $("#cartModal").trigger("click");
+                        </script>
                     ';
                 }
 
             } else {
 
             }
-            include "./view/account/updateacount-page.php";
+            include "./view/pages/account/my-account.php";
             break;
         case 'updatepass':
             $error = array();
