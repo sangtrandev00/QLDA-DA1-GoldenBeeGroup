@@ -49,6 +49,10 @@
     <!-- Style customizer (Remove these two lines please) -->
     <link rel="stylesheet" href="assets/css/style-customizer.css">
     <link href="#" data-style="styles" rel="stylesheet">
+    <!-- font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>

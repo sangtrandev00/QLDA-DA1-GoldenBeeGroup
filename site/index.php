@@ -723,7 +723,24 @@ if (isset($_GET['act'])) {
         case 'my-account':
             include "./view/auth/my-account.php";
             break;
-
+        case 'csbanhang':
+            include "./view/pages/policy/sales-policy.php";
+            break;
+        case 'csdoitra':
+            include "./view/pages/policy/return-policy.php";
+            break;
+        case 'csbaohanh':
+            include "./view/pages/policy/warranty-policy.php";
+            break;
+        case 'csbaomat':
+            include "./view/pages/policy/privacy-policy.php";
+            break;
+        case 'cssudung':
+            include "./view/pages/policy/usage-policy.php";
+            break;
+        case 'cskiemhang':
+            include "./view/pages/policy/inspection-policy.php";
+            break;
         default:
             include "./view/component/carousel.php";
             // include "./view/component/catalog.php";
