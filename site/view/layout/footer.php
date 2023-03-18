@@ -58,7 +58,6 @@
     </div>
     <!-- END Modal -->
 
-
     <!-- Cart Modal -->
     <button type="button" id="cartModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#cartModal">
@@ -87,7 +86,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
+    <!-- Button trigger modal orderDetail -->
     <button id="orderDetailModalBtn" type="button" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#orderDetailModal">
         Launch demo modal

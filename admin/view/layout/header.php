@@ -39,6 +39,8 @@
     <link rel="stylesheet" href="assets/plugins/bootstrap-select/css/bootstrap-select.css" />
     <!-- Custom Css -->
     <link rel="stylesheet" href="assets/css/blog.css">
+
+    <link rel="stylesheet" href="assets/css/main.css">
     <title>GoldenBeeGroup - Bootstrap 5 Admin Template</title>
 </head>
 
@@ -48,7 +50,7 @@
     <!--start wrapper-->
     <div class="wrapper">
         <!--start top header-->
-        <header class="top-header">
+        <!-- <header class="top-header">
             <nav class="navbar navbar-expand gap-3">
                 <div class="mobile-toggle-icon fs-3">
                     <i class="bi bi-list"></i>
@@ -169,10 +171,9 @@
                                         </a>
                                     </div>
                                 </div>
-                                <!--end row-->
                             </div>
-                        </li>
-                        <li class="nav-item dropdown dropdown-large">
+                        </li> -->
+        <!-- <li class="nav-item dropdown dropdown-large">
                             <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                                 data-bs-toggle="dropdown">
                                 <div class="messages">
@@ -547,5 +548,5 @@
                     </ul>
                 </div>
             </nav>
-        </header>
+        </header> -->
         <!--end top header-->

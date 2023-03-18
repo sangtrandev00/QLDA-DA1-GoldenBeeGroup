@@ -64,14 +64,14 @@ function delete_cate($id = 0)
 
 }
 
-function add_cate($catename)
+function add_cate($catename, $hinh_anh, $mo_ta)
 {
     try {
         $conn = connectdb();
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO tbl_danhmuc (ten_danhmuc)
-        VALUES ('$catename')";
+        $sql = "INSERT INTO tbl_danhmuc (ten_danhmuc, hinh_anh, mo_ta)
+        VALUES ('$catename', '$hinh_anh', '$mo_ta')";
         // use exec() because no results are returned
         $conn->exec($sql);
         return true;
