@@ -133,23 +133,22 @@
                                 <h4 class="footer-title border-left">Chính sách</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
+                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán hàng</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Quy định chung</span></a>
+                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi trả</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Điều khoản và sử
-                                                dụng</span></a>
+                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo hành</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Giới thiệu</span></a>
+                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Liên hệ</span></a>
+                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử dụng</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>FAQ</span></a>
+                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm hàng</span></a>
                                     </li>
                                 </ul>
                             </div>
