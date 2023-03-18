@@ -55,6 +55,8 @@ function handleAddCart (actionForm, logicType){
             const danhmuc = formElement.elements['danhmuc'].value;
             const hinh_anh = formElement.elements['hinh_anh'].value;
 
+
+            console.log(productId, sl, tensp, danhmuc, hinh_anh);
             // return;
             console.log('action: ', actionForm);
             console.log('logic type: ', logicType);
@@ -75,18 +77,27 @@ function handleAddCart (actionForm, logicType){
 
                     if(logicType == 'buynow') {
                         location.assign("index.php?act=viewcart");
+                        // console.log('go here buy now!');
+                        return;
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
+                            $.get('./logic/topwishlist.php', function(responseHtml) {
+                                console.log('res: ', responseHtml);
+
+                                $("#topWishlist").html(responseHtml);
+                            })
                             const cartModalBtn = document.getElementById("cartModalBtn");
 
                             console.log('cartModalBtn: ', cartModalBtn);
          
-                            $("#cartModallabel").text(`Đã thêm sản phẩm ${tensp} vào danh sách yêu thích`);
+                            $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào danh sách yêu thích`);
                             $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào danh sách yêu thích, Bạn có muốn vào xem danh sách yêu thích hay không ?`);
          
                             $("#cartModal input[name='actionbtn']").click(function(e) {
                              e.preventDefault();
-         
+                            
+
+
                             //  console.log('clicked to view cart');
          
                              location.assign("./index.php?act=wishlist");
@@ -95,32 +106,32 @@ function handleAddCart (actionForm, logicType){
 
                             return;
                     }else if(logicType == 'addcart') {
-
+                        console.log('res: ', responseHtml);
+                        // $("#header").html(responseHtml);
+                        $.get("./logic/topcart.php", function(responseHtml) {
+                            $("#topHeaderCart").html(responseHtml);
+                            // console.log('res: ', responseHtml);
+                        });
+    
+    
+                       const cartModalBtn = document.getElementById("cartModalBtn");
+    
+                       console.log('cartModalBtn: ', cartModalBtn);
+                        
+                    //    console.log('modalHeader: ', $("#cartModalLabel"))
+                       $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
+                       $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
+    
+                       $("#cartModal input[name='actionbtn']").click(function(e) {
+                        e.preventDefault();
+    
+                        location.assign("./index.php?act=viewcart");
+                       })
+                       cartModalBtn.click();
+               
                     }
 
-                    console.log('res: ', responseHtml);
-                    // $("#header").html(responseHtml);
-                    $.get("./logic/topcart.php", function(responseHtml) {
-                        $("#topHeaderCart").html(responseHtml);
-                        // console.log('res: ', responseHtml);
-                    });
-
-
-                   const cartModalBtn = document.getElementById("cartModalBtn");
-
-                   console.log('cartModalBtn: ', cartModalBtn);
-
-                   $("#cartModallabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
-                   $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
-
-                   $("#cartModal input[name='actionbtn']").click(function(e) {
-                    e.preventDefault();
-
-                    location.assign("./index.php?act=viewcart");
-                   })
-                   cartModalBtn.click();
-                    // $("#cartModal")
-                    // location.reload();
+                   
                 },
                 error: function(error) {
                     console.log('error: ', error);
@@ -141,8 +152,8 @@ function handleDeleteCart(idcart) {
     
     $("#cartModalBtn").trigger("click");
 
-    $("#cartModalLabel").text("Xóa sản phẩm khỏi giỏ hàng");
-    $("#cartModal .modal-body").text("Bạn có muốn xóa giỏ hàng hay không ? Có chọn tiếp tục không chọn đóng");
+    $("#cartModalLabel").text(`Xóa sản phẩm ${tensp} khỏi giỏ hàng`);
+    $("#cartModal .modal-body").text(`Bạn có muốn xóa sản phẩm ${tensp} giỏ hàng hay không ? Có chọn tiếp tục không chọn đóng`);
 
 
     $("#cartModal .continue-btn").click(function(e) {
@@ -172,14 +183,18 @@ function handleDeleteCart(idcart) {
                         // console.log('res: ', responseHtml);
                     });
 
-                    $.get('./logic/table-cart.php', function(reponseHtml) {
+                    $.get('./logic/shopping-cart-content.php', function(reponseHtml) {
                         console.log('html: ', reponseHtml);
-                        $("#table-content-wrapper").html(reponseHtml);
+                        $("#shopping-cart").html(reponseHtml);
+
+                        if($("#notify-update-cart").hasClass("d-none")) {
+                            $("#notify-update-cart").removeClass("d-none");
+                        } 
+                        $("#notify-update-cart").text(`Sản phẩm ${tensp} đã được xóa khỏi giỏ hàng!`);
                     })
 
-                    $("#notify-update-cart").removeClass("d-none");
-                    $("#notify-update-cart").text(`Sản phẩm ${tensp} đã được xóa khỏi giỏ hàng!`);
-
+                  
+                    // console.log('removed cart', $("#notify-update-cart"));
 
             },
             error: function(error) {
@@ -249,7 +264,7 @@ const zoomProductDetail = () => {
             formCartElements['don_gia'].value = don_gia;
             formCartElements['giam_gia'].value = giam_gia;
             formCartElements['mo_ta'].value = mo_ta;
-            formCartElements['addtocartbtn'].setAttribute('onclick', "handleAddCart('addtocart')");
+            formCartElements['addtocartbtn'].setAttribute('onclick', "handleAddCart('addtocart', 'addcart')");
             
             // console.log(modalImgElement, modalProductnameElement, modalProductpriceElement, modalProductoldpriceElement, modalProductQtyElement, modalProductDescElement)
         })

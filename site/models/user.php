@@ -123,3 +123,67 @@ function updatepass($iduser, $newpass)
 
     $conn = null;
 }
+
+function update_shipping_address($iduser, $shipping_address)
+{
+    try {
+        $conn = connectdb();
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "UPDATE tbl_nguoidung SET ship_address='$shipping_address'  WHERE id=" . $iduser;
+
+        // Prepare statement
+        $stmt = $conn->prepare($sql);
+
+        // execute the query
+        $stmt->execute();
+
+        // echo a message to say the UPDATE succeeded
+        return true;
+        echo $stmt->rowCount() . " records UPDATED successfully";
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $conn = null;
+}
+
+function user_get_by_id($iduser)
+{
+    $conn = connectdb();
+
+    $stmt = $conn->prepare("SELECT * FROM tbl_nguoidung WHERE id = '$iduser'");
+
+    $stmt->execute();
+
+    // return $kq;
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    return $kq;
+}
+
+function user_change_pass_by_id($iduser, $newpass)
+{
+    try {
+        $conn = connectdb();
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "UPDATE tbl_nguoidung SET mat_khau='$newpass'  WHERE id=" . $iduser;
+
+        // Prepare statement
+        $stmt = $conn->prepare($sql);
+
+        // execute the query
+        $stmt->execute();
+
+        // echo a message to say the UPDATE succeeded
+        return true;
+        echo $stmt->rowCount() . " records UPDATED successfully";
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+
+    $conn = null;
+}

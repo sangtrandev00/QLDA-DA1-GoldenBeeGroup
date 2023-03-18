@@ -328,20 +328,30 @@
                                             <!-- billing details -->
                                             <div class="col-md-6">
                                                 <div class="billing-details pr-10">
+                                                    <?php
+if (isset($_SESSION['iduser'])) {
+    $iduser = $_SESSION['iduser'];
+    // echo $iduser;
+}
+?>
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['hoten'])) {echo $error['hoten'];}?></p>
-                                                    <input type="text" name="name" placeholder="Tên của bạn ...">
+                                                    <input type="text" name="name" value=""
+                                                        placeholder="Tên của bạn ...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['email'])) {echo $error['email'];}?></p>
-                                                    <input type="text" name="email" placeholder="Địa chỉ email...">
+                                                    <input type="text" name="email" value=""
+                                                        placeholder="Địa chỉ email...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
-                                                    <input type="text" name="phone" placeholder="Số điện thoại...">
+                                                    <input type="text" name="phone" value=""
+                                                        placeholder="Số điện thoại...">
                                                     <p class="error-message text-danger mb-0"></p>
-                                                    <input type="text" name="company" placeholder="Tên công ty...">
+                                                    <input type="text" name="company" value=""
+                                                        placeholder="Tên công ty...">
 
-                                                    <select class="custom-select">
+                                                    <!-- <select class="custom-select">
                                                         <option value="defalt">country</option>
                                                         <option value="c-1">Australia</option>
                                                         <option value="c-2">Bangladesh</option>
@@ -361,14 +371,14 @@
                                                         <option value="c-2">Chittagong</option>
                                                         <option value="c-3">Boston</option>
                                                         <option value="c-4">Cambridge</option>
-                                                    </select>
+                                                    </select> -->
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['address'])) {echo $error['address'];}?>
                                                     </p>
                                                     <textarea name="address" class="custom-textarea shipping-address"
-                                                        placeholder="Địa chỉ của bạn..."></textarea>
+                                                        value="" placeholder="Địa chỉ của bạn..."></textarea>
                                                     <p class="error-message text-danger mb-0"></p>
-                                                    <textarea name="ghichu" class="custom-textarea mt-3"
+                                                    <textarea name="ghichu" class="custom-textarea mt-3" value=""
                                                         placeholder="Ghi chú cho người bán..."></textarea>
 
                                                 </div>

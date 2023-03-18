@@ -49,6 +49,10 @@
     <!-- Style customizer (Remove these two lines please) -->
     <link rel="stylesheet" href="assets/css/style-customizer.css">
     <link href="#" data-style="styles" rel="stylesheet">
+    <!-- font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -93,13 +97,23 @@ if (isset($_SESSION['iduser'])) {
 }
 ?>
 
-                                    <li class="top-header-menu__item">
+                                    <li id="topWishlist" class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
+
                                             <i class="zmdi zmdi-favorite"></i>
-                                            Yêu thích (<?php echo count($_SESSION['wishlist']) ?> sp)
+                                            <?php
+$amount_wishlists = array_reduce($_SESSION['wishlist'], function ($prev_value, $curr_val) {
+    // var_dump($prev_value);
+    // var_dump($curr_val['sl']);
+
+    return $curr_val['sl'] + $prev_value;
+}, 0);
+?>
+                                            Yêu thích (<?php echo $amount_wishlists ?> sp)
                                         </a>
                                     </li>
                                     <?php
+
 if (!isset($_SESSION['iduser'])) {
     echo '
                                             <li class="top-header-menu__item">
@@ -110,6 +124,7 @@ if (!isset($_SESSION['iduser'])) {
                                             </li>
                                             ';
 }
+
 ?>
 
 
@@ -158,7 +173,9 @@ foreach ($cate_list as $cate_item) {
                                                         </li>
 
                                                         <li>
-                                                            <a href="#">All <?php echo $cate_item['ten_danhmuc'] ?></a>
+                                                            <a
+                                                                href="./index.php?act=shop&cateid=<?php echo $cate_item['ma_danhmuc'] ?>">All
+                                                                <?php echo $cate_item['ten_danhmuc'] ?></a>
                                                         </li>
 
                                                         <?php
@@ -173,7 +190,7 @@ foreach ($cate_list as $cate_item) {
 
                                                         <li>
                                                             <a
-                                                                href="./index.php?act=shop&<?php echo $subcate_item['id'] ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
+                                                                href="./index.php?act=shop&subcateid=<?php echo $subcate_item['id'] ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
                                                         </li>
                                                         <?php
 # code...

@@ -26,19 +26,22 @@ include "../../DAO/user.php";
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-        .bg-dangky{
-            background-color: #ff7f00;
-            border: none;
-        }
-        .bg-dangky:hover{
-            background-color: #ff7f00;
-        }
-        .text-center a{
-            color: #ff7f00;
-        }
-        .images img{
-            width: 50%;
-        }
+    .bg-dangky {
+        background-color: #ff7f00;
+        border: none;
+    }
+
+    .bg-dangky:hover {
+        background-color: #ff7f00;
+    }
+
+    .text-center a {
+        color: #ff7f00;
+    }
+
+    .images img {
+        width: 50%;
+    }
     </style>
 
     <title>Bootstrap 5 Admin Template</title>
@@ -183,7 +186,7 @@ if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
 
     // Validate at server
 
-    echo $fullname, $password, $email, $reenterpass;
+    // echo $fullname, $password, $email, $reenterpass;
 
     if (strlen($fullname) == 0) {
         $error['fullname'] = "Không để trống họ tên!";
@@ -218,12 +221,14 @@ if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
     if (!$error) {
         $is_inserted = user_register($fullname, $email, $password);
 
-        echo 'Register successfully!';
+        // echo 'Register successfully!';
         // if ($is_inserted) {
         //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
         // }
         if ($is_inserted) {
             echo '<div class="alert alert-success">Sign up successfully</div>';
+
+            header('location: ./login.php');
         }
         // Send email to success account
     }

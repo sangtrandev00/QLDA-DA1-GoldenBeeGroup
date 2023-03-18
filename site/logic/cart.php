@@ -220,9 +220,7 @@ switch ($_GET['act']) {
 
             }
 
-            // echo $itemsp['tensp'];
-            // $header = include "./header.php";
-            // echo $header;
+            var_dump($_SESSION['giohang']);
         } else {
             header('location: ./auth/login.php');
         }
