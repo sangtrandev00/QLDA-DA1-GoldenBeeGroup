@@ -95,6 +95,7 @@ if (isset($_SESSION['iduser'])) {
 
                                     <li id="topWishlist" class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
+
                                             <i class="zmdi zmdi-favorite"></i>
                                             <?php
 $amount_wishlists = array_reduce($_SESSION['wishlist'], function ($prev_value, $curr_val) {
@@ -108,6 +109,7 @@ $amount_wishlists = array_reduce($_SESSION['wishlist'], function ($prev_value, $
                                         </a>
                                     </li>
                                     <?php
+
 if (!isset($_SESSION['iduser'])) {
     echo '
                                             <li class="top-header-menu__item">
@@ -118,6 +120,7 @@ if (!isset($_SESSION['iduser'])) {
                                             </li>
                                             ';
 }
+
 ?>
 
 
@@ -166,7 +169,9 @@ foreach ($cate_list as $cate_item) {
                                                         </li>
 
                                                         <li>
-                                                            <a href="#">All <?php echo $cate_item['ten_danhmuc'] ?></a>
+                                                            <a
+                                                                href="./index.php?act=shop&cateid=<?php echo $cate_item['ma_danhmuc'] ?>">All
+                                                                <?php echo $cate_item['ten_danhmuc'] ?></a>
                                                         </li>
 
                                                         <?php
@@ -181,7 +186,7 @@ foreach ($cate_list as $cate_item) {
 
                                                         <li>
                                                             <a
-                                                                href="./index.php?act=shop&<?php echo $subcate_item['id'] ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
+                                                                href="./index.php?act=shop&subcateid=<?php echo $subcate_item['id'] ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
                                                         </li>
                                                         <?php
 # code...

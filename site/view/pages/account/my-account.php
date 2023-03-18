@@ -1,6 +1,8 @@
 <?php
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
+    $user_info = user_select_by_id($iduser);
+    // var_dump($user_info);
 }
 ?>
 
@@ -160,8 +162,9 @@ if (isset($_SESSION['iduser'])) {
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                             <div class="card-body">
-                                <form action="./index.php?act=updateshippingaddress" method="POST"
-                                    enctype="multipart/form-data">
+                                <?php ?>
+                                <form onsubmit="updateShippingAddress(<?php echo $iduser ?>);"
+                                    action="./index.php?act=updateshippingaddress" method="POST">
                                     <div class="new-customers p-30">
                                         <!-- <div class="col-md-12">
                                             <input type="text" placeholder="Họ và tên">
@@ -169,7 +172,8 @@ if (isset($_SESSION['iduser'])) {
                                         <input type="text" placeholder="Số điện thoại...">
                                         <input type="text" placeholder="Tên công ty của bạn...">
                                         <input type="text" placeholder="Địa chỉ email..."> -->
-                                        <textarea class="custom-textarea" placeholder="Địa chỉ gửi hàng..."></textarea>
+                                        <textarea name="shippingaddress" class="custom-textarea"
+                                            placeholder="Địa chỉ gửi hàng..."><?php echo $user_info['ship_address'] ?></textarea>
                                         <!-- <textarea class="custom-textarea"
                                             placeholder="Thêm tin nhắn cho cửa hàng..."></textarea> -->
                                         <div class="row">
@@ -199,11 +203,11 @@ if (isset($_SESSION['iduser'])) {
                         <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                             data-bs-parent="#accordion">
                             <div class="card-body">
-                                <form action="#">
+                                <form onsubmit="changePassword(<?php echo $iduser ?>)" action="#">
                                     <div class="p-30">
-                                        <input type="password" placeholder="Mật khẩu cũ...">
-                                        <input type="password" placeholder="Mật khẩu mới...">
-                                        <input type="password" placeholder="Xác nhận mật khẩu mới...">
+                                        <input name="oldpass" type="password" placeholder="Mật khẩu cũ...">
+                                        <input name="newpass" type="password" placeholder="Mật khẩu mới...">
+                                        <input name="renewpass" type="password" placeholder="Xác nhận mật khẩu mới...">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
@@ -259,7 +263,7 @@ if (isset($_SESSION['iduser'])) {
 
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
-    $cart_list = getShowCartGroupbyOrder(11);
+    $cart_list = getShowCartGroupbyOrder($iduser);
     //var_dump($cart_list);
     foreach ($cart_list as $cart_item) {
         $trangthai = "Đã xác nhận";

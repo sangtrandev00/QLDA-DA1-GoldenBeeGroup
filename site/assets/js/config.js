@@ -264,7 +264,7 @@ const zoomProductDetail = () => {
             formCartElements['don_gia'].value = don_gia;
             formCartElements['giam_gia'].value = giam_gia;
             formCartElements['mo_ta'].value = mo_ta;
-            formCartElements['addtocartbtn'].setAttribute('onclick', "handleAddCart('addtocart')");
+            formCartElements['addtocartbtn'].setAttribute('onclick', "handleAddCart('addtocart', 'addcart')");
             
             // console.log(modalImgElement, modalProductnameElement, modalProductpriceElement, modalProductoldpriceElement, modalProductQtyElement, modalProductDescElement)
         })

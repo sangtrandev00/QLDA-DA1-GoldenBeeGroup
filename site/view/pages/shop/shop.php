@@ -53,7 +53,7 @@
                             </div>
                             <!-- showing -->
                             <div class="showing f-right text-end">
-                                <span>Showing : 01-09 of 17.</span>
+                                <span>Kết quả : 01-09 of 17 sản phẩm</span>
                             </div>
                         </div>
                         <!-- shop-option end -->
@@ -63,7 +63,27 @@
                             <div id="grid-view" class="tab-pane active show" role="tabpanel">
                                 <div class="row">
                                     <?php
+
 $product_list = product_select_all();
+
+if (isset($_GET['cateid'])) {
+    $cate_id = $_GET['cateid'];
+    $product_list = array_filter($product_list, function ($product_item) {
+        global $cate_id;
+        return $product_item['ma_danhmuc'] == $cate_id;
+    });
+}
+if (isset($_GET['subcateid'])) {
+    $subcate_id = $_GET['subcateid'];
+    $product_list = array_filter($product_list, function ($product_item) {
+        global $subcate_id;
+
+        return $product_item['id_dmphu'] == $subcate_id;
+    });
+
+}
+
+// $product_list = product_select_all();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -147,7 +167,7 @@ foreach ($product_list as $item) {
                             <div id="list-view" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <?php
-$product_list = product_select_all();
+
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -247,16 +267,20 @@ $cate_list = cate_select_all();
 foreach ($cate_list as $cate_item) {
 
     ?>
-                                <li class="open"><a href="#"><?php echo $cate_item['ten_danhmuc'] ?></a>
+                                <li class="open"><a
+                                        href="./index.php?act=shop&cateid=<?php echo $cate_item['ma_danhmuc'] ?>"><?php echo $cate_item['ten_danhmuc'] ?></a>
                                     <?php
 $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
     foreach ($subcate_list as $subcate_item) {
         # code...]
+        // echo $subcate_item['id'];
         ?>
                                     <ul>
 
 
-                                        <li><a href="#"><?php echo $subcate_item['ten_danhmucphu'] ?></a></li>
+                                        <li><a
+                                                href="./index.php?act=shop&subcateid=<?php echo $subcate_item['id']; ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
+                                        </li>
                                         <!-- <li><a href="#">Tab</a></li>
                                                 <li><a href="#">Watch</a></li>
                                                 <li><a href="#">Head Phone</a></li>
