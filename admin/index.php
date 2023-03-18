@@ -13,6 +13,7 @@ include "../DAO/product.php";
 include "../DAO/user.php";
 include "../DAO/comment.php";
 include "../DAO/report.php";
+include "../DAO/blog.php";
 
 // HEADER SECTION
 include "./view/layout/header.php";
@@ -543,7 +544,14 @@ if (isset($_GET['act'])) {
         case 'addblog':
             include "./view/pages/blogs/add-blog.php";
             break;
-
+        case 'bloglist':
+            include "./view/pages/blogs/blog-list.php";
+            break;
+        case 'deleteblog':
+            
+        case 'blogcate':
+            include "./view/pages/blogs/blog-cate.php";
+            break;
         default:
             // if (isset($_SESSION['iduser'])) {
             include "./view/pages/dashboard/dashboard.php";

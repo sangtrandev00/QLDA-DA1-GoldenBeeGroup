@@ -110,6 +110,8 @@
         <ul class="">
             <li> <a href="index.php?act=bloglist"><i class="bi bi-circle"></i>Blogs List</a>
             </li>
+            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Categories Blogs</a>
+            </li>
             <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Add New Blog</a>
             </li>
         </ul>
