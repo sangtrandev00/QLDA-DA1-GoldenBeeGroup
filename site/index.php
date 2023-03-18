@@ -38,12 +38,14 @@ include "../DAO/category.php";
 include "../DAO/product.php";
 include "../DAO/user.php";
 include "../DAO/comment.php";
+include "../DAO/blog.php";
 
 // Model to connect database
 include "./models/connectdb.php";
 include "./models/sanpham.php";
 include "./models/user.php";
 include "./models/donhang.php";
+include "./models/blog-cate.php";
 
 // Header
 include "./view/layout/header.php";
