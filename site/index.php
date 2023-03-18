@@ -440,7 +440,9 @@ if (isset($_GET['act'])) {
 
             break;
         case 'signup':
+
             $error = array();
+
             if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
                 $fullname = $_POST['fullname'];
                 $homeaddress = $_POST['address'];
@@ -488,13 +490,14 @@ if (isset($_GET['act'])) {
                     //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
                     // }
                     if ($is_inserted) {
-                        echo '<div class="alert alert-success">Sign up successfully</div>';
+                        // echo '<div class="alert alert-success">Sign up successfully</div>';
+                        header("location: ./login.php");
                     }
                     // Send email to success account
                 }
 
             }
-            include "./view/auth/signup.php";
+            // include "./view/auth/signup.php";
             break;
         case 'login':
             include "./view/auth/login.php";
