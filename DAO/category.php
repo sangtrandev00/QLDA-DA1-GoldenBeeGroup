@@ -1,18 +1,19 @@
 <?php
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "/PRO1014_DA1/main-project/";
 
-require_once "../pdo-library.php";
+include $ROOT_URL . "pdo-library.php";
 
-function cate_insert($ten_loai)
+function cate_insert($ten_loai, $hinh_anh, $mo_ta)
 {
-    $sql = "INSERT INTO tbl_danhmuc(ten_danhmuc) VALUES(?)";
-    pdo_execute($sql, $ten_loai);
-
+    $sql = "INSERT INTO tbl_danhmuc(ten_danhmuc, hinh_anh, mo_ta) VALUES(?,?,?)";
+    pdo_execute($sql, $ten_loai, $hinh_anh, $mo_ta);
+    return true;
 }
 
-function cate_update($ma_loai, $ten_danhmuc)
+function cate_update($ma_loai, $ten_danhmuc, $hinh_anh, $mo_ta)
 {
-    $sql = "UPDATE tbl_danhmuc SET ten_danhmuc=? WHERE ma_danhmuc=?";
-    pdo_execute($sql, $ten_danhmuc, $ma_loai);
+    $sql = "UPDATE tbl_danhmuc SET ten_danhmuc=?, hinh_anh = ?, mo_ta = ? WHERE ma_danhmuc=?";
+    pdo_execute($sql, $ten_danhmuc, $hinh_anh, $mo_ta, $ma_loai);
 
 }
 
@@ -32,6 +33,12 @@ function cate_delete($ma_loai)
 function cate_select_all()
 {
     $sql = "SELECT * FROM tbl_danhmuc";
+    return pdo_query($sql);
+
+}
+function subcate_select_all()
+{
+    $sql = "SELECT * FROM tbl_danhmucphu";
     return pdo_query($sql);
 
 }

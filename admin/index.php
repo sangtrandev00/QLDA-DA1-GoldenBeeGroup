@@ -192,41 +192,59 @@ if (isset($_GET['act'])) {
             $error = array();
             if (isset($_POST['addcatebtn']) && $_POST['addcatebtn']) {
                 $cate_name = $_POST['catename'];
-                $cate_image = $_POST['cateimage'];
+                // $cate_image = $_FILES['cateimage'];
                 $cate_parent = $_POST['cateparent'];
                 $cate_desc = $_POST['catedesc'];
 
+                // echo $cate_name, $cate_desc, $cate_desc;
+                $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
+
+                $image_file = $_FILES['cateimage'];
+
+                move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
                 // Validate form by server
-                if (empty($catename)) {
-                    $error['catename'] = "Không để trống tên danh mục";
-                }
+                // if (empty($catename)) {
+                //     $error['catename'] = "Không để trống tên danh mục";
+                // }
 
-                if (cate_exist_by_name($catename)) {
-                    echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
+                // if (cate_exist_by_name($catename)) {
+                //     echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
+                // }
+                // else {
+
+                $is_added = cate_insert($cate_name, $image_file['name'], $cate_desc);
+                if ($is_added) {
+                    echo 'successfully!';
+                    // echo '<div class="bg-success text-white p-2">Add category successully</div>';
                 } else {
-
-                    $is_added = add_cate($catename);
-                    if ($is_added) {
-                        echo '<div class="bg-success text-white p-2">Add category successully</div>';
-                    } else {
-                        echo "Add category failed";
-                    }
+                    echo "Add category failed";
                 }
+                // }
 
             }
 
             include "./view/pages/categories/cate-list.php";
             break;
         case 'editcate':
-            include "./view/cate/editcate-page.php";
+            include "./view/pages/categories/cate-list.php";
             break;
         case 'updatecate':
 
             $error = array();
 
             if (isset($_POST['editcatebtn']) && $_POST['editcatebtn']) {
-                $madanhmuc = $_POST['madanhmuc'];
+                $madanhmuc = $_GET['id'];
                 $tendanhmuc = $_POST['catename'];
+
+                $cate_parent = $_POST['cateparent'];
+                $cate_desc = $_POST['catedesc'];
+
+                // echo $cate_name, $cate_desc, $cate_desc;
+                $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
+
+                $hinh_anh = $_FILES['cateimage'];
+
+                move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
                 // echo $tendanhmuc;
                 if (empty($tendanhmuc)) {
                     $error['catename'] = "Không để trống tên danh mục";
@@ -235,20 +253,23 @@ if (isset($_GET['act'])) {
                         echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
                     } else {
 
-                        cate_update($madanhmuc, $tendanhmuc);
-                        echo '<div class="bg-success text-white p-2">Add category successully</div>';
+                        cate_update($madanhmuc, $tendanhmuc, $hinh_anh['name'], $cate_desc);
+                        echo 'UPdate successfully';
+                        // echo '<div class="bg-success text-white p-2">Add category successully</div>';
                     }
                 }
 
             }
 
-            include "./view/cate/editcate-page.php";
+            include "./view/pages/categories/cate-list.php";
             break;
         case 'deletecate':
             if (isset($_GET['id'])) {
                 $madanhmuc = $_GET['id'];
                 cate_delete($madanhmuc);
-                header("location: ./index.php?act=catelist");
+                // header("location: ./index.php?act=catelist");
+                // echo "successfully!";
+                include "./view/pages/categories/cate-list.php";
             }
             break;
         case 'catelist':

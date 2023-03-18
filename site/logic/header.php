@@ -144,7 +144,7 @@ if (isset($_SESSION['iduser'])) {
 }
 ?>
 
-                                    <li class="top-header-menu__item">
+                                    <li id="topWishlist" class="top-header-menu__item">
                                         <a href="index.php?act=wishlist">
                                             <i class="zmdi zmdi-favorite"></i>
                                             Yêu thích (<?php echo count($_SESSION['wishlist']) ?> sp)
@@ -334,7 +334,7 @@ foreach ($cart_list as $cart_item) {
                                                                     </div>
                                                                     <div class="cart-info f-left">
                                                                         <h6 class="text-capitalize text-truncate" style="max-width: 200px;">
-                                                                            <a href="#">' . $cart_item['tensp'] . '</a>
+                                                                            <a href="./index.php?act=detailproduct&id=' . $cart_item['id'] . '">' . $cart_item['tensp'] . '</a>
                                                                         </h6>
                                                                         <p>
                                                                             <span>Sl <strong>:</strong></span>' . $cart_item['sl'] . '

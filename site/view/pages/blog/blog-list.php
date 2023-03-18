@@ -39,16 +39,21 @@
                             <div class="dropdown-menu dropdown-width mt-30">
                                 <aside class="widget widget-categories box-shadow">
                                     <h6 class="widget-title border-left mb-20">Categories</h6>
+                                    <?php
+                                        $list_catename_blog = get_all_catename_blog();
+                                        foreach ($list_catename_blog as $items) {
+                                            extract($items);
+                                        
+                                    ?>
                                     <div id="cat-treeview" class="product-cat">
                                         <ul>
-                                            <li class="closed"><a href="#">Thủ thuật</a>
-                                            </li>
-                                            <li class="closed"><a href="#">Tin tức điện thoại</a>
-                                            </li>
-                                            <li class="closed"><a href="#">Hướng dẫn</a>
+                                            <li class="closed"><a href="#"><?php echo $items['blog_catename']?></a>
                                             </li>
                                         </ul>
                                     </div>
+                                    <?php
+                                    }
+                                    ?>
                                 </aside>
                             </div>
                         </div>
@@ -136,132 +141,50 @@
             </div>
             <div class="row">
                 <!-- blog-item start -->
-                <div class="col-md-6">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-image">
-                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
-                                            alt="blog-post-thumbnail-1.jpg"></a>
+                <?php 
+                    $list_blog = get_all_list_blog();
+                    // var_dump($list_blog);
+                    foreach ($list_blog as $blog) {
+                        extract($blog);
+                        $image_list = explode(',', $blog['images']);
+                        foreach ($image_list as $image_item) {
+
+                            if (substr($image_item, 0, 6) == "thumb-") {
+                                // echo $image_item;
+                                $thumbnail = "../uploads/" . $image_item;
+                                break;
+                            }
+                        }
+                        $conten = substr($blog['noi_dung'],0,100);
+
+                        echo '<div class="col-md-6 boder">
+                        <div class="blog-item-2">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="blog-image">
+                                        <a href="index.php?act=blogdetail&id='.$blog_id.'"><img src="'.$thumbnail.'"
+                                                alt="'.$thumbnail.'"></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
-                                    </h5>
-                                    <p>There are many variations of passages of in psum available, but the
-                                        majority have sufe ered on in some form...</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more</a>
+                                <div class="col-lg-6">
+                                    <div class="blog-desc">
+                                        <h5 class="blog-title-2"><a href="index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a>
+                                        </h5>
+                                        <p class="conten_blog">'.$conten.'...</p>
+                                        <div class="read-more">
+                                            <a href="index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                ?>
+                
                 <!-- blog-item end -->
                 <!-- blog-item start -->
-                <div class="col-md-6">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-image">
-                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-2.jpg"
-                                            alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
-                                    </h5>
-                                    <p>There are many variations of passages of in psum available, but the
-                                        majority have sufe ered on in some form...</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-md-6">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-image">
-                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
-                                            alt="blog-post-thumbnail-1.jpg"></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
-                                    </h5>
-                                    <p>There are many variations of passages of in psum available, but the
-                                        majority have sufe ered on in some form...</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-md-6">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-image">
-                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-2.jpg"
-                                            alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
-                                    </h5>
-                                    <p>There are many variations of passages of in psum available, but the
-                                        majority have sufe ered on in some form...</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-md-6">
-                    <div class="blog-item-2">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-image">
-                                    <a href="./index.php?act=blogdetail"><img src="../uploads/blog-post-thumbnail-1.jpg"
-                                            alt="blog-post-thumbnail-1.jpg"></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title-2"><a href="./index.php?act=blogdetail">dummy Blog name</a>
-                                    </h5>
-                                    <p>There are many variations of passages of in psum available, but the
-                                        majority have sufe ered on in some form...</p>
-                                    <div class="read-more">
-                                        <a href="#">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- blog-item end -->
-                <!-- blog-item start -->
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div class="blog-item-2">
                         <div class="row">
                             <div class="col-lg-6">
@@ -283,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- blog-item end -->
             </div>
         </div>

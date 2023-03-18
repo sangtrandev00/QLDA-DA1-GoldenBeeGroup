@@ -156,9 +156,9 @@ if ($product['ton_kho'] > 0) {
                                             </a>
                                             <div class="sin-pro-action f-right mr-100">
                                                 <ul class="action-button">
-                                                    <li class="text-center d-flex justify-content-center">
+                                                    <li class="text-center d-flex justify-content-center mb-3">
                                                         <a onclick="handleAddCart('addtowishlist', 'addwishlist')"
-                                                            class="add-to-wishlist text-center" href="#"
+                                                            class="add-to-wishlist text-center mr-10" href="#"
                                                             title="Wishlist" tabindex="0"><i
                                                                 class="zmdi zmdi-favorite"></i></a>
                                                         <input type="submit"
@@ -166,10 +166,10 @@ if ($product['ton_kho'] > 0) {
                                                             name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
                                                         <label for="">Yêu thích</label>
                                                     </li>
-                                                    <li class="text-center d-flex justify-content-center">
+                                                    <li class="text-center d-flex justify-content-center mb-3">
                                                         <a onclick="handleAddCart('addtocart', 'addcart');"
-                                                            class="add-to-cart text-center" href="#" title="Add to cart"
-                                                            tabindex="0"><i
+                                                            class="add-to-cart text-center mr-10" href="#"
+                                                            title="Add to cart" tabindex="0"><i
                                                                 class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                         <input type="submit" class="d-none" name="addtocartbtn"
                                                             value="add to cart">

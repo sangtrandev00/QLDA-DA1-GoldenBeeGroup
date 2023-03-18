@@ -58,7 +58,6 @@
     </div>
     <!-- END Modal -->
 
-
     <!-- Cart Modal -->
     <button type="button" id="cartModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
         data-bs-target="#cartModal">
@@ -82,6 +81,32 @@
                         <button type="button" class="btn btn-primary close-modal-btn"
                             data-bs-dismiss="modal">Đóng</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal orderDetail -->
+    <button id="orderDetailModalBtn" type="button" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#orderDetailModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="orderDetailModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -133,23 +158,22 @@
                                 <h4 class="footer-title border-left">Chính sách</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
+                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán hàng</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Quy định chung</span></a>
+                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi trả</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Điều khoản và sử
-                                                dụng</span></a>
+                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo hành</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Giới thiệu</span></a>
+                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>Liên hệ</span></a>
+                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử dụng</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="zmdi zmdi-circle"></i><span>FAQ</span></a>
+                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm hàng</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -269,6 +293,11 @@
 <?php
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
+        case 'settingaccount':
+            echo '
+                <script src="assets/js/pages/account.js"></script>
+            ';
+            break;
         case 'detailproduct':
             # code...
             echo '

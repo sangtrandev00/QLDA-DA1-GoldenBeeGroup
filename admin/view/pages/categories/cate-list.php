@@ -39,7 +39,8 @@
                  <div class="col-12 col-lg-4 d-flex">
                      <div class="card border shadow-none w-100">
                          <div class="card-body">
-                             <form action="./index.php?act=addcate" method="POST" class="row g-3 form-cate">
+                             <form id="cate-form" action="./index.php?act=addcate" method="POST"
+                                 class="row g-3 form-cate" enctype="multipart/form-data">
                                  <div class="col-12">
                                      <label class="form-label">Tên danh mục</label>
                                      <input type="text" class="form-control" name="catename" placeholder="Tên danh mục">
@@ -71,13 +72,13 @@ foreach ($cate_list as $cate_item) {
                                  </div>
                                  <div class="col-12">
                                      <label class="form-label" name="catedesc">Mô tả</label>
-                                     <textarea class="form-control" rows="3" cols="3"
+                                     <textarea name="catedesc" class="form-control" rows="3" cols="3"
                                          placeholder="Mô tả danh mục"></textarea>
                                  </div>
                                  <div class="col-12">
                                      <div class="d-grid">
-                                         <input type="submit" name="addcatebtn" class="btn btn-primary"
-                                             value="Thêm danh mục" />
+                                         <input type="submit" name="addcatebtn"
+                                             class="btn btn-primary submit-action-btn" value="Thêm danh mục" />
                                      </div>
                                  </div>
                              </form>
@@ -118,15 +119,15 @@ foreach ($cate_list as $cate_item) {
                                                 <td>0</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                                        <a onclick="editCate(' . $cate_item['ma_danhmuc'] . ');" href="./index.php?act=subcatelist&id=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"
+                                                        <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&id=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                                             data-bs-original-title="View detail" aria-label="Views"><i
                                                                 class="bi bi-eye-fill"></i></a>
-                                                        <a href="#" class="text-warning cate-edit-link"
+                                                        <a onclick="editCate(' . $cate_item['ma_danhmuc'] . ');" href="#" class="text-warning cate-edit-link"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                                        <a onclick="deleteCate(' . $cate_item['ma_danhmuc'] . ')" href="./index.php?act=deletecate&id=' . $cate_item['ma_danhmuc'] . '" class="text-danger" data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom" title=""
                                                             data-bs-original-title="Delete" aria-label="Delete"><i
                                                                 class="bi bi-trash-fill"></i></a>
@@ -165,41 +166,4 @@ foreach ($cate_list as $cate_item) {
 // }
 
 // console.log('hello clicked');
-
-const editCate = () => {
-    const editCateBtns = document.querySelectorAll('.cate-edit-link');
-
-    for (const editCateBtn of editCateBtns) {
-        console.log('edit', editCateBtn);
-
-        editCateBtn.addEventListener('click', (event) => {
-
-            console.log('this', event.currentTarget);
-            const rowElement = event.currentTarget.parentElement.parentElement.parentElement;
-            console.log('rowElement: ', rowElement);
-
-
-            const name = rowElement.cells[2].innerText;
-            const image = rowElement.cells[3].innerText;
-            const desc = rowElement.cells[4].innerText;
-
-            console.log('name: ', name);
-
-            const formElement = document.querySelector('.form-cate');
-
-            formElement.action = "./index.php?act=editcate&id="
-            console.log('formElement: ', formElement);
-
-            formElement.elements[0].value = name;
-            formElement.elements[3].value = desc;
-            formElement.elements[4].value = "Sửa danh mục";
-
-            console.log('inputCate: ', formElement.elements);
-
-        })
-    }
-
-}
-
-editCate();
  </script>

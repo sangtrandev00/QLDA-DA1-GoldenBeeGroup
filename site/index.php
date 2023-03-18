@@ -10,9 +10,9 @@ if (!isset($_SESSION['giohang'])) {
     //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
     // ];
     $_SESSION['giohang'] = [
-        array("id" => 10000, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
-        array("id" => 200001, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
-        array("id" => 400004, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
+        array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
+        array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
+        array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
 
     // var_dump($_SESSION['giohang']);
@@ -38,12 +38,14 @@ include "../DAO/category.php";
 include "../DAO/product.php";
 include "../DAO/user.php";
 include "../DAO/comment.php";
+include "../DAO/blog.php";
 
 // Model to connect database
 include "./models/connectdb.php";
 include "./models/sanpham.php";
 include "./models/user.php";
 include "./models/donhang.php";
+include "./models/blog-cate.php";
 
 // Header
 include "./view/layout/header.php";
@@ -248,7 +250,7 @@ if (isset($_GET['act'])) {
                     $don_gia = $_POST['don_gia'];
                     $giam_gia = $_POST['giam_gia'];
 
-                    echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
+                    // echo "gia moi: " . $don_gia * (1 - $giam_gia / 100);
                     $gia_moi = $don_gia * (1 - $giam_gia / 100);
                     $sl = $_POST['sl'];
 
@@ -438,7 +440,9 @@ if (isset($_GET['act'])) {
 
             break;
         case 'signup':
+
             $error = array();
+
             if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
                 $fullname = $_POST['fullname'];
                 $homeaddress = $_POST['address'];
@@ -486,13 +490,14 @@ if (isset($_GET['act'])) {
                     //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
                     // }
                     if ($is_inserted) {
-                        echo '<div class="alert alert-success">Sign up successfully</div>';
+                        // echo '<div class="alert alert-success">Sign up successfully</div>';
+                        header("location: ./login.php");
                     }
                     // Send email to success account
                 }
 
             }
-            include "./view/auth/signup.php";
+            // include "./view/auth/signup.php";
             break;
         case 'login':
             include "./view/auth/login.php";
@@ -510,15 +515,16 @@ if (isset($_GET['act'])) {
         case 'updateaccount':
             $error = array();
             if (isset($_POST['updateacountinfobtn']) && $_POST['updateacountinfobtn']) {
-                $tai_khoan = $_POST['tai_khoan'];
+                // $tai_khoan = $_POST['tai_khoan'];
+
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
                 $email = $_POST['email'];
-                $target_dir = "content/";
-                $target_file = $target_dir . basename($_FILES["hinh_anh"]["name"]);
+                // $password = $_POST[''];
+                $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
-                move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], "../" . $target_file);
+                move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
 
                 // validate at server
 
@@ -547,48 +553,37 @@ if (isset($_GET['act'])) {
                     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
                 }
 
-                if (empty($tai_khoan)) {
-                    $error['tai_khoan'] = "Không để trống tài khoản!";
-                }
+                // if (empty($tai_khoan)) {
+                //     $error['tai_khoan'] = "Không để trống tài khoản!";
+                // }
 
                 if (!$error) {
-                    $is_updated = user_update_info($iduser, $tai_khoan, $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1);
+                    echo 'Success!';
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1);
 
                     if ($is_updated) {
-                        echo '<div class="p-3 bg-success">Chúc mừng bạn đã cập nhật người dùng thành công</div>';
+
                         echo '
                         <script>
-                        const collapseOneElement = document.getElementById("collapseOne");
-                        if(collapseOneElement) {
-                            collapseOneElement.classList.add("show");
-                            collapseOneElement.classList.remove("collapse");
-                        }
-                    </script>
+
+                        </script>
                         ';
                     } else {
 
                     }
                 } else {
+                    echo "Error: ";
                     echo '
-                    <script>
-                    const collapseOneElement = document.getElementById("collapseOne");
-                    const buttonOne = document.querySelector("#headingOne button");
-                    if(buttonOne) {
-                        buttonOne.classList.add("show");
-                        buttonOne.classList.remove("collapse");
-                    }
-                    if(collapseOneElement) {
-                        collapseOneElement.classList.add("show");
-                        collapseOneElement.classList.remove("collapse");
-                    }
-                </script>
+                        <script>
+                            $("#cartModal").trigger("click");
+                        </script>
                     ';
                 }
 
             } else {
 
             }
-            include "./view/account/updateacount-page.php";
+            include "./view/pages/account/my-account.php";
             break;
         case 'updatepass':
             $error = array();
@@ -731,7 +726,24 @@ if (isset($_GET['act'])) {
         case 'my-account':
             include "./view/auth/my-account.php";
             break;
-
+        case 'csbanhang':
+            include "./view/pages/policy/sales-policy.php";
+            break;
+        case 'csdoitra':
+            include "./view/pages/policy/return-policy.php";
+            break;
+        case 'csbaohanh':
+            include "./view/pages/policy/warranty-policy.php";
+            break;
+        case 'csbaomat':
+            include "./view/pages/policy/privacy-policy.php";
+            break;
+        case 'cssudung':
+            include "./view/pages/policy/usage-policy.php";
+            break;
+        case 'cskiemhang':
+            include "./view/pages/policy/inspection-policy.php";
+            break;
         default:
             include "./view/component/carousel.php";
             // include "./view/component/catalog.php";

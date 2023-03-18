@@ -8,69 +8,121 @@
 <!--End Back To Top Button-->
 
 <!--start switcher-->
-<!-- <div class="switcher-body">
-        <button class="btn btn-primary btn-switcher shadow-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-paint-bucket me-0"></i></button>
-        <div class="offcanvas offcanvas-end shadow border-start-0 p-2" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling">
-          <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Theme Customizer</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
-          </div>
-          <div class="offcanvas-body">
-            <h6 class="mb-0">Theme Variation</h6>
-            <hr>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="LightTheme" value="option1">
-              <label class="form-check-label" for="LightTheme">Light</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="DarkTheme" value="option2">
-              <label class="form-check-label" for="DarkTheme">Dark</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="SemiDarkTheme" value="option3">
-              <label class="form-check-label" for="SemiDarkTheme">Semi Dark</label>
-            </div>
-            <hr>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MinimalTheme" value="option3" checked>
-              <label class="form-check-label" for="MinimalTheme">Minimal Theme</label>
-            </div>
-            <hr/>
-            <h6 class="mb-0">Header Colors</h6>
-            <hr/>
-            <div class="header-colors-indigators">
-              <div class="row row-cols-auto g-3">
-                <div class="col">
-                  <div class="indigator headercolor1" id="headercolor1"></div>
+<!-- START QUICKVIEW PRODUCT -->
+<div id="quickview-wrapper">
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="col">
-                  <div class="indigator headercolor2" id="headercolor2"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor3" id="headercolor3"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor4" id="headercolor4"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor5" id="headercolor5"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor6" id="headercolor6"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor7" id="headercolor7"></div>
-                </div>
-                <div class="col">
-                  <div class="indigator headercolor8" id="headercolor8"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       </div> -->
-<!--end switcher-->
+                <div class="modal-body">
+                    <div class="modal-product clearfix">
+                        <div class="product-images">
+                            <div class="main-image images">
+                                <img alt="" src="assets/img/product/quickview.jpg">
+                            </div>
+                        </div><!-- .product-images -->
 
+                        <div class="product-info">
+                            <h1>Aenean eu tristique</h1>
+                            <div class="price-box-3">
+                                <div class="s-price-box">
+                                    <span class="new-price">£160.00</span>
+                                    <span class="old-price">£190.00</span>
+                                </div>
+                            </div>
+                            <a href="single-product-left-sidebar.html" class="see-all">Xem tất cả các thông tin</a>
+                            <div class="quick-add-to-cart">
+                                <form action="./index.php?act=addtocart" method="post" class="cart">
+                                    <div class="numbers-row">
+                                        <input type="number" name="sl" id="french-hens" value="1" min="1" max="10">
+                                    </div>
+                                    <input class="single_add_to_cart_button" name="addtocartbtn" type="submit"
+                                        value="Thêm vào giỏ hàng"></input>
+
+                                    <input type="hidden" name="id" value="" />
+                                    <input type="hidden" name="tensp" value="" />
+                                    <input type="hidden" name="hinh_anh" value="" />
+                                    <input type="hidden" name="danhmuc" value="" />
+                                    <input type="hidden" name="iddm" value="" />
+                                    <input type="hidden" name="don_gia" value="" />
+                                    <input type="hidden" name="mo_ta" value="">
+                                    <input type="hidden" name="giam_gia" value="">
+                                </form>
+                            </div>
+                            <div class="quick-desc">
+                                <p class="quick-desc__paragraph">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
+                                    est tristique auctor. Donec non est at libero.
+                                </p>
+                            </div>
+
+                        </div><!-- .product-info -->
+                    </div><!-- .modal-product -->
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div>
+    <!-- END Modal -->
+
+    <!-- Cart Modal -->
+    <button type="button" id="cartModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#cartModal">
+        Launch demo modal
+    </button>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cartModalLabel">Cart Modal title</h1>
+                    <button type="button" class="btn-close main-color" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Nội dung ở đây!!!
+                </div>
+                <div class="modal-footer">
+                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                        <input type="submit" name="actionbtn" class="btn btn-secondary action-btn" value="Tiếp tục" />
+                        <button type="button" class="btn btn-primary close-modal-btn"
+                            data-bs-dismiss="modal">Đóng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal orderDetail -->
+    <button id="orderDetailModalBtn" type="button" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#orderDetailModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="orderDetailModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END QUICKVIEW PRODUCT -->
 
 <!--start footer-->
 <footer class="footer">
@@ -103,10 +155,59 @@
 <!--app-->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/index.js"></script>
+
+<!-- Custom javasscript -->
 <script>
 new PerfectScrollbar(".best-product")
 </script>
 
+<?php
+if (isset($_GET['act'])) {
+    switch ($_GET['act']) {
+        case 'catelist':
+        case 'addcate':
+        case 'editcate':
+        case 'updatecate':
+        case 'deletecate':
+            echo '
+              <script src="assets/js/pages/category.js"></script>
+          ';
+            break;
+        case 'detailproduct':
+            # code...
+            echo '
+              <script src="assets/js/pages/detailproduct.js"></script>
+          ';
+            break;
+        case 'shop':
+            # code...
+            echo '
+          <script src="assets/js/pages/shop.js"></script>
+      ';
+            break;
+        case 'viewcart':
+        case 'deletecart':
+        case 'shoppingcart':
+        case 'checkout':
+        case 'addtocart':
+        case 'wishlist':
+            echo '
+              <script src="assets/js/pages/cart.js"></script>
+          ';
+            break;
+        default:
+            # code...
+            echo '
+              <script src="assets/js/pages/home.js"></script>
+          ';
+            break;
+    }
+} else {
+    echo '
+      <script src="assets/js/pages/home.js"></script>
+  ';
+}
+?>
 
 
 

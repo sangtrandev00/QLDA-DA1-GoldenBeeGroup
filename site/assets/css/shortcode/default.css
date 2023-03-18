@@ -847,7 +847,31 @@ textarea:focus {
   min-height: 300px;
   padding: 20px;
   /* width: 870px; */
+  /* z-index: 100000; */
 }
+
+#orderDetailModal .modal-dialog {
+  margin: 8% auto;
+  max-width: 96%;
+  padding: 20px;
+  width: 900px;
+  height: 40rem;
+}
+
+
+#orderDetailModal .modal-dialog {
+  width: 100rem;
+
+}
+
+#orderDetailModal .modal-body {
+  height: 48rem;
+  overflow: auto; 
+}
+
+
+
+
 
 
 #quickview-wrapper .modal-content {
