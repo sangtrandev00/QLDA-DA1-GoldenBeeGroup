@@ -127,7 +127,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end p-0">
                         <div class="p-2 border-bottom m-2">
-                            <h5 class="h5 mb-0">Messages</h5>
+                            <h5 class="h5 mb-0">Tin nhắn</h5>
                         </div>
                         <div class="header-message-list p-2">
                             <a class="dropdown-item" href="#">
@@ -475,22 +475,22 @@
                         </div>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="dropdown-item" href="#">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-cloud-arrow-down-fill"></i></div>
                             <div class="ms-3"><span>Downloads</span></div>
                         </div>
                     </a>
-                </li>
+                </li> -->
                 <li>
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a class="dropdown-item" href="authentication-signup-with-header-footer.html">
+                    <a class="dropdown-item" href="./index.php?act=logout">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-lock-fill"></i></div>
-                            <div class="ms-3"><span>Logout</span></div>
+                            <div class="ms-3"><span>Đăng xuất</span></div>
                         </div>
                     </a>
                 </li>

@@ -573,7 +573,7 @@ if (isset($_GET['act'])) {
             unset($_SESSION['role']);
             unset($_SESSION['username']);
             unset($_SESSION['iduser']);
-            header('location: loginpage.php');
+            header('location: ./auth/login.php');
 
             break;
 
