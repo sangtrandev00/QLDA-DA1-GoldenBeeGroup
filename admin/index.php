@@ -18,7 +18,7 @@ include "../DAO/blog.php";
 // HEADER SECTION
 include "./view/layout/header.php";
 // SIDEBAR SECTION
-// include "./view/components/sidebar/sidebar.php";
+include "./view/components/sidebar/sidebar.php";
 
 // if (isset($_SESSION['iduser'])) {
 
