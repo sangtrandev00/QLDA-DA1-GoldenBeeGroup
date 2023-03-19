@@ -79,6 +79,8 @@ foreach ($blog_list as $blog_item) {
 
     $image_list = explode(",", $blog_item['images']);
     $thumbnail = getthumbnail($image_list);
+    $xoablog = "index.php?act=deleteblog&id=".$blog_item['blog_id'];
+    $suablog = "index.php?act=editblog&id=".$blog_item['blog_id'];
     $conten = mb_substr($blog_item['noi_dung'],0,40);
     $blog_title = mb_substr($blog_item['blog_title'],0,20);
     # code...
@@ -103,10 +105,10 @@ foreach ($blog_list as $blog_item) {
                                         <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             title=""
                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                        <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
+                                        <a href="'.$suablog.'" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                        <a href="'.$xoablog.'" class="text-danger" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Delete"
                                             aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
                                     </div>

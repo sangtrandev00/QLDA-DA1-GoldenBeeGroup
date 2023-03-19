@@ -39,39 +39,19 @@
                  <div class="col-12 col-lg-4 d-flex">
                      <div class="card border shadow-none w-100">
                          <div class="card-body">
-                             <form action="./index.php?act=blogcate" method="POST" class="row g-3 form-cate">
+                             <form action="./index.php?act=addcateblog" method="POST" enctype="multipart/form-data" class="row g-3 form-cate">
                                  <div class="col-12">
                                      <label class="form-label">Tên danh mục</label>
                                      <input type="text" class="form-control" name="blogcatename" placeholder="Tên danh mục">
                                  </div>
                                  <div class="col-12">
                                      <label class="form-label">Hình ảnh</label>
-                                     <input type="file" class="form-control" name="blogcateimage"
-                                         accept="image/png, image/jpeg" placeholder="Hình ảnh">
-                                 </div>
-                                 <div class="col-12">
-                                     <label class="form-label">Danh mục cha</label>
-                                     <select class="form-select" name="blogcateparent">
-                                         <option value="">Không có</option>
-                                         <!-- <option value="">Fashion</option>
-                                         <option value="">Electronics</option>
-                                         <option value="">Furniture</option>
-                                         <option value="">Sports</option> -->
-                                         <?php
-                                            $cate_list = blog_cate_select_all();
-                                            foreach ($cate_list as $cate_item) {
-                                                # code...
-                                                echo '
-                                                    <option value="">' . $cate_item['blog_catename'] . '</option>
-                                                    ';
-                                            }
-                                        ?>
-
-                                     </select>
+                                     <input type="file" class="form-control" name="hinh"
+                                          placeholder="Hình ảnh">
                                  </div>
                                  <div class="col-12">
                                      <div class="d-grid">
-                                         <input type="submit" name="blogaddcatebtn" class="btn btn-primary"
+                                         <input type="submit" name="addcateblog" class="btn btn-primary"
                                              value="Thêm danh mục" />
                                      </div>
                                  </div>
@@ -99,8 +79,10 @@
                                      </thead>
                                      <tbody>
                                         <?php
+                                        $cate_list = blog_cate_select_all();
                                         foreach ($cate_list as $cate_item) {
-                                            # code...
+                                            $xoablog = "index.php?act=deletecateblog&id=".$cate_item['id'];
+                                            $suablog = "index.php?act=editcateblog&id=".$cate_item['id'];
                                             echo '
                                             <tr>
                                                 <td><input class="form-check-input" type="checkbox"></td>
@@ -113,11 +95,11 @@
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                                             data-bs-original-title="View detail" aria-label="Views"><i
                                                                 class="bi bi-eye-fill"></i></a>
-                                                        <a href="#" class="text-warning cate-edit-link"
+                                                        <a href="'.$suablog.'" class="text-warning cate-edit-link"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                                        <a href="'.$xoablog.'" class="text-danger" data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom" title=""
                                                             data-bs-original-title="Delete" aria-label="Delete"><i
                                                                 class="bi bi-trash-fill"></i></a>
