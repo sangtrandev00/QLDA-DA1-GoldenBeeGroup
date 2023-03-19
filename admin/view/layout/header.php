@@ -49,6 +49,14 @@
 
     <link rel="stylesheet" href="assets/css/main.css">
     <title>GoldenBeeGroup - Bootstrap 5 Admin Template</title>
+    <!-- TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/k2m4sc5jqh89t3qkeh7zuxw8frzsdjp5ugstbkb6mf2iepql/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '.blognoidung'
+        });
+        
+    </script>
 </head>
 
 <body>
