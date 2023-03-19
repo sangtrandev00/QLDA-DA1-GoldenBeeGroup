@@ -142,7 +142,7 @@ foreach ($cate_list as $cate_item) {
                     <a href="index.php?act=shop&cateid=' . $cate_item['ma_danhmuc'] . '"><img src="../uploads/' . $cate_item['hinh_anh'] . '"
                             alt=""></a>
                     <h3 class="brand-title text-grey fw-bold fs-1">
-                        <a href="#">' . $cate_item['ten_danhmuc'] . '</a>
+                        <a href="index.php?act=shop&cateid=' . $cate_item['ma_danhmuc'] . '">' . $cate_item['ten_danhmuc'] . '</a>
                     </h3>
                 </div>
             </div>

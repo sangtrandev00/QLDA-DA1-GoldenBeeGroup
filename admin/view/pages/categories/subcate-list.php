@@ -1,6 +1,6 @@
 <?php
-if (isset($_GET['id'])) {
-    $iddm = $_GET['id'];
+if (isset($_GET['cateid'])) {
+    $iddm = $_GET['cateid'];
     $subcate_list = subcate_select_all_by_id($iddm);
     // var_dump($subcate_list);
     ?>
@@ -126,7 +126,7 @@ foreach ($subcate_list as $cate_item) {
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                                        <a href="javascript:deleteSubcate(' . $cate_item['id'] . ', ' . $iddm . ')" class="text-danger" data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom" title=""
                                                             data-bs-original-title="Delete" aria-label="Delete"><i
                                                                 class="bi bi-trash-fill"></i></a>
