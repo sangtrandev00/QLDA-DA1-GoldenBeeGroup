@@ -93,10 +93,10 @@
         <ul class="">
             <li> <a href="index.php?act=orderlist"><i class="bi bi-circle"></i>Danh sách đơn hàng</a>
             </li>
-            <li> <a href="index.php?act=orderdetail"><i class="bi bi-circle"></i>Đơn hàng chi tiết</a>
-            </li>
-            <li> <a href="index.php?act=transactions"><i class="bi bi-circle"></i>Lịch sử giao dịch</a>
-            </li>
+            <!-- <li> <a href="index.php?act=orderdetail"><i class="bi bi-circle"></i>Đơn hàng chi tiết</a>
+            </li> -->
+            <!-- <li> <a href="index.php?act=transactions"><i class="bi bi-circle"></i>Lịch sử giao dịch</a>
+            </li> -->
         </ul>
     </li>
     <li>
@@ -111,7 +111,7 @@
             </li>
 
             <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Thêm bài viết</a>
-            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Categories Blogs</a>
+            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Danh mục bài viết</a>
             </li>
         </ul>
     </li>

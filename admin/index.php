@@ -579,18 +579,18 @@ if (isset($_GET['act'])) {
             break;
 
         case 'addblog':
-            if(isset($_POST['addblog']) && ($_POST['addblog'])){
+            if (isset($_POST['addblog']) && ($_POST['addblog'])) {
                 $idcate = $_POST['idcate'];
                 $title = $_POST['title'];
                 $date = date('Y-m-d H:i:s');
-                $hinh =$_FILES['hinh']['name'];
-                    $target_dir = "../uploads/";
-                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);    
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                    
-                    }
+                $hinh = $_FILES['hinh']['name'];
+                $target_dir = "../uploads/";
+                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+
+                }
                 $conten = $_POST['noidung'];
-                add_blog($title,$hinh,$conten,$date,$idcate);
+                add_blog($title, $hinh, $conten, $date, $idcate);
             }
             $list_blogcate = loadall_cateblog();
             include "./view/pages/blogs/add-blog.php";
@@ -599,28 +599,28 @@ if (isset($_GET['act'])) {
             include "./view/pages/blogs/blog-list.php";
             break;
         case 'deleteblog':
-            if(isset($_GET['id']) && ($_GET['id']>0)){
+            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_blog($_GET['id']);
             }
-            include('./view/pages/blogs/blog-list.php');
+            include './view/pages/blogs/blog-list.php';
             break;
         case 'editblog':
-            if(isset($_GET['id']) && (isset($_GET['id'])>0)){
+            if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
                 $blog = loadone_blog($_GET['id']);
             }
             include './view/pages/blogs/edit-blog.php';
             break;
         case 'updateblog':
-            if(isset($_POST['update']) && ($_POST['update'])){
+            if (isset($_POST['update']) && ($_POST['update'])) {
                 $id = $_POST['id'];
                 $title = $_POST['title'];
                 $noidung = $_POST['noidung'];
-                $hinh =$_FILES['hinh']['name'];
+                $hinh = $_FILES['hinh']['name'];
                 $target_dir = "../uploads/";
-                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);    
+                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
-                updateblog($id,$title,$hinh,$noidung);
+                updateblog($id, $title, $hinh, $noidung);
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -628,21 +628,21 @@ if (isset($_GET['act'])) {
             include "./view/pages/blogs/blog-cate.php";
             break;
         case 'addcateblog':
-            if(isset($_POST['addcateblog']) && ($_POST['addcateblog'])){
+            if (isset($_POST['addcateblog']) && ($_POST['addcateblog'])) {
                 $blogcatename = $_POST['blogcatename'];
-                $hinhcateblog =$_FILES['hinh']['name'];
+                $hinhcateblog = $_FILES['hinh']['name'];
                 $target_dir = "../uploads/";
-                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);    
+                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
             }
             include './view/pages/blogs/blog-cate.php';
             break;
         case 'deletecateblog':
-            if(isset($_GET['id']) && ($_GET['id']>0)){
+            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_cateblog($_GET['id']);
             }
-            include('./view/pages/blogs/blog-cate.php');
+            include './view/pages/blogs/blog-cate.php';
             break;
         default:
             // if (isset($_SESSION['iduser'])) {

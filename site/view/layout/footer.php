@@ -158,22 +158,28 @@
                                 <h4 class="footer-title border-left">Chính sách</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán hàng</span></a>
+                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán
+                                                hàng</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi trả</span></a>
+                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi
+                                                trả</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo hành</span></a>
+                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo
+                                                hành</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
+                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo
+                                                mật</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử dụng</span></a>
+                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử
+                                                dụng</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm hàng</span></a>
+                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm
+                                                hàng</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -319,6 +325,11 @@ if (isset($_GET['act'])) {
             echo '
                 <script src="assets/js/pages/cart.js"></script>
             ';
+            break;
+        case 'shop':
+            echo '
+            <script src="assets/js/pages/shop.js"></script>
+        ';
             break;
         default:
             # code...

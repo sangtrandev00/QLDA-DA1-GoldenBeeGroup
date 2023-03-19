@@ -53,18 +53,30 @@
                             </div>
                             <!-- showing -->
                             <div class="showing f-right text-end">
-                                <span>Kết quả : 01-09 of 17 sản phẩm</span>
+                                <span>Kết quả : 01-09 of 12 sản phẩm</span>
                             </div>
                         </div>
                         <!-- shop-option end -->
                         <!-- Tab Content start -->
                         <div class="tab-content">
                             <!-- grid-view -->
-                            <div id="grid-view" class="tab-pane active show" role="tabpanel">
+                            <div id="grid-view" class="tab-pane active show shop-grid-content" role="tabpanel">
                                 <div class="row">
                                     <?php
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
 
-$product_list = product_select_all();
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+// $product_list = product_select_all();
 
 if (isset($_GET['cateid'])) {
     $cate_id = $_GET['cateid'];
@@ -167,7 +179,19 @@ foreach ($product_list as $item) {
                             <div id="list-view" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <?php
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
 
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -236,14 +260,32 @@ foreach ($product_list as $item) {
                         </div>
                         <!-- Tab Content end -->
                         <!-- shop-pagination start -->
-                        <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                            <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                            <li><a href="#">01</a></li>
-                            <li><a href="#">02</a></li>
-                            <li><a href="#">03</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">05</a></li>
-                            <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                        <ul id="shop-pagination" class="shop-pagination box-shadow text-center ptblr-10-30">
+
+                            <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
                         </ul>
                         <!-- shop-pagination end -->
                     </div>
@@ -251,8 +293,9 @@ foreach ($product_list as $item) {
                 <div class="col-lg-3 order-lg-1 order-2">
                     <!-- widget-search -->
                     <aside class="widget-search mb-30">
-                        <form action="#">
-                            <input type="text" placeholder="Search here...">
+                        <form id="searchForm" action="#">
+                            <input name="searchvalue" onkeyup="searchProducts()" type="text"
+                                placeholder="Tìm kiếm ở đây...">
                             <button type="submit"><i class="zmdi zmdi-search"></i></button>
                         </form>
                     </aside>
@@ -302,17 +345,24 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                     <div class="widget shop-filter box-shadow mb-30">
                         <h6 class="widget-title border-left mb-20">Lọc theo giá</h6>
                         <div class="price_filter">
-                            <div class="price_slider_amount">
-                                <input type="submit" value="Thang giá:" />
-                                <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                            </div>
-                            <div id="slider-range"></div>
+                            <form id="form-filter-price" action="" method="post">
+                                <div class="price_slider_amount">
+                                    <input type="submit" class="w-100" value="Thang giá:" />
+                                    <br>
+                                    <input type="text" class="w-100" id="amount" name="price"
+                                        placeholder="Add Your Price" />
+
+                                </div>
+                                <div id="slider-range"></div>
+                                <input class="mt-3 btn btn-light" type="submit" value="Tìm">
+                            </form>
                         </div>
 
                         <!-- widget-product -->
                         <aside class="widget widget-product box-shadow mt-5">
                             <h6 class="widget-title border-left mb-20">Sản phẩm gần đây</h6>
                             <!-- product-item start -->
+
                             <div class="product-item">
                                 <div class="product-img">
                                     <a href="single-product.html">

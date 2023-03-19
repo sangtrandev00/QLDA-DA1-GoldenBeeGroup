@@ -1,8 +1,8 @@
 const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
-// location.assign("index.php?act=deleteproduct&id="+productId);
-const productTableContentUrl = `${ROOT_URL}/admin/view/pages/products/table-product-content.php`;
 const ADMIN_URL = `${ROOT_URL}/admin`;
 const SITE_URL = `${ROOT_URL}/site`;
+// location.assign("index.php?act=deleteproduct&id="+productId);
+// const productTableContentUrl = `${ROOT_URL}/admin/view/pages/products/table-product-content.php`;
 function logout(){
     console.log("Hello clicked");
     const continueLogout = document.getElementById("continueLogout");

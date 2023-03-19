@@ -345,7 +345,21 @@ foreach ($featured_products as $item) {
                         <div id="popular-product" class="tab-pane active show">
                             <div class="row">
                                 <?php
-$product_list = product_select_12();
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_12();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -424,13 +438,38 @@ foreach ($product_list as $item) {
 ?>
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -440,7 +479,22 @@ foreach ($product_list as $item) {
                         <div id="new-arrival" class="tab-pane" role="tabpanel">
                             <div class="row">
                                 <?php
-$product_list = product_select_all_lastest();
+
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham order by ngay_nhap desc"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all_lastest();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -520,13 +574,37 @@ foreach ($product_list as $item) {
                                 <!-- product-item end -->
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -874,7 +952,22 @@ foreach ($product_list as $item) {
                         <div id="special-offer" class="tab-pane" role="tabpanel">
                             <div class="row">
                                 <?php
-$product_list = product_select_all_discounts();
+
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham WHERE giam_gia > 0 order by giam_gia desc"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all_discounts();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -954,13 +1047,39 @@ foreach ($product_list as $item) {
 
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
