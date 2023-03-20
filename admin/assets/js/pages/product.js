@@ -30,6 +30,8 @@ function editProduct(productId) {
             productForm.elements['addproductbtn'].value = "Sửa sản phẩm";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
 
+            
+
             // $("#cartModal #product-action-btn").click(function(e) {
             //     e.preventDefault();
             //     console.log('clicked ');

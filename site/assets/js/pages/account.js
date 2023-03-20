@@ -141,3 +141,15 @@ function searchOrder(currentForm, iduser) {
 //     return ;
    
 // }
+
+
+function viewOrder() {
+    console.log('clicked');
+    location.assign("./index.php?act=settingaccount");
+    $("#collapseFour").trigger("click");
+    console.log('click');
+}
+
+function viewGeneralSetting() {
+    location.assign("./index.php?act=settingaccount");
+}

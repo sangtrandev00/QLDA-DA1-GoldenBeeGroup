@@ -28,13 +28,23 @@ include $ROOT_URL . "./DAO/category.php";
 
     <div class="col-12">
         <div class="image-list row">
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
-            <div class="col-md-4">your content</div>
+            <h4>Danh sách hình ảnh</h4>
+            <?php
+?>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+            <div class="col-md-4"><img height="100" class="w-100"
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
         </div>
     </div>
 

@@ -207,6 +207,68 @@ function handleDeleteCart(idcart) {
 
 }
 
+function handleDeleteWishlist(idWishlist) {
+    event.preventDefault();
+    console.log('this: ', event.currentTarget);
+    console.log('id: ', idWishlist);
+    console.log('tensp: ', event.currentTarget.getAttribute('data-name'));
+    const tensp = event.currentTarget.getAttribute('data-name');
+    
+    $("#cartModalBtn").trigger("click");
+
+    $("#cartModalLabel").text(`Xóa sản phẩm ${tensp} khỏi danh sách yêu thích`);
+    $("#cartModal .modal-body").text(`Bạn có muốn xóa sản phẩm ${tensp} danh sách yêu thích hay không ? Có chọn tiếp tục không chọn đóng`);
+
+
+    $("#cartModal .continue-btn").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "./logic/cart.php?act=deleteWishlist",
+            data: {id: idWishlist},
+            // dataType: 'json',
+            success: function (response, statusText) {
+                    console.log('res: ', response);
+                    // $("#cartModalBtn").trigger("click");
+                    // $("#cartModal .modal-header").text(`Bạn đã xóa sản phẩm thành công`)
+                    // $("#table-content-wrapper").html(response);
+
+                    // alert(JSON.parse(response));
+
+                    $("#cartModalBtn").trigger("click");
+
+                    // $.get("./logic/header.php", function(reponseHtml) {
+                    //     console.log('html: ', reponseHtml);
+                    //     $("#header").html(reponseHtml);
+                    // })
+
+                    $.get("./logic/topwishlist.php", function(responseHtml) {
+                        $("#topWishlist").html(responseHtml);
+                        // console.log('res: ', responseHtml);
+                    });
+
+                    $.get('./logic/wishlist-table-content.php', function(reponseHtml) {
+                        console.log('html: ', reponseHtml);
+                        $("#wishlist").html(reponseHtml);
+
+                        // if($("#notify-update-cart").hasClass("d-none")) {
+                        //     $("#notify-update-cart").removeClass("d-none");
+                        // } 
+                        // $("#notify-update-cart").text(`Sản phẩm ${tensp} đã được xóa khỏi giỏ hàng!`);
+                    })
+
+                  
+                    // console.log('removed cart', $("#notify-update-cart"));
+
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    })
+
+}
+
 
 
 

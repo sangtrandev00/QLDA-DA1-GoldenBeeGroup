@@ -176,6 +176,40 @@ switch ($_GET['act']) {
         }
 
         break;
+    case 'deletewishlist':
+        if (isset($_SESSION['wishlist']) && count($_SESSION['wishlist']) > 0) {
+            var_dump($_POST['id']);
+            // var_dump(json_encode($_POST));
+
+            // $id = json_encode($_POST);
+            $cart_list = $_SESSION['wishlist'];
+            $idwishlist = $_POST['id'];
+            function filter_wishlist($item)
+        {
+                return $item['id'] != $_POST['id'];
+            }
+
+            $wishlistResult = array_filter($cart_list, "filter_wishlist");
+            // var_dump($result);
+
+            // UPDATE Giohang;
+            $_SESSION['wishlist'] = $wishlistResult;
+            // $result = array('header' => json_decode(include "./header.php"), 'topcart' => json_decode(include "./topcart.php"), 'tablecart' => json_decode(include "./table-cart.php"));
+
+            $result = array(
+                "message" => "Xóa sản phẩm thành công",
+                "status" => 1,
+            );
+
+            // echo json_encode($result);
+
+            // include "./table-cart.php";
+
+        } else {
+
+        }
+
+        break;
     case 'addtocart':
         if (isset($_SESSION['iduser'])) {
             $id = $_POST['id'];

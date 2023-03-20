@@ -59,20 +59,27 @@ if (isset($_GET['act'])) {
         case 'editproduct':
             $error = array();
             if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
-                $image_files = $_FILES['images'];
-                $image_list = implode(',', $image_files['name']);
-                // var_dump($image_files);
-                // var_dump($image_list);
-                $i = 0;
-                foreach ($image_files['name'] as $image_name) {
-                    # code...
-                    // $target_file = "../uploads/" . basename($file_name);
-                    // var_dump($image_file_item);
-                    move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
-                    $i++;
+                $idproduct = $_GET['id'];
+                $product_item = product_select_by_id($idproduct);
+                // var_dump($product_item);
+                // exit;
+                // var_dump($_FILES['images']);
+                if (!$_FILES['images']['name'][0]) {
+                    $image_list = $product_item['images'];
+                    // var_dump($image_list);
+                } else {
+                    $image_files = $_FILES['images'];
+                    $image_list = implode(',', $image_files['name']);
+                    $i = 0;
+                    foreach ($image_files['name'] as $image_name) {
+                        # code...
+                        // $target_file = "../uploads/" . basename($file_name);
+                        // var_dump($image_file_item);
+                        move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                        $i++;
+                    }
                 }
 
-                $idproduct = $_GET['id'];
                 $tensp = $_POST['tensp'];
                 $ma_danhmuc = $_POST['ma_danhmuc'];
                 $id_dmphu = $_POST['id_dmphu'];
@@ -196,6 +203,7 @@ if (isset($_GET['act'])) {
 
             include "./view/pages/products/add-product.php";
             break;
+
         case 'addcate':
             $error = array();
             if (isset($_POST['addcatebtn']) && $_POST['addcatebtn']) {
@@ -251,13 +259,18 @@ if (isset($_GET['act'])) {
 
                 $cate_parent = $_POST['cateparent'];
                 $cate_desc = $_POST['catedesc'];
+                $cate_item = cate_select_by_id($madanhmuc);
+                if ($_FILES['cateimage']['name'] == '') {
+                    $cate_image = $cate_item['hinh_anh'];
+                } else {
+                    $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
+                    $hinh_anh = $_FILES['cateimage'];
+                    $cate_image = $hinh_anh['name'];
+                    move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
+                }
 
                 // echo $cate_name, $cate_desc, $cate_desc;
-                $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
 
-                $hinh_anh = $_FILES['cateimage'];
-
-                move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
                 // echo $tendanhmuc;
                 if (empty($tendanhmuc)) {
                     $error['catename'] = "Không để trống tên danh mục";
@@ -266,8 +279,8 @@ if (isset($_GET['act'])) {
                         echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
                     } else {
 
-                        cate_update($madanhmuc, $tendanhmuc, $hinh_anh['name'], $cate_desc);
-                        echo 'UPdate successfully';
+                        cate_update($madanhmuc, $tendanhmuc, $cate_image, $cate_desc);
+                        echo 'Update successfully';
                         // echo '<div class="bg-success text-white p-2">Add category successully</div>';
                     }
                 }

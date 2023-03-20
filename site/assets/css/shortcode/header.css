@@ -97,7 +97,7 @@ NOTE: This is Header style file. All Header related style included in this file.
 }
 
 .top-header-menu__dropdown {
-  max-width: 16rem;
+  max-width: 20rem;
   padding: 0.5rem;
   position: absolute;
   z-index: 1;
