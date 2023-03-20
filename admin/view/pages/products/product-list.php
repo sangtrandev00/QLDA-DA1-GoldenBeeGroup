@@ -57,7 +57,7 @@
           </div>
           <div class="card-body">
 
-              <div class="table-responsive">
+              <div id="table-product-content" class="table-responsive">
                   <table class="table align-middle table-striped">
                       <thead>
                           <th>Id</th>
@@ -71,7 +71,22 @@
                           <!-- Row Item -->
                           <!-- Show list product here -->
                           <?php
-$product_list = product_select_all();
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 8;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all();
+
 // var_dump($product_list);
 foreach ($product_list as $product_item) {
 
@@ -98,13 +113,13 @@ foreach ($product_list as $product_item) {
                                 <td><span>' . $product_item['ngay_nhap'] . '</span></td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                        <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        <a href="javascript:viewDetail(' . $product_item['masanpham'] . ')" class="text-primary"
                                             title=""
                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                        <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
+                                        <a href="javascript:editProduct(' . $product_item['masanpham'] . ')" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                        <a href="javascript:deleteProduct(this,' . $product_item['masanpham'] . ');" class="text-danger" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Delete"
                                             aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
                                     </div>
@@ -117,14 +132,40 @@ foreach ($product_list as $product_item) {
                   </table>
               </div>
 
+
+
               <nav class="float-end mt-4" aria-label="Page navigation">
-                  <ul class="pagination">
+                  <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+                  <!-- <ul class="pagination">
                       <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                       <li class="page-item active"><a class="page-link" href="#">1</a></li>
                       <li class="page-item"><a class="page-link" href="#">2</a></li>
                       <li class="page-item"><a class="page-link" href="#">3</a></li>
                       <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                  </ul>
+                  </ul> -->
               </nav>
 
           </div>

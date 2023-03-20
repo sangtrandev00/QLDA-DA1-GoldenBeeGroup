@@ -41,7 +41,7 @@ if (isset($_GET['act'])) {
             if (isset($_GET['id'])) {
                 product_delete($_GET['id']);
             }
-            include "./view/product/listproduct-page.php";
+            include "./view/pages/products/product-list.php";
             break;
 
         case 'deleteproducts':
@@ -59,132 +59,138 @@ if (isset($_GET['act'])) {
         case 'editproduct':
             $error = array();
             if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
-                $idproduct = $_POST['idproduct'];
+                $image_files = $_FILES['images'];
+                $image_list = implode(',', $image_files['name']);
+                // var_dump($image_files);
+                // var_dump($image_list);
+                $i = 0;
+                foreach ($image_files['name'] as $image_name) {
+                    # code...
+                    // $target_file = "../uploads/" . basename($file_name);
+                    // var_dump($image_file_item);
+                    move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                    $i++;
+                }
+
+                $idproduct = $_GET['id'];
                 $tensp = $_POST['tensp'];
                 $ma_danhmuc = $_POST['ma_danhmuc'];
+                $id_dmphu = $_POST['id_dmphu'];
                 $giam_gia = $_POST['giam_gia'];
                 $don_gia = $_POST['don_gia'];
-                $view = $_POST['view'];
                 $so_luong = $_POST['so_luong'];
-                $dac_biet = isset($_POST['hangdacbiet']) ? $_POST['hangdacbiet'] : 0;
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $date = date('Y-m-d H:i:s');
-
-                // echo $date;
-
-                $target_file1 = "content/" . basename($_FILES["hinhanh1"]["name"]);
-                $target_file2 = "content/" . basename($_FILES["hinhanh2"]["name"]);
-                $target_file3 = "content/" . basename($_FILES["hinhanh3"]["name"]);
-                $target_file4 = "content/" . basename($_FILES["hinhanh4"]["name"]);
-
-                // echo $target_file1, $target_file2, $target_file3, $target_file4, $target_file5; --> Kiểm lỗi file hình ảnh mới dài dòng đây =))
-                move_uploaded_file($_FILES["hinhanh1"]["tmp_name"], "../" . $target_file1);
-                move_uploaded_file($_FILES["hinhanh2"]["tmp_name"], "../" . $target_file2);
-                move_uploaded_file($_FILES["hinhanh3"]["tmp_name"], "../" . $target_file3);
-                move_uploaded_file($_FILES["hinhanh4"]["tmp_name"], "../" . $target_file4);
-
+                // $view = $_POST['view'];
                 $mo_ta = $_POST['mo_ta'];
+                $thong_tin = $_POST['thong_tin'];
+                $dac_biet = 0;
+                $promote = 1;
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date_create = date('Y-m-d H:i:s');
 
                 // Validate at server
 
-                if (strlen($tensp) == 0) {
-                    $error['proname'] = "Không để trống tên sản phẩm!";
+                // if (strlen($tensp) == 0) {
+                //     $error['proname'] = "Không để trống tên sản phẩm!";
+                // }
+
+                // if (!is_numeric($ma_danhmuc)) {
+                //     $error['ma_danhmuc'] = "Không để trống mã danh mục!";
+                // }
+
+                // if (empty($don_gia)) {
+                //     $error['don_gia'] = "không để trống đơn giá";
+                // } else if ($don_gia < 0) {
+                //     $error['don_gia'] = "Đơn giá phải lớn hơn 0!";
+                // }
+
+                // if (empty($giam_gia)) {
+                //     $error['giam_gia'] = "Không để trống giảm giá";
+                // } else if ($giam_gia < 0 || $giam_gia > 100) {
+                //     $error['giam_gia'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
+                // }
+
+                // if (empty($_FILES["hinhanh1"]["name"])) {
+                //     $error['hinhanh1'] = "Không để trống hình ảnh chính, hình ảnh 1";
+                // }
+
+                // if (!$error) {
+                $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
+                if ($is_updated) {
+                    echo '<script>
+                            document.getElementById("liveToastBtn").click();
+                            // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
+                    </script>';
                 }
+                // } else {
 
-                if (!is_numeric($ma_danhmuc)) {
-                    $error['ma_danhmuc'] = "Không để trống mã danh mục!";
-                }
-
-                if (empty($don_gia)) {
-                    $error['don_gia'] = "không để trống đơn giá";
-                } else if ($don_gia < 0) {
-                    $error['don_gia'] = "Đơn giá phải lớn hơn 0!";
-                }
-
-                if (empty($giam_gia)) {
-                    $error['giam_gia'] = "Không để trống giảm giá";
-                } else if ($giam_gia < 0 || $giam_gia > 100) {
-                    $error['giam_gia'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
-                }
-
-                if (empty($_FILES["hinhanh1"]["name"])) {
-                    $error['hinhanh1'] = "Không để trống hình ảnh chính, hình ảnh 1";
-                }
-
-                if (!$error) {
-                    $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $giam_gia, $target_file1, $target_file2, $target_file3, $target_file4, $ma_danhmuc, $dac_biet, $view, $date, $mo_ta);
-                    if ($is_updated) {
-                        echo '<div class="p-3 alert alert-success">Chúc mừng bạn đã cập nhật sản phẩm thành công</div>';
-                    }
-                } else {
-
-                    //header('location: ./index.php?act=editproduct&id=' . $idproduct);
-                }
-
+                // }
             }
 
-            include "./view/product/editproduct-page.php";
+            include "./view/pages/products/product-list.php";
             break;
         case 'addproduct':
             $error = array();
             if (isset($_POST['addproductbtn']) && $_POST['addproductbtn']) {
+                $image_files = $_FILES['images'];
+                $image_list = implode(',', $image_files['name']);
+                // var_dump($image_files);
+                // var_dump($image_list);
+                $i = 0;
+                foreach ($image_files['name'] as $image_name) {
+                    # code...
+                    // $target_file = "../uploads/" . basename($file_name);
+                    // var_dump($image_file_item);
+                    move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                    $i++;
+                }
+                // exit;
                 $tensp = $_POST['tensp'];
                 $ma_danhmuc = $_POST['ma_danhmuc'];
-                // echo $ma_danhmuc;
-                // $oldprice = $_POST['oldprice'];
+                $id_dmphu = $_POST['id_dmphu'];
                 $giam_gia = $_POST['giam_gia'];
                 $don_gia = $_POST['don_gia'];
                 $so_luong = $_POST['so_luong'];
-                $view = $_POST['view'];
-                $dac_biet = 0;
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $date = date('Y-m-d H:i:s');
-                // echo $date;
-
-                $target_file1 = "content/" . basename($_FILES["hinhanh1"]["name"]);
-                $target_file2 = "content/" . basename($_FILES["hinhanh2"]["name"]);
-                $target_file3 = "content/" . basename($_FILES["hinhanh3"]["name"]);
-                $target_file4 = "content/" . basename($_FILES["hinhanh4"]["name"]);
-
-                // echo $target_file1, $target_file2, $target_file3, $target_file4, $target_file5;
-                move_uploaded_file($_FILES["hinhanh1"]["tmp_name"], "../" . $target_file1);
-                move_uploaded_file($_FILES["hinhanh2"]["tmp_name"], "../" . $target_file2);
-                move_uploaded_file($_FILES["hinhanh3"]["tmp_name"], "../" . $target_file3);
-                move_uploaded_file($_FILES["hinhanh4"]["tmp_name"], "../" . $target_file4);
-
+                // $view = $_POST['view'];
                 $mo_ta = $_POST['mo_ta'];
+                $thong_tin = $_POST['thong_tin'];
+                $dac_biet = 0;
+                $promote = 1;
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date_create = date('Y-m-d H:i:s');
 
-                // Validate at server
+                // if (strlen($tensp) == 0) {
+                //     $error['tensp'] = "Không để trống tên sản phẩm!";
+                // }
+                // if (!is_numeric($ma_danhmuc)) {
+                //     $error['ma_danhmuc'] = "Không để trống mã danh mục!";
+                // }
 
-                if (strlen($tensp) == 0) {
-                    $error['proname'] = "Không để trống tên sản phẩm!";
-                }
-                if (!is_numeric($ma_danhmuc)) {
-                    $error['ma_danhmuc'] = "Không để trống mã danh mục!";
-                }
+                // if (!is_numeric($ma_danhmucphu)) {
+                //     $error['ma_danhmucphu'] = "Không để trống mã danh mục!";
+                // }
 
-                if (empty($don_gia)) {
-                    $error['don_gia'] = "không để trống đơn giá";
-                } else if ($don_gia < 0) {
-                    $error['don_gia'] = "Đơn giá phải lớn hơn 0!";
-                }
+                // if (empty($don_gia)) {
+                //     $error['don_gia'] = "không để trống đơn giá";
+                // } else if ($don_gia < 0) {
+                //     $error['don_gia'] = "Đơn giá phải lớn hơn 0!";
+                // }
 
-                if (empty($giam_gia)) {
-                    $error['giam_gia'] = "Không để trống giảm giá";
-                } else if ($giam_gia < 0 || $giam_gia > 100) {
-                    $error['giam_gia'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
-                }
+                // if (empty($giam_gia)) {
+                //     $error['giam_gia'] = "Không để trống giảm giá";
+                // } else if ($giam_gia < 0 || $giam_gia > 100) {
+                //     $error['giam_gia'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
+                // }
 
-                if (empty($_FILES["hinhanh1"]["name"])) {
-                    $error['hinhanh1'] = "Không để trống hình ảnh chính, hình ảnh 1";
-                }
+                // if (empty($_FILES["hinhanh1"]["name"])) {
+                //     $error['hinhanh1'] = "Không để trống hình ảnh chính, hình ảnh 1";
+                // }
 
-                if (!$error) {
-                    $is_inserted = product_insert($tensp, $don_gia, $so_luong, $giam_gia, $target_file1, $target_file2, $target_file3, $target_file4, $ma_danhmuc, $dac_biet, $view, $date, $mo_ta);
-                    if ($is_inserted) {
-                        echo '<div class="p-3 alert alert-success">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
-                    }
+                // if (!$error) {
+                $is_inserted = product_insert($tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
+                if ($is_inserted) {
+                    echo '<div class="p-3 alert alert-success">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
                 }
+                // }
             }
 
             include "./view/pages/products/add-product.php";
@@ -195,6 +201,7 @@ if (isset($_GET['act'])) {
                 $cate_name = $_POST['catename'];
                 // $cate_image = $_FILES['cateimage'];
                 $cate_parent = $_POST['cateparent'];
+
                 $cate_desc = $_POST['catedesc'];
 
                 // echo $cate_name, $cate_desc, $cate_desc;
@@ -212,8 +219,12 @@ if (isset($_GET['act'])) {
                 //     echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
                 // }
                 // else {
-
-                $is_added = cate_insert($cate_name, $image_file['name'], $cate_desc);
+                if ($cate_parent == "") {
+                    $is_added = cate_insert($cate_name, $image_file['name'], $cate_desc);
+                } else {
+                    $subcate_id = add_subcate($cate_parent, $cate_name, $cate_desc);
+                    header('location: index.php?act=subcatelist&cateid=' . $cate_parent);
+                }
                 if ($is_added) {
                     echo 'successfully!';
                     // echo '<div class="bg-success text-white p-2">Add category successully</div>';
@@ -271,6 +282,19 @@ if (isset($_GET['act'])) {
                 // header("location: ./index.php?act=catelist");
                 // echo "successfully!";
                 include "./view/pages/categories/cate-list.php";
+            }
+            break;
+        case 'deletesubcate':
+            // &subid=22&cateid=46
+            if (isset($_GET['subid'])) {
+                $subcateid = $_GET['subid'];
+                $cateid = $_GET['cateid'];
+                echo $subcateid . $cateid;
+                subcate_delete($subcateid);
+                header("location: ./index.php?act=subcatelist&cateid=" . $cateid);
+                // echo "successfully!";
+                // include "./vaiew/pages/categories/subcate-list.php";
+                // header('location: ./index.php?act=subcatelist&id=')
             }
             break;
         case 'catelist':
@@ -476,14 +500,6 @@ if (isset($_GET['act'])) {
             break;
 
         case 'orderdetail':
-            if (isset($_GET['iddh'])) {
-                $iddh = $_GET['iddh'];
-                $cart_list = getshowcart($iddh);
-                $orderInfo = getorderinfo($iddh);
-                // var_dump($orderInfo);
-                include "./view/order/orderdetail-page.php";
-            }
-
             include "./view/pages/orders/order-detail.php";
 
             break;
@@ -541,7 +557,7 @@ if (isset($_GET['act'])) {
         case 'deleteorder':
             if (isset($_GET['iddh'])) {
                 $iddh = $_GET['iddh'];
-                $cart_list = getshowcart($iddh);
+                $cart_list = getshoworderdetail($iddh);
                 $orderInfo = getorderinfo($iddh);
                 deleteorderdetailbyid($iddh);
                 $is_deleted = deleteorderbyid($iddh);

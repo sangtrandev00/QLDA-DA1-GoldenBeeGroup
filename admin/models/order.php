@@ -18,10 +18,10 @@ function get_all_orders()
     echo "</table>";
 }
 
-function getshowcart($iddh)
+function getshoworderdetail($iddh)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_cart WHERE iddonhang = " . $iddh);
+    $stmt = $conn->prepare("SELECT * FROM tbl_order_detail WHERE iddonhang = " . $iddh);
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetchAll();
@@ -38,7 +38,7 @@ function getorderinfo($iddh)
     return $kq;
 }
 
-function getshowcartbyiduser($iduser)
+function getshoworderdetailbyiduser($iduser)
 {
     $conn = connectdb();
     $stmt = $conn->prepare("SELECT * FROM tbl_cart  INNER JOIN tbl_order on tbl_cart.iddonhang = tbl_order.id WHERE iduser='$iduser'");

@@ -1,12 +1,20 @@
 <?php
-$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "/PRO1014_DA1/main-project/";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "pdo-library.php";
+include $ROOT_URL . "./pdo-library.php";
 
 function cate_insert($ten_loai, $hinh_anh, $mo_ta)
 {
     $sql = "INSERT INTO tbl_danhmuc(ten_danhmuc, hinh_anh, mo_ta) VALUES(?,?,?)";
     pdo_execute($sql, $ten_loai, $hinh_anh, $mo_ta);
+    return true;
+}
+
+function subcate_insert($iddm, $ten_danhmucphu, $mo_ta)
+{
+    $sql = "INSERT INTO tbl_danhmucphu(iddm, ten_danhmucphu, mota) VALUES(?,?,?)";
+    pdo_execute($sql, $iddm, $ten_danhmucphu, $mo_ta);
     return true;
 }
 
@@ -26,6 +34,19 @@ function cate_delete($ma_loai)
         }
     } else {
         pdo_execute($sql, $ma_loai);
+    }
+
+}
+
+function subcate_delete($subcate_id)
+{
+    $sql = "DELETE FROM tbl_danhmucphu WHERE id=?";
+    if (is_array($subcate_id)) {
+        foreach ($subcate_id as $ma) {
+            pdo_execute($sql, $ma);
+        }
+    } else {
+        pdo_execute($sql, $subcate_id);
     }
 
 }

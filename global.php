@@ -3,19 +3,26 @@
 /*
  * Định nghĩa các url cần thiết được sử dụng trong website
  */
-$ROOT_URL = "/xshop";
-$CONTENT_URL = "$ROOT_URL/content";
-$ADMIN_URL = "$ROOT_URL/admin";
-$SITE_URL = "$ROOT_URL/site";
+// $ROOT_URL = "/xshop";
+// $CONTENT_URL = "$ROOT_URL/content";
+// $ADMIN_URL = "$ROOT_URL/admin";
+// $SITE_URL = "$ROOT_URL/site";
+
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+$ADMIN_URL = $ROOT_URL . "/admin";
+$SITE_URL = $ROOT_URL . "/site";
+$PDO_LIB = $ROOT_URL . "/pdo-library.php";
 
 /*
  * Định nghĩa đường dẫn chứa ảnh sử dụng trong upload
  */
-$IMAGE_DIR = $_SERVER["DOCUMENT_ROOT"] . "$ROOT_URL/content/images";
+$IMAGE_DIR = $ROOT_URL . "./uploads";
 
 /*
  * 2 biến toàn cục cần thiết để chia sẻ giữa controller và view
  */
+
 $VIEW_NAME = "index.php";
 $MESSAGE = '';
 

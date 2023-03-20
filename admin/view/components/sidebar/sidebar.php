@@ -4,10 +4,10 @@
         <div>
             <?php
 // include "../site/view/components/logo.php";
-?>
+// ?>
         </div>
         <div>
-            <h4 class="logo-text">ThePhoner Admin</h4>
+            <h4 class="logo-text">The Phoner</h4>
         </div>
         <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
         </div>
@@ -70,16 +70,15 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bi bi-basket2-fill"></i>
                 </div>
-                <div class="menu-title">Products</div>
+                <div class="menu-title">Sản phẩm</div>
             </a>
 
             <ul class="">
-                <li class=""> <a href="index.php?act=productlist"><i class="bi bi-circle"></i>Products
-                        List</a>
+                <li class=""> <a href="index.php?act=productlist"><i class="bi bi-circle"></i>Danh sách sản phẩm</a>
                 </li>
-                <li> <a href="index.php?act=catelist"><i class="bi bi-circle"></i>Categories</a>
+                <li> <a href="index.php?act=catelist"><i class="bi bi-circle"></i>Danh mục</a>
                 </li>
-                <li> <a href="index.php?act=addproduct"><i class="bi bi-circle"></i>Add New Product</a>
+                <li> <a href="index.php?act=addproduct"><i class="bi bi-circle"></i>Thêm sản phẩm</a>
                 </li>
         </li>
     </ul>
@@ -88,15 +87,15 @@
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="lni lni-revenue"></i>
             </div>
-            <div class="menu-title">Orders</div>
+            <div class="menu-title">Đơn hàng</div>
         </a>
 
         <ul class="">
-            <li> <a href="index.php?act=orderlist"><i class="bi bi-circle"></i>Orders</a>
+            <li> <a href="index.php?act=orderlist"><i class="bi bi-circle"></i>Danh sách đơn hàng</a>
             </li>
-            <li> <a href="index.php?act=orderdetail"><i class="bi bi-circle"></i>Order details</a>
+            <li> <a href="index.php?act=orderdetail"><i class="bi bi-circle"></i>Đơn hàng chi tiết</a>
             </li>
-            <li> <a href="index.php?act=transactions"><i class="bi bi-circle"></i>Transactions</a>
+            <li> <a href="index.php?act=transactions"><i class="bi bi-circle"></i>Lịch sử giao dịch</a>
             </li>
         </ul>
     </li>
@@ -104,23 +103,22 @@
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="lni lni-blogger"></i>
             </div>
-            <div class="menu-title">Blogs</div>
+            <div class="menu-title">Bài viết</div>
         </a>
 
         <ul class="">
-            <li> <a href="index.php?act=bloglist"><i class="bi bi-circle"></i>Blogs List</a>
+            <li> <a href="index.php?act=bloglist"><i class="bi bi-circle"></i>Danh sách bài viết</a>
             </li>
-            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Categories Blogs</a>
+            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Danh bài viết</a>
             </li>
-            <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Add New Blog</a>
-            </li>
+            <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Thêm Bài Viết</a>
         </ul>
     </li>
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="lni lni-users"></i>
             </div>
-            <div class="menu-title">Users</div>
+            <div class="menu-title">Người dùng</div>
         </a>
 
         <ul class="">
@@ -136,7 +134,7 @@
         <a href="javascript:;" href="rel:0937988510">
             <div class="parent-icon"><i class="bi bi-telephone-fill"></i>
             </div>
-            <div class="menu-title">Support</div>
+            <div class="menu-title">Hỗ trợ</div>
         </a>
     </li>
     <!--end navigation-->
