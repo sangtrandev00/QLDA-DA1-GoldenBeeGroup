@@ -592,7 +592,9 @@ if (isset($_GET['act'])) {
                 }
                 $conten = $_POST['noidung'];
                 add_blog($title, $hinh, $conten, $date, $idcate);
+                $thongbao = "Đã Đăng Bài Viết Thành Công";
             }
+            
             $list_blogcate = loadall_cateblog();
             include "./view/pages/blogs/add-blog.php";
             break;
@@ -602,6 +604,7 @@ if (isset($_GET['act'])) {
         case 'deleteblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_blog($_GET['id']);
+                $thongbao = "Đã Xóa Bài Viết ".$_GET['id']." Thành Công";
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -622,6 +625,9 @@ if (isset($_GET['act'])) {
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
                 updateblog($id, $title, $hinh, $noidung);
+                
+            $thongbaoupdate = "Đã Cập Nhật Bài Viết ".$id." Thành Công";
+
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -637,12 +643,16 @@ if (isset($_GET['act'])) {
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
                 add_cateblog($blogcatename, $hinhcateblog);
+                $thongbao = "Đã Thêm Danh Mục Bài Viết Thành Công";
+
             }
             include './view/pages/blogs/blog-cate.php';
             break;
         case 'deletecateblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_cateblog($_GET['id']);
+                $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #".$_GET['id']." Thành Công";
+
             }
             include './view/pages/blogs/blog-cate.php';
             break;

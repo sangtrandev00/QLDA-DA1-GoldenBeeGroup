@@ -34,11 +34,20 @@
          <div class="card-header py-3 category-title">
              <h6 class="mb-0">Thêm danh mục bài viết</h6>
          </div>
+        <?php
+            if(isset($thongbao)&&($thongbao!="")){
+                echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
+            }
+            if(isset($thongbaodelete)&&($thongbaodelete!="")){
+                echo '<div class="alert alert-primary" role="alert">'.$thongbaodelete.'</div>';
+            }
+        ?>
          <div class="card-body">
              <div class="row">
                  <div class="col-12 col-lg-4 d-flex">
                      <div class="card border shadow-none w-100">
                          <div class="card-body">
+                            
                              <form action="./index.php?act=addcateblog" method="POST" enctype="multipart/form-data" class="row g-3 form-cate">
                                  <div class="col-12">
                                      <label class="form-label">Tên danh mục</label>
@@ -70,7 +79,7 @@
                                  <table class="table align-middle">
                                      <thead class="table-light">
                                          <tr>
-                                             <th><input class="form-check-input" type="checkbox"></th>
+                                             <!-- <th><input class="form-check-input" type="checkbox"></th> -->
                                              <th>ID</th>
                                              <th>Name</th>
                                              <th>Hình ảnh</th>
@@ -85,7 +94,6 @@
                                             $suablog = "index.php?act=editcateblog&id=".$cate_item['id'];
                                             echo '
                                             <tr>
-                                                <td><input class="form-check-input" type="checkbox"></td>
                                                 <td>#' . $cate_item['id'] . '</td>
                                                 <td>' . $cate_item['blog_catename'] . '</td>
                                                 <td><img width="100" height="100" src="../uploads/' . $cate_item['hinh_anh'] . '"/></td>
@@ -99,16 +107,31 @@
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                        <a href="'.$xoablog.'" class="text-danger" data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom" title=""
-                                                            data-bs-original-title="Delete" aria-label="Delete"><i
-                                                                class="bi bi-trash-fill"></i></a>
-                                                    </div>
+                                                                <i style="color:#e72e2e;" class="bi bi-trash-fill" data-toggle="modal" data-target="#exampleModalLong"></i>
                                                 </td>
                                             </tr>
                                             ';
 }
 ?>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bạn Muốn Danh Mục Bài Viết Này?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Nhấn xóa để xóa danh mục bài viết
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <a href="<?=$xoablog?>"><button type="button" class="btn btn-primary">Xóa</button></a>
+      </div>
+    </div>
+  </div>
+</div>
                                      </tbody>
                                  </table>
                              </div>

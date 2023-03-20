@@ -32,6 +32,12 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="card">
+                <?php 
+                    if(isset($thongbao)&&($thongbao!="")){
+                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
+                    }
+                    
+                ?>
                 <div class="card-header py-3 bg-transparent">
                     <h5 class="mb-0">Add New Blogs</h5>
                 </div>

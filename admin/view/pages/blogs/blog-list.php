@@ -59,6 +59,15 @@
           <div class="card-body">
 
               <div class="table-responsive">
+              <?php 
+                    if(isset($thongbao)&&($thongbao!="")){
+                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
+                    }
+                    if(isset($thongbaoupdate)&&($thongbaoupdate!="")){
+                        echo '<div class="alert alert-primary" role="alert">'.$thongbaoupdate.'</div>';
+                    }
+                    
+                ?>
                   <table class="table align-middle table-striped">
                       <thead>
                           <th>Id</th>
@@ -108,15 +117,39 @@ foreach ($blog_list as $blog_item) {
                                         <a href="'.$suablog.'" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="'.$xoablog.'" class="text-danger" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-                                            aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+                                        
+                                        <i style="color:#e72e2e;" class="bi bi-trash-fill" data-toggle="modal" data-target="#exampleModalLong"></i>
                                     </div>
                                 </td>
                             </tr>
                             ';
 }
 ?>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bạn Muốn Xóa Bài Viết</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Nhấn xóa để xóa bài viết
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <a href="<?=$xoablog?>"><button type="button" class="btn btn-primary">Xóa</button></a>
+      </div>
+    </div>
+  </div>
+</div>
                          
                           <!-- <tr>
                               <td>
