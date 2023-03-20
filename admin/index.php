@@ -635,6 +635,7 @@ if (isset($_GET['act'])) {
                 $target_file = $target_dir . basename($_FILES["hinh"]["name"]);    
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
+                add_cateblog($blogcatename,$hinhcateblog);
             }
             include './view/pages/blogs/blog-cate.php';
             break;

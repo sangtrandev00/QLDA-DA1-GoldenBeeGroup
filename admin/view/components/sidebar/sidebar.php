@@ -109,7 +109,7 @@
         <ul class="">
             <li> <a href="index.php?act=bloglist"><i class="bi bi-circle"></i>Danh sách bài viết</a>
             </li>
-            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Danh bài viết</a>
+            <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Danh mục bài viết</a>
             </li>
             <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Thêm Bài Viết</a>
         </ul>
