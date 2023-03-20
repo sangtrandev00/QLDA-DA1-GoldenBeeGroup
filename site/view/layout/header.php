@@ -1,20 +1,4 @@
 <?php
-// if (!in_array('ob_gzhandler', ob_list_handlers())) {
-//     ob_start('ob_gzhandler');
-// } else {
-//     ob_start();
-// }
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
-
-// // var_dump($_SERVER);
-// if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-//     echo "called directly";
-//     include "../DAO/category.php";
-// } else {
-//     echo "included/required";
-// }
 ?>
 
 <!doctype html>
@@ -90,6 +74,10 @@ if (isset($_SESSION['iduser'])) {
                                                 </a>
                                                 <ul class="top-header-menu__dropdown">
                                                     <li><a href="index.php?act=settingaccount">Quản lý tài khoản</a> </li>
+                                                    <li><a href="index.php?act=settingaccount">Lịch sử đơn hàng</a> </li>
+                                                    <li><a href="index.php?act=settingaccount">Thay đổi mật khẩu</a> </li>
+                                                    <li><a href="index.php?act=settingaccount">Địa chỉ gửi hàng</a> </li>
+                                                    <li><a href="index.php?act=settingaccount">Phương thức thanh toán</a> </li>
                                                     <li><a href="./index.php?act=logout">Đăng xuất</a></li>
                                                 </ul>
                                             </li>

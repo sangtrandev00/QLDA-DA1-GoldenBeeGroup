@@ -511,7 +511,7 @@ echo number_format($price_item);?>
                                         </li>
                                         <li>
                                             <h6>Mã đơn hàng</h6>
-                                            <p>YOURORDER9010779</p>
+                                            <p><?php echo $order['madonhang'] ?></p>
                                         </li>
                                         <!-- <li>
                                             <h6>order no</h6>
@@ -530,9 +530,11 @@ echo number_format($price_item);?>
                                             <h6 class="widget-title border-left mb-20">our order</h6>
                                             <table>
                                                 <?php
+// $subtotal = 0;
 foreach ($order_list as $order_detail) {
     # code...
     $price_item = $order_detail['dongia'] * $order_detail['soluong'];
+
     echo '
                                                             <tr>
                                                                 <td class="td-title-1">
@@ -556,7 +558,8 @@ foreach ($order_list as $order_detail) {
                                                 </tr> -->
                                                 <tr>
                                                     <td class="td-title-1">Tổng phụ</td>
-                                                    <td class="td-title-2"><?php ?></td>
+                                                    <td class="td-title-2">
+                                                        <?php echo number_format($order['tongdonhang']) ?> VND</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td-title-1">Chi phí vận chuyển</td>
@@ -568,7 +571,9 @@ foreach ($order_list as $order_detail) {
                                                 </tr>
                                                 <tr>
                                                     <td class="order-total">Tổng đơn hàng</td>
-                                                    <td class="order-total-price">$2425.00</td>
+                                                    <td class="order-total-price">
+                                                        <?php echo number_format($order['tongdonhang']) ?> VND
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>

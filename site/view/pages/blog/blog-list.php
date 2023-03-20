@@ -155,7 +155,7 @@
                                 break;
                             }
                         }
-                        $conten = substr($blog['noi_dung'],0,100);
+                        $conten = mb_substr($blog['noi_dung'],0,100);
 
                         echo '<div class="col-md-6 boder">
                         <div class="blog-item-2">

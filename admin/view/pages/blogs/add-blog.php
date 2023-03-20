@@ -1,101 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to blog</title>
-</head>
-
-<body>
-    <main class="page-content">
-        <section class="content blog-page p-4">
-            <div class="block-header">
-                <div class="row">
-                    <div class="col-lg-7 col-md-6 col-sm-12">
-                        <h2>New Post
-                            <small>Welcome to Nexa Application</small>
-                        </h2>
-                    </div>
-                    <div class="col-lg-5 col-md-6 col-sm-12">
-                        <ul class="breadcrumb float-md-right">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Nexa</a>
-                            </li>
-                            <li class="breadcrumb-item"><a href="blog-dashboard.html">Blog</a></li>
-                            <li class="breadcrumb-item active">New Post</li>
-                        </ul>
-                    </div>
+<!--start content-->
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">eCommerce</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Add New Blogs</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="ms-auto">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Settings</button>
+                <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
+                        href="javascript:;">Action</a>
+                    <a class="dropdown-item" href="javascript:;">Another action</a>
+                    <a class="dropdown-item" href="javascript:;">Something else here</a>
+                    <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated link</a>
                 </div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="body">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="Enter Blog title" />
-                                    </div>
-                                </div>
-                                <select class="form-control show-tick">
-                                    <option>Select Category --</option>
-                                    <option>Web Design</option>
-                                    <option>Photography</option>
-                                    <option>Technology</option>
-                                    <option>Lifestyle</option>
-                                    <option>Sports</option>
-                                </select>
-                                <form action="/" id="frmFileUpload" class="dropzone m-b-20 m-t-20" method="post"
-                                    enctype="multipart/form-data">
-                                    <div class="dz-message">
-                                        <div class="drag-icon-cph"> <i class="material-icons">touch_app</i> </div>
-                                        <h3>Drop files here or click to upload.</h3>
-                                        <em>(This is just a demo dropzone. Selected files are <strong>not</strong>
-                                            actually
-                                            uploaded.)</em>
-                                    </div>
-                                    <div class="fallback">
-                                        <input name="file" type="file" multiple />
-                                    </div>
-                                </form>
-                                <textarea id="ckeditor">
-                            <h2>WYSIWYG Editor</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper sapien non nisl facilisis bibendum in quis tellus. Duis in urna bibendum turpis pretium fringilla. Aenean neque velit, porta eget mattis ac, imperdiet quis nisi. Donec non dui et tortor vulputate luctus. Praesent consequat rhoncus velit, ut molestie arcu venenatis sodales.</p>
-                            <h3>Lacinia</h3>
-                            <ul>
-                                <li>Suspendisse tincidunt urna ut velit ullamcorper fermentum.</li>
-                                <li>Nullam mattis sodales lacus, in gravida sem auctor at.</li>
-                                <li>Praesent non lacinia mi.</li>
-                                <li>Mauris a ante neque.</li>
-                                <li>Aenean ut magna lobortis nunc feugiat sagittis.</li>
-                            </ul>
-                            <h3>Pellentesque adipiscing</h3>
-                            <p>Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor, eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</p>
-                        </textarea>
-                                <button type="button"
-                                    class="btn btn-raised btn-primary waves-effect m-t-20">Post</button>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header py-3 bg-transparent">
+                    <h5 class="mb-0">Add New Blogs</h5>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3"action="index.php?act=addblog" method="post" enctype="multipart/form-data">
+                            <div class="col-12">
+                                <label class="form-label">Tiêu Đề Bài Viết</label>
+                                <input type="text" name="title" class="form-control" placeholder="Blog title">
                             </div>
-                        </div>
+                            <div class="col-12">
+                                <label class="form-label">Thêm hình ảnh</label>
+                                <input class="form-control" name="hinh" type="file">
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <label class="form-label">Danh mục chính</label>                           
+                                <select class="form-select" name="idcate">
+                                <?php
+                                    foreach ($list_blogcate as $blogcate) {
+                                        extract($blogcate);
+                                        echo '<option value="'.$id.'">'.$blog_catename.'</option>';
+                                    }
+                                ?>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Nội Dung Bài Viết</label>
+                                <textarea class="blognoidung" name="noidung" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <input type="submit" name="addblog" class="btn btn-primary px-4" value="Đăng Bài Viết" />
+                                <button type="reset" class="btn btn-primary px-4">Xóa thông tin</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+    <!--end row-->
 
-    </main>
-
-    <!-- Blog plugin js section -->
-
-    <!-- Jquery Core Js -->
-    <!-- <script src="assets/bundles/libscripts.bundle.js"></script>  -->
-    <script src="assets/bundles/vendorscripts.bundle.js"></script> <!-- Lib Scripts Plugin Js -->
-
-    <script src="assets/plugins/dropzone/dropzone.js"></script> <!-- Dropzone Plugin Js -->
-    <!-- Check editor <script src="assets/plugins/ckeditor/ckeditor.js"></script> -->
-
-    <script src="assets/bundles/mainscripts.bundle.js"></script><!-- Custom Js -->
-    <script src="assets/js/forms/editors.js"></script>
-
-</body>
-
-</html>
+</main>
+<!--end page main-->

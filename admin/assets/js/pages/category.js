@@ -7,8 +7,20 @@ function deleteCate(cateId) {
         e.preventDefault();
         location.assign("index.php?act=deletecate&id="+cateId);
     })
+}
+
+function deleteSubcate(subCateId, cateId) {
+    // event.preventDefault();
+    console.log('delete: ', subCateId);
+  
+    alertModal("Bạn có muốn xóa danh mục này ?", "Chọn tiếp tục để xóa, chọn đóng để trở lại");
+    $("#cartModal .action-btn").click(function(e) {
+        e.preventDefault();
+        location.assign("index.php?act=deletesubcate&subid="+subCateId +"&cateid="+cateId);
+    })
 
 }
+
 
 function alertModal(title, message) {
     $("#cartModalBtn").trigger("click");
@@ -61,4 +73,4 @@ const editCate = (cateId) => {
 
 }
 
-editCate();
+// editCate();

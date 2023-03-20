@@ -142,7 +142,7 @@ foreach ($cate_list as $cate_item) {
                     <a href="index.php?act=shop&cateid=' . $cate_item['ma_danhmuc'] . '"><img src="../uploads/' . $cate_item['hinh_anh'] . '"
                             alt=""></a>
                     <h3 class="brand-title text-grey fw-bold fs-1">
-                        <a href="#">' . $cate_item['ten_danhmuc'] . '</a>
+                        <a href="index.php?act=shop&cateid=' . $cate_item['ma_danhmuc'] . '">' . $cate_item['ten_danhmuc'] . '</a>
                     </h3>
                 </div>
             </div>
@@ -345,7 +345,21 @@ foreach ($featured_products as $item) {
                         <div id="popular-product" class="tab-pane active show">
                             <div class="row">
                                 <?php
-$product_list = product_select_12();
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_12();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -424,13 +438,38 @@ foreach ($product_list as $item) {
 ?>
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -440,7 +479,22 @@ foreach ($product_list as $item) {
                         <div id="new-arrival" class="tab-pane" role="tabpanel">
                             <div class="row">
                                 <?php
-$product_list = product_select_all_lastest();
+
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham order by ngay_nhap desc"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all_lastest();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -520,13 +574,37 @@ foreach ($product_list as $item) {
                                 <!-- product-item end -->
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -874,7 +952,22 @@ foreach ($product_list as $item) {
                         <div id="special-offer" class="tab-pane" role="tabpanel">
                             <div class="row">
                                 <?php
-$product_list = product_select_all_discounts();
+
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham WHERE giam_gia > 0 order by giam_gia desc"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all_discounts();
 // var_dump($product_list);
 foreach ($product_list as $item) {
 
@@ -954,13 +1047,39 @@ foreach ($product_list as $item) {
 
                                 <!-- shop-pagination start -->
                                 <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
                                     <li><a href="#">01</a></li>
                                     <li><a href="#">02</a></li>
                                     <li><a href="#">03</a></li>
                                     <li><a href="#">...</a></li>
                                     <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -983,99 +1102,44 @@ foreach ($product_list as $item) {
                         <h6>Các bài viết về các sản phẩm mới nhất, thủ thuật, hướng dẫn sử dụng điện thoại hay</h6>
                     </div>
                     <div class="blog">
-                        <div class="active-blog slick-arrow-2">
-                            <div class="blog-item">
-                                <img src="../uploads/lastest-blog-1.jpg" alt="lastest-blog-1.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
+                        <div class="active-blog slick-arrow-1">
+                            <?php
+                                $list_newblog_home = get_all_new_blog_home();
+                                foreach ($list_newblog_home as $newblog) {
+                                    extract($newblog);
+                                    $image_list = explode(',', $newblog['images']);
+                                    foreach ($image_list as $image_item) {
+
+                                        if (substr($image_item, 0, 6) == "thumb-") {
+                                            // echo $image_item;
+                                            $thumbnail = "../uploads/" . $image_item;
+                                            break;
+                                        }
+                                    }
+                                    $conten = mb_substr($newblog['noi_dung'],0,100);
+                                    echo '<div class="blog-item">
+                                    <img style="width: 365px; height: 265px;" src="'.$thumbnail.'" alt="lastest-blog-1.jpg">
+                                    <div class="blog-desc">
+                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a></h5>
+                                        <p>'.$conten.'...</p>
+                                        <div class="read-more">
+                                            <a href="./index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                        </div>
+                                        <ul class="blog-meta">
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="../uploads/latest-blog-2.jpg" alt="latest-blog-2.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="../uploads/latest-blog-3.jpg" alt="latest-blog-3.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="assets/img/blog/1.jpg" alt="">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                </div>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

@@ -63,7 +63,7 @@ $cate_list = cate_select_all();
 foreach ($cate_list as $cate_item) {
     # code...
     echo '
-                                                <option value="">' . $cate_item['ten_danhmuc'] . '</option>
+                                                <option value="' . $cate_item['ma_danhmuc'] . '">' . $cate_item['ten_danhmuc'] . '</option>
                                                 ';
 }
 ?>
@@ -119,7 +119,7 @@ foreach ($cate_list as $cate_item) {
                                                 <td>0</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                                        <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&id=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"
+                                                        <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&cateid=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                                             data-bs-original-title="View detail" aria-label="Views"><i
                                                                 class="bi bi-eye-fill"></i></a>

@@ -78,7 +78,7 @@
                 <div class="modal-footer">
                     <form action="./index.php?act=deletecart&idcart=" method="post">
                         <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
-                        <button type="button" class="btn btn-primary close-modal-btn"
+                        <button type="button" class="btn btn-primary close-modal-btn main-bg-color main-border-color"
                             data-bs-dismiss="modal">Đóng</button>
                     </form>
                 </div>
@@ -106,7 +106,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary d-none main-bg-color main-bg-color">Save
+                        changes</button>
                 </div>
             </div>
         </div>
@@ -158,22 +159,28 @@
                                 <h4 class="footer-title border-left">Chính sách</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán hàng</span></a>
+                                        <a href="index.php?act=csbanhang"><i class="zmdi zmdi-circle"></i><span>Bán
+                                                hàng</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi trả</span></a>
+                                        <a href="index.php?act=csdoitra"><i class="zmdi zmdi-circle"></i><span>Đổi
+                                                trả</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo hành</span></a>
+                                        <a href="index.php?act=csbaohanh"><i class="zmdi zmdi-circle"></i><span>Bảo
+                                                hành</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo mật</span></a>
+                                        <a href="index.php?act=csbaomat"><i class="zmdi zmdi-circle"></i><span>Bảo
+                                                mật</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử dụng</span></a>
+                                        <a href="index.php?act=cssudung"><i class="zmdi zmdi-circle"></i><span>Sử
+                                                dụng</span></a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm hàng</span></a>
+                                        <a href="index.php?act=cskiemhang"><i class="zmdi zmdi-circle"></i><span>Kiểm
+                                                hàng</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -319,6 +326,11 @@ if (isset($_GET['act'])) {
             echo '
                 <script src="assets/js/pages/cart.js"></script>
             ';
+            break;
+        case 'shop':
+            echo '
+            <script src="assets/js/pages/shop.js"></script>
+        ';
             break;
         default:
             # code...

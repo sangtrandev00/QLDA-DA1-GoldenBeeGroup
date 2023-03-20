@@ -652,7 +652,7 @@ a {
 
 .page-content {
     margin-left: 260px;
-    margin-top: 60px;
+    margin-top: 1rem;
     padding: 1.5rem 1.5rem 2.5rem 1.5rem;
     transition: all .2s;
 }

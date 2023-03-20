@@ -75,7 +75,7 @@
                               </ul>
                               
                               <h3 class="blog-details-title mb-30"><?php echo $blog['blog_title'] ?></h3>
-                              <img src="<?php echo $thumbnail ?>" alt="">
+                              <img style="width: 100%;" src="<?php echo $thumbnail ?>" alt="">
                               <div class="blog-description mb-60">
                                   <?php echo $blog['noi_dung'] ?>
                               </div>
@@ -125,18 +125,20 @@
                                   </div>
                               </div>
                               <!-- comments on t this post -->
+                              <style>
+                              </style>
                               <div class="post-comments mb-60">
-                                  <h4 class="blog-section-title border-left mb-30">comments on this product</h4>
+                                  <h4 class="blog-section-title border-left mb-30">Bình Luận</h4>
                                   <!-- single-comments -->
                                   <div class="media mt-30">
-                                      <div class="media-left pr-30">
-                                          <a href="#"><img class="media-object" src="img/author/2.jpg" alt="#"></a>
+                                      <div class="media-left">
+                                          <a href="#"><img class="media-object" src="" alt="#"></a>
                                       </div>
                                       <div class="media-body">
                                           <div class="clearfix">
                                               <div class="name-commenter f-left">
-                                                  <h6 class="media-heading"><a href="#">Gerald Barnes</a></h6>
-                                                  <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
+                                                  <h6 class="media-heading"><a href="#">Lam Phối</a></h6>
+                                                  <p class="mb-10">27 March, 2023 at 2:30pm</p>
                                               </div>
                                               <ul class="reply-delate f-right">
                                                   <li><a href="#">Reply</a></li>
@@ -144,56 +146,30 @@
                                                   <li><a href="#">Delate</a></li>
                                               </ul>
                                           </div>
-                                          <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                              Integer accumsan egestas elese ifend. Phasellus a felis atestese
-                                              bibendum feugiat ut eget eni Praesent messages in con sectetur posuere
-                                              dolor non.</p>
+                                          <p class="mb-0">Bài Viết hay</p>
                                       </div>
                                   </div>
                                   <!-- single-comments -->
-                                  <div class="media mt-30">
-                                      <div class="media-left pr-30">
-                                          <a href="#"><img class="media-object" src="img/author/3.jpg" alt="#"></a>
-                                      </div>
-                                      <div class="media-body">
-                                          <div class="clearfix">
-                                              <div class="name-commenter f-left">
-                                                  <h6 class="media-heading"><a href="#">Gerald Barnes</a></h6>
-                                                  <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
-                                              </div>
-                                              <ul class="reply-delate f-right">
-                                                  <li><a href="#">Reply</a></li>
-                                                  <li>/</li>
-                                                  <li><a href="#">Delate</a></li>
-                                              </ul>
-                                          </div>
-                                          <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                              Integer accumsan egestas elese ifend. Phasellus a felis atestese
-                                              bibendum feugiat ut eget eni Praesent messages in con sectetur posuere
-                                              dolor non.</p>
-                                      </div>
-                                  </div>
                               </div>
                               <!-- leave your comment -->
                               <div class="leave-comment">
-                                  <h4 class="blog-section-title border-left mb-30">leave your comment</h4>
+                                  <h4 class="blog-section-title border-left mb-30">Để Lại Bình Luận Của bạn</h4>
                                   <div class="row">
                                       <div class="col-lg-6">
-                                          <input type="text" name="name" placeholder="Golden Bee Group Chandra Das">
+                                          <input type="text" name="name" placeholder="Tên Của Bạn...">
                                       </div>
                                       <div class="col-lg-6">
-                                          <input type="text" name="email" placeholder="Email address here...">
+                                          <input type="text" name="email" placeholder="Email Của Bạn...">
                                       </div>
                                       <div class="col-lg-12">
-                                          <input type="text" name="subject" placeholder="Subject here...">
+                                          <input type="text" name="subject" placeholder="Tiêu Đề...">
                                       </div>
                                       <div class="col-lg-12">
                                           <textarea class="custom-textarea"
-                                              placeholder="Your comment here..."></textarea>
+                                              placeholder="Nội Dung..."></textarea>
                                       </div>
                                   </div>
-                                  <button class="submit-btn-1 black-bg mt-30 btn-hover-2" type="submit">submit
-                                      comment</button>
+                                  <button class="submit-btn-1 black-bg mt-30 btn-hover-2" type="submit">Bình Luận</button>
                               </div>
                               <!--  -->
                           </div>
@@ -208,103 +184,77 @@
                           </aside>
                           <!-- widget-categories -->
                           <aside class="widget widget-categories box-shadow mb-30">
-                              <h6 class="widget-title border-left mb-20">Categories</h6>
+                              <h6 class="widget-title border-left mb-20">Categories blogs</h6>
+                              <?php
+                                        $list_catename_blog = get_all_catename_blog();
+                                        foreach ($list_catename_blog as $items) {
+                                            extract($items);
+                                        
+                                ?>
                               <div id="cat-treeview" class="product-cat">
                                   <ul>
-                                      <li class="closed"><a href="#">Brand One</a>
-                                          <ul>
+                                      <li class="closed"><a href="#"><?php echo $items['blog_catename']?></a>
+                                          <!-- <ul>
                                               <li><a href="#">Mobile</a></li>
                                               <li><a href="#">Tab</a></li>
                                               <li><a href="#">Watch</a></li>
                                               <li><a href="#">Head Phone</a></li>
                                               <li><a href="#">Memory</a></li>
-                                          </ul>
-                                      </li>
-                                      <li class="open"><a href="#">Brand Two</a>
-                                          <ul>
-                                              <li><a href="#">Mobile</a></li>
-                                              <li><a href="#">Tab</a></li>
-                                              <li><a href="#">Watch</a></li>
-                                              <li><a href="#">Head Phone</a></li>
-                                              <li><a href="#">Memory</a></li>
-                                          </ul>
-                                      </li>
-                                      <li class="closed"><a href="#">Accessories</a>
-                                          <ul>
-                                              <li><a href="#">Footwear</a></li>
-                                              <li><a href="#">Sunglasses</a></li>
-                                              <li><a href="#">Watches</a></li>
-                                              <li><a href="#">Utilities</a></li>
-                                          </ul>
-                                      </li>
-                                      <li class="closed"><a href="#">Top Brands</a>
-                                          <ul>
-                                              <li><a href="#">Mobile</a></li>
-                                              <li><a href="#">Tab</a></li>
-                                              <li><a href="#">Watch</a></li>
-                                              <li><a href="#">Head Phone</a></li>
-                                              <li><a href="#">Memory</a></li>
-                                          </ul>
-                                      </li>
-                                      <li class="closed"><a href="#">Jewelry</a>
-                                          <ul>
-                                              <li><a href="#">Footwear</a></li>
-                                              <li><a href="#">Sunglasses</a></li>
-                                              <li><a href="#">Watches</a></li>
-                                              <li><a href="#">Utilities</a></li>
-                                          </ul>
+                                          </ul> -->
                                       </li>
                                   </ul>
                               </div>
+                              <?php
+                                        }
+                              ?>
                           </aside>
                           <!-- widget-product -->
                           <aside class="widget widget-product box-shadow mb-30">
                               <h6 class="widget-title border-left mb-20">recent blogs</h6>
-                              <!-- product-item start -->
-                              <div class="product-item">
+                              <?php 
+                                // $recent_blog = recent_blog();
+                                // // var_dump($recent_blog);
+                                // foreach ($recent_blog as $blog) {
+                                //     if (substr($image_item, 0, 6) == "thumb-") {
+                                //         // echo $image_item;
+                                //         $thumbnail = "../uploads/" . $image_item;
+                                //         break;
+                                //     }                                                                     
+                                // }
+                                // $connten = mb_substr($blog['blog_title'],0,20);
+                                // print_r($connten) ;
+                                $new_blog = get_all_new_blog();
+                                // var_dump($new_blog);
+                                foreach ($new_blog as $blog) {
+                                    extract($blog);
+                                    $image_list = explode(',', $blog['images']);
+                                    foreach ($image_list as $image_item) {
+            
+                                        if (substr($image_item, 0, 6) == "thumb-") {
+                                            // echo $image_item;
+                                            $thumbnail = "../uploads/" . $image_item;
+                                            break;
+                                        }
+                                    }
+                                    $title = mb_substr($blog['blog_title'],0,100);
+                                    echo '
+                                    <div class="product-item">
                                   <div class="product-img">
-                                      <a href="single-product.html">
-                                          <img src="img/product/4.jpg" alt="" />
+                                      <a href="index.php?act=blogdetail&id='.$blog['blog_id'].'">
+                                          <img src="'.$thumbnail.'" alt="" />
                                       </a>
                                   </div>
                                   <div class="product-info">
                                       <h6 class="product-title">
-                                          <a href="single-product.html">Blog Name</a>
+                                          <a href="index.php?act=blogdetail&id='.$blog['blog_id'].'">'.$title.'</a>
                                       </h6>
-                                      <h3 class="pro-price">$ 869.00</h3>
+                                      
                                   </div>
-                              </div>
-                              <!-- product-item end -->
-                              <!-- product-item start -->
-                              <div class="product-item">
-                                  <div class="product-img">
-                                      <a href="single-product.html">
-                                          <img src="img/product/8.jpg" alt="" />
-                                      </a>
-                                  </div>
-                                  <div class="product-info">
-                                      <h6 class="product-title">
-                                          <a href="single-product.html">Blog Name</a>
-                                      </h6>
-                                      <h3 class="pro-price">$ 869.00</h3>
-                                  </div>
-                              </div>
-                              <!-- product-item end -->
-                              <!-- product-item start -->
-                              <div class="product-item">
-                                  <div class="product-img">
-                                      <a href="single-product.html">
-                                          <img src="img/product/12.jpg" alt="" />
-                                      </a>
-                                  </div>
-                                  <div class="product-info">
-                                      <h6 class="product-title">
-                                          <a href="single-product.html">Blog Name</a>
-                                      </h6>
-                                      <h3 class="pro-price">$ 869.00</h3>
-                                  </div>
-                              </div>
-                              <!-- product-item end -->
+                              </div>';
+                                }
+                                
+
+                            ?>
                           </aside>
                 </div>
             </div>

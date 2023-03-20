@@ -1,4 +1,6 @@
-
+const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
+const ADMIN_URL = `${ROOT_URL}/admin`;
+const SITE_URL = `${ROOT_URL}/site`;
 function logout(){
     console.log("Hello clicked");
     const continueLogout = document.getElementById("continueLogout");

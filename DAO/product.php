@@ -1,9 +1,9 @@
 <?php
 
-function product_insert($ten_sanpham, $don_gia, $ton_kho, $giam_gia, $hinhanh1, $hinhanh2, $hinhanh3, $hinhanh4, $ma_danhmuc, $dac_biet = 0, $so_luot_xem, $ngay_nhap, $mo_ta)
+function product_insert($tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
 {
-    $sql = "INSERT INTO tbl_sanpham (tensp, don_gia, ton_kho, giam_gia, hinhanh1, hinhanh2, hinhanh3, hinhanh4, ma_danhmuc, dac_biet, so_luot_xem, ngay_nhap, mo_ta) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    pdo_execute($sql, $ten_sanpham, $don_gia, $ton_kho, $giam_gia, $hinhanh1, $hinhanh2, $hinhanh3, $hinhanh4, $ma_danhmuc, $dac_biet, $so_luot_xem, $ngay_nhap, $mo_ta);
+    $sql = "INSERT INTO tbl_sanpham (tensp, don_gia, ton_kho, images, giam_gia, dac_biet, ngay_nhap, mo_ta, information, ma_danhmuc, id_dmphu, promote) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
     return true;
 }
 
@@ -20,10 +20,10 @@ function product_delete($ma_sanpham)
 
 }
 
-function product_update($masanpham, $ten_sanpham, $don_gia, $ton_kho, $giam_gia, $hinhanh1, $hinhanh2, $hinhanh3, $hinhanh4, $ma_danhmuc, $dac_biet = 0, $so_luot_xem, $ngay_nhap, $mo_ta)
+function product_update($masanpham, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
 {
-    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, giam_gia=?, dac_biet=?, so_luot_xem=?, ngay_nhap=?, mo_ta=?, ma_danhmuc=?, hinhanh1=?, hinhanh2=?, hinhanh3=?, hinhanh4=? WHERE masanpham=?";
-    pdo_execute($sql, $ten_sanpham, $don_gia, $ton_kho, $giam_gia, $dac_biet, $so_luot_xem, $ngay_nhap, $mo_ta, $ma_danhmuc, $hinhanh1, $hinhanh2, $hinhanh3, $hinhanh4, $masanpham);
+    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, images=?,giam_gia=?, dac_biet=?, ngay_nhap=?, mo_ta=?, information=?, ma_danhmuc=?, id_dmphu=?, promote=? WHERE masanpham=?";
+    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote, $masanpham);
     return true;
 }
 

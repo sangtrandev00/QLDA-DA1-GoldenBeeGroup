@@ -1,36 +1,45 @@
-// (() => {
+$(document).ready(function () {
+    $("#table-content-wrapper .qtybutton").attr("onclick", "updateCart()");
+    // $("#table-content-wrapper .inc.qtybutton").click(function() {
+      
 
-//     const deleteCart = () => {
-//         const shoppingCart = document.getElementById('shopping-cart');
-//         if(!shoppingCart) return;
+    // })
+});
 
-//         const deleteCartBtns = document.querySelectorAll('.product-remove > a');
-//         console.log('btns: ', deleteCartBtns);
-//         if(!deleteCartBtns) return;
+function updateCart() {
+    console.log('clicked');
 
-//         const cartModal = document.getElementById('cartModal');
-//         if(!cartModal) return;
+    console.log('Hello clicked!', event.currentTarget);
 
-//         [...deleteCartBtns].forEach((btn) => {
-//             btn.addEventListener('click', (e) => {
-//                 console.log('target: ', e.currentTarget);
-//                 console.log('cart: ', cartModal);
-//                 const idCart = e.currentTarget.dataset.index;
-//                 const currentItemName = e.currentTarget.dataset.name;
-
-//                 const cartTitleElement = cartModal.querySelector('.modal-title');
-//                 const cartContentElement = cartModal.querySelector('.modal-body');
-//                 const deleteBtnElement = cartModal.querySelector('.modal-footer input[name="deletecartbtn"]');
-//                 const formElement = cartModal.querySelector('form');
-//                 console.log('form: ', formElement);
-//                 cartTitleElement.textContent = "Xóa Sản phẩm khỏi giỏ hàng";
-//                 cartContentElement.innerHTML = "Bạn có chắc muốn Xóa Sản phẩm <span class='fw-bold'>"+currentItemName+"</span> khỏi giỏ hàng hay không ?";
-
-//                 formElement.action="./index.php?act=deletecart&idcart=" + idCart;
-//             })
-//         })
-//     }
-
-//     deleteCart();
-        
-// })();
+    const currentBtn = event.currentTarget;
+    
+    if(currentBtn.classList.contains('dec')) {
+        console.log('tru');
+    }else {
+        console.log('cong');
+    }
+    const rowItem = getParent(event.currentTarget, "tr.product-item__row");
+    const id = rowItem.dataset.id;
+    const currQty = rowItem.querySelector("input[name='qtybutton']");
+    console.log('curr qty',currQty);
+    console.log('row: ', rowItem);
+        $.ajax({
+            type: "POST",
+            url: "./logic/cart.php?act=updatecart",
+            data: {
+                id,
+                sl: currQty.value,
+                type: currentBtn.classList.contains('dec') ? "minus" : "add"
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                const cartList = response;
+                
+                const shoppingCartContentUrl = SITE_URL +"/logic/shopping-cart-content.php";
+                console.log('root: ', shoppingCartContentUrl)
+                $.get(shoppingCartContentUrl, function(responseHtml) {
+                    $("#shopping-cart").html(responseHtml);
+                })
+            }
+        });
+}
