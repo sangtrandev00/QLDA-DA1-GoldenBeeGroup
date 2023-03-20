@@ -1,14 +1,22 @@
 <?php
-if (!in_array('ob_gzhandler', ob_list_handlers())) {
-    ob_start('ob_gzhandler');
-} else {
-    ob_start();
-}
+// if (!in_array('ob_gzhandler', ob_list_handlers())) {
+//     ob_start('ob_gzhandler');
+// } else {
+//     ob_start();
+// }
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 
+ob_start();
+session_start();
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+// include $ROOT_URL . "./admin/models/category.php";
+include $ROOT_URL . "./DAO/product.php";
+include $ROOT_URL . "./DAO/category.php";
 ?>
 
 
@@ -43,7 +51,7 @@ foreach ($cart_list as $cart_item) {
     $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
     echo '
                                                         <!-- tr -->
-                                                        <tr class="product-item__row">
+                                                        <tr class="product-item__row" data-id="' . $cart_item['id'] . '">
                                                                 <td class="product-thumbnail">
                                                                     <div class="pro-thumbnail-img">
                                                                         <img src="../uploads/' . $cart_item['hinh_anh'] . '" alt="' . $cart_item['hinh_anh'] . '">
@@ -58,8 +66,10 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                        <input type="number" min="1" max="10" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                    <div class="dec qtybutton" onclick="updateCart()">-</div>
+                                                                        <input type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
+                                                                            <div class="inc qtybutton" onclick="updateCart()">+</div>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
@@ -117,7 +127,7 @@ foreach ($cart_list as $cart_item) {
             </div>
         </div>
 
-        <a href="#checkout" data-bs-toggle="tab" arial-selected="false" tabindex="-1" role="tab"
+        <a href="./index.php?act=checkout" data-bs-toggle="tab" arial-selected="false" tabindex="-1" role="tab"
             class="btn btn-dark mb-5 ml-auto d-block">Thanh
             toán</a>
         <!-- Module extra --- Làm thêm -->
