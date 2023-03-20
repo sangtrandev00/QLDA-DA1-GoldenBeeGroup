@@ -30,21 +30,23 @@ function editProduct(productId) {
             productForm.elements['addproductbtn'].value = "Sửa sản phẩm";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
 
-            $("#cartModal #product-action-btn").click(function(e) {
-                e.preventDefault();
-                
-                $.ajax({
-                    type: "POST",
-                    url: "./logic/product.php?act=editproduct",
-                    data: {
-                        id: productId,
-                    },
-                    // dataType: "dataType",
-                    success: function (response) {
+            // $("#cartModal #product-action-btn").click(function(e) {
+            //     e.preventDefault();
+            //     console.log('clicked ');
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "./logic/product.php?act=editproduct",
+            //         data: {
+            //             id: productId,
+            //         },
+            //         // dataType: "<dataT>       </dataT>ype",
+            //         success: function (response) {
 
-                    }
-                });
-            })
+            //         }
+            //     });
+            // })
+
+
         })
     });
     

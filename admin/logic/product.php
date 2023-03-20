@@ -27,7 +27,7 @@ switch ($_GET['act']) {
             $i++;
         }
 
-        $idproduct = $_GET['id'];
+        $idproduct = $_POST['id'];
         $tensp = $_POST['tensp'];
         $ma_danhmuc = $_POST['ma_danhmuc'];
         $id_dmphu = $_POST['id_dmphu'];

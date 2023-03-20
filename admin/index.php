@@ -120,13 +120,14 @@ if (isset($_GET['act'])) {
                             document.getElementById("liveToastBtn").click();
                             // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
                     </script>';
+                    header("location: ./index.php?act=productlist");
                 }
                 // } else {
 
                 // }
             }
 
-            include "./view/pages/products/product-list.php";
+            // include "./view/pages/products/product-list.php";
             break;
         case 'addproduct':
             $error = array();
@@ -188,7 +189,7 @@ if (isset($_GET['act'])) {
                 // if (!$error) {
                 $is_inserted = product_insert($tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
                 if ($is_inserted) {
-                    echo '<div class="p-3 alert alert-success">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
+                    echo '<div class="p-3 alert alert-success text-center mt-5">Chúc mừng bạn đã thêm mới sản phẩm thành công</div>';
                 }
                 // }
             }
@@ -635,7 +636,7 @@ if (isset($_GET['act'])) {
                 $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
-                add_cateblog($blogcatename,$hinhcateblog);
+                add_cateblog($blogcatename, $hinhcateblog);
             }
             include './view/pages/blogs/blog-cate.php';
             break;

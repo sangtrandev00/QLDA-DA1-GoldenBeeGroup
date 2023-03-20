@@ -170,10 +170,10 @@ if ($current_page < $total_page && $total_page > 1) {
 
           </div>
       </div>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal for
-          @getbootstrap</button>
+      <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal for
+          @getbootstrap</button> -->
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
@@ -198,7 +198,7 @@ if ($current_page < $total_page && $total_page > 1) {
                   </div>
               </div>
           </div>
-      </div>
+      </div> -->
   </main>
   <!--end page main-->
 
