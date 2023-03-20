@@ -63,7 +63,7 @@
                                 <textarea class="blognoidung" name="noidung" id="" cols="30" rows="10"></textarea>
                             </div>
                             <div class="col-12">
-                                <input type="submit" name="addblog" class="btn btn-primary px-4" value="Nhập sản phẩm" />
+                                <input type="submit" name="addblog" class="btn btn-primary px-4" value="Đăng Bài Viết" />
                                 <button type="reset" class="btn btn-primary px-4">Xóa thông tin</button>
                             </div>
                         </form>

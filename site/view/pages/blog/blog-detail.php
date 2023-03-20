@@ -75,7 +75,7 @@
                               </ul>
                               
                               <h3 class="blog-details-title mb-30"><?php echo $blog['blog_title'] ?></h3>
-                              <img src="<?php echo $thumbnail ?>" alt="">
+                              <img style="width: 100%;" src="<?php echo $thumbnail ?>" alt="">
                               <div class="blog-description mb-60">
                                   <?php echo $blog['noi_dung'] ?>
                               </div>
@@ -240,13 +240,13 @@
                                     echo '
                                     <div class="product-item">
                                   <div class="product-img">
-                                      <a href="single-product.html">
+                                      <a href="index.php?act=blogdetail&id='.$blog['blog_id'].'">
                                           <img src="'.$thumbnail.'" alt="" />
                                       </a>
                                   </div>
                                   <div class="product-info">
                                       <h6 class="product-title">
-                                          <a href="single-product.html">'.$title.'</a>
+                                          <a href="index.php?act=blogdetail&id='.$blog['blog_id'].'">'.$title.'</a>
                                       </h6>
                                       
                                   </div>

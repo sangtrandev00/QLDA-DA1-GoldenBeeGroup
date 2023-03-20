@@ -81,45 +81,65 @@ switch ($_GET['act']) {
         break;
 
     case 'updatecart':
+        var_dump($_POST);
+        // if (isset($_POST['updatecartbtn']) && $_POST['updatecartbtn']) {
 
-        if (isset($_POST['updatecartbtn']) && $_POST['updatecartbtn']) {
+        // echo $GLOBALS['changed_cart'];
+        // echo $_POST['changedcart'];
 
-            // echo $GLOBALS['changed_cart'];
-            // echo $_POST['changedcart'];
+        // $GLOBALS['changed_cart'] = $_POST['changedcart'];
+        // $qtylist = $_POST['qtyhidden'];
 
-            $GLOBALS['changed_cart'] = $_POST['changedcart'];
-            $qtylist = $_POST['qtyhidden'];
+        // $i = 0;
+        // $flag = 0;
 
-            $i = 0;
-            $flag = 0;
+        // foreach ($_SESSION["giohang"] as $rowitem) {
 
-            foreach ($_SESSION["giohang"] as $rowitem) {
+        //     $_SESSION['giohang'][$i][4] = $qtylist[$i];
+        //     $product = product_select_by_id($rowitem[0]);
+        //     if ($_SESSION['giohang'][$i][4] > $product['ton_kho']) {
+        //         // UPDATE số lượng trên session luôn, khi đối chiếu với tồn kho.
+        //         $_SESSION['giohang'][$i][4] = $product['ton_kho'];
+        //         $flag = 1;
+        //         break;
+        //     }
+        //     $i++;
+        // }
 
-                $_SESSION['giohang'][$i][4] = $qtylist[$i];
-                $product = product_select_by_id($rowitem[0]);
-                if ($_SESSION['giohang'][$i][4] > $product['ton_kho']) {
-                    // UPDATE số lượng trên session luôn, khi đối chiếu với tồn kho.
-                    $_SESSION['giohang'][$i][4] = $product['ton_kho'];
-                    $flag = 1;
-                    break;
+        // if ($flag == 1) {
+        //     echo '<div class="alert alert-danger text-center p-3">Số lượng sản phẩm trong giỏ hàng đã thay đổi, do lượng sản phẩm tồn kho không đủ. Vui lòng <a href="index.php?act=addtocart" class="btn btn-warning">tải lại</a> giỏ hàng</div>';
+        // } else {
+        //     if (!$_POST['changedcart']) {
+        //         echo '<div class="alert alert-success">Cập nhật giỏ hàng thành công!</div>';
+        //     }
+        //     include "./view/shopcart-page.php";
+        // }
+
+        // echo '<div class="update-cart-success d-none" style="">HELLO</div>';
+        // } else {
+        //     "HELLO world";
+        // }
+
+        $cart_list = $_SESSION['giohang'];
+        $i = 0;
+        foreach ($cart_list as $cart_item) {
+            # code...
+            if ($cart_item['id'] == $_POST['id']) {
+                if ($_POST['type'] == "minus") {
+                    $slnew = $cart_item['sl'] - 1;
+                    if ($slnew <= 1) {
+                        $slnew = 1;
+                    }
+                } else {
+                    $slnew = $cart_item['sl'] + 1;
+                    // Handle tồn kho ở đây!
                 }
-
-                // var_dump($product);
-                $i++;
+                $_SESSION['giohang'][$i]['sl'] = $slnew;
             }
-
-            if ($flag == 1) {
-                echo '<div class="alert alert-danger text-center p-3">Số lượng sản phẩm trong giỏ hàng đã thay đổi, do lượng sản phẩm tồn kho không đủ. Vui lòng <a href="index.php?act=addtocart" class="btn btn-warning">tải lại</a> giỏ hàng</div>';
-            } else {
-                if (!$_POST['changedcart']) {
-                    echo '<div class="alert alert-success">Cập nhật giỏ hàng thành công!</div>';
-                }
-                include "./view/shopcart-page.php";
-            }
-            // echo '<div class="update-cart-success d-none" style="">HELLO</div>';
-        } else {
-            "HELLO world";
+            $i++;
         }
+
+        var_dump($_SESSION['giohang']);
 
         break;
     case 'deletecart':

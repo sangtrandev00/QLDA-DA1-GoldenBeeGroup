@@ -31,7 +31,7 @@
                         <!-- shop-option start -->
                         <div class="shop-option box-shadow mb-30 clearfix">
                             <!-- Nav tabs -->
-                            <ul class="nav shop-tab f-left" role="tablist">
+                            <ul class="nav shop-tab f-left align-item-center" role="tablist">
                                 <li>
                                     <a class="active" href="#grid-view" data-bs-toggle="tab"><i
                                             class="zmdi zmdi-view-module"></i></a>
@@ -40,6 +40,7 @@
                                     <a href="#list-view" data-bs-toggle="tab"><i
                                             class="zmdi zmdi-view-list-alt"></i></a>
                                 </li>
+                                <!-- <li>Tìm kiếm: Tên sản phẩm</li> -->
                             </ul>
                             <!-- short-by -->
                             <div class="short-by f-left text-center">
@@ -68,6 +69,12 @@
 $conn = connectdb();
 
 $sql = "SELECT * FROM tbl_sanpham"; // Total Product
+
+if (isset($_GET['subcateid'])) {
+    $subcate_id = $_GET['subcateid'];
+    $sql = "SELECT * FROM tbl_sanpham where id_dmphu = '$subcate_id'";
+    // echo "$sql";
+}
 $_limit = 12;
 $pagination = createDataWithPagination($conn, $sql, $_limit);
 $product_list = $pagination['datalist'];
@@ -184,6 +191,11 @@ foreach ($product_list as $item) {
 $conn = connectdb();
 
 $sql = "SELECT * FROM tbl_sanpham"; // Total Product
+if (isset($_GET['subcateid'])) {
+    $subcate_id = $_GET['subcateid'];
+    $sql = "SELECT * FROM tbl_sanpham where id_dmphu = '$subcate_id'";
+    // echo "$sql";
+}
 $_limit = 12;
 $pagination = createDataWithPagination($conn, $sql, $_limit);
 $product_list = $pagination['datalist'];

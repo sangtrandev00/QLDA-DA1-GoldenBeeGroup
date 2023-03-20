@@ -1102,99 +1102,44 @@ if ($current_page < $total_page && $total_page > 1) {
                         <h6>Các bài viết về các sản phẩm mới nhất, thủ thuật, hướng dẫn sử dụng điện thoại hay</h6>
                     </div>
                     <div class="blog">
-                        <div class="active-blog slick-arrow-2">
-                            <div class="blog-item">
-                                <img src="../uploads/lastest-blog-1.jpg" alt="lastest-blog-1.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
+                        <div class="active-blog slick-arrow-1">
+                            <?php
+                                $list_newblog_home = get_all_new_blog_home();
+                                foreach ($list_newblog_home as $newblog) {
+                                    extract($newblog);
+                                    $image_list = explode(',', $newblog['images']);
+                                    foreach ($image_list as $image_item) {
+
+                                        if (substr($image_item, 0, 6) == "thumb-") {
+                                            // echo $image_item;
+                                            $thumbnail = "../uploads/" . $image_item;
+                                            break;
+                                        }
+                                    }
+                                    $conten = mb_substr($newblog['noi_dung'],0,100);
+                                    echo '<div class="blog-item">
+                                    <img style="width: 365px; height: 265px;" src="'.$thumbnail.'" alt="lastest-blog-1.jpg">
+                                    <div class="blog-desc">
+                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a></h5>
+                                        <p>'.$conten.'...</p>
+                                        <div class="read-more">
+                                            <a href="./index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                        </div>
+                                        <ul class="blog-meta">
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="../uploads/latest-blog-2.jpg" alt="latest-blog-2.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="../uploads/latest-blog-3.jpg" alt="latest-blog-3.jpg">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <img src="assets/img/blog/1.jpg" alt="">
-                                <div class="blog-desc">
-                                    <h5 class="blog-title"><a href="./index.php?act=blogdetail">dummy Blog name</a></h5>
-                                    <p>There are many variations of passages of psum available, but the majority
-                                        have suffered alterat on in some form, by injected humour, randomis
-                                        words which don't look even slightly.</p>
-                                    <div class="read-more">
-                                        <a href="./index.php?act=blogdetail">Read more</a>
-                                    </div>
-                                    <ul class="blog-meta">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-favorite"></i>89 Like</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-comments"></i>59 Comments</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-share"></i>29 Share</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                </div>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
