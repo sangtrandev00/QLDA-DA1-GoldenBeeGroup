@@ -654,7 +654,7 @@ if (isset($_GET['act'])) {
             break;
         case 'historyorderdetailpage':
             if (isset($_GET['id'])) {
-                $cartList = getshowcart($_GET['id']);
+                $cartList = getshowcartbyiduser($_GET['id']);
                 $orderInfo = getorderinfo($_GET['id']);
                 // var_dump($orderInfo);
                 //var_dump($cartList);
