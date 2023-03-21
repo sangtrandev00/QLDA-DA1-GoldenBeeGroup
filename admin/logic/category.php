@@ -8,7 +8,7 @@ include $ROOT_URL . "admin/models/category.php";
 include $ROOT_URL . "DAO/product.php";
 include $ROOT_URL . "./DAO/category.php";
 
-switch ($_GET) {
+switch ($_GET['act']) {
     case 'addcate':
         # code...
         break;
@@ -16,6 +16,8 @@ switch ($_GET) {
         # code...
         $error = array();
         // if (isset($_POST['editcatebtn']) && $_POST['editcatebtn']) {
+        // var_dump($_POST);
+        // exit;
         $madanhmuc = $_POST['id'];
         $tendanhmuc = $_POST['catename'];
         $cate_parent = $_POST['cateparent'];
@@ -24,7 +26,7 @@ switch ($_GET) {
         if ($_FILES['cateimage']['name'] == '') {
             $cate_image = $cate_item['hinh_anh'];
         } else {
-            $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
+            $target_file = "$ROOT_URL/uploads/" . basename($_FILES["cateimage"]["name"]);
             $hinh_anh = $_FILES['cateimage'];
             $cate_image = $hinh_anh['name'];
             move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
@@ -35,9 +37,17 @@ switch ($_GET) {
         // echo $tendanhmuc;
         if (empty($tendanhmuc)) {
             $error['catename'] = "Không để trống tên danh mục";
+            $result = array(
+                "status" => 0,
+                "message" => $error['catename'],
+            );
         } else {
             if (cate_exist_by_name($tendanhmuc)) {
-                echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
+                $error['catename'] = "Tên danh mục đã bị trùng, mời nhập tên khác!";
+                $result = array(
+                    "status" => 0,
+                    "message" => $error['catename'],
+                );
             } else {
 
                 $is_updated = cate_update($madanhmuc, $tendanhmuc, $cate_image, $cate_desc);
@@ -49,10 +59,11 @@ switch ($_GET) {
                         "status" => 1,
                         "message" => "Cập nhật danh mục thành công!",
                     );
-                    echo json_encode($result);
+
                 }
             }
         }
+        echo json_encode($result);
 
         // }
 
@@ -62,7 +73,53 @@ switch ($_GET) {
     case 'deletecate':
         # code...
         break;
+    case 'deletesubcate':
+        // if (isset($_GET['subid'])) {
+        var_dump($_POST);
+        $subcateid = $_POST['subid'];
+        $cateid = $_POST['cateid'];
+        // echo $subcateid . $cateid;
+        // subcate_delete($subcateid);
+        $is_deleted = subcate_delete($subcateid);
 
+        if ($is_deleted) {
+            $result = array(
+                "status" => 1,
+                "message" => "Xóa sản phẩm thành công!",
+
+            );
+            echo json_encode($result);
+
+            // echo '
+            //     <script>
+            //         document.addEventListener("DOMContentLoaded", function(e){
+            //             showToast();
+            //         })
+            //     </script>
+            // ';
+        }
+        // header("location: ./index.php?act=subcatelist&cateid=" . $cateid);
+        // echo "successfully!";
+        // include "./vaiew/pages/categories/subcate-list.php";
+        // header('location: ./index.php?act=subcatelist&id=');
+
+        break;
+    case 'editsubcate':
+
+        $error = array();
+        // if (isset($_POST['editcatebtn']) && $_POST['editcatebtn']) {
+        // var_dump($_POST);
+        // exit;
+        $id_dmphu = $_POST['subid'];
+        $tendanhmucphu = $_POST['subcatename'];
+        $cate_parent = $_POST['cateparent'];
+        $subcate_desc = $_POST['subcatedesc'];
+        $is_updated = subcate_update($id_dmphu, $tendanhmucphu, $subcate_desc);
+
+        if ($is_updated) {
+            echo 'Successfully!';
+        }
+        break;
     default:
         # code...
         break;

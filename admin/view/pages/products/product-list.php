@@ -2,16 +2,29 @@
     <div class="card-header py-3">
         <div class="row align-items-center m-0">
             <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                <select class="form-select">
-                    <option>All category</option>
-                    <option>Fashion</option>
+                <select onchange="filterByCate(this);" onfocus="this.selectedIndex = -1;" class="form-select">
+                    <option value="-1">Tất cả danh mục</option>
+                    <?php
+
+$cate_list = cate_select_all();
+
+foreach ($cate_list as $cate_item) {
+    # code...
+    echo '
+                                <option value="' . $cate_item['ma_danhmuc'] . '"><a href="./index.php?act=">' . $cate_item['ten_danhmuc'] . '</a></option>
+                            ';
+}
+
+?>
+
+                    <!-- <option>Fashion</option>
                     <option>Electronics</option>
                     <option>Furniture</option>
-                    <option>Sports</option>
+                    <option>Sports</option> -->
                 </select>
             </div>
             <div class="col-md-2 col-6">
-                <input type="date" class="form-control">
+                <input type="date" onchange="filterByDate(this)" class="form-control">
             </div>
             <div class="col-md-2 col-6">
                 <select class="form-select">
@@ -26,7 +39,7 @@
     <div class="card-body">
 
         <div id="table-product-content" class="table-responsive">
-            <table class="table align-middle table-striped">
+            <table id="table-product" class="table align-middle table-striped">
                 <thead>
                     <th>Id</th>
                     <th>Hình ảnh/ Tên sản phẩm </th>
@@ -102,25 +115,25 @@ foreach ($product_list as $product_item) {
                 <?php
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
-}
+// if ($current_page > 1 && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+// }
 
-// Lặp khoảng giữa
-for ($i = 1; $i <= $total_page; $i++) {
-    // Nếu là trang hiện tại thì hiển thị thẻ span
-    // ngược lại hiển thị thẻ a
-    if ($i == $current_page) {
-        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
-    } else {
-        echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
-    }
-}
+// // Lặp khoảng giữa
+// for ($i = 1; $i <= $total_page; $i++) {
+//     // Nếu là trang hiện tại thì hiển thị thẻ span
+//     // ngược lại hiển thị thẻ a
+//     if ($i == $current_page) {
+//         echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+//     } else {
+//         echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
+//     }
+// }
 
-// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
-}
+// // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+// if ($current_page < $total_page && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+// }
 
 ?>
                 <!-- <ul class="pagination">

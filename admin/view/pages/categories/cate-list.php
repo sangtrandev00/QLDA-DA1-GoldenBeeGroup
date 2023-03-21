@@ -12,11 +12,17 @@
                             <div class="col-12">
                                 <label class="form-label">Tên danh mục</label>
                                 <input type="text" class="form-control" name="catename" placeholder="Tên danh mục">
+                                <p class="error-message">
+                                    <?php if (isset($error['catename'])) {echo $error['catename'];}?></p>
+
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Hình ảnh</label>
                                 <input type="file" class="form-control" name="cateimage" accept="image/png, image/jpeg"
                                     placeholder="Hình ảnh">
+                                <p class="error-message">
+                                    <?php if (isset($error['catedesc'])) {echo $error['catedesc'];}?></p>
+
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Danh mục cha</label>
@@ -76,6 +82,7 @@ foreach ($cate_list as $cate_item) {
                                 <tbody>
                                     <?php
 foreach ($cate_list as $cate_item) {
+    // var_dump(count_products_by_cate($cate_item['ma_danhmuc']));
     # code...
     echo '
                                             <tr>
@@ -84,7 +91,7 @@ foreach ($cate_list as $cate_item) {
                                                 <td>' . $cate_item['ten_danhmuc'] . '</td>
                                                 <td><img width="80" height="100" src="../uploads/' . $cate_item['hinh_anh'] . '"/></td>
                                                 <td>' . $cate_item['mo_ta'] . '</td>
-                                                <td>0</td>
+                                                <td>' . count_products_by_cate($cate_item['ma_danhmuc']) . '</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
                                                         <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&cateid=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"

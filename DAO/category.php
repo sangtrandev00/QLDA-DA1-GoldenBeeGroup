@@ -13,7 +13,7 @@ function cate_insert($ten_loai, $hinh_anh, $mo_ta)
 
 function subcate_insert($iddm, $ten_danhmucphu, $mo_ta)
 {
-    $sql = "INSERT INTO tbl_danhmucphu(iddm, ten_danhmucphu, mota) VALUES(?,?,?)";
+    $sql = "INSERT INTO tbl_danhmucphu(iddm, ten_danhmucphu, mo_ta) VALUES(?,?,?)";
     pdo_execute($sql, $iddm, $ten_danhmucphu, $mo_ta);
     return true;
 }
@@ -22,6 +22,12 @@ function cate_update($ma_loai, $ten_danhmuc, $hinh_anh, $mo_ta)
 {
     $sql = "UPDATE tbl_danhmuc SET ten_danhmuc=?, hinh_anh = ?, mo_ta = ? WHERE ma_danhmuc=?";
     pdo_execute($sql, $ten_danhmuc, $hinh_anh, $mo_ta, $ma_loai);
+    return true;
+}
+function subcate_update($id_dmphu, $ten_danhmucphu, $mo_ta)
+{
+    $sql = "UPDATE tbl_danhmucphu SET ten_danhmucphu=?, mo_ta = ? WHERE id=?";
+    pdo_execute($sql, $ten_danhmucphu, $mo_ta, $id_dmphu);
     return true;
 }
 
@@ -47,6 +53,7 @@ function subcate_delete($subcate_id)
         }
     } else {
         pdo_execute($sql, $subcate_id);
+        return true;
     }
 
 }
@@ -79,6 +86,13 @@ function subcate_select_all_by_id($iddm)
 function cate_select_by_id($ma_loai)
 {
     $sql = "SELECT * FROM tbl_danhmuc WHERE ma_danhmuc=?";
+    return pdo_query_one($sql, $ma_loai);
+
+}
+
+function subcate_select_by_id($ma_loai)
+{
+    $sql = "SELECT * FROM tbl_danhmucphu WHERE id=?";
     return pdo_query_one($sql, $ma_loai);
 
 }

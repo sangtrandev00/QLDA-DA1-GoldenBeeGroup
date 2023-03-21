@@ -107,6 +107,24 @@ switch ($_GET['act']) {
 
         }
         break;
+    case 'dataproducts':
+        $product_list = product_select_all();
+
+        // array(
+        //     "id" => 1,
+        //     "tensp" =>
+        // )
+        // $product_list = array_map(function ($product_item) {
+
+        //     return $product_item;
+        // }, $product_list);
+
+        // echo json_encode(
+        //     array(
+        //         'product_list' => $product_list,
+        //     )
+        // );
+        break;
     case 'deleteproduct':
         if (isset($_POST['id'])) {
             product_delete($_POST['id']);

@@ -20,15 +20,18 @@ if (isset($_POST['id'])) {
     <input type="hidden" name="id" value="">
     <div class="col-12">
         <label class="form-label">Tên danh mục</label>
-        <input type="text" class="form-control" name="catename" placeholder="Tên danh mục">
+        <input type="text" class="form-cocntrol" name="catename" placeholder="Tên danh mục">
+        <p class="error-message"><?php if (isset($error['catename'])) {echo $error['catename'];}?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Hình ảnh</label>
         <input type="file" class="form-control" name="cateimage" accept="image/png, image/jpeg" placeholder="Hình ảnh">
+        <?php if (isset($error['catename'])) {echo $error['catename'];}?>
     </div>
     <div class="col-12">
         <label for=""></label>
-        <img src="..uploads/<?php echo $image ?>" style="" class="w-100 cate-img" alt="<?php echo $image ?>">
+        <img src="..uploads/<?php if (isset($image)) {echo $image;}?>" style="" class="w-100 cate-img"
+            alt="<?php if (isset($image)) {echo $image;}?>">
     </div>
     <div class="col-12">
         <label class="form-label">Danh mục cha</label>

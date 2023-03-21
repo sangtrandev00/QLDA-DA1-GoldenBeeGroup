@@ -9,7 +9,7 @@ include $ROOT_URL . "/DAO/category.php";
 include "$ROOT_URL/global.php";
 ?>
 
-<table class="table align-middle table-striped">
+<table id="table-product" class="table align-middle table-striped">
     <thead>
         <th>Id</th>
         <th>Hình ảnh/ Tên sản phẩm </th>
@@ -27,8 +27,18 @@ include "$ROOT_URL/global.php";
 $conn = connectdb();
 
 $sql = "SELECT * FROM tbl_sanpham"; // Total Product
+if (isset($_POST['cateid'])) {
+    $cateid = $_POST['cateid'];
+    if ($cateid >= 0) {
+        $sql = "SELECT * FROM tbl_sanpham WHERE ma_danhmuc = '$cateid'";
+    } else {
+        $sql = "SELECT * FROM tbl_sanpham";
+    }
+}
+
 $_limit = 8;
 $pagination = createDataWithPagination($conn, $sql, $_limit);
+
 $product_list = $pagination['datalist'];
 // var_dump($productList);
 $total_page = $pagination['totalpage'];
@@ -85,25 +95,25 @@ foreach ($product_list as $product_item) {
     <?php
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
-}
+// if ($current_page > 1 && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+// }
 
-// Lặp khoảng giữa
-for ($i = 1; $i <= $total_page; $i++) {
-    // Nếu là trang hiện tại thì hiển thị thẻ span
-    // ngược lại hiển thị thẻ a
-    if ($i == $current_page) {
-        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
-    } else {
-        echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
-    }
-}
+// // Lặp khoảng giữa
+// for ($i = 1; $i <= $total_page; $i++) {
+//     // Nếu là trang hiện tại thì hiển thị thẻ span
+//     // ngược lại hiển thị thẻ a
+//     if ($i == $current_page) {
+//         echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+//     } else {
+//         echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
+//     }
+// }
 
-// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
-}
+// // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+// if ($current_page < $total_page && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+// }
 
 ?>
     <!-- <ul class="pagination">

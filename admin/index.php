@@ -40,7 +40,17 @@ if (isset($_GET['act'])) {
             break;
         case 'deleteproduct':
             if (isset($_GET['id'])) {
-                product_delete($_GET['id']);
+                $is_deleted = product_delete($_GET['id']);
+                if ($is_deleted) {
+                    echo '
+                        <script>
+                            // <div class="alert alert-danger">Bạn đã xóa sản phẩm #' . $_GET['id'] . ' thành công</div>
+                            document.addEventListener("DOMContentLoaded", (event) => {
+                                showToast("Xóa sản phẩm", "Chúc mừng bạn đã Xóa sản phẩm #' . $_GET['id'] . ' thành công");
+                            });
+                        </script>
+                    ';
+                }
             }
             include "./view/pages/products/product-list.php";
             break;
@@ -59,7 +69,8 @@ if (isset($_GET['act'])) {
 
         case 'editproduct':
             $error = array();
-            if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
+            // if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
+            if (isset($_GET['id'])) {
                 $idproduct = $_GET['id'];
                 $product_item = product_select_by_id($idproduct);
                 // var_dump($product_item);
@@ -125,17 +136,19 @@ if (isset($_GET['act'])) {
                 $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
                 if ($is_updated) {
                     echo '<script>
-                            document.getElementById("liveToastBtn").click();
-                            // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
+                           document.addEventListener("DOMContentLoaded", function(e) {
+                                showToast("Cập nhật sản phẩm #' . $idproduct . ' thành công", "Chúc mừng bạn đã Cập nhật sản phẩm #' . $idproduct . ' thành công");
+                           })
                     </script>';
-                    header("location: ./index.php?act=productlist");
+                    // header("location: ./index.php?act=productlist");
+
                 }
                 // } else {
 
                 // }
             }
 
-            // include "./view/pages/products/product-list.php";
+            include "./view/pages/products/product-list.php";
             break;
         case 'addproduct':
             $error = array();
@@ -246,11 +259,41 @@ if (isset($_GET['act'])) {
                 } else {
                     echo "Add category failed";
                 }
-                // }
 
             }
 
             include "./view/pages/categories/cate-list.php";
+            break;
+        case 'addsubcate':
+            $error = array();
+            if (isset($_POST['addsubcatebtn']) && $_POST['addsubcatebtn']) {
+                $subcate_name = $_POST['subcatename'];
+                // $cate_image = $_FILES['cateimage'];
+                $cate_parent = $_POST['cateparent'];
+
+                $cate_desc = $_POST['subcatedesc'];
+
+                if (!$error) {
+
+                    $is_added = subcate_insert($cate_parent, $subcate_name, $cate_desc);
+
+                    if ($is_added) {
+                        header("location: ./index.php?act=subcatelist&cateid=" . $cate_parent);
+                        echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", (e) => {
+                                showToast();
+                            })
+                        </script>
+                       ';
+
+                    } else {
+                        echo "Add category failed";
+                    }
+                }
+
+            }
+
             break;
         case 'editcate':
             include "./view/pages/categories/cate-list.php";

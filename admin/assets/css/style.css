@@ -638,7 +638,7 @@ a {
 }
 
 .wrapper.toggled .page-content {
-	margin-left: 70px
+	/* margin-left: 70px; */
 }
 
 .wrapper.toggled .footer {
@@ -1550,7 +1550,7 @@ a {
 }
 
 .chat-content-leftside .chat-left-msg {
-	width: fit-content;
+	/* width: fit-content; */
 	background-color: #eff2f5;
 	padding: .8rem;
 	border-radius: 12px;
@@ -1560,7 +1560,7 @@ a {
 }
 
 .chat-content-rightside .chat-right-msg {
-	width: fit-content;
+	/* width: fit-content; */
 	background-color: #dcedff;
 	padding: .8rem;
 	border-radius: 12px;

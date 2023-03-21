@@ -1,3 +1,55 @@
+<?php
+if (isset($_GET['act'])) {
+    switch ($_GET['act']) {
+        case 'subcatelist':
+            $breadcrumbs = "Danh mục phụ sản phẩm";
+            break;
+        case 'catelist':
+            $breadcrumbs = "Danh mục sản phẩm";
+            break;
+        case 'productlist':
+            $breadcrumbs = "Sản phẩm";
+            break;
+        case 'addproduct':
+            $breadcrumbs = "Thêm Sản phẩm";
+            break;
+        case 'editproduct':
+        case 'updateproduct':
+            $breadcrumbs = "Cập nhật Sản phẩm";
+            break;
+        case 'orderlist':
+            $breadcrumbs = "Danh sách đặt hàng";
+            break;
+        case 'orderdetail':
+            $breadcrumbs = "Đơn hàng chi tiết";
+            break;
+        case 'userlist':
+            $breadcrumbs = "Danh sách người dùng";
+            break;
+        case 'admin':
+            $breadcrumbs = "Danh sách quản trị viên";
+            break;
+        case 'bloglist':
+            $breadcrumbs = "Danh sách bài viết";
+            break;
+        case 'blogcate':
+            $breadcrumbs = "Danh mục bài viết";
+            break;
+        case 'addblog':
+            $breadcrumbs = "Thêm bài viết";
+            break;
+        case 'commentlist':
+            $breadcrumbs = "Danh sách bình luận";
+            break;
+        default:
+            $breadcrumbs = "";
+    }
+} else {
+    $breadcrumbs = "";
+}
+?>
+
+
 <!--start content-->
 <main class="page-content">
     <!--breadcrumb-->
@@ -8,7 +60,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+                    <li class="breadcrumb-item active" aria-current="page"><?php echo $breadcrumbs ?></li>
                 </ol>
             </nav>
         </div>

@@ -44,6 +44,7 @@ function editProduct(productId) {
             $("#cartModal #product-action-btn").click(function(e) {
                 e.preventDefault();
                 // console.log('clicked ');
+               
                 
                 const formData = new FormData($('#cartModal #product-form')[0]);
                 console.log('form: ', formData);
@@ -55,30 +56,37 @@ function editProduct(productId) {
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
-                        console.log('url: ', productTableContentUrl);
-                        $.get(productTableContentUrl, function(responseHtml) {
-                            $("#table-product-content").html(responseHtml);
-                        })
+                        // const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
+                        // console.log('url: ', productTableContentUrl);
+                        // $.get(productTableContentUrl, function(responseHtml) {
+                        //     $("#table-product-content").html(responseHtml);
+                        // })
 
-                        console.log('res: ', JSON.parse(response));
+                        // console.log('res: ', JSON.parse(response));
                         const {status, message} = JSON.parse(response);
                         if(status== 1) {
                             $("#liveToastBtn").trigger("click");
                             $("#cartModal .close-modal-btn").trigger("click");
                             $("#toast-content-header").text(message);
                             $("#liveToast .toast-body").text("Chúc mừng bạn đã " + message);
+
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000)
                         }
+                        // $('#table-product').load("#table-product");
+
+                        // if(status == 1) {
+                           
+                        // }
                     }
                 });
             })
-
-
-        })
     });
     
+    }
+)
 }
-
 function viewDetail(productId) {
     $.get("./logic/product.php?act=getproduct&id="+productId, function(response) {
         $.get("./view/pages/products/product-form.php", function(reponseHtml) {
@@ -141,29 +149,32 @@ function deleteProduct(btnElement,productId) {
 
     $("#cartModal .action-btn").click(function(e) {
         e.preventDefault();
-     
-        $.ajax({
-            type: "POST",
-            url: "./logic/product.php?act=deleteproduct",
-            data: {
-                id: productId
-            },
-            // dataType: "dataType",
-            success: function (response) {
-                $("#cartModalBtn").trigger("click");
-                // const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
-                // location.assign("index.php?act=deleteproduct&id="+productId);
-                const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
-                    console.log('url: ', productTableContentUrl);
-                    $.get(productTableContentUrl, function(responseHtml) {
-                        $("#table-product-content").html(responseHtml);
-                    })
-                    $("#liveToastBtn").trigger("click");
-                    $("#toast-content").html(`<strong id="toast-content" class="me-auto">Sản phẩm #${productId}</strong>`);
-                    $("#liveToast .toast-body").text(`Bạn đã sản phẩm #${productId} khỏi danh sách ` );
+        
+        location.assign("./index.php?act=deleteproduct&id="+productId);
+        // $.ajax({
+        //     type: "POST",
+        //     url: "./logic/product.php?act=deleteproduct",
+        //     data: {
+        //         id: productId
+        //     },
+        //     // dataType: "dataType",
+        //     success: function (response) {
+        //         $("#cartModalBtn").trigger("click");
+        //         // const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
+        //         // location.assign("index.php?act=deleteproduct&id="+productId);
+        //         location.href="index.php?act=productlist";
+        //         const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
+        //             console.log('url: ', productTableContentUrl);
+        //             $.get(productTableContentUrl, function(responseHtml) {
+        //                 $("#table-product-content").html(responseHtml);
+        //             })
+        //             $("#liveToastBtn").trigger("click");
+        //             $("#toast-content").html(`<strong id="toast-content" class="me-auto">Sản phẩm #${productId}</strong>`);
+        //             $("#liveToast .toast-body").text(`Bạn đã xóa sản phẩm #${productId} khỏi danh sách ` );
+                    
               
-            }
-        });
+        //     }
+        // });
 
 
         
@@ -176,20 +187,90 @@ function alertModal(title, message) {
     $("#cartModal .modal-body").text(`${message}`);
 }
 
-$(document).ready(function(){
-    $('.image-list').slick({
-        speed: 700,
-        arrows: true,
-        margin: 30,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        prevArrow: '<button type="button" class="arrow-prev"><i class="zmdi zmdi-long-arrow-left"></i></button>',
-        nextArrow: '<button type="button" class="arrow-next"><i class="zmdi zmdi-long-arrow-right"></i></button>',
-        responsive: [
-            { breakpoint: 991, settings: { slidesToShow: 3 }  },
-            { breakpoint: 767, settings: { slidesToShow: 1 }  },
-            { breakpoint: 479, settings: { slidesToShow: 1 }  }
-        ]
+// $(document).ready(function(){
+//     $('.image-list').slick({
+//         speed: 700,
+//         arrows: true,
+//         margin: 30,
+//         slidesToShow: 4,
+//         slidesToScroll: 1,
+//         prevArrow: '<button type="button" class="arrow-prev"><i class="zmdi zmdi-long-arrow-left"></i></button>',
+//         nextArrow: '<button type="button" class="arrow-next"><i class="zmdi zmdi-long-arrow-right"></i></button>',
+//         responsive: [
+//             { breakpoint: 991, settings: { slidesToShow: 3 }  },
+//             { breakpoint: 767, settings: { slidesToShow: 1 }  },
+//             { breakpoint: 479, settings: { slidesToShow: 1 }  }
+//         ]
     
+//     });
+//   });
+
+
+  function filterByCate(cateItem) {
+    console.log('changed', cateItem.value);
+
+    $.ajax({
+        type: "POST",
+        url: ADMIN_URL+"/view/pages/products/table-product-content.php",
+        data: {
+            cateid: cateItem.value
+        },
+        // dataType: "dataType",
+        success: function (responseHtml) {
+                $("#table-product-content").html(responseHtml);
+        $.ajax({
+            type: "POST",
+            url: ADMIN_URL+ "/view/pages/products/table-product-database.php",
+            data: {
+                cateid: cateItem.value
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                console.log('res: ', response);
+                    const {product_list} = JSON.parse(response);
+                    
+                    $('#table-product').DataTable({
+                        data: product_list,
+                        retrieve: true,
+                    });
+            }
+        });
+        }
     });
-  });
+  }
+
+  function filterByDate(dateElement) {
+    console.log('changed', dateElement.value);
+
+    // SELECT *, CAST(ngay_nhap AS DATE) AS CURRENT_DATE_GFG from tbl_sanpham where CAST(ngay_nhap AS DATE) = "2023-03-11";
+    const date = new Date(dateElement.value);
+    console.log(`${date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()}`)
+    $.ajax({
+        type: "POST",
+        url: ADMIN_URL+"/view/pages/products/table-product-content.php",
+        data: {
+            datevalue: dateElement.value
+        },
+        // dataType: "dataType",
+        success: function (responseHtml) {
+                $("#table-product-content").html(responseHtml);
+        $.ajax({
+            type: "POST",
+            url: ADMIN_URL+ "/view/pages/products/table-product-database.php",
+            data: {
+                datevalue: dateElement.value
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                console.log('res: ', response);
+                    const {product_list} = JSON.parse(response);
+                    
+                    $('#table-product').DataTable({
+                        data: product_list,
+                        retrieve: true,
+                    });
+            }
+        });
+        }
+    });
+  }

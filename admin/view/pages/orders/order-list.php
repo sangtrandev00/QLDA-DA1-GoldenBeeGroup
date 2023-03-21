@@ -30,7 +30,7 @@
             </div>
             <div class="card-body">
                 <div id="table-order-content" class="table-responsive">
-                    <table class="table align-middle">
+                    <table id="table-order" class="table align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
@@ -95,27 +95,27 @@ foreach ($order_list as $order) {
                 </div>
                 <nav class="float-end" aria-label="Page navigation">
                     <?php
-// HIỂN THỊ PHÂN TRANG
-// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=orderlist&page=' . ($current_page - 1) . '">Trước</a> | ';
-}
+// // HIỂN THỊ PHÂN TRANG
+// // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+// if ($current_page > 1 && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=orderlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+// }
 
-// Lặp khoảng giữa
-for ($i = 1; $i <= $total_page; $i++) {
-    // Nếu là trang hiện tại thì hiển thị thẻ span
-    // ngược lại hiển thị thẻ a
-    if ($i == $current_page) {
-        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
-    } else {
-        echo '<a class="page-item btn btn-light" href="index.php?act=orderlist&page=' . $i . '">' . $i . '</a> | ';
-    }
-}
+// // Lặp khoảng giữa
+// for ($i = 1; $i <= $total_page; $i++) {
+//     // Nếu là trang hiện tại thì hiển thị thẻ span
+//     // ngược lại hiển thị thẻ a
+//     if ($i == $current_page) {
+//         echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+//     } else {
+//         echo '<a class="page-item btn btn-light" href="index.php?act=orderlist&page=' . $i . '">' . $i . '</a> | ';
+//     }
+// }
 
-// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=orderlist&page=' . ($current_page + 1) . '">Sau</a> | ';
-}
+// // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+// if ($current_page < $total_page && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=orderlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+// }
 
 ?>
                     <!-- <ul class="pagination">

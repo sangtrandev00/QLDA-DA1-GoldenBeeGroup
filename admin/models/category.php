@@ -122,3 +122,47 @@ function update_cate($id, $catename, $catetitle)
         echo $sql . "<br>" . $e->getMessage();
     }
 }
+
+function count_products_by_cate($cate_id)
+{
+
+    try {
+        $conn = connectdb();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT count(*) as sl_sp from tbl_sanpham where ma_danhmuc = '$cate_id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+        // var_dump($result);
+        return $result['sl_sp'];
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+}
+
+function count_products_by_subcate($subcate_id)
+{
+
+    try {
+        $conn = connectdb();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT count(*) as sl_sp from tbl_sanpham where id_dmphu = '$subcate_id'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch();
+        // var_dump($result);
+        return $result['sl_sp'];
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+}
