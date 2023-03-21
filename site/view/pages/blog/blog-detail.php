@@ -128,12 +128,13 @@
                               <style>
                               </style>
                               <div class="post-comments mb-60">
-                                  <h4 class="blog-section-title border-left mb-30">Bình Luận</h4>
+                                  
                                   <!-- single-comments -->
                                   <?php
                                     //showcomment
                                     $showcomment = showcomment($blog_id);
                                     if(!empty($showcomment) ):
+                                        echo '<h4 class="blog-section-title border-left mb-30">Bình Luận</h4>';
                                         foreach ($showcomment as $comment):                            
                                   ?>
                                     <div class="media mt-30">
@@ -157,8 +158,7 @@
                                                         if(isset($_SESSION['iduser'])){
 
                                                             if($_SESSION['iduser'] == $profile['id']){
-                                                                echo '<a class="xoa_btn" href="index.php?act=deletecmt&idblog='.$comment['id_bl'].'&idprofile='.$comment['id_blog'].'"> Xóa</a>';
-                                                                
+                                                                echo '<a class="xoa_btn" href="index.php?act=deletecmt&idblog='.$comment['id_bl'].'&idprofile='.$comment['id_blog'].'"> Xóa</a>';                                                              
                                                             }
                                                         }
                                             ?>
