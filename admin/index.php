@@ -334,19 +334,21 @@ if (isset($_GET['act'])) {
             include "./view/reports/reportlist-page.php";
             break;
         case 'userlist':
-            if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-                include "./view/user/userlist-page.php";
-            } else {
-                header('location: index.php');
-            }
+            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
+            //     include "./view/user/userlist-page.php";
+            // } else {
+            //     header('location: index.php');
+            // }
+            include "./view/user/userlist-page.php";
 
             break;
-        case 'customerlist':
-            if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-                include "./view/user/customerlist-page.php";
-            } else {
-                header('location: index.php');
-            }
+        case 'adminlist':
+            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
+            //     include "./view/user/customerlist-page.php";
+            // } else {
+            //     header('location: index.php');
+            // }
+            include "./view/user/adminlist-page.php";
 
             break;
         case 'adduser':
@@ -361,14 +363,14 @@ if (isset($_GET['act'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
+                $filename= $_FILES["image"]["name"];
                 // $imageurl = $_FILES['imageurl'];
 
-                $target_dir = "content/";
-                $target_file = $target_dir . basename($_FILES["imageurl"]["name"]);
-                // echo $target_file;
-                move_uploaded_file($_FILES["imageurl"]["tmp_name"], "../" . $target_file);
-                // echo $iduser;
-                if (empty($_FILES["imageurl"]["name"])) {
+                $target_dir = "../uploads/";
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+
+                if (empty($_FILES["image"]["name"])) {
                     $error['img'] = "Không để trống hình ảnh";
                 }
                 // Validate at server
@@ -402,11 +404,11 @@ if (isset($_GET['act'])) {
                 if (!$error) {
                     // Encrypt password
                     $password = md5($password);
-                    $is_inserted = user_insert($username, $password, $name, $address, $phone, $kichhoat, $target_file, $email, $role);
-
-                    if ($is_inserted) {
-                        echo '<div class="p-3 bg-light">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
-                    }
+                    $is_inserted = user_insert($username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                    header('Location: index.php?act=adduser');
+                    // if ($is_inserted) {
+                    //     echo '<div class="p-3 bg-light">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
+                    // }
                 }
             }
             include "./view/user/adduser-page.php";
@@ -425,18 +427,19 @@ if (isset($_GET['act'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
+                $filename = $_FILES['image']['name'];
 
                 // $imageurl = $_FILES['imageurl'];
 
-                $target_dir = "content/";
-                $target_file = $target_dir . basename($_FILES["imageurl"]["name"]);
+                $target_dir = "../uploads/";
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
                 // echo $target_file;
-                move_uploaded_file($_FILES["imageurl"]["tmp_name"], "../" . $target_file);
+                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
                 // validation using php at server
-                if (empty($_FILES["imageurl"]["name"])) {
-                    $error['img'] = "Không để trống hình ảnh";
-                }
+                // if (empty($_FILES["image"]["name"])) {
+                //     $error['img'] = "Không để trống hình ảnh";
+                // }
                 // Validate at server
 
                 if (strlen($name) == 0) {
@@ -469,11 +472,16 @@ if (isset($_GET['act'])) {
                     $password = md5($password);
 
                     // echo $role;
-                    $is_updated = user_update($iduser, $username, $password, $name, $address, $phone, $kichhoat, $target_file, $email, $role);
-
-                    if ($is_updated) {
-                        echo '<div class="p-3 alert alert-success">Chúc mừng bạn đã cập nhật người dùng thành công</div>';
-                    }
+                    $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                    // header('location: ./view/user/userlist-page.php');
+                    // if ($is_updated) {
+                    //     echo '
+                    // <script>
+                    //     window.alert("Chúc mừng bạn đã sửa người dùng thành công!");
+                    // </script>
+                    // ';
+                    // }
+                    header('Location: index.php?act=userlist');
 
                 }
 
@@ -481,18 +489,106 @@ if (isset($_GET['act'])) {
 
             include "./view/user/edituser-page.php";
             break;
+        case 'editadmin':
+                $error = array();
+                if (isset($_POST['edituserbtn']) && $_POST['edituserbtn']) {
+    
+                    $iduser = $_POST['iduser'];
+                    $name = $_POST['fullname'];
+                    $address = $_POST['address'];
+                    $email = $_POST['email'];
+                    $phone = $_POST['phone'];
+                    $kichhoat = $_POST['kichhoat'];
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $role = $_POST['role'];
+                    $filename=$_FILES['image']['name'];
+
+                    $target_dir = "../uploads/";
+                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                    // echo $target_file;
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+    
+                    // validation using php at server
+                    // if (empty($_FILES["image"]["name"])) {
+                    //     $error['img'] = "Không để trống hình ảnh";
+                    // }
+                    // Validate at server
+    
+                    if (strlen($name) == 0) {
+                        $error['name'] = "Không để trống họ tên!";
+                    } else if (strlen($name) > 30) {
+                        $error['name'] = "Họ tên không vượt quá 30 ký tự!";
+                    }
+    
+                    if (empty($email)) {
+                        $error['email'] = "không để trống email";
+                    } else if (!is_email($email)) {
+                        $error['email'] = "Email không đúng định dạng!";
+                    }
+    
+                    if (strlen($phone) == 0) {
+                        $error['phone'] = "Không để trống số điện thoại!";
+                    } else if (!validating($phone)) {
+                        $error['phone'] = "Định dạng số điện thoại không chính xác!";
+                    }
+    
+                    if (empty($username)) {
+                        $error['username'] = "Không để trống username!";
+                    }
+    
+                    if (empty($password)) {
+                        $error['password'] = "không để trống password!";
+                    }
+    
+                    if (!$error) {
+                        $password = md5($password);
+    
+                        // echo $role;
+                        $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                        // header('Location: adminlist-page.php');
+                        // if ($is_updated) {
+                        header('Location: index.php?act=adminlist');
+                       
+                        // }
+    
+                    }
+    
+                }
+    
+                include "./view/user/editadmin-page.php";
+                break;
         case 'deleteuser':
             if (isset($_GET['id'])) {
-                $comments_deleted = comment_delete_by_iduser($_GET['id']);
+                // $comments_deleted = comment_delete_by_iduser($_GET['id']);
                 $id_deleted = user_delete($_GET['id']);
                 if ($id_deleted) {
-
-                    echo '<div class="p-3 alert alert-success text-white">Chúc mừng bạn đã xóa người dùng thành công</div>';
+                    echo '
+                    <script>
+                        window.alert("Chúc mừng bạn đã xóa người dùng thành công!");
+                    </script>
+                    ';
 
                 }
             }
 
             include "./view/user/userlist-page.php";
+            break;
+        case 'deleteadmin':
+            if (isset($_GET['id'])) {
+                // $comments_deleted = comment_delete_by_iduser($_GET['id']);
+                $id_deleted = user_delete($_GET['id']);
+                if ($id_deleted) {
+                    echo '
+                    <script>
+                        window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
+                    </script>
+                    ';
+
+                }
+            }
+
+            include "./view/user/adminlist-page.php";
             break;
 
         case 'orderlist':
