@@ -8,6 +8,7 @@
 <?php
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
+    // print_r($iduser);
     $user = user_select_by_id($iduser);
     $password = $user['mat_khau'];
 }

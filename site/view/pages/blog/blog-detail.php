@@ -130,15 +130,52 @@
                               <div class="post-comments mb-60">
                                   <h4 class="blog-section-title border-left mb-30">Bình Luận</h4>
                                   <!-- single-comments -->
-                                  <div class="media mt-30">
+                                  <?php
+                                    //showcomment
+                                    $showcomment = showcomment($blog_id);
+                                    if(!empty($showcomment) ):
+                                        foreach ($showcomment as $comment):                            
+                                  ?>
+                                    <div class="media mt-30">
+                                        <div class="media-body">
+                                            <div class="clearfix">
+                                                <div class="name-commenter f-left">
+                                                    <h6 class="media-heading"><a href="#"><?=$comment['ho_ten']?></a></h6>
+                                                    <p class="mb-10"><?=$comment['ngay_bl']?></p>
+                                                </div>
+                                                <!-- <ul class="reply-delate f-right">
+                                                    <li><a href="#">Reply</a></li>
+                                                    <li>/</li>
+                                                    <li><a href="#">Delate</a></li>
+                                                </ul> -->
+                                            </div>
+                                            <p class="mb-10"><?=$comment['noi_dungbl']?></p>
+                                            <?php
+                                                $showprofile = getprofile($comment['id']);
+                                                if(!empty($showprofile) ):
+                                                    foreach ($showprofile as $profile):
+                                                        if(isset($_SESSION['iduser'])){
+
+                                                            if($_SESSION['iduser'] == $profile['id']){
+                                                                echo '<a class="xoa_btn" href="index.php?act=deletecmt&idblog='.$comment['id_bl'].'&idprofile='.$comment['id_blog'].'"> Xóa</a>';
+                                                                
+                                                            }
+                                                        }
+                                            ?>
+                                            <?php endforeach ; endif?>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; endif?>
+                                
+                                  <!-- <div class="media mt-30">
                                       <div class="media-left">
                                           <a href="#"><img class="media-object" src="" alt="#"></a>
                                       </div>
                                       <div class="media-body">
                                           <div class="clearfix">
                                               <div class="name-commenter f-left">
-                                                  <h6 class="media-heading"><a href="#">Lam Phối</a></h6>
-                                                  <p class="mb-10">27 March, 2023 at 2:30pm</p>
+                                                  <h6 class="media-heading"><a href="#"></a></h6>
+                                                  <p class="mb-10"></p>
                                               </div>
                                               <ul class="reply-delate f-right">
                                                   <li><a href="#">Reply</a></li>
@@ -148,29 +185,71 @@
                                           </div>
                                           <p class="mb-0">Bài Viết hay</p>
                                       </div>
-                                  </div>
+                                  </div> -->
                                   <!-- single-comments -->
                               </div>
                               <!-- leave your comment -->
                               <div class="leave-comment">
-                                  <h4 class="blog-section-title border-left mb-30">Để Lại Bình Luận Của bạn</h4>
-                                  <div class="row">
-                                      <div class="col-lg-6">
-                                          <input type="text" name="name" placeholder="Tên Của Bạn...">
-                                      </div>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="email" placeholder="Email Của Bạn...">
-                                      </div>
-                                      <div class="col-lg-12">
-                                          <input type="text" name="subject" placeholder="Tiêu Đề...">
-                                      </div>
-                                      <div class="col-lg-12">
-                                          <textarea class="custom-textarea"
-                                              placeholder="Nội Dung..."></textarea>
-                                      </div>
-                                  </div>
-                                  <button class="submit-btn-1 black-bg mt-30 btn-hover-2" type="submit">Bình Luận</button>
+                                
+                                <form action="index.php?act=commentblog&id=<?=$blog_id?>" method="POST">
+                                    <h4 class="blog-section-title border-left mb-30">Để Lại Bình Luận Của bạn</h4>
+                                    <?php
+                                    if(!isset($_SESSION['iduser'])){ 
+                                        $thongbao = "Đăng Nhập Để Bình Luận";
+                                        
+                                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
+                                                                          
+                                    }else
+                                        $date = date('Y-m-d H:i:s');   
+                                        $makh = $_SESSION['iduser'];                                  
+                                    ?>
+                                    <div class="row">
+                                        <!-- <div class="col-lg-6">
+                                            <input type="text" name="name" placeholder="Tên Của Bạn...">
+                                        </div> -->
+                                        <div class="col-lg-6">
+                                            <input type="hidden" name="makh" value="<?php echo $makh?>" placeholder="Tên Của Bạn...">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="hidden" name="date" value="<?php echo $date;?>" placeholder="Tên Của Bạn...">
+                                        </div>
+                                        
+                                        <!-- <div class="col-lg-6">
+                                            <input type="text" name="email" placeholder="Email Của Bạn...">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input type="text" name="subject" placeholder="Tiêu Đề...">
+                                        </div> -->
+                                        <div class="col-lg-12">
+                                            <textarea class="custom-textarea" name="content"
+                                                placeholder="Nội Dung..."></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- <button class="submit-btn-1 black-bg mt-30 btn-hover-2" name="sencomment" type="submit">Bình Luận</button> -->
+                                    <input class="mt-30 color_btn btn-hover-1" type="submit" value="BÌNH LUẬN" name="sencomment">
+                                </form>
                               </div>
+                              <style>
+                                .color_btn{
+                                    background-color: #ff7f00;
+                                    border: none;
+                                    width: 128px;
+                                    height: 35px;
+                                    font-size: 13px;
+                                    font-weight: 700;
+                                    color: white; 
+                                    border-bottom: none;
+                                    
+                                }
+                                .xoa_btn{
+                                    font-size: 13px;
+                                    font-weight: 600;
+                                    color: #ff7f00;
+                                }
+                                .xoa_btn:hover{
+                                    color: black;
+                                }
+                              </style>
                               <!--  -->
                           </div>
                       </div>
