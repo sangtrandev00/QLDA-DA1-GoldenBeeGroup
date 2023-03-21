@@ -301,6 +301,7 @@
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
         case 'settingaccount':
+        case 'updateaccount':
             echo '
                 <script src="assets/js/pages/account.js"></script>
             ';
