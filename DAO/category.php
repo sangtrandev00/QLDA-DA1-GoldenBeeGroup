@@ -22,7 +22,7 @@ function cate_update($ma_loai, $ten_danhmuc, $hinh_anh, $mo_ta)
 {
     $sql = "UPDATE tbl_danhmuc SET ten_danhmuc=?, hinh_anh = ?, mo_ta = ? WHERE ma_danhmuc=?";
     pdo_execute($sql, $ten_danhmuc, $hinh_anh, $mo_ta, $ma_loai);
-
+    return true;
 }
 
 function cate_delete($ma_loai)

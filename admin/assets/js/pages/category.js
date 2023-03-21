@@ -2,11 +2,39 @@ function deleteCate(cateId) {
     event.preventDefault();
     console.log('delete: ', cateId);
   
+    $("#cartModal .action-btn").removeClass("d-none");
     alertModal("Bạn có muốn xóa danh mục này ?", "Chọn tiếp tục để xóa, chọn đóng để trở lại");
     $("#cartModal .action-btn").click(function(e) {
         e.preventDefault();
         location.assign("index.php?act=deletecate&id="+cateId);
+
+        const formData = new FormData($('#cartModal #cate-form')[0]);
+        
+        $.ajax({
+            type: "POST",
+            url: "./logic/category.php?act=editcate",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                const cateTableContent = `${ADMIN_URL}/view/pages/categories/table-cate-content.php`;
+                console.log('url: ', cateTableContent);
+                $.get(cateTableContent, function(responseHtml) {
+                    $("#table-cate-content").html(responseHtml);
+                })
+
+                console.log('res: ', JSON.parse(response));
+                const {status, message} = JSON.parse(response);
+                if(status== 1) {
+                    $("#liveToastBtn").trigger("click");
+                    $("#cartModal .close-modal-btn").trigger("click");
+                    $("#toast-content-header").text(message);
+                    $("#liveToast .toast-body").text("Chúc mừng bạn đã " + message);
+                }
+            }
+        });
     })
+
 }
 
 function deleteSubcate(subCateId, cateId) {
@@ -44,9 +72,9 @@ const editCate = (cateId) => {
 
 
             const name = rowElement.cells[2].innerText;
-            const image = rowElement.cells[3].innerText;
+            const image = rowElement.cells[3].querySelector("img").src;
             const desc = rowElement.cells[4].innerText;
-            console.log('document url', location);
+            console.log('image', image);
             $.get("./view/pages/categories/cate-form.php", function(responseHtml) {
                 // console.log('res: ', responseHtml);
                 
@@ -58,6 +86,7 @@ const editCate = (cateId) => {
                 console.log('form: ', currentForm);
                 currentForm.elements['catename'].value= name;
                 currentForm.elements['catedesc'].textContent= desc;
+                currentForm.querySelector(".cate-img").src = image ;
                 $("#cartModal #cate-form").attr("action", "./index.php?act=updatecate&id="+cateId);
                 // alertModal(`Điều chỉnh danh mục ${cateId}`, responseHtml);
             });

@@ -89,7 +89,8 @@
                 </div>
                 <div class="modal-footer">
                     <form action="./index.php?act=deletecart&idcart=" method="post">
-                        <input type="submit" name="actionbtn" class="btn btn-secondary action-btn" value="Tiếp tục" />
+                        <input type="submit" name="actionbtn" class="btn btn-secondary action-btn d-none"
+                            value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn"
                             data-bs-dismiss="modal">Đóng</button>
                     </form>

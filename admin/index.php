@@ -17,9 +17,10 @@ include "../DAO/blog.php";
 
 // HEADER SECTION
 include "./view/layout/header.php";
-// SIDEBAR SECTION
+echo '<div class="d-flex">';
 include "./view/components/sidebar/sidebar.php";
-
+// SIDEBAR SECTION
+include "./view/layout/breadcrumb.php";
 // if (isset($_SESSION['iduser'])) {
 
 if (isset($_GET['act'])) {
@@ -197,6 +198,11 @@ if (isset($_GET['act'])) {
                 $is_inserted = product_insert($tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
                 if ($is_inserted) {
                     echo '<div class="p-3 alert alert-success text-center mt-5">Chúc mừng bạn đã thêm mới sản phẩm thành công</div>';
+                    echo "
+                        <script>
+                            document.getElementById('liveToastBtn').click();
+                        </script>
+                    ";
                 }
                 // }
             }
@@ -256,7 +262,6 @@ if (isset($_GET['act'])) {
             if (isset($_POST['editcatebtn']) && $_POST['editcatebtn']) {
                 $madanhmuc = $_GET['id'];
                 $tendanhmuc = $_POST['catename'];
-
                 $cate_parent = $_POST['cateparent'];
                 $cate_desc = $_POST['catedesc'];
                 $cate_item = cate_select_by_id($madanhmuc);
@@ -674,6 +679,7 @@ if (isset($_GET['act'])) {
     //     header('location: loginpage.php');
     // }
 }
+echo '</div>';
 
 include "./view/layout/footer.php";
 

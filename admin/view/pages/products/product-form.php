@@ -5,10 +5,17 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include $ROOT_URL . "./admin/models/category.php";
 include $ROOT_URL . "./DAO/product.php";
 include $ROOT_URL . "./DAO/category.php";
-
+// var_dump($_GET);
+// var_dump($_POST);
+// if (isset($_POST['id'])) {
+//     $id = $_POST['id'];
+//     $product_item = product_select_by_id($id);
+//     $image_list = explode(',', $product_item['images']);
+// }
 ?>
 
 <form id="product-form" action="./index.php?act=addproduct" class="row g-3" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="">
     <div class="col-12">
         <label class="form-label">Tên sản phẩm</label>
         <input type="text" name="tensp" class="form-control" placeholder="Product title">
@@ -21,17 +28,18 @@ include $ROOT_URL . "./DAO/category.php";
         <label class="form-label">Thông tin sản phẩm</label>
         <textarea name="thong_tin" class="form-control" placeholder="Full description" rows="4" cols="4"></textarea>
     </div>
-    <div class="col-12">
+    <div id="image-input-group" class="col-12">
         <label class="form-label">Thêm hình ảnh</label>
         <input class="form-control" name="images[]" multiple accept="image/png, image/jpeg" type="file">
     </div>
 
-    <div class="col-12">
+    <div id="imageList" class="col-12">
         <div class="image-list row">
-            <h4>Danh sách hình ảnh</h4>
+            <h5>Danh sách hình ảnh hiện tại</h5>
             <?php
+
 ?>
-            <div class="col-md-4"><img height="100" class="w-100"
+            <!-- <div class="col-md-4"><img height="100" class="w-100"
                     src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
             <div class="col-md-4"><img height="100" class="w-100"
                     src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
@@ -44,7 +52,7 @@ include $ROOT_URL . "./DAO/category.php";
             <div class="col-md-4"><img height="100" class="w-100"
                     src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
             <div class="col-md-4"><img height="100" class="w-100"
-                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div>
+                    src="../uploads/41669_laptop_lenovo_thinkpad_x1_yoga_gen_6_20xy00e0vn__6_.jpg" alt=""></div> -->
         </div>
     </div>
 
@@ -55,10 +63,10 @@ include $ROOT_URL . "./DAO/category.php";
     <div class="col-12">
         <label class="form-label">Giảm giá</label>
         <div class="row g-3">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <input type="text" name="giam_gia" class="form-control" placeholder="Price">
             </div>
-            <div class="col-lg-3">
+            <!-- <div class="col-lg-3">
                 <div class="input-group">
                     <select class="form-select">
                         <option> USD </option>
@@ -66,7 +74,7 @@ include $ROOT_URL . "./DAO/category.php";
                         <option> RUBL </option>
                     </select>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-12">

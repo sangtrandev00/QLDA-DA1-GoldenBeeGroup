@@ -2,22 +2,11 @@
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-// include $ROOT_URL . "./admin/models/category.php";
-include $ROOT_URL . "./DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
-function getthumbnail($image_list)
-{
-
-    foreach ($image_list as $image_item) {
-
-        if (substr($image_item, 0, 6) == "thumb-") {
-            // echo $image_item;
-            $thumbnail = "../uploads/" . $image_item;
-            return $thumbnail;
-        }
-    }
-
-}
+include $ROOT_URL . "/admin/models/connectdb.php";
+include $ROOT_URL . "/admin/models/product.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
+include "$ROOT_URL/global.php";
 ?>
 
 <table class="table align-middle table-striped">
@@ -33,7 +22,22 @@ function getthumbnail($image_list)
         <!-- Row Item -->
         <!-- Show list product here -->
         <?php
-$product_list = product_select_all();
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$_limit = 8;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+// $product_list = product_select_all();
+
 // var_dump($product_list);
 foreach ($product_list as $product_item) {
 
@@ -77,3 +81,45 @@ foreach ($product_list as $product_item) {
 ?>
     </tbody>
 </table>
+<nav class="float-end mt-4" aria-label="Page navigation">
+    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+    } else {
+        echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+    <!-- <ul class="pagination">
+                      <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  </ul> -->
+</nav>
+</div>
+
+
+
+
+
+</div>
+</div>
+</main>

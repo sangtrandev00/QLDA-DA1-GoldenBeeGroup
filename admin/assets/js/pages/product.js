@@ -27,26 +27,51 @@ function editProduct(productId) {
             productForm.elements['ma_danhmuc'].value = productItem['ma_danhmuc'];
             productForm.elements['id_dmphu'].value = productItem['id_dmphu'];
             productForm.elements['dac_biet'].value = productItem['dac_biet'];
+            
             productForm.elements['addproductbtn'].value = "Sửa sản phẩm";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
+            productForm.elements['id'].value = productId;
+            $.ajax({
+                type: "POST",
+                url: ADMIN_URL+"/view/pages/products/product-images.php",
+                data: {id: productId},
+                // dataType: "dataType",
+                success: function (response) {
+                    $("#imageList").html(response);
+                }
+            });
 
-            
+            $("#cartModal #product-action-btn").click(function(e) {
+                e.preventDefault();
+                // console.log('clicked ');
+                
+                const formData = new FormData($('#cartModal #product-form')[0]);
+                console.log('form: ', formData);
+                // return;
+                $.ajax({
+                    type: "POST",
+                    url: "./logic/product.php?act=editproduct",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
+                        console.log('url: ', productTableContentUrl);
+                        $.get(productTableContentUrl, function(responseHtml) {
+                            $("#table-product-content").html(responseHtml);
+                        })
 
-            // $("#cartModal #product-action-btn").click(function(e) {
-            //     e.preventDefault();
-            //     console.log('clicked ');
-            //     $.ajax({
-            //         type: "POST",
-            //         url: "./logic/product.php?act=editproduct",
-            //         data: {
-            //             id: productId,
-            //         },
-            //         // dataType: "<dataT>       </dataT>ype",
-            //         success: function (response) {
-
-            //         }
-            //     });
-            // })
+                        console.log('res: ', JSON.parse(response));
+                        const {status, message} = JSON.parse(response);
+                        if(status== 1) {
+                            $("#liveToastBtn").trigger("click");
+                            $("#cartModal .close-modal-btn").trigger("click");
+                            $("#toast-content-header").text(message);
+                            $("#liveToast .toast-body").text("Chúc mừng bạn đã " + message);
+                        }
+                    }
+                });
+            })
 
 
         })
@@ -78,17 +103,30 @@ function viewDetail(productId) {
             productForm.elements['giam_gia'].value = productItem['giam_gia'];
             productForm.elements['so_luong'].value = productItem['ton_kho'];
             productForm.elements['ma_danhmuc'].value = productItem['ma_danhmuc'];
+            productForm.elements['ma_danhmuc'].disabled = true;
             productForm.elements['id_dmphu'].value = productItem['id_dmphu'];
+            productForm.elements['id_dmphu'].disabled = true;
             productForm.elements['dac_biet'].value = productItem['dac_biet'];
+            productForm.elements['dac_biet'].disabled = true;
             productForm.elements['addproductbtn'].value = "";
             productForm.elements['addproductbtn'].classList = "d-none";
             productForm.elements['resetbtn'].classList = "d-none";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
-
+            $("#image-input-group").addClass("d-none");
             for(const input of productForm) {
                 console.log("input: ", input);
                 input.readOnly = true;
             }
+
+            $.ajax({
+                type: "POST",
+                url: ADMIN_URL+"/view/pages/products/product-images.php",
+                data: {id: productId},
+                // dataType: "dataType",
+                success: function (response) {
+                    $("#imageList").html(response);
+                }
+            });
         })
     });
 }
@@ -98,7 +136,7 @@ function deleteProduct(btnElement,productId) {
     // event.preventDefault();
     // const rowElement = getParent(btnElement, "tr");
     // console.log('delete: ', btnElement);
-    
+    $('#cartModal .action-btn').removeClass('d-none');
     alertModal(`Bạn có muốn xóa sản phẩm #${productId}  này ?`, "Chọn tiếp tục để xóa, chọn đóng để trở lại");
 
     $("#cartModal .action-btn").click(function(e) {
