@@ -158,6 +158,9 @@ if (isset($_GET['act'])) {
             break;
 
         case 'ordercompleted':
+            if (isset($iddh)) {
+
+            }
             include "./view/pages/cart/order-completed.php";
             break;
 

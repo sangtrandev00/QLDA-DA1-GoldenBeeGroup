@@ -24,8 +24,14 @@ function getParent(element, selector) {
     }
 }
 
-function showToast() {
-    
+function showToast(toastTitle, toastMessage) {
+      const toastBtn = document.getElementById("liveToastBtn");
+      if(!toastBtn) return;
+      toastBtn.click();
+
+      const toastElement = document.getElementById("liveToast");
+      toastElement.querySelector("#toast-content-header").textContent = toastTitle;
+      toastElement.querySelector(".toast-body").textContent = toastMessage;
 }
 
 const toastTrigger = document.getElementById('liveToastBtn')

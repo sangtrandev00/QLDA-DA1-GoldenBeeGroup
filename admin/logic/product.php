@@ -13,21 +13,28 @@ switch ($_GET['act']) {
         break;
     case 'editproduct':
         $error = array();
+        $idproduct = $_POST['id'];
+        $product_item = product_select_by_id($idproduct);
         // if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
         $image_files = $_FILES['images'];
-        $image_list = implode(',', $image_files['name']);
-        // var_dump($image_files);
-        // var_dump($image_list);
-        $i = 0;
-        foreach ($image_files['name'] as $image_name) {
-            # code...
-            // $target_file = "../uploads/" . basename($file_name);
-            // var_dump($image_file_item);
-            move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
-            $i++;
+        if ($_FILES['images']['name'][0] == "") {
+            $image_list = $product_item['images'];
+        } else {
+            $image_list = implode(',', $image_files['name']);
+            // var_dump($image_files);
+            // var_dump($image_list);
+            $i = 0;
+            foreach ($image_files['name'] as $image_name) {
+                # code...
+                // $target_file = "../uploads/" . basename($file_name);
+                // var_dump($image_file_item);
+                move_uploaded_file($image_files["tmp_name"][$i], "$ROOT_URL/uploads/" . $image_name);
+                $i++;
+            }
         }
+        // var_dump($image_list);
+        // exit;
 
-        $idproduct = $_POST['id'];
         $tensp = $_POST['tensp'];
         $ma_danhmuc = $_POST['ma_danhmuc'];
         $id_dmphu = $_POST['id_dmphu'];
@@ -71,15 +78,15 @@ switch ($_GET['act']) {
         // if (!$error) {
         $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
         if ($is_updated) {
-            echo '<script>
-                        document.getElementById("liveToastBtn").click();
-                        // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
-                </script>';
+            // echo '<script>
+            //             document.getElementById("liveToastBtn").click();
+            //             // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
+            //     </script>';
             $result = array(
                 "status" => 1,
                 "message" => "Cập nhật sản phẩm thành công!",
             );
-            var_dump($result);
+            echo json_encode($result);
         } else {
 
         }
@@ -99,6 +106,24 @@ switch ($_GET['act']) {
             echo json_encode($result);
 
         }
+        break;
+    case 'dataproducts':
+        $product_list = product_select_all();
+
+        // array(
+        //     "id" => 1,
+        //     "tensp" =>
+        // )
+        // $product_list = array_map(function ($product_item) {
+
+        //     return $product_item;
+        // }, $product_list);
+
+        // echo json_encode(
+        //     array(
+        //         'product_list' => $product_list,
+        //     )
+        // );
         break;
     case 'deleteproduct':
         if (isset($_POST['id'])) {

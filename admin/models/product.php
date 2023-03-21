@@ -179,3 +179,25 @@ function delete_product($idsp)
 
     $conn = null;
 }
+
+function select_products_by_date($date_value)
+{
+    // SELECT *, CAST(ngay_nhap AS DATE) from tbl_sanpham where CAST(ngay_nhap AS DATE) = '2023-03-12';
+    try {
+        $conn = connectdb();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT *, CAST(ngay_nhap AS DATE) from tbl_sanpham where CAST(ngay_nhap AS DATE) = '$date_value'";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+        // var_dump($result);
+        return $result;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+}

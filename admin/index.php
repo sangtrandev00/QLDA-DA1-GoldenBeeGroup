@@ -17,9 +17,10 @@ include "../DAO/blog.php";
 
 // HEADER SECTION
 include "./view/layout/header.php";
-// SIDEBAR SECTION
+echo '<div class="d-flex">';
 include "./view/components/sidebar/sidebar.php";
-
+// SIDEBAR SECTION
+include "./view/layout/breadcrumb.php";
 // if (isset($_SESSION['iduser'])) {
 
 if (isset($_GET['act'])) {
@@ -39,7 +40,17 @@ if (isset($_GET['act'])) {
             break;
         case 'deleteproduct':
             if (isset($_GET['id'])) {
-                product_delete($_GET['id']);
+                $is_deleted = product_delete($_GET['id']);
+                if ($is_deleted) {
+                    echo '
+                        <script>
+                            // <div class="alert alert-danger">Bạn đã xóa sản phẩm #' . $_GET['id'] . ' thành công</div>
+                            document.addEventListener("DOMContentLoaded", (event) => {
+                                showToast("Xóa sản phẩm", "Chúc mừng bạn đã Xóa sản phẩm #' . $_GET['id'] . ' thành công");
+                            });
+                        </script>
+                    ';
+                }
             }
             include "./view/pages/products/product-list.php";
             break;
@@ -58,21 +69,29 @@ if (isset($_GET['act'])) {
 
         case 'editproduct':
             $error = array();
-            if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
-                $image_files = $_FILES['images'];
-                $image_list = implode(',', $image_files['name']);
-                // var_dump($image_files);
-                // var_dump($image_list);
-                $i = 0;
-                foreach ($image_files['name'] as $image_name) {
-                    # code...
-                    // $target_file = "../uploads/" . basename($file_name);
-                    // var_dump($image_file_item);
-                    move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
-                    $i++;
+            // if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
+            if (isset($_GET['id'])) {
+                $idproduct = $_GET['id'];
+                $product_item = product_select_by_id($idproduct);
+                // var_dump($product_item);
+                // exit;
+                // var_dump($_FILES['images']);
+                if (!$_FILES['images']['name'][0]) {
+                    $image_list = $product_item['images'];
+                    // var_dump($image_list);
+                } else {
+                    $image_files = $_FILES['images'];
+                    $image_list = implode(',', $image_files['name']);
+                    $i = 0;
+                    foreach ($image_files['name'] as $image_name) {
+                        # code...
+                        // $target_file = "../uploads/" . basename($file_name);
+                        // var_dump($image_file_item);
+                        move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                        $i++;
+                    }
                 }
 
-                $idproduct = $_GET['id'];
                 $tensp = $_POST['tensp'];
                 $ma_danhmuc = $_POST['ma_danhmuc'];
                 $id_dmphu = $_POST['id_dmphu'];
@@ -117,17 +136,19 @@ if (isset($_GET['act'])) {
                 $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
                 if ($is_updated) {
                     echo '<script>
-                            document.getElementById("liveToastBtn").click();
-                            // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
+                           document.addEventListener("DOMContentLoaded", function(e) {
+                                showToast("Cập nhật sản phẩm #' . $idproduct . ' thành công", "Chúc mừng bạn đã Cập nhật sản phẩm #' . $idproduct . ' thành công");
+                           })
                     </script>';
-                    header("location: ./index.php?act=productlist");
+                    // header("location: ./index.php?act=productlist");
+
                 }
                 // } else {
 
                 // }
             }
 
-            // include "./view/pages/products/product-list.php";
+            include "./view/pages/products/product-list.php";
             break;
         case 'addproduct':
             $error = array();
@@ -190,12 +211,18 @@ if (isset($_GET['act'])) {
                 $is_inserted = product_insert($tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
                 if ($is_inserted) {
                     echo '<div class="p-3 alert alert-success text-center mt-5">Chúc mừng bạn đã thêm mới sản phẩm thành công</div>';
+                    echo "
+                        <script>
+                            document.getElementById('liveToastBtn').click();
+                        </script>
+                    ";
                 }
                 // }
             }
 
             include "./view/pages/products/add-product.php";
             break;
+
         case 'addcate':
             $error = array();
             if (isset($_POST['addcatebtn']) && $_POST['addcatebtn']) {
@@ -232,11 +259,41 @@ if (isset($_GET['act'])) {
                 } else {
                     echo "Add category failed";
                 }
-                // }
 
             }
 
             include "./view/pages/categories/cate-list.php";
+            break;
+        case 'addsubcate':
+            $error = array();
+            if (isset($_POST['addsubcatebtn']) && $_POST['addsubcatebtn']) {
+                $subcate_name = $_POST['subcatename'];
+                // $cate_image = $_FILES['cateimage'];
+                $cate_parent = $_POST['cateparent'];
+
+                $cate_desc = $_POST['subcatedesc'];
+
+                if (!$error) {
+
+                    $is_added = subcate_insert($cate_parent, $subcate_name, $cate_desc);
+
+                    if ($is_added) {
+                        header("location: ./index.php?act=subcatelist&cateid=" . $cate_parent);
+                        echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", (e) => {
+                                showToast();
+                            })
+                        </script>
+                       ';
+
+                    } else {
+                        echo "Add category failed";
+                    }
+                }
+
+            }
+
             break;
         case 'editcate':
             include "./view/pages/categories/cate-list.php";
@@ -248,16 +305,20 @@ if (isset($_GET['act'])) {
             if (isset($_POST['editcatebtn']) && $_POST['editcatebtn']) {
                 $madanhmuc = $_GET['id'];
                 $tendanhmuc = $_POST['catename'];
-
                 $cate_parent = $_POST['cateparent'];
                 $cate_desc = $_POST['catedesc'];
+                $cate_item = cate_select_by_id($madanhmuc);
+                if ($_FILES['cateimage']['name'] == '') {
+                    $cate_image = $cate_item['hinh_anh'];
+                } else {
+                    $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
+                    $hinh_anh = $_FILES['cateimage'];
+                    $cate_image = $hinh_anh['name'];
+                    move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
+                }
 
                 // echo $cate_name, $cate_desc, $cate_desc;
-                $target_file = "../uploads/" . basename($_FILES["cateimage"]["name"]);
 
-                $hinh_anh = $_FILES['cateimage'];
-
-                move_uploaded_file($_FILES["cateimage"]["tmp_name"], $target_file);
                 // echo $tendanhmuc;
                 if (empty($tendanhmuc)) {
                     $error['catename'] = "Không để trống tên danh mục";
@@ -266,8 +327,8 @@ if (isset($_GET['act'])) {
                         echo '<div class="alert alert-danger">Tên danh mục đã bị trùng, mời nhập tên khác!</div>';
                     } else {
 
-                        cate_update($madanhmuc, $tendanhmuc, $hinh_anh['name'], $cate_desc);
-                        echo 'UPdate successfully';
+                        cate_update($madanhmuc, $tendanhmuc, $cate_image, $cate_desc);
+                        echo 'Update successfully';
                         // echo '<div class="bg-success text-white p-2">Add category successully</div>';
                     }
                 }
@@ -757,6 +818,7 @@ if (isset($_GET['act'])) {
     //     header('location: loginpage.php');
     // }
 }
+echo '</div>';
 
 include "./view/layout/footer.php";
 

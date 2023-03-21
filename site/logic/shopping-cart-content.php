@@ -127,8 +127,7 @@ foreach ($cart_list as $cart_item) {
             </div>
         </div>
 
-        <a href="./index.php?act=checkout" data-bs-toggle="tab" arial-selected="false" tabindex="-1" role="tab"
-            class="btn btn-dark mb-5 ml-auto d-block">Thanh
+        <a href="./index.php?act=checkout" class="btn btn-dark mb-5 ml-auto d-block">Thanh
             toán</a>
         <!-- Module extra --- Làm thêm -->
         <div class="row">

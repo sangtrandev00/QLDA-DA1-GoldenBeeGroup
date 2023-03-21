@@ -407,11 +407,11 @@ a {
 /* Sidebar */
 
 .sidebar-wrapper {
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    left: 0;
+    left: 0; */
     width: 260px;
-    height: 100%;
+    height: auto;
     background-color: #f7f8fa;
     background-clip: padding-box;
     border-right: 1px solid #e2e3e4;
@@ -638,7 +638,7 @@ a {
 }
 
 .wrapper.toggled .page-content {
-	margin-left: 70px
+	/* margin-left: 70px; */
 }
 
 .wrapper.toggled .footer {
@@ -651,7 +651,9 @@ a {
 /* Page Content */
 
 .page-content {
-    margin-left: 260px;
+    /* margin-left: 260px; */
+	width: 100%;
+	/* margin-left: auto; */
     margin-top: 1rem;
     padding: 1.5rem 1.5rem 2.5rem 1.5rem;
     transition: all .2s;
@@ -1548,7 +1550,7 @@ a {
 }
 
 .chat-content-leftside .chat-left-msg {
-	width: fit-content;
+	/* width: fit-content; */
 	background-color: #eff2f5;
 	padding: .8rem;
 	border-radius: 12px;
@@ -1558,7 +1560,7 @@ a {
 }
 
 .chat-content-rightside .chat-right-msg {
-	width: fit-content;
+	/* width: fit-content; */
 	background-color: #dcedff;
 	padding: .8rem;
 	border-radius: 12px;

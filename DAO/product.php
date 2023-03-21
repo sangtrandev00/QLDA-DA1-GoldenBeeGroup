@@ -16,6 +16,7 @@ function product_delete($ma_sanpham)
         }
     } else {
         pdo_execute($sql, $ma_sanpham);
+        return true;
     }
 
 }
@@ -84,6 +85,13 @@ function product_select_by_name($tensp)
     return pdo_query($sql, $tensp);
 
 }
+
+// function product_select_by_date($date_value)
+// {
+//     $sql = "SELECT *, CAST(ngay_nhap AS DATE) from tbl_sanpham where CAST(ngay_nhap AS DATE) = '?'";
+//     echo $sql;
+//     return pdo_query($sql, $date_value);
+// }
 
 function product_exist($masanpham)
 {

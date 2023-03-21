@@ -73,11 +73,11 @@ if (isset($_SESSION['iduser'])) {
                                                     ' . $_SESSION['ho_ten'] . '
                                                 </a>
                                                 <ul class="top-header-menu__dropdown">
-                                                    <li><a href="index.php?act=settingaccount">Quản lý tài khoản</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Lịch sử đơn hàng</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Thay đổi mật khẩu</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Địa chỉ gửi hàng</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Phương thức thanh toán</a> </li>
+                                                    <li><a href="javascript:viewGeneralSetting()">Quản lý tài khoản</a> </li>
+                                                    <li><a href="javascript:viewOrder()">Lịch sử đơn hàng</a> </li>
+                                                    <li><a href="javascript:">Thay đổi mật khẩu</a> </li>
+                                                    <li><a href="javascript:">Địa chỉ gửi hàng</a> </li>
+                                                    <li><a href="javascript:">Phương thức thanh toán</a> </li>
                                                     <li><a href="./index.php?act=logout">Đăng xuất</a></li>
                                                 </ul>
                                             </li>
