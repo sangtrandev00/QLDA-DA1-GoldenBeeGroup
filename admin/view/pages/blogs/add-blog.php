@@ -4,20 +4,36 @@
             <div class="card-header py-3 bg-transparent">
                 <h5 class="mb-0">Add New Blogs</h5>
             </div>
-            <div class="card-body">
-                <div class="border p-3 rounded">
-                    <form class="row g-3" action="index.php?act=addblog" method="post" enctype="multipart/form-data">
-                        <div class="col-12">
-                            <label class="form-label">Tiêu Đề Bài Viết</label>
-                            <input type="text" name="title" class="form-control" placeholder="Blog title">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">Thêm hình ảnh</label>
-                            <input class="form-control" name="hinh" type="file">
-                        </div>
-                        <div class="col-12 col-md-12">
-                            <label class="form-label">Danh mục chính</label>
-                            <select class="form-select" name="idcate">
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <?php 
+                    if(isset($thongbao)&&($thongbao!="")){
+                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
+                    }
+                    
+                ?>
+                <div class="card-header py-3 bg-transparent">
+                    <h5 class="mb-0">Add New Blogs</h5>
+                </div>
+                <div class="card-body">
+                    <div class="border p-3 rounded">
+                        <form class="row g-3"action="index.php?act=addblog" method="post" enctype="multipart/form-data">
+                            <div class="col-12">
+                                <label class="form-label">Tiêu Đề Bài Viết</label>
+                                <input type="text" name="title" class="form-control" placeholder="Blog title">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Thêm hình ảnh</label>
+                                <input class="form-control" name="hinh" type="file">
+                            </div>
+                            <div class="col-12 col-md-12">
+                                <label class="form-label">Danh mục chính</label>                           
+                                <select class="form-select" name="idcate">
                                 <?php
 foreach ($list_blogcate as $blogcate) {
     extract($blogcate);
