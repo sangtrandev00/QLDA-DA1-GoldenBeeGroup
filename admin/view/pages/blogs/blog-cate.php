@@ -107,57 +107,50 @@ foreach ($cate_list as $cate_item) {
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                                <i style="color:#e72e2e;" class="bi bi-trash-fill" data-toggle="modal" data-target="#exampleModalLong"></i>
+                                                                <i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             ';
 }
 ?>
-                                                    <div class="modal fade" id="exampleModalLong" tabindex="-1"
-                                                        role="dialog" aria-labelledby="exampleModalLongTitle"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">
-                                                                        Bạn Muốn Danh Mục Bài Viết Này?</h5>
-                                                                    <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    Nhấn xóa để xóa danh mục bài viết
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Đóng</button>
-                                                                    <a href="<?=$xoablog?>"><button type="button"
-                                                                            class="btn btn-primary">Xóa</button></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <nav class="float-end mt-0" aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                        href="#">Previous</a></li>
-                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--end row-->
-                    </div>
-                </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn Muốn Xóa Bài Viết</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Nhấn xóa để xóa bài viết
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <a href="<?=$xoablog?>"><button type="button" class="btn btn-primary">Xóa</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+                                     </tbody>
+                                 </table>
+                             </div>
+                             <nav class="float-end mt-0" aria-label="Page navigation">
+                                 <ul class="pagination">
+                                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                 </ul>
+                             </nav>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!--end row-->
+         </div>
+     </div>
 
                 </main>
                 <!--end page main-->

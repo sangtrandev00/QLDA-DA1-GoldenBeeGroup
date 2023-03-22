@@ -75,9 +75,8 @@ foreach ($blog_list as $blog_item) {
                                         <a href="' . $suablog . '" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="' . $xoablog . '" class="text-danger" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-                                            aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+                                        
+                                        <i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i>
                                     </div>
                                 </td>
                             </tr>
@@ -85,7 +84,7 @@ foreach ($blog_list as $blog_item) {
 }
 ?>
 
-                    <!-- <tr>
+
                               <td>
                                   <div class="form-check">
                                       <input class="form-check-input" type="checkbox">
@@ -117,7 +116,7 @@ foreach ($blog_list as $blog_item) {
                                           aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
                                   </div>
                               </td>
-                          </tr> -->
+                          </tr> 
                 </tbody>
             </table>
         </div>
