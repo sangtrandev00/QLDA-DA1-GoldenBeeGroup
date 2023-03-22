@@ -18,6 +18,25 @@ function get_all_orders()
     echo "</table>";
 }
 
+function get_all_recent_orders()
+{
+    try {
+        $conn = connectdb();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $conn->prepare("SELECT * FROM tbl_order order by timeorder desc");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+    echo "</table>";
+}
+
 function getshoworderdetail($iddh)
 {
     $conn = connectdb();
@@ -53,4 +72,15 @@ function updateorderbyid($iddh, $trangthai)
     $sql = "update tbl_order set trangthai = 'confirmed' where id = $iddh;";
     pdo_execute($sql);
     return true;
+}
+
+function count_products_of_order($iddh)
+{
+    $sql = "SELECT sum(soluong) as 'sl_sp' from tbl_order inner join tbl_order_detail on tbl_order.id = tbl_order_detail.iddonhang group by iddonhang having iddonhang = '$iddh'";
+    $conn = connectdb();
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    return $kq;
 }

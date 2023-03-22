@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./index.php?act=ordercompleted">
+                            <a href="#">
                                 <span>04</span>
                                 Đặt hàng thành công
                             </a>

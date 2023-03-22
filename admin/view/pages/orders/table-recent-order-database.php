@@ -26,7 +26,7 @@ include "$ROOT_URL/global.php";
 // $current_page = $pagination['current_page'];
 // $total_records = $pagination['total_records'];
 
-$order_list = get_all_orders();
+$order_list = get_all_recent_orders();
 
 $result = array();
 
@@ -66,30 +66,3 @@ echo json_encode(
         "order_list" => $result,
     )
 );
-
-// // $order_list = get_all_orders();
-// foreach ($order_list as $order) {
-//     # code...
-//     echo '
-//                               <tr>
-//                                 <td>#' . $order['id'] . '</td>
-//                                 <td>' . $order['name'] . '</td>
-//                                 <td>' . $order['tongdonhang'] . '</td>
-//                                 <td><span class="badge rounded-pill alert-success">Đã xác nhận</span></td>
-//                                 <td>' . $order['timeorder'] . '</td>
-//                                 <td>
-//                                     <div class="d-flex align-items-center gap-3 fs-6">
-//                                         <a href="./index.php?act=orderdetail&iddh=' . $order['id'] . '" class="text-primary" data-bs-toggle="tooltip"
-//                                             data-bs-placement="bottom" title="" data-bs-original-title="View detail"
-//                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-//                                         <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-//                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
-//                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-//                                         <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-//                                             data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-//                                             aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-//                                     </div>
-//                                 </td>
-//                             </tr>
-//                               ';
-// }

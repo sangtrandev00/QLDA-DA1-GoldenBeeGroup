@@ -424,7 +424,7 @@ if (isset($_GET['act'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
-                $filename= $_FILES["image"]["name"];
+                $filename = $_FILES["image"]["name"];
                 // $imageurl = $_FILES['imageurl'];
 
                 $target_dir = "../uploads/";
@@ -551,74 +551,74 @@ if (isset($_GET['act'])) {
             include "./view/user/edituser-page.php";
             break;
         case 'editadmin':
-                $error = array();
-                if (isset($_POST['edituserbtn']) && $_POST['edituserbtn']) {
-    
-                    $iduser = $_POST['iduser'];
-                    $name = $_POST['fullname'];
-                    $address = $_POST['address'];
-                    $email = $_POST['email'];
-                    $phone = $_POST['phone'];
-                    $kichhoat = $_POST['kichhoat'];
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-                    $role = $_POST['role'];
-                    $filename=$_FILES['image']['name'];
+            $error = array();
+            if (isset($_POST['edituserbtn']) && $_POST['edituserbtn']) {
 
-                    $target_dir = "../uploads/";
-                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                    // echo $target_file;
-                    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-    
-                    // validation using php at server
-                    // if (empty($_FILES["image"]["name"])) {
-                    //     $error['img'] = "Không để trống hình ảnh";
-                    // }
-                    // Validate at server
-    
-                    if (strlen($name) == 0) {
-                        $error['name'] = "Không để trống họ tên!";
-                    } else if (strlen($name) > 30) {
-                        $error['name'] = "Họ tên không vượt quá 30 ký tự!";
-                    }
-    
-                    if (empty($email)) {
-                        $error['email'] = "không để trống email";
-                    } else if (!is_email($email)) {
-                        $error['email'] = "Email không đúng định dạng!";
-                    }
-    
-                    if (strlen($phone) == 0) {
-                        $error['phone'] = "Không để trống số điện thoại!";
-                    } else if (!validating($phone)) {
-                        $error['phone'] = "Định dạng số điện thoại không chính xác!";
-                    }
-    
-                    if (empty($username)) {
-                        $error['username'] = "Không để trống username!";
-                    }
-    
-                    if (empty($password)) {
-                        $error['password'] = "không để trống password!";
-                    }
-    
-                    if (!$error) {
-                        $password = md5($password);
-    
-                        // echo $role;
-                        $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
-                        // header('Location: adminlist-page.php');
-                        // if ($is_updated) {
-                        header('Location: index.php?act=adminlist');
-                       
-                        // }
-    
-                    }
-    
+                $iduser = $_POST['iduser'];
+                $name = $_POST['fullname'];
+                $address = $_POST['address'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $kichhoat = $_POST['kichhoat'];
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $role = $_POST['role'];
+                $filename = $_FILES['image']['name'];
+
+                $target_dir = "../uploads/";
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                // echo $target_file;
+                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+
+                // validation using php at server
+                // if (empty($_FILES["image"]["name"])) {
+                //     $error['img'] = "Không để trống hình ảnh";
+                // }
+                // Validate at server
+
+                if (strlen($name) == 0) {
+                    $error['name'] = "Không để trống họ tên!";
+                } else if (strlen($name) > 30) {
+                    $error['name'] = "Họ tên không vượt quá 30 ký tự!";
                 }
-    
-                include "./view/user/editadmin-page.php";
-                break;
+
+                if (empty($email)) {
+                    $error['email'] = "không để trống email";
+                } else if (!is_email($email)) {
+                    $error['email'] = "Email không đúng định dạng!";
+                }
+
+                if (strlen($phone) == 0) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                } else if (!validating($phone)) {
+                    $error['phone'] = "Định dạng số điện thoại không chính xác!";
+                }
+
+                if (empty($username)) {
+                    $error['username'] = "Không để trống username!";
+                }
+
+                if (empty($password)) {
+                    $error['password'] = "không để trống password!";
+                }
+
+                if (!$error) {
+                    $password = md5($password);
+
+                    // echo $role;
+                    $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                    // header('Location: adminlist-page.php');
+                    // if ($is_updated) {
+                    header('Location: index.php?act=adminlist');
+
+                    // }
+
+                }
+
+            }
+
+            include "./view/user/editadmin-page.php";
+            break;
         case 'deleteuser':
             if (isset($_GET['id'])) {
                 // $comments_deleted = comment_delete_by_iduser($_GET['id']);
@@ -721,9 +721,17 @@ if (isset($_GET['act'])) {
                 $is_deleted = deleteorderbyid($iddh);
 
                 if ($is_deleted) {
-                    echo '<div class="alert alert-danger">Bạn đã xóa đơn hàng  đơn hàng ' . $iddh . ' thành công!</div>';
+
+                    echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                showToast("Xóa đơn hàng!", "Chúng mừng Bạn đã xóa đơn hàng  đơn hàng #' . $iddh . ' thành công!");
+                            })
+                        </script>
+                    ';
+                    // echo '<div class="alert alert-danger">Bạn đã xóa đơn hàng  đơn hàng ' . $iddh . ' thành công!</div>';
                 }
-                include "view/order/orderlist-page.php";
+                include "view/pages/orders/order-list.php";
                 // header('location: index.php?act=orderdetail&iddh=' . $iddh);
             }
 
@@ -751,7 +759,7 @@ if (isset($_GET['act'])) {
                 add_blog($title, $hinh, $conten, $date, $idcate);
                 $thongbao = "Đã Đăng Bài Viết Thành Công";
             }
-            
+
             $list_blogcate = loadall_cateblog();
             include "./view/pages/blogs/add-blog.php";
             break;
@@ -761,7 +769,7 @@ if (isset($_GET['act'])) {
         case 'deleteblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_blog($_GET['id']);
-                $thongbao = "Đã Xóa Bài Viết ".$_GET['id']." Thành Công";
+                $thongbao = "Đã Xóa Bài Viết " . $_GET['id'] . " Thành Công";
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -782,8 +790,8 @@ if (isset($_GET['act'])) {
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
                 updateblog($id, $title, $hinh, $noidung);
-                
-            $thongbaoupdate = "Đã Cập Nhật Bài Viết ".$id." Thành Công";
+
+                $thongbaoupdate = "Đã Cập Nhật Bài Viết " . $id . " Thành Công";
 
             }
             include './view/pages/blogs/blog-list.php';
@@ -808,7 +816,7 @@ if (isset($_GET['act'])) {
         case 'deletecateblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_cateblog($_GET['id']);
-                $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #".$_GET['id']." Thành Công";
+                $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #" . $_GET['id'] . " Thành Công";
 
             }
             include './view/pages/blogs/blog-cate.php';

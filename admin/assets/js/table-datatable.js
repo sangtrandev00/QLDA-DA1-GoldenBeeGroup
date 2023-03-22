@@ -9,14 +9,18 @@ $(function() {
             // data: "data",
             // dataType: "dataType",
             success: function (response) {
-                console.log('res: ', response);
+                // console.log('res: ', response);
                     const {product_list} = JSON.parse(response);
                     // console.log('list: ', product_list);
-                    $('#table-product').DataTable({
+                    var table = $('#table-product').DataTable({
                         data: product_list,
                         retrieve: true,
+                        lengthChange: false,
                         buttons: [ 'copy', 'excel', 'pdf', 'print']
                     });
+
+                    table.buttons().container()
+                        .appendTo( '#table-product_wrapper .col-md-6:eq(0)' );
             }
         });
 
@@ -26,10 +30,26 @@ $(function() {
             // data: "data",
             // dataType: "dataType",
             success: function (response) {
-                console.log('res: ', response);
+                // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
                     // console.log('list: ', order_list);
                     $('#table-order').DataTable({
+                        data: order_list,
+                        retrieve: true,
+                    });
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: ADMIN_URL+ "/view/pages/orders/table-recent-order-database.php",
+            // data: "data",
+            // dataType: "dataType",
+            success: function (response) {
+                // console.log('res: ', response);
+                    const {order_list} = JSON.parse(response);
+                    // console.log('list: ', order_list);
+                    $('#table-recent-order').DataTable({
                         data: order_list,
                         retrieve: true,
                     });

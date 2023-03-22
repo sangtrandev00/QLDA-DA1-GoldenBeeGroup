@@ -1,3 +1,7 @@
 #cartModal {
     /* margin: auto; */
 }
+
+.error-message {
+    color: red;
+}

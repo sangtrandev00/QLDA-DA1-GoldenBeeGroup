@@ -311,14 +311,14 @@ function updateorderstatus($iddh, $trangthai)
 
 function deleteorderdetailbyid($iddh)
 {
-    $sql = "delete from tbl_cart where iddonhang = $iddh;";
+    $sql = "DELETE from tbl_order_detail where iddonhang = $iddh;";
     pdo_execute($sql);
     return true;
 }
 
 function deleteorderbyid($iddh)
 {
-    $sql = "delete from tbl_order where id = $iddh;";
+    $sql = "DELETE from tbl_order where id = $iddh;";
     pdo_execute($sql);
     return true;
 }
