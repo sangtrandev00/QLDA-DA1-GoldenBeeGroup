@@ -1,6 +1,6 @@
 <?php
 
-function user_insert($tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh = null, $email, $vai_tro)
+function user_insert($tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro)
 {
     $sql = "INSERT INTO tbl_nguoidung(tai_khoan, mat_khau, ho_ten, diachi, sodienthoai, email, hinh_anh, kich_hoat, vai_tro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat, $vai_tro);
@@ -19,6 +19,18 @@ function user_update($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienth
     $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?,kich_hoat=?,vai_tro=? WHERE id=?";
     pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat == 1, $vai_tro, $iduser);
     return true;
+}
+function user_update_2($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro){
+    if($hinh_anh!=""){
+        $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?,kich_hoat=?,vai_tro=? WHERE id=?";
+        pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat == 1, $vai_tro, $iduser);
+        return true;
+    }
+    else{
+        $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,kich_hoat=?,vai_tro=? WHERE id=?";
+        pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $kich_hoat == 1, $vai_tro, $iduser);
+        return true;
+    }
 }
 
 function user_update_info($iduser, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro = 1)
@@ -83,13 +95,13 @@ function email_exist($email)
 function admin_select($vai_tro1, $vai_tro2)
 {
 
-    $sql = "SELECT * FROM tbl_nguoidung WHERE vai_tro=? or vai_tro = ?";
+    $sql = "SELECT * FROM tbl_nguoidung WHERE vai_tro=? or vai_tro = ? order by id desc";
     return pdo_query($sql, $vai_tro1, $vai_tro2);
 }
 function user_select($vai_tro1)
 {
 
-    $sql = "SELECT * FROM tbl_nguoidung WHERE vai_tro=?";
+    $sql = "SELECT * FROM tbl_nguoidung WHERE vai_tro=? order by id desc";
     return pdo_query($sql, $vai_tro1);
 }
 
