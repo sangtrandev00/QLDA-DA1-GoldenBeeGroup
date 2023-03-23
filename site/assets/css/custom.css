@@ -54,3 +54,8 @@ table#table-history-order {
 #table-history-order_filter .form-control {
   width: 80%;
 }
+
+#liveToast {
+  font-size: 1.4rem;
+  margin-top: 6rem;
+}

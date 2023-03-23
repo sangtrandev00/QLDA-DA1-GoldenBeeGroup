@@ -9,14 +9,23 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include "../../site/models/connectdb.php";
-include "../../site/models/donhang.php";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+include "$ROOT_URL/site/models/connectdb.php";
+include "$ROOT_URL/site/models/donhang.php";
+// include $ROOT_URL . "./admin/models/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
+include "$ROOT_URL" . "/global.php";
 
 // var_dump($_POST);
 $orderInfo = getorderinfo($_POST['id']);
 $cartList = getshoworderdetail($_POST['id']);
 // $orderInfo = getorderinfo($_GET['id']);
 // var_dump($orderInfo);
+$trangthai = showStatus($orderInfo['trangthai'])[0];
+$message = showStatus($orderInfo['trangthai'])[1];
 ?>
 
 <div class="p-3">
@@ -35,7 +44,7 @@ $cartList = getshoworderdetail($_POST['id']);
                 <p>Tên người đặt: <span class="text-warning"><?php echo $orderInfo['name'] ?></span> </p>
                 <p>Số điện thoại liên hệ: <span class="text-warning"><?php echo $orderInfo['dienThoai'] ?></span> </p>
                 <p>Địa chỉ: <span class="text-warning"><?php echo $orderInfo['address'] ?></span> </p>
-                <p>Trạng thái: <span class="text-warning"><?php echo "Đã đặt hàng" ?></span> </p>
+                <p>Trạng thái: <span class="text-warning"><?php echo $trangthai ?></span> </p>
                 <p>Thời gian đặt: <span class="text-warning"><?php echo $orderInfo['timeorder'] ?></span> </p>
                 <div class="row">
 
@@ -45,21 +54,51 @@ $cartList = getshoworderdetail($_POST['id']);
 // } else {
 
 ?>
-                    <form class="col-6" action="<?php echo './index.php?act=updateorder&id=' . $orderInfo['id']; ?>"
-                        method="post">
-                        <input type="submit" name="updateorderbtn" class="btn btn-outline-success"
-                            value="Xác nhận đã nhận hàng" />
-                        <input type="hidden" name="updatestatus" value="4">
-                    </form>
 
-                    <form class="col-6" action="<?php echo './index.php?act=destroyorder&id=' . $orderInfo['id']; ?>"
-                        method="post">
+                    <?php
+switch ($orderInfo['trangthai']) {
+    case '1':
+    case '2':
+        ?>
+                    <form onsubmit="destroyOrder(<?php echo $_POST['id'] ?>)" id="cancel-order-form" class="col-6"
+                        action="<?php echo './index.php?act=destroyorder&id=' . $orderInfo['id']; ?>" method="post">
 
                         <input type="hidden" name="destroystatus" value="6">
                         <input type="submit" class="btn btn-outline-danger" name="destroyorderbtn"
                             value="Hủy đơn hàng" />
 
                     </form>
+                    <?php
+# code...
+        break;
+    case '3':
+        ?>
+                    <form onsubmit="confirmOrder(<?php echo $_POST['id'] ?>)" id="confirm-order-form" class="col-6"
+                        action="<?php echo './index.php?act=updateorder&id=' . $orderInfo['id']; ?>" method="post">
+                        <input type="submit" name="updateorderbtn" class="btn btn-outline-success"
+                            value="Xác nhận đã nhận hàng" />
+                        <input type="hidden" name="updatestatus" value="4">
+                    </form>
+                    <?php
+break;
+    case '4':
+    case '5':
+    case '6':
+        ?>
+                    <form onsubmit="reOrder(<?php echo $_POST['id'] ?>)" id="re-order-form" class="col-6"
+                        action="<?php echo './index.php?act=updateorder&id=' . $orderInfo['id']; ?>" method="post">
+                        <input type="submit" name="updateorderbtn" class="btn btn-outline-success"
+                            value="Đặt lại đơn hàng" />
+                        <input type="hidden" name="reorder" value="">
+                    </form>
+                    <?php
+break;
+    default:
+        # code...
+        break;
+}
+?>
+
                     <?php
 
 // }
@@ -72,7 +111,26 @@ $cartList = getshoworderdetail($_POST['id']);
 
         <div class="col-md-7 border border-dark">
             <h3 class="mb-3 text-center">Danh sách sản phẩm </h3>
-            <p class="alert alert-warning"><?php echo "Đã xác nhận" ?></p>
+            <?php
+switch ($orderInfo['trangthai']) {
+    case '1':
+    case '2':
+    case '3':
+        $alert_class = 'alert alert-warning';
+        break;
+    case '4':
+        $alert_class = 'alert alert-success';
+        break;
+    case '5':
+    case '6':
+        $alert_class = 'alert alert-danger';
+        break;
+    default:
+        # code...
+        break;
+}
+?>
+            <p class="<?php echo $alert_class ?>"><?php echo $message ?></p>
             <table class=" table table-hover shadow p-5">
                 <!-- <form action="" method="post">
         <input type="text" name="searchhistory" class="form-control" id="" value=""

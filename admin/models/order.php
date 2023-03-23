@@ -23,7 +23,7 @@ function get_all_recent_orders()
     try {
         $conn = connectdb();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT *, sum(soluong) as tongsoluong FROM tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang group by iddonhang order by timeorder desc;");
+        $stmt = $conn->prepare("SELECT od.id, madonhang, tongdonhang, pttt, iduser, name, dienThoai, address, ghichu, timeorder, trangthai, thanhtoan, sum(soluong) as tongsoluong FROM tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang group by iddonhang order by timeorder desc;");
         $stmt->execute();
 
         // set the resulting array to associative

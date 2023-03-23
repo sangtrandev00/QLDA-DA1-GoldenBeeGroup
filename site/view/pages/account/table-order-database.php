@@ -21,10 +21,28 @@ if (isset($_SESSION['iduser'])) {
     $result = array();
     $iduser = $_SESSION['iduser'];
     $cart_list = getShowCartGroupbyOrder($iduser);
+
     // var_dump($cart_list);
     foreach ($cart_list as $cart_item) {
         # code...
-        $trangthai = "Đã xác nhận";
+        $trangthai = showStatus($cart_item['trangthai'])[0];
+        switch ($cart_item['trangthai']) {
+            case '1':
+            case '2':
+            case '3':
+                $alert_class = 'text-warning';
+                break;
+            case '4':
+                $alert_class = 'text-success';
+                break;
+            case '5':
+            case '6':
+                $alert_class = 'text-danger';
+                break;
+            default:
+                # code...
+                break;
+        }
         $row = array();
         $row[0] = "#" . '<a class="text-decoration-none" href="./index.php?act=historyorderdetailpage&id=' . $cart_item['iddonhang'] . '">' .
             $cart_item['iddonhang'] . '</a>';
@@ -34,7 +52,7 @@ if (isset($_SESSION['iduser'])) {
         $row[3] = $cart_item['tongdonhang'];
         $row[4] = $cart_item['pttt'];
         $row[5] = $cart_item['timeorder'];
-        $row[6] = $trangthai;
+        $row[6] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
         $row[7] = '
         <a class="text-decoration-none" href="javascript:viewOrderdetail(' . $cart_item['iddonhang'] . ')"><i class="fa-solid fa-eye"></i> Xem</a>
     ';

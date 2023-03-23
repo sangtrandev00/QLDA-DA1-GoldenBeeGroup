@@ -85,6 +85,22 @@
         </ul>
     </li>
     <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="lni lni-users"></i>
+            </div>
+            <div class="menu-title">Banner</div>
+        </a>
+
+        <ul class="">
+            <li class=""> <a href="index.php?act=bannerlist"><i class="bi bi-circle"></i>Danh sách banner</a>
+            </li>
+            <!-- <li> <a href="index.php?act=adminlist"><i class="bi bi-circle"></i>Danh sách quản trị viên</a>
+            </li>
+            <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
+            </li> -->
+        </ul>
+    </li>
+    <li>
         <a href="javascript:;" href="rel:0937988510">
             <div class="parent-icon"><i class="bi bi-telephone-fill"></i>
             </div>

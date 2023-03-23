@@ -5,8 +5,12 @@
 // }
 
 if (isset($_GET['id']) && $_GET['id'] > 0) {
-
     $product_id = $_GET['id'];
+    if (!isset($_SESSION['views']['view' . $_GET['id']])) {
+        product_increase_view($_GET['id']);
+        $_SESSION['views']["view" . $_GET['id']] = $_GET['id'];
+    }
+
     $product = product_select_by_id($product_id);
 
     // var_dump($product);

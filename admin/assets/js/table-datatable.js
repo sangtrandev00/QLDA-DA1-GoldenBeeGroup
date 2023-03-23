@@ -42,7 +42,7 @@ $(function() {
                     tableOrder.buttons().container()
                     .appendTo( '#table-order_wrapper .col-md-6:eq(0)' );
 
-                    // tableOrder.column('4:visible').order('desc').draw();
+                    tableOrder.column('4:visible').order('desc').draw();
 
             }
         });
@@ -64,7 +64,7 @@ $(function() {
                     });
                     tableRecentOrder.buttons().container()
                     .appendTo( '#table-recent-order_wrapper .col-md-6:eq(0)' );
-                    tableRecentOrder.column('0:visible').order('desc').draw();
+                    tableRecentOrder.column('4:visible').order('desc').draw();
             }
         });
 

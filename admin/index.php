@@ -736,6 +736,29 @@ if (isset($_GET['act'])) {
             }
 
             break;
+        case 'deletedashboardorder':
+            if (isset($_GET['iddh'])) {
+                $iddh = $_GET['iddh'];
+                $cart_list = getshoworderdetail($iddh);
+                $orderInfo = getorderinfo($iddh);
+                deleteorderdetailbyid($iddh);
+                $is_deleted = deleteorderbyid($iddh);
+
+                if ($is_deleted) {
+
+                    echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                showToast("Xóa đơn hàng!", "Chúng mừng Bạn đã xóa đơn hàng  đơn hàng #' . $iddh . ' thành công!");
+                            })
+                        </script>
+                    ';
+                    // echo '<div class="alert alert-danger">Bạn đã xóa đơn hàng  đơn hàng ' . $iddh . ' thành công!</div>';
+                }
+                include "./view/pages/dashboard/dashboard.php";
+                // header('location: index.php?act=orderdetail&iddh=' . $iddh);
+            }
+            break;
         case 'logout':
             unset($_SESSION['role']);
             unset($_SESSION['username']);

@@ -9,9 +9,17 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include "../../site/models/connectdb.php";
-include "../../site/models/donhang.php";
-include "../../site/models/user.php";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+// include $ROOT_URL . "/pdo-library.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
+include $ROOT_URL . "/DAO/order.php";
+
+// include "../../site/models/connectdb.php";
+// include "../../site/models/donhang.php";
+// include "../../site/models/user.php";
 
 switch ($_GET['act']) {
     case 'updateaccountinfo':
@@ -158,7 +166,73 @@ switch ($_GET['act']) {
         // var_dump($_SESSION['madonhang']);
         unset($_SESSION['madonhang']);
         break;
+    case 'destroyorder':
+        if (isset($_POST['orderid'])) {
+            $is_updated = updateorderstatus($_POST['orderid'], 6);
+            if ($is_updated) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "message" => "Cập nhật trạng thái thành công!",
+                    )
+                );
+            }
+        } else {
 
+        }
+        break;
+    case 'confirmorder':
+        if (isset($_POST['orderid'])) {
+            $is_updated = updateorderstatus($_POST['orderid'], 4);
+            if ($is_updated) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "message" => "Cập nhật trạng thái thành công!",
+                    )
+                );
+            }
+        }
+        break;
+    case 'reorder':
+        // $_SESSION['giohang'][] =
+        if (isset($_POST['orderid'])) {
+            $reorder_list = select_orderdetail_by_orderid($_POST['orderid']);
+            // var_dump($reorder_list);
+            // $_SESSION['giohang'][] = $reorder_list;
+
+            foreach ($reorder_list as $order) {
+                # code...
+                $danhmuc = catename_select_by_id($order['ma_danhmuc'])['ten_danhmuc'];
+                $id = $order['idsanpham'];
+                $sl = $order['soluong'];
+                $don_gia = $order['dongia'];
+                $hinh_anh = $order['hinhanh'];
+                $tensp = $order['tensp'];
+                $cart_item = array(
+                    "id" => $id,
+                    "tensp" => $tensp,
+                    "danhmuc" => $danhmuc,
+                    "hinh_anh" => $hinh_anh,
+                    "sl" => $sl,
+                    "don_gia" => $don_gia,
+                );
+
+                $_SESSION['giohang'][] = $cart_item;
+
+            }
+            // exit;
+            // if ($reorder_list) {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "message" => "Thành công!",
+                )
+            );
+            // }
+
+        }
+        break;
     default:
         # code...
         break;

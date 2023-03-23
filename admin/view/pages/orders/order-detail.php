@@ -4,6 +4,20 @@ if (isset($_GET['iddh'])) {
     $order_detail_list = getshoworderdetail($iddh);
     $order_info = getorderinfo($iddh);
     // var_dump($orderInfo);
+    $trangthai = showStatus($order_info['trangthai'])[0];
+    $message = showStatus($order_info['trangthai'])[1];
+
+    switch ($order_info['thanhtoan']) {
+        case '0':
+            $thanhtoan = "Chưa thanh toán";
+            break;
+        case '1':
+            $thanhtoan = "Đã thanh toán";
+            break;
+        default:
+            # code...
+            break;
+    }
 }
 ?>
 
@@ -16,16 +30,51 @@ if (isset($_GET['iddh'])) {
                 <p class="mb-0">Order ID : #<?php echo $order_info['id'] ?></p>
             </div>
             <div class="col-12 col-lg-3 col-6 col-md-3">
-                <select class="form-select">
-                    <option>Thay đổi trạng thái</option>
-                    <option>Chờ thành toán</option>
-                    <option>Đã xác nhận</option>
-                    <option>Đang gửi hàng</option>
-                    <option>Đã gửi hàng thành công</option>
+                <?php
+switch ($order_info['trangthai']) {
+    case "1":
+    case "2":
+    case "3":
+        ?>
+                <select id="select-status" class="form-select">
+                    <option value="-1">Thay đổi trạng thái</option>
+                    <option <?php if ($order_info['trangthai'] == 1) {echo "hidden";}?> value="1">Chưa xác nhận
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 2) {echo "hidden";}?> value="2">Xác nhận đơn hàng
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 3) {echo "hidden";}?> value="3">Đang gửi hàng
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 4) {echo "hidden";}?> value="4">Đã gửi hàng thành
+                        công</option>
+                    <option <?php if ($order_info['trangthai'] == 5) {echo "hidden";}?> value="5">Giao hàng thất bại
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 6) {echo "hidden";}?> value="6">Đã hủy hàng
+                    </option>
                 </select>
+                <?php
+break;
+    case "4":
+    case "5":
+    case "6":
+        ?>
+                <select disabled="true" class="form-select">
+                    <option <?php if ($order_info['trangthai'] == 4) {echo 'selected';}?> value="4">Giao hàng thành công
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 5) {echo 'selected';}?> value="5">Giao hàng thất bại
+                    </option>
+                    <option <?php if ($order_info['trangthai'] == 6) {echo 'selected';}?> value="6">Đơn hàng đã bị hủy
+                    </option>
+                </select>
+                <?php
+break;
+    default;
+}
+?>
+
             </div>
             <div class="col-12 col-lg-3 col-6 col-md-3">
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-primary"
+                    onclick="changeStatus(<?php echo $_GET['iddh'] ?>)">Lưu</button>
                 <button type="button" class="btn btn-secondary"><i class="bi bi-printer-fill"></i> In</button>
             </div>
         </div>
@@ -60,8 +109,9 @@ if (isset($_GET['iddh'])) {
                                 <h6 class="mb-2">Thông tin gửi hàng</h6>
                                 <p class="mb-1"><strong>Shipping</strong> : Red Express</p>
                                 <p class="mb-1"><strong>Pttt</strong> : <?php echo $order_info['pttt'] ?></p>
-                                <p class="mb-1"><strong>Trạng thái</strong> : <?php echo $order_info['trangthai'] ?>
-                                </p>
+                                <p class="mb-1"><strong>Trạng thái</strong> : <?php echo $message ?></p>
+                                <p class="mb-1"><strong>Trạng thái thanh toán</strong> :
+                                    <?php echo $thanhtoan ?></p>
                             </div>
                         </div>
                     </div>
@@ -230,7 +280,7 @@ foreach ($order_detail_list as $order_detail) {
                             </div>
                             <div class="ms-auto">
                                 <button type="button"
-                                    class="btn alert-success radius-30 px-4"><?php echo $order_info['trangthai'] ?></button>
+                                    class="btn alert-success radius-30 px-4"><?php echo $trangthai ?></button>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-3">
@@ -238,7 +288,7 @@ foreach ($order_detail_list as $order_detail) {
                                 <p class="mb-0">Tổng phụ</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0"><?php echo $order_info['tongdonhang'] ?></h5>
+                                <h5 class="mb-0"><?php echo number_format($order_info['tongdonhang']) ?> VND</h5>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-3">
@@ -254,7 +304,7 @@ foreach ($order_detail_list as $order_detail) {
                                 <p class="mb-0">Thuế</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0">1000000 VND</h5>
+                                <h5 class="mb-0">0.00 VND</h5>
                             </div>
                         </div>
                         <!-- <div class="d-flex align-items-center mb-3">
@@ -270,7 +320,7 @@ foreach ($order_detail_list as $order_detail) {
                                 <p class="mb-0">Giảm giá</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0 text-danger">-3600000 VND </h5>
+                                <h5 class="mb-0 text-danger">0 VND </h5>
                             </div>
                         </div>
                     </div>

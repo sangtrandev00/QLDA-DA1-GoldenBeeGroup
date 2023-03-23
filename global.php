@@ -301,26 +301,25 @@ function showStatus($num)
     return [$trangthai, $statusMess];
 }
 
-function updateorderstatus($iddh, $trangthai)
+function showPayment($num)
 {
-    $sql = "update tbl_order set trangthai = ? where id = ?";
-    $mess = pdo_execute($sql, $trangthai, $iddh);
-    echo $mess;
-    return true;
-}
+    $trangthai = '';
+    $statusMess = '';
 
-function deleteorderdetailbyid($iddh)
-{
-    $sql = "DELETE from tbl_order_detail where iddonhang = $iddh;";
-    pdo_execute($sql);
-    return true;
-}
+    switch ($num) {
+        case '0':
+            # code...
+            $trangthai = "Chưa thanh toán";
+            break;
+        case '1':
+            $trangthai = "Đã thanh toán";
+            break;
+        default:
+            # code...
+            break;
+    }
 
-function deleteorderbyid($iddh)
-{
-    $sql = "DELETE from tbl_order where id = $iddh;";
-    pdo_execute($sql);
-    return true;
+    return $trangthai;
 }
 
 function getthumbnail($image_list)

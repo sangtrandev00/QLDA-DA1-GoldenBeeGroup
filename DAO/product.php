@@ -104,7 +104,6 @@ function product_increase_view($masanpham)
 {
     $sql = "UPDATE tbl_sanpham SET so_luot_xem = so_luot_xem + 1 WHERE masanpham=?";
     pdo_execute($sql, $masanpham);
-
 }
 
 // How many tops depend on $number. If $numbers is 10 -> top: 10.
@@ -183,3 +182,5 @@ function product_select_by_max_price()
     $sql = "SELECT max(don_gia) as max_don_gia FROM tbl_sanpham";
     return pdo_query($sql);
 }
+
+// function product_

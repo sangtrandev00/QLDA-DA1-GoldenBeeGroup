@@ -20,6 +20,8 @@
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Data table -->
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <!-- Nivo-slider css -->
     <link rel="stylesheet" href="assets/lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
@@ -32,9 +34,6 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- User style -->
     <link rel="stylesheet" href="assets/css/custom.css">
-
-    <!-- Data table -->
-    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -52,6 +51,22 @@
 
         <!-- START HEADER AREA -->
         <header id="header" class="header-area header-wrapper">
+            <!-- Toast -->
+
+
+            <div class="toast-container position-fixed end-0 p-3 mt-5 ">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="toast-content" class="toast-header text-bg-warning">
+                        <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                        <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
+                        <small>1 seconds ago</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                </div>
+            </div>
             <!-- header-top-bar -->
             <div class="header-top-bar plr-185">
                 <div class="container-fluid">

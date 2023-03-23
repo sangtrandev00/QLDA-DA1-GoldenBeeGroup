@@ -31,7 +31,24 @@ $order_list = get_all_recent_orders();
 $result = array();
 
 foreach ($order_list as $order) {
-
+    $trangthai = showStatus($order['trangthai'])[0];
+    switch ($order['trangthai']) {
+        case '1':
+        case '2':
+        case '3':
+            $alert_class = 'text-warning';
+            break;
+        case '4':
+            $alert_class = 'text-success';
+            break;
+        case '5':
+        case '6':
+            $alert_class = 'text-danger';
+            break;
+        default:
+            # code...
+            break;
+    }
     // var_dump(count_products_of_order($order['id']));
     # code...
     $row = array();
@@ -39,9 +56,9 @@ foreach ($order_list as $order) {
     $row[1] = $order['name'];
 
     $row[2] = $order['tongdonhang'];
-    $row[3] = '<span class="badge rounded-pill alert-success">Đã xác nhận</span>';
+    $row[3] = '<span class="' . $alert_class . ' w-100">' . $trangthai . '</span>';
     $row[4] = $order['timeorder'];
-    $row[5] = 0;
+    $row[5] = $order['tongsoluong'];
     $row[6] = '
             <div class="d-flex align-items-center gap-3 fs-6">
                 <a href="./index.php?act=orderdetail&iddh=' . $order['id'] . '" class="text-primary" data-bs-toggle="tooltip"

@@ -231,12 +231,14 @@ if (isset($_GET['act'])) {
             # code...
             echo '
               <script src="assets/js/pages/home.js"></script>
+              <script src="assets/js/pages/order.js"></script>
           ';
             break;
     }
 } else {
     echo '
       <script src="assets/js/pages/home.js"></script>
+      <script src="assets/js/pages/order.js"></script>
   ';
 }
 ?>

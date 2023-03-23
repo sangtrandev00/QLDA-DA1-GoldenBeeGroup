@@ -1,29 +1,30 @@
 <div class="row">
-    <div class="col-12 col-lg-9 d-flex">
+    <div class="col-12 col-lg-12 d-flex">
         <div class="card w-100">
             <div class="card-header py-3">
-                <div class="row g-3">
-                    <div class="col-lg-4 col-md-6 me-auto">
-                        <div class="ms-auto position-relative">
-                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
-                                    class="bi bi-search"></i></div>
-                            <input class="form-control ps-5" type="text" placeholder="Tìm kiếm đơn hàng">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-6 col-md-3">
-                        <select class="form-select">
-                            <option>Status</option>
-                            <option>Active</option>
-                            <option>Disabled</option>
-                            <option>Pending</option>
-                            <option>Show All</option>
+                <div class="row align-items-center m-0">
+                    <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                        <select onchange="filterByCate(this);" onfocus="this.selectedIndex = -1;" class="form-select">
+                            <option value="-1">Trạng thái đơn hàng</option>
+                            <option value="1">Chưa xác nhận</option>
+                            <option value="2">Đã xác nhận</option>
+                            <option value="3">Đang giao hàng</option>
+                            <option value="4">Giao hàng thành công</option>
+                            <option value="5">Giao hàng thất bại</option>
+                            <option value="6">Đã hủy đơn hàng</option>
                         </select>
                     </div>
-                    <div class="col-lg-2 col-6 col-md-3">
+                    <div class="col-md-2 col-6">
+                        <input type="date" onchange="filterByDate(this)" class="form-control">
+                    </div>
+                    <div class="col-md-2 col-6">
                         <select class="form-select">
-                            <option>Show 10</option>
-                            <option>Show 30</option>
-                            <option>Show 50</option>
+                            <option>Trạng thái thanh toán</option>
+                            <option>Đã thanh toán</option>
+                            <option>Chưa thanh toán</option>
+                            <!-- <option>Show all</option>
+                            <option>Show all</option>
+                            <option>Show all</option> -->
                         </select>
                     </div>
                 </div>
@@ -67,12 +68,13 @@ $total_records = $pagination['total_records'];
 // $order_list = get_all_orders();
 foreach ($order_list as $order) {
     # code...
+    $trangthai = showStatus($order['trangthai'])[0];
     echo '
                               <tr>
                                 <td>#' . $order['id'] . '</td>
                                 <td>' . $order['name'] . '</td>
                                 <td>' . $order['tongdonhang'] . '</td>
-                                <td><span class="badge rounded-pill alert-success">Đã xác nhận</span></td>
+                                <td><span class="">' . $trangthai . '</span></td>
                                 <td>' . $order['timeorder'] . '</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">
@@ -129,7 +131,7 @@ foreach ($order_list as $order) {
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-3 d-flex">
+    <!-- <div class="col-12 col-lg-3 d-flex">
         <div class="card w-100">
             <div class="card-header py-3">
                 <h5 class="mb-0">Lọc theo</h5>
@@ -173,7 +175,7 @@ foreach ($order_list as $order) {
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <!--end row-->
 

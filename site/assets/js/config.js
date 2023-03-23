@@ -22,6 +22,28 @@ function getParent(element, selector) {
     }
 }
 
+function showToast(toastTitle, toastMessage) {
+    const toastBtn = document.getElementById("liveToastBtn");
+    if(!toastBtn) return;
+    toastBtn.click();
+
+    const toastElement = document.getElementById("liveToast");
+    toastElement.querySelector("#toast-content-header").textContent = toastTitle;
+    toastElement.querySelector(".toast-body").textContent = toastMessage;
+}
+
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+toastTrigger.addEventListener('click', () => {
+  const toast = new bootstrap.Toast(toastLiveExample)
+  toast.show()
+})
+}
+
+// const toast = new bootstrap.Toast(toastLiveExample)
+//   toast.show()
+
 // const handleAddCart = (cartBtnSelector, formAction) => {
 //     const handleCartBtns = document.querySelectorAll(cartBtnSelector);
 //     [...handleCartBtns].forEach((btn) => {

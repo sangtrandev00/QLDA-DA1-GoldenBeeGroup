@@ -29,7 +29,7 @@ function updateCart() {
             data: {
                 id,
                 sl: currQty.value,
-                type: currentBtn.classList.contains('dec') ? "minus" : "add"
+                type: currentBtn.classList.contains('dec') ? "minus" : ""
             },
             // dataType: "dataType",
             success: function (response) {

@@ -267,6 +267,7 @@ if (isset($_SESSION['iduser'])) {
     //var_dump($cart_list);
     foreach ($cart_list as $cart_item) {
         $trangthai = "Đã xác nhận";
+
         # code...
         echo '
 

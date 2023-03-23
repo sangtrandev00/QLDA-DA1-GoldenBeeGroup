@@ -1,5 +1,7 @@
 <!-- START QUICKVIEW PRODUCT -->
 <div id="quickview-wrapper">
+    <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
