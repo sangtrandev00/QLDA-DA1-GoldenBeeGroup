@@ -86,7 +86,7 @@ function getshowcartbyiduser($iduser)
 function getShowCartGroupbyOrder($userId)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT tbl_order.id, madonhang, iddonhang,tongdonhang, pttt,sum(soluong) as soluong, timeorder,iduser, trangthai FROM tbl_order_detail INNER JOIN tbl_order on tbl_order_detail.iddonhang = tbl_order.id group by iddonhang HAVING iduser = '$userId'");
+    $stmt = $conn->prepare("SELECT tbl_order.id, madonhang, iddonhang,tongdonhang, pttt,sum(soluong) as soluong, timeorder,iduser, trangthai FROM tbl_order_detail INNER JOIN tbl_order on tbl_order_detail.iddonhang = tbl_order.id group by iddonhang HAVING iduser = '$userId' order by timeorder desc");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetchAll();

@@ -26,6 +26,15 @@
     <div class="card-body">
 
         <div class="table-responsive">
+            <?php
+if (isset($thongbao) && ($thongbao != "")) {
+    echo '<div class="alert alert-primary" role="alert">' . $thongbao . '</div>';
+}
+if (isset($thongbaoupdate) && ($thongbaoupdate != "")) {
+    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdate . '</div>';
+}
+
+?>
             <table class="table align-middle table-striped">
                 <thead>
                     <th>Id</th>
@@ -69,7 +78,7 @@ foreach ($blog_list as $blog_item) {
                                 <td><span>' . $blog_item['tags'] . '</span></td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                        <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        <a href="" class="text-primary"
                                             title=""
                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
                                         <a href="' . $suablog . '" class="text-warning" data-bs-toggle="tooltip"
@@ -84,39 +93,63 @@ foreach ($blog_list as $blog_item) {
 }
 ?>
 
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bạn Muốn Xóa Bài Viết</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Nhấn xóa để xóa bài viết
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                    <a href="<?=$xoablog?>"><button type="button"
+                                            class="btn btn-primary">Xóa</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox">
-                        </div>
-                    </td>
-                    <td class="productlist">
-                        <a class="d-flex align-items-center gap-2" href="#">
-                            <div class="product-box">
-                                <img src="assets/images/products/10.png" alt="">
-                            </div>
-                            <div>
-                                <h6 class="mb-0 product-title">Orange Micro Headphone </h6>
-                            </div>
-                        </a>
-                    </td>
-                    <td><span>$18.00</span></td>
-                    <td><span class="badge rounded-pill bg-success">Active</span></td>
-                    <td><span>5-31-2020</span></td>
-                    <td>
-                        <div class="d-flex align-items-center gap-3 fs-6">
-                            <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
-                                data-bs-placement="bottom" title="" data-bs-original-title="View detail"
-                                aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                            <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
-                                data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
-                                aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                            <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-                                aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                        </div>
-                    </td>
-                    </tr>
+
+                    <!-- <tr>
+                              <td>
+                                  <div class="form-check">
+                                      <input class="form-check-input" type="checkbox">
+                                  </div>
+                              </td>
+                              <td class="productlist">
+                                  <a class="d-flex align-items-center gap-2" href="#">
+                                      <div class="product-box">
+                                          <img src="assets/images/products/10.png" alt="">
+                                      </div>
+                                      <div>
+                                          <h6 class="mb-0 product-title">Orange Micro Headphone </h6>
+                                      </div>
+                                  </a>
+                              </td>
+                              <td><span>$18.00</span></td>
+                              <td><span class="badge rounded-pill bg-success">Active</span></td>
+                              <td><span>5-31-2020</span></td>
+                              <td>
+                                  <div class="d-flex align-items-center gap-3 fs-6">
+                                      <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
+                                          data-bs-placement="bottom" title="" data-bs-original-title="View detail"
+                                          aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                                      <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
+                                          data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                          aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                                      <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                          data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                          aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+                                  </div>
+                              </td>
+                          </tr> -->
                 </tbody>
             </table>
         </div>
@@ -133,7 +166,34 @@ foreach ($blog_list as $blog_item) {
 
     </div>
 </div>
-</main>
-<!--end page main-->
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal
+    for
+    @getbootstrap</button>
 
-<!-- Toggle Modal here -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+</main>

@@ -11,16 +11,19 @@ $(function() {
             success: function (response) {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
-                    // console.log('list: ', order_list);
+                    console.log('list: ', order_list);
                     var table = $('#table-history-order').DataTable({
                         data: order_list,
                         retrieve: true,
                         lengthChange: false,
-                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
                     });
 
                     table.buttons().container()
                     .appendTo( '#table-history-order_wrapper .col-md-12' );
+
+                    table.column('0:visible').order('desc').draw();
             }
         });
 

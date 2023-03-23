@@ -26,7 +26,7 @@ include "$ROOT_URL/global.php";
 // $current_page = $pagination['current_page'];
 // $total_records = $pagination['total_records'];
 
-$order_list = get_all_recent_orders();
+$order_list = get_all_orders();
 
 $result = array();
 
@@ -41,7 +41,7 @@ foreach ($order_list as $order) {
     $row[2] = $order['tongdonhang'];
     $row[3] = '<span class="badge rounded-pill alert-success">Đã xác nhận</span>';
     $row[4] = $order['timeorder'];
-    $row[5] = 0;
+    $row[5] = $order['tongsoluong'];
     $row[6] = '
             <div class="d-flex align-items-center gap-3 fs-6">
                 <a href="./index.php?act=orderdetail&iddh=' . $order['id'] . '" class="text-primary" data-bs-toggle="tooltip"
