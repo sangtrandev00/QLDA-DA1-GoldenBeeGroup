@@ -821,6 +821,34 @@ if (isset($_GET['act'])) {
             }
             include './view/pages/blogs/blog-cate.php';
             break;
+        case 'editcateblog':
+            if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
+                $cateblog = loadone_cateblog($_GET['id']);
+            }
+            include './view/pages/blogs/edit-cateblog.php';
+            break;
+        case 'updatecateblog':
+            if (isset($_POST['updatecate']) && ($_POST['updatecate'])) {
+                $id = $_POST['id'];
+                $catename = $_POST['catename'];
+                $hinh = $_FILES['hinh']['name'];
+                $target_dir = "../uploads/";
+                $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                }
+                update_cateblog($id,$catename,$hinh);
+                
+                $thongbaoupdatecateblog = "Đã Cập Nhật Danh Mục Bài Viết " . $id . " Thành Công";
+
+            }
+            include './view/pages/blogs/blog-cate.php';
+            break;
+        case 'viewcateblog':
+            if(isset($_GET['id']) && isset($_GET['id'])){
+                $listviewcateblog = viewcateblog($_GET['id']);
+            }
+            include './view/pages/blogs/view_cateblog.php';
+            break;
         default:
             // if (isset($_SESSION['iduser'])) {
             include "./view/pages/dashboard/dashboard.php";
