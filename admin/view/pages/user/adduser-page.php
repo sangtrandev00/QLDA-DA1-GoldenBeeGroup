@@ -1,6 +1,11 @@
-<div class="card">
+  
+  <!--start content-->
+  <main class="page-content">
+      
 
-    <div class="card-body">
+      <div class="card">
+          
+          <div class="card-body">
 
         <div id="table-product-content" class="table-responsive">
             <table class="table align-middle table-striped">
@@ -51,40 +56,37 @@
                                     <p class="error-message">
                                         <?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
 
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="">Password: </label>
-                                    <input type="text" class="form-control" name="password" value="" required>
-                                    <p class="error-message">
-                                        <?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="">Hình ảnh: </label>
-                                    <input type="file" class="form-control" name="image" value=""
-                                        accept="image/gif, image/jpeg, image/png, image/jpg" required>
-                                    <p class="error-message">
-                                        <?php echo isset($error['img']) ? $error['img'] : ''; ?></p>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="">Vai trò </label>
-                                    <select name="role" class="form-select" aria-label="Default select example">
-                                        <option selected>Chọn vai trò</option>
-                                        <option value="1">Quản Trị Viên</option>
-                                        <option value="2">Nhân Viên</option>
-                                        <option value="3">Khách Hàng</option>
-                                    </select>
-                                </div>
-                                <input type="hidden" name="iduser" value="">
-                                <input type="submit" name="adduserbtn" value="Thêm" class="btn btn-primary mt-3" />
-                            </form>
                     </div>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Password: </label>
+                        <input type="text" class="form-control" name="password" value="" required>
+                        <p class="error-message"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Hình ảnh: </label> 
+                        <input type="file" class="form-control" name="image" value="" accept="image/gif, image/jpeg, image/png, image/jpg" required>
+                        <p class="error-message"><?php echo isset($error['img']) ? $error['img'] : ''; ?></p>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="">Vai trò </label>
+                        <select name="role" class="form-select" aria-label="Default select example">
+                            <option selected>Chọn vai trò</option>
+                            <option value="1">Quản Trị Viên</option>
+                            <option value="2">Nhân Viên</option>
+                            <option value="3">Khách Hàng</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="iduser" value="">
+                    <input type="submit" name="adduserbtn" value="Thêm" class="btn btn-primary mt-3" />
+                </form>
 </div>
-
-</main>
-<!--end page main-->
+                     </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      
+  </main>
+  <!--end page main-->
 
 <!-- Toggle Modal here -->

@@ -26,14 +26,14 @@ include "./view/layout/breadcrumb.php";
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
 
-        case 'loginpage':
-            if (isset($_SESSION['iduser']) && $_SESSION['iduser'] > 0) {
+        // case 'loginpage':
+        //     if (isset($_SESSION['iduser']) && $_SESSION['iduser'] > 0) {
 
-            }
+        //     }
 
-            // include "./view/pages/loginpage.php";
+        //     // include "./view/pages/loginpage.php";
 
-            break;
+        //     break;
 
         case 'productlist':
             include "./view/pages/products/product-list.php";
@@ -395,21 +395,15 @@ if (isset($_GET['act'])) {
             include "./view/reports/reportlist-page.php";
             break;
         case 'userlist':
-            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-            //     include "./view/user/userlist-page.php";
-            // } else {
-            //     header('location: index.php');
-            // }
-            include "./view/pages/user/userlist-page.php";
+                include "./view/pages/user/userlist-page.php";
+           
+            
 
             break;
         case 'adminlist':
-            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-            //     include "./view/user/customerlist-page.php";
-            // } else {
-            //     header('location: index.php');
-            // }
-            include "./view/pages/user/adminlist-page.php";
+           
+                include "./view/pages/user/adminlist-page.php";
+            
 
             break;
         case 'adduser':
@@ -565,72 +559,71 @@ if (isset($_GET['act'])) {
                 $role = $_POST['role'];
                 $filename = $_FILES['image']['name'];
 
-                $target_dir = "../uploads/";
-                $target_file = $target_dir . basename($_FILES["image"]["name"]);
-                // echo $target_file;
-                move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-
-                // validation using php at server
-                // if (empty($_FILES["image"]["name"])) {
-                //     $error['img'] = "Không để trống hình ảnh";
-                // }
-                // Validate at server
-
-                if (strlen($name) == 0) {
-                    $error['name'] = "Không để trống họ tên!";
-                } else if (strlen($name) > 30) {
-                    $error['name'] = "Họ tên không vượt quá 30 ký tự!";
-                }
-
-                if (empty($email)) {
-                    $error['email'] = "không để trống email";
-                } else if (!is_email($email)) {
-                    $error['email'] = "Email không đúng định dạng!";
-                }
-
-                if (strlen($phone) == 0) {
-                    $error['phone'] = "Không để trống số điện thoại!";
-                } else if (!validating($phone)) {
-                    $error['phone'] = "Định dạng số điện thoại không chính xác!";
-                }
-
-                if (empty($username)) {
-                    $error['username'] = "Không để trống username!";
-                }
-
-                if (empty($password)) {
-                    $error['password'] = "không để trống password!";
-                }
-
-                if (!$error) {
-                    $password = md5($password);
-
-                    // echo $role;
-                    $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
-                    // header('Location: adminlist-page.php');
-                    // if ($is_updated) {
-                    header('Location: index.php?act=adminlist');
-
+                    $target_dir = "../uploads/";
+                    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                    // echo $target_file;
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+    
+                    // validation using php at server
+                    // if (empty($_FILES["image"]["name"])) {
+                    //     $error['img'] = "Không để trống hình ảnh";
                     // }
-
+                    // Validate at server
+    
+                    if (strlen($name) == 0) {
+                        $error['name'] = "Không để trống họ tên!";
+                    } else if (strlen($name) > 30) {
+                        $error['name'] = "Họ tên không vượt quá 30 ký tự!";
+                    }
+    
+                    if (empty($email)) {
+                        $error['email'] = "không để trống email";
+                    } else if (!is_email($email)) {
+                        $error['email'] = "Email không đúng định dạng!";
+                    }
+    
+                    if (strlen($phone) == 0) {
+                        $error['phone'] = "Không để trống số điện thoại!";
+                    } else if (!validating($phone)) {
+                        $error['phone'] = "Định dạng số điện thoại không chính xác!";
+                    }
+    
+                    if (empty($username)) {
+                        $error['username'] = "Không để trống username!";
+                    }
+    
+                    if (empty($password)) {
+                        $error['password'] = "không để trống password!";
+                    }
+    
+                    if (!$error) {
+                        $password = md5($password);
+                        $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                        // header('Location: adminlist-page.php');
+                        // if ($is_updated) {
+                        header('Location: index.php?act=adminlist');
+                       
+                        // }
+    
+                    }
+    
                 }
-
-            }
-
-            include "./view/pages/user/editadmin-page.php";
-            break;
+    
+                include "./view/pages/user/editadmin-page.php";
+                break;
         case 'deleteuser':
             if (isset($_GET['id'])) {
                 // $comments_deleted = comment_delete_by_iduser($_GET['id']);
                 $id_deleted = user_delete($_GET['id']);
-                if ($id_deleted) {
-                    echo '
-                    <script>
-                        window.alert("Chúc mừng bạn đã xóa người dùng thành công!");
-                    </script>
-                    ';
+                // if ($id_deleted) {
+                //     echo '
+                //     <script>
+                //         window.alert("Chúc mừng bạn đã xóa người dùng thành công!");
+                //     </script>
+                //     ';
 
-                }
+                // }
+                header('Location: index.php?act=userlist');
             }
 
             include "./view/pages/user/userlist-page.php";
@@ -639,14 +632,15 @@ if (isset($_GET['act'])) {
             if (isset($_GET['id'])) {
                 // $comments_deleted = comment_delete_by_iduser($_GET['id']);
                 $id_deleted = user_delete($_GET['id']);
-                if ($id_deleted) {
-                    echo '
-                    <script>
-                        window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
-                    </script>
-                    ';
+                header('Location: index.php?act=adminlist');
+                // if ($id_deleted) {
+                //     echo '
+                //     <script>
+                //         window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
+                //     </script>
+                //     ';
 
-                }
+                // }
             }
 
             include "./view/pages/user/adminlist-page.php";
@@ -763,6 +757,7 @@ if (isset($_GET['act'])) {
             unset($_SESSION['role']);
             unset($_SESSION['username']);
             unset($_SESSION['iduser']);
+            unset($_SESSION['img']);
             header('location: ./auth/login.php');
 
             break;
@@ -848,7 +843,7 @@ if (isset($_GET['act'])) {
             // if (isset($_SESSION['iduser'])) {
             include "./view/pages/dashboard/dashboard.php";
             // } else {
-            //     header('location: loginpage.php');
+            //     header('location: login.php');
             // }
 
     }
@@ -856,7 +851,7 @@ if (isset($_GET['act'])) {
     // if (isset($_SESSION['iduser'])) {
     include "./view/pages/dashboard/dashboard.php";
     // } else {
-    //     header('location: loginpage.php');
+    //     header('location: login.php');
     // }
 }
 echo '</div>';

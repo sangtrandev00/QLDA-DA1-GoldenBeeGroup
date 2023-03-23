@@ -729,8 +729,9 @@ if (isset($_GET['act'])) {
 
         case 'logout':
             unset($_SESSION['role']);
-            unset($_SESSION['username']);
+            unset($_SESSION['ho_ten']);
             unset($_SESSION['iduser']);
+            unset($_SESSION['email']);
             header('location: ./auth/login.php');
             break;
 

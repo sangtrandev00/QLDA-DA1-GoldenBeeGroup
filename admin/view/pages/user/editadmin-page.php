@@ -26,19 +26,15 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <div class="container">
                         <!-- Page Heading -->
 
-                        <a class="my-3 d-inline-block btn btn-outline-primary" href="./index.php?act=adminlist">
-                            << Trở lại trang quản trị</a>
-                                <h3 class="h3 mb-4 text-gray-500 btn-info text-white p-2">Cập nhật quản trị viên
-                                    </h1>
-                                    <form id="edituserForm" class="pb-3"
-                                        action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>" method="post"
-                                        enctype="multipart/form-data">
-                                        <div class="form-group mb-3">
-                                            <label for="">Tên quản trị viên: </label>
-                                            <input type="text" class="form-control" name="fullname"
-                                                value="<?php echo $user['ho_ten'] ?>">
-                                            <p class="error-message">
-                                                <?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
+    <a class="my-3 d-inline-block btn btn-outline-primary" href="./index.php?act=adminlist">
+        << Trở lại trang quản trị</a>
+            <h3 class="h3 mb-4 text-gray-500 btn-info text-white p-2">Cập nhật quản trị viên</h1>
+                <form id="edituserForm" class="pb-3" action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>"
+                    method="post" enctype="multipart/form-data">
+                    <div class="form-group mb-3">
+                        <label for="">Tên quản trị viên: </label>
+                        <input type="text" class="form-control" name="fullname" value="<?php echo $user['ho_ten'] ?>">
+                        <p class="error-message"><?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
 
                                         </div>
                                         <div class="form-group mb-3">
@@ -95,10 +91,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <div class="form-group mb-3">
                                             <label for="">Vai trò </label>
                                             <select name="role" class="form-select" aria-label="Default select example">
-                                                <option selected>Chọn vai trò</option>
-                                                <option value="1">Quản Trị Viên</option>
-                                                <option value="2">Nhân Viên</option>
-                                                <option value="3">Khách Hàng</option>
+                                            <option selected>Chọn vai trò</option>
+                                            <option <?php if($user['vai_tro']==1) {echo'selected';}?> value="1">Quản Trị Viên</option>
+                                            <option <?php if($user['vai_tro']==2) {echo'selected';}?> value="2">Nhân Viên</option>
+                                            <option <?php if($user['vai_tro']==3) {echo'selected';}?> value="3">Khách Hàng</option>
                                             </select>
                                         </div>
                                         <input type="hidden" name="iduser"

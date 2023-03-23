@@ -1,6 +1,10 @@
-<div class="card">
+  <!--start content-->
+  <main class="page-content">
+      
 
-    <div class="card-body">
+      <div class="card">
+          
+          <div class="card-body">
 
         <div id="table-product-content" class="table-responsive">
             <table class="table align-middle table-striped">

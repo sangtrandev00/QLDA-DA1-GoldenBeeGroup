@@ -1,3 +1,13 @@
+<?php
+ob_start();
+session_start();
+include "../models/connectdb.php";
+include "../models/user.php";
+
+?>
+
+
+
 <!doctype html>
 <html lang="en">
 
@@ -63,7 +73,7 @@
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng nhập</h5>
                                     <p class="card-text mb-5">Đăng nhập để vào trang quản trị admin</p>
-                                    <form class="form-body">
+                                    <form class="form-body" action="./login.php" method="post">
                                         <!-- <div class="d-grid">
                                             <a class="btn btn-white radius-30" href="javascript:;"><span
                                                     class="d-flex justify-content-center align-items-center">
@@ -78,6 +88,7 @@
                                             <hr>
                                         </div> -->
                                         <div class="row g-3">
+
                                             <div class="col-12">
                                                 <label for="inputEmailAddress" class="form-label">Địa chỉ email </label>
                                                 <div class="ms-auto position-relative">
@@ -86,9 +97,11 @@
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="Email">
+                                                        id="inputEmailAddress" placeholder="Email" name="email" required>
+                                                    <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                                 </div>
                                             </div>
+
                                             <div class="col-12">
                                                 <label for="inputChoosePassword" class="form-label">Nhập mật
                                                     khẩu</label>
@@ -98,7 +111,8 @@
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
                                                     <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputChoosePassword" placeholder="Mật khẩu">
+                                                        id="inputChoosePassword" placeholder="Mật khẩu" name="password" required>
+                                                    <p class="error-message"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -113,8 +127,9 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary radius-30 btn-primary-login">Đăng
-                                                        nhập</button>
+                                                <input type="submit" name="loginbtn"
+                                                        class="btn btn-primary radius-30 btn-primary-login"
+                                                        value="Đăng nhập" />
                                                 </div>
                                             </div>
                                             <!-- <div class="col-12">
@@ -145,3 +160,50 @@
 </body>
 
 </html>
+<?php
+    $error = array();
+    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        // Đối chiếu password
+        //Validate form
+        if (empty($email)) {
+            $error['email'] = "Không để trống email";
+        } 
+        if (empty($password)) {
+            $error['password'] = "Không để trống password";
+        }
+    
+        if (!$error) {
+            $password = md5($password);
+            // echo $password;
+            $islogined = checkuser2($email, $password);
+            // echo $islogined;
+            if ($islogined === -1) {
+                echo '
+                <script>
+                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                </script>
+                ';
+            } else {
+                $kq = getuserinfo2($email, $password);
+                $role = $kq[0]['vai_tro'];
+                // echo $role;
+                if ($role == 1 || $role == 2) {
+                    $_SESSION['role'] = $role;
+                    $_SESSION['username'] = $kq[0]['ho_ten'];
+                    $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['img'] = $kq[0]['hinh_anh'];
+                    header('Location: ../index.php');
+                } else {
+                    echo '
+                    <script>
+                        window.alert("Email hoặc của bạn không đúng. Xin vui lòng nhập lại!");
+                    </script>
+                    ';
+                }
+            }
+        }
+    }
+?>
