@@ -437,7 +437,14 @@
         <div class="dropdown dropdown-user-setting">
             <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                 <div class="user-setting d-flex align-items-center gap-3">
-                    <img src="assets/images/avatars/avatar-1.png" class="user-img" alt="">
+                    <?php
+                    if (isset($_SESSION['img'])) {
+                        $img = substr($_SESSION['img'], 0, 4) == 'http' ? $_SESSION['img'] : "../uploads/" . $_SESSION['img'];  
+                        echo'
+                        <img src="'.$img.'" class="user-img" alt="">
+                        ';
+                }
+                    ?>
                     <div class="d-none d-sm-block">
                         <?php
                            if (isset($_SESSION['iduser'])) {
@@ -451,12 +458,8 @@
                                     # code...
                                     $role = "Nhân viên";
                                     break;
-                                case '3':
-                                    # code...
-                                    $role = "Khách hàng";
-                                    break;
                                 default:
-                                    $role = "Khách hàng";
+                                    $role = "Nhân viên";
                                     break;
                             }
                             echo '

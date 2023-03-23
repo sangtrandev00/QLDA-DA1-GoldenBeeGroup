@@ -91,10 +91,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <div class="form-group mb-3">
                                             <label for="">Vai trò </label>
                                             <select name="role" class="form-select" aria-label="Default select example">
-                                                <option selected>Chọn vai trò</option>
-                                                <option value="1">Quản Trị Viên</option>
-                                                <option value="2">Nhân Viên</option>
-                                                <option value="3">Khách Hàng</option>
+                                            <option selected>Chọn vai trò</option>
+                                            <option <?php if($user['vai_tro']==1) {echo'selected';}?> value="1">Quản Trị Viên</option>
+                                            <option <?php if($user['vai_tro']==2) {echo'selected';}?> value="2">Nhân Viên</option>
+                                            <option <?php if($user['vai_tro']==3) {echo'selected';}?> value="3">Khách Hàng</option>
                                             </select>
                                         </div>
                                         <input type="hidden" name="iduser"

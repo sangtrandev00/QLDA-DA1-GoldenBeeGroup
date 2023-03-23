@@ -194,6 +194,7 @@ include "../models/user.php";
                     $_SESSION['role'] = $role;
                     $_SESSION['username'] = $kq[0]['ho_ten'];
                     $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['img'] = $kq[0]['hinh_anh'];
                     header('Location: ../index.php');
                 } else {
                     echo '
