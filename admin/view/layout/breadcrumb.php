@@ -26,7 +26,16 @@ if (isset($_GET['act'])) {
         case 'userlist':
             $breadcrumbs = "Danh sách người dùng";
             break;
-        case 'admin':
+        case 'editadmin':
+            $breadcrumbs = "Chỉnh sửa quản trị viên";
+            break;
+        case 'edituser':
+            $breadcrumbs = "Chỉnh sửa khách hàng";
+            break;
+        case 'adduser':
+            $breadcrumbs = "Thêm khách hàng/ quản trị viên";
+            break;
+        case 'adminlist':
             $breadcrumbs = "Danh sách quản trị viên";
             break;
         case 'bloglist':
@@ -42,10 +51,10 @@ if (isset($_GET['act'])) {
             $breadcrumbs = "Danh sách bình luận";
             break;
         default:
-            $breadcrumbs = "";
+            $breadcrumbs = "Tổng quan/ thống kê";
     }
 } else {
-    $breadcrumbs = "";
+    $breadcrumbs = "Tổng quan/ thống kê";
 }
 ?>
 

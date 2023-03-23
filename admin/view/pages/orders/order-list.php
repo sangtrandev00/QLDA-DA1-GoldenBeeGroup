@@ -38,6 +38,7 @@
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
                                 <th>Ngày đặt</th>
+                                <th>SL</th>
                                 <th>Hành động</th>
                             </tr>
                         </thead>
@@ -81,8 +82,7 @@ foreach ($order_list as $order) {
                                         <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                        <a href="javascript:deleteOrder(' . $order['id'] . ')" class="text-danger"  title=""
                                             aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
                                     </div>
                                 </td>

@@ -291,12 +291,15 @@
 <script src="assets/js/plugins.js"></script>
 <!-- Main js file that contents all jQuery plugins activation. -->
 <script src="assets/js/main.js"></script>
-
+<!-- Data table -->
+<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="assets/js/table-datatable.js"></script>
 
 <!-- Custom config javascript -->
 <script src="assets/js/config.js"></script>
 <script src="assets/js/validate.js"></script>
-
+<script src="assets/js/pages/account.js"></script>
 <?php
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {

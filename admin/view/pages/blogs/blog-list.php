@@ -75,9 +75,8 @@ foreach ($blog_list as $blog_item) {
                                         <a href="' . $suablog . '" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                        <a href="' . $xoablog . '" class="text-danger" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-                                            aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+
+                                        <i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i>
                                     </div>
                                 </td>
                             </tr>
@@ -85,6 +84,39 @@ foreach ($blog_list as $blog_item) {
 }
 ?>
 
+
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox">
+                        </div>
+                    </td>
+                    <td class="productlist">
+                        <a class="d-flex align-items-center gap-2" href="#">
+                            <div class="product-box">
+                                <img src="assets/images/products/10.png" alt="">
+                            </div>
+                            <div>
+                                <h6 class="mb-0 product-title">Orange Micro Headphone </h6>
+                            </div>
+                        </a>
+                    </td>
+                    <td><span>$18.00</span></td>
+                    <td><span class="badge rounded-pill bg-success">Active</span></td>
+                    <td><span>5-31-2020</span></td>
+                    <td>
+                        <div class="d-flex align-items-center gap-3 fs-6">
+                            <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="" data-bs-original-title="View detail"
+                                aria-label="Views"><i class="bi bi-eye-fill"></i></a>
+                            <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
+                                aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
+                            <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+                        </div>
+                    </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

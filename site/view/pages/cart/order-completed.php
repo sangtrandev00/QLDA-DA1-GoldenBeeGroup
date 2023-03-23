@@ -59,7 +59,7 @@ if (isset($iddh)) {
                             </a>
                         </li>
                         <li>
-                            <a class="active" href="./index.php?act=ordercompleted">
+                            <a class="active" href="#">
                                 <span>04</span>
                                 Đặt hàng thành công
                             </a>

@@ -13,7 +13,10 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
-
+    <!-- font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -30,16 +33,13 @@
     <!-- User style -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
-    <!-- Style customizer (Remove these two lines please) -->
-    <link rel="stylesheet" href="assets/css/style-customizer.css">
-    <link href="#" data-style="styles" rel="stylesheet">
-    <!-- font Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <!-- Data table -->
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+
+
 </head>
 
 <body>

@@ -6,18 +6,18 @@
           
           <div class="card-body">
 
-              <div id="table-product-content" class="table-responsive">
-                  <table class="table align-middle table-striped">
-                      <thead>
-                          <th>Mã KH</th>
-                          <th>Họ Và Tên</th>
-                          <th>Địa Chỉ Email</th>
-                          <th>Hình ảnh </th>
-                          <th>Vai Trò</th>
-                          <th>Hành động </th>
-                      </thead>
-                      <tbody>
-            <?php
+        <div id="table-product-content" class="table-responsive">
+            <table class="table align-middle table-striped">
+                <thead>
+                    <th>Mã KH</th>
+                    <th>Họ Và Tên</th>
+                    <th>Địa Chỉ Email</th>
+                    <th>Hình ảnh </th>
+                    <th>Vai Trò</th>
+                    <th>Hành động </th>
+                </thead>
+                <tbody>
+                    <?php
 $userList = user_select(3);
 foreach ($userList as $user) {
     $role = '';
@@ -61,13 +61,13 @@ foreach ($userList as $user) {
 }
 ?>
 
-        </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>
-      
-  </main>
-  <!--end page main-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-  <!-- Toggle Modal here -->
+</main>
+<!--end page main-->
+
+<!-- Toggle Modal here -->

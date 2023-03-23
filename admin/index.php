@@ -418,7 +418,7 @@ if (isset($_GET['act'])) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
-                $filename= $_FILES["image"]["name"];
+                $filename = $_FILES["image"]["name"];
                 // $imageurl = $_FILES['imageurl'];
 
                 $target_dir = "../uploads/";
@@ -545,19 +545,19 @@ if (isset($_GET['act'])) {
             include "./view/user/edituser-page.php";
             break;
         case 'editadmin':
-                $error = array();
-                if (isset($_POST['edituserbtn']) && $_POST['edituserbtn']) {
-    
-                    $iduser = $_POST['iduser'];
-                    $name = $_POST['fullname'];
-                    $address = $_POST['address'];
-                    $email = $_POST['email'];
-                    $phone = $_POST['phone'];
-                    $kichhoat = $_POST['kichhoat'];
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-                    $role = $_POST['role'];
-                    $filename=$_FILES['image']['name'];
+            $error = array();
+            if (isset($_POST['edituserbtn']) && $_POST['edituserbtn']) {
+
+                $iduser = $_POST['iduser'];
+                $name = $_POST['fullname'];
+                $address = $_POST['address'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $kichhoat = $_POST['kichhoat'];
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                $role = $_POST['role'];
+                $filename = $_FILES['image']['name'];
 
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["image"]["name"]);
@@ -715,9 +715,17 @@ if (isset($_GET['act'])) {
                 $is_deleted = deleteorderbyid($iddh);
 
                 if ($is_deleted) {
-                    echo '<div class="alert alert-danger">Bạn đã xóa đơn hàng  đơn hàng ' . $iddh . ' thành công!</div>';
+
+                    echo '
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                showToast("Xóa đơn hàng!", "Chúng mừng Bạn đã xóa đơn hàng  đơn hàng #' . $iddh . ' thành công!");
+                            })
+                        </script>
+                    ';
+                    // echo '<div class="alert alert-danger">Bạn đã xóa đơn hàng  đơn hàng ' . $iddh . ' thành công!</div>';
                 }
-                include "view/order/orderlist-page.php";
+                include "view/pages/orders/order-list.php";
                 // header('location: index.php?act=orderdetail&iddh=' . $iddh);
             }
 
@@ -743,7 +751,9 @@ if (isset($_GET['act'])) {
                 }
                 $conten = $_POST['noidung'];
                 add_blog($title, $hinh, $conten, $date, $idcate);
+                $thongbao = "Đã Đăng Bài Viết Thành Công";
             }
+
             $list_blogcate = loadall_cateblog();
             include "./view/pages/blogs/add-blog.php";
             break;
@@ -753,6 +763,7 @@ if (isset($_GET['act'])) {
         case 'deleteblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_blog($_GET['id']);
+                $thongbao = "Đã Xóa Bài Viết " . $_GET['id'] . " Thành Công";
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -773,6 +784,9 @@ if (isset($_GET['act'])) {
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
                 updateblog($id, $title, $hinh, $noidung);
+
+                $thongbaoupdate = "Đã Cập Nhật Bài Viết " . $id . " Thành Công";
+
             }
             include './view/pages/blogs/blog-list.php';
             break;
@@ -788,12 +802,16 @@ if (isset($_GET['act'])) {
                 if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
                 }
                 add_cateblog($blogcatename, $hinhcateblog);
+                $thongbao = "Đã Thêm Danh Mục Bài Viết Thành Công";
+
             }
             include './view/pages/blogs/blog-cate.php';
             break;
         case 'deletecateblog':
             if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                 $blog = delete_cateblog($_GET['id']);
+                $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #" . $_GET['id'] . " Thành Công";
+
             }
             include './view/pages/blogs/blog-cate.php';
             break;

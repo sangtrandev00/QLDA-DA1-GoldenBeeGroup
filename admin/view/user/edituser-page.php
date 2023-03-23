@@ -7,22 +7,22 @@
           
           <div class="card-body">
 
-              <div id="table-product-content" class="table-responsive">
-                  <table class="table align-middle table-striped">
-                      
-                     <tbody>
+        <div id="table-product-content" class="table-responsive">
+            <table class="table align-middle table-striped">
 
-                     <?php
+                <tbody>
+
+                    <?php
 // var_dump($user);
 if (isset($_GET['id']) && $_GET['id'] > 0) {
     $user = user_select_by_id($_GET['id']);
     // var_dump($user);
-    $hinhpath= "../uploads/" . $user['hinh_anh'];
-    if(is_file($hinhpath)){
+    $hinhpath = "../uploads/" . $user['hinh_anh'];
+    if (is_file($hinhpath)) {
         $hinh = "<img src='" . $hinhpath . "' height='40'>";
-        }else{
+    } else {
         $hinh = "không có hình";
-        }
+    }
 }
 $role="";
 switch ($user['vai_tro']) {
@@ -45,47 +45,57 @@ switch ($user['vai_tro']) {
 
 ?>
 
-<!-- Begin Page Content -->
-<div class="container">
-    <!-- Page Heading -->
+                    <!-- Begin Page Content -->
+                    <div class="container">
+                        <!-- Page Heading -->
 
-    <a class="my-3 d-inline-block btn btn-outline-primary" href="./index.php?act=userlist">
-        << Trở lại trang user</a>
-            <h3 class="h3 mb-4 text-gray-500 btn-info text-white p-2">Cập nhật user</h1>
-                <form id="edituserForm" class="pb-3" action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>"
-                    method="post" enctype="multipart/form-data">
-                    <div class="form-group mb-3">
-                        <label for="">Tên User: </label>
-                        <input type="text" class="form-control" name="fullname" value="<?php echo $user['ho_ten'] ?>">
-                        <p class="error-message"><?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
-                      
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Địa chỉ: </label>
-                        <input type="text" class="form-control" name="address" value="<?php echo $user['diachi'] ?>">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Email: </label>
-                        <input type="email" class="form-control" name="email" value="<?php echo $user['email'] ?>">
-                        <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
+                        <a class="my-3 d-inline-block btn btn-outline-primary" href="./index.php?act=userlist">
+                            << Trở lại trang user</a>
+                                <h3 class="h3 mb-4 text-gray-500 btn-info text-white p-2">Cập nhật user</h1>
+                                    <form id="edituserForm" class="pb-3"
+                                        action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>" method="post"
+                                        enctype="multipart/form-data">
+                                        <div class="form-group mb-3">
+                                            <label for="">Tên User: </label>
+                                            <input type="text" class="form-control" name="fullname"
+                                                value="<?php echo $user['ho_ten'] ?>">
+                                            <p class="error-message">
+                                                <?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
 
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Phone: </label>
-                        <input type="text" class="form-control" name="phone" value="<?php echo $user['sodienthoai'] ?>">
-                        <p class="error-message"><?php echo isset($error['phone']) ? $error['phone'] : ''; ?></p>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="">Địa chỉ: </label>
+                                            <input type="text" class="form-control" name="address"
+                                                value="<?php echo $user['diachi'] ?>">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="">Email: </label>
+                                            <input type="email" class="form-control" name="email"
+                                                value="<?php echo $user['email'] ?>">
+                                            <p class="error-message">
+                                                <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
 
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Kích hoạt: </label>
-                        <input type="number" class="form-control" min=0 max=1 name="kichhoat"
-                            value="<?php echo $user['kich_hoat'] ?>">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="">Username: </label>
-                        <input type="text" class="form-control" name="username"
-                            value="<?php echo $user['tai_khoan'] ?>">
-                        <p class="error-message"><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="">Phone: </label>
+                                            <input type="text" class="form-control" name="phone"
+                                                value="<?php echo $user['sodienthoai'] ?>">
+                                            <p class="error-message">
+                                                <?php echo isset($error['phone']) ? $error['phone'] : ''; ?></p>
+
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="">Kích hoạt: </label>
+                                            <input type="number" class="form-control" min=0 max=1 name="kichhoat"
+                                                value="<?php echo $user['kich_hoat'] ?>">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="">Username: </label>
+                                            <input type="text" class="form-control" name="username"
+                                                value="<?php echo $user['tai_khoan'] ?>">
+                                            <p class="error-message">
+                                                <?php echo isset($error['username']) ? $error['username'] : ''; ?>
+                                            </p>
 
                     </div>
                     <div class="form-group mb-3">
@@ -104,12 +114,15 @@ switch ($user['vai_tro']) {
                         <select name="role" class="form-select" aria-label="Default select example">        
                             <option>Chọn vai trò</option>
                             <?php
-                            echo " <option value=".$user['vai_tro']." selected>".$role."</option>";
-                            
-                            ?>
-                            <option value="1" >Quản Trị Viên</option>
+                        echo'
+                            if()
+                            <option value="'.$user['vai_tro'].'" selected>'.$role.'</option>
+
+                        ';
+?>
+                            <!-- <option value="1" >Quản Trị Viên</option>
                             <option value="2">Nhân Viên</option>
-                            <option value="3">Khách Hàng</option>
+                            <option value="3">Khách Hàng</option> -->
                         </select>
                     </div>
                     <input type="hidden" name="iduser" value="<?php if (isset($_GET['id'])) {echo $_GET['id'];}?>">
@@ -125,4 +138,4 @@ switch ($user['vai_tro']) {
   </main>
   <!--end page main-->
 
-  <!-- Toggle Modal here -->
+<!-- Toggle Modal here -->

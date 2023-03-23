@@ -224,7 +224,7 @@ function handleDeleteWishlist(idWishlist) {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "./logic/cart.php?act=deleteWishlist",
+            url: "./logic/cart.php?act=deletewishlist",
             data: {id: idWishlist},
             // dataType: 'json',
             success: function (response, statusText) {

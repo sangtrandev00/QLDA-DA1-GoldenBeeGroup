@@ -748,6 +748,49 @@ if (isset($_GET['act'])) {
         case 'cskiemhang':
             include "./view/pages/policy/inspection-policy.php";
             break;
+        case 'commentblog':
+            // if(isset($_POST['sencomment'])):
+            //     // comment_blog($content,$idblog,$userid, $date)
+            //     $content = $_POST['content'];
+            //     $idblog = $_GET['id'];
+            //     $date = $_POST['date'];
+
+            //         if(isset($_SESSION['user'])){
+            //             // print_r($_SESSION['user']);
+            //             comment_blog($content,$idblog,$_SESSION['iduser'],$date);
+            //             // header('location: ./view/blog/blog-detail.php?id='.$idblog.'');
+                        
+            //         }
+            //         // else{
+            //         //     $_SESSION['error'] = 'Đăng Nhập Để Bình Luận';
+            //         //     header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+            //         // }
+            //     endif;
+            if(isset($_POST['sencomment']) && ($_POST['sencomment'])){
+                $name = $_POST['name'];
+                $idblog = $_GET['id'];
+                $content = $_POST['content'];
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date = $_POST['date'];
+                $makh = $_POST['makh'];
+                if(isset($_SESSION['iduser'])){
+                    comment_blog($makh,$content,$idblog,$name, $date);
+                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                }
+                else{
+                    // $thongbao = "Đăng Nhập Để Bình Luận";
+                    // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                }             
+                         
+            }
+            include "./view/pages/blog/blog-detail.php";
+            break;
+        case 'deletecmt':
+            $id = $_GET['idblog'] ? $_GET['idblog'] : '' ;
+            deletecmt($id);
+            header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$_GET['idprofile'].'');
+            break;
+            
         default:
             include "./view/component/carousel.php";
             // include "./view/component/catalog.php";
@@ -759,6 +802,5 @@ if (isset($_GET['act'])) {
     include "./view/pages/home/home.php";
 
 }
-
 // Footer
 include "./view/layout/footer.php";

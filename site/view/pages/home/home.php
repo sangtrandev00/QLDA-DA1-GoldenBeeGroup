@@ -133,6 +133,10 @@
 $cate_list = cate_select_all();
 // var_dump($cate_list);
 
+$cate_list = array_filter($cate_list, function ($cate_item) {
+    return $cate_item['ma_danhmuc'] != 0;
+});
+
 foreach ($cate_list as $cate_item) {
     # code...
     echo '
@@ -1104,26 +1108,26 @@ if ($current_page < $total_page && $total_page > 1) {
                     <div class="blog">
                         <div class="active-blog slick-arrow-1">
                             <?php
-                                $list_newblog_home = get_all_new_blog_home();
-                                foreach ($list_newblog_home as $newblog) {
-                                    extract($newblog);
-                                    $image_list = explode(',', $newblog['images']);
-                                    foreach ($image_list as $image_item) {
+$list_newblog_home = get_all_new_blog_home();
+foreach ($list_newblog_home as $newblog) {
+    extract($newblog);
+    $image_list = explode(',', $newblog['images']);
+    foreach ($image_list as $image_item) {
 
-                                        if (substr($image_item, 0, 6) == "thumb-") {
-                                            // echo $image_item;
-                                            $thumbnail = "../uploads/" . $image_item;
-                                            break;
-                                        }
-                                    }
-                                    $conten = mb_substr($newblog['noi_dung'],0,100);
-                                    echo '<div class="blog-item">
-                                    <img style="width: 365px; height: 265px;" src="'.$thumbnail.'" alt="lastest-blog-1.jpg">
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            break;
+        }
+    }
+    $conten = mb_substr($newblog['noi_dung'], 0, 100);
+    echo '<div class="blog-item">
+                                    <img style="width: 365px; height: 265px;" src="' . $thumbnail . '" alt="lastest-blog-1.jpg">
                                     <div class="blog-desc">
-                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a></h5>
-                                        <p>'.$conten.'...</p>
+                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id=' . $blog_id . '">' . $blog_title . '</a></h5>
+                                        <p>' . $conten . '...</p>
                                         <div class="read-more">
-                                            <a href="./index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                            <a href="./index.php?act=blogdetail&id=' . $blog_id . '">Read more</a>
                                         </div>
                                         <ul class="blog-meta">
                                             <li>
@@ -1138,8 +1142,8 @@ if ($current_page < $total_page && $total_page > 1) {
                                         </ul>
                                     </div>
                                 </div>';
-                                }
-                            ?>
+}
+?>
                         </div>
                     </div>
                 </div>

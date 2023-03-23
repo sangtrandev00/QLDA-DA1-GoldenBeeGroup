@@ -99,3 +99,26 @@ function count_comment_has_approved($ma_sanpham)
     $sql = "select * from tbl_binhluan where ma_sanpham = $ma_sanpham and duyet = 1";
     return count(pdo_query($sql));
 }
+function comment_blog($makh,$content,$idblog, $date){
+    $sql = "insert into tbl_blog_comment(ma_kh,id_blog,noi_dungbl,ngay_bl) values('$makh','$idblog','$content','$date')";
+    pdo_execute($sql);
+}
+function showcomment($id){
+    $sql = "SELECT * FROM tbl_blog_comment 
+    JOIN tbl_blog ON tbl_blog_comment.id_blog = tbl_blog.blog_id 
+    JOIN tbl_nguoidung ON tbl_blog_comment.ma_kh = tbl_nguoidung.id
+    WHERE tbl_blog_comment.id_blog ='$id'";
+    $showcomment = pdo_query($sql);
+    return $showcomment;
+}
+function getprofile($id){
+    $sql = "SELECT * FROM tbl_nguoidung WHERE id='$id'";
+    $showprofile = pdo_query($sql);
+    return $showprofile;
+}
+function deletecmt($id){
+    $sql = "DELETE FROM tbl_blog_comment WHERE id_bl='$id'";
+    pdo_execute($sql);
+}
+
+?>

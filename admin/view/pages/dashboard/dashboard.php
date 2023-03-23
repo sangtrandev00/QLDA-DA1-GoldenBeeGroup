@@ -8,8 +8,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Total Orders</p>
-                            <h4 class="">8,542</h4>
+                            <p>Số đơn hàng</p>
+                            <h4 class=""><?php echo count_all_orders() ?></h4>
                         </div>
                         <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 16% <i class="bi bi-arrow-up"></i></p>
@@ -25,8 +25,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Total Views</p>
-                            <h4 class="">12.5M</h4>
+                            <p>Số lượt xem</p>
+                            <h4 class=""><?php echo count_all_views() ?></h4>
                         </div>
                         <div class="w-50">
                             <p class="mb-3 float-end text-danger">- 3.4% <i class="bi bi-arrow-down"></i></p>
@@ -41,8 +41,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Revenue</p>
-                            <h4 class="">$64.5K</h4>
+                            <p>Tổng doanh thu</p>
+                            <h4 class=""><?php echo sum_all_sales() ?></h4>
                         </div>
                         <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 24% <i class="bi bi-arrow-up"></i></p>
@@ -57,7 +57,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Customers</p>
+                            <p>Số khách hàng</p>
                             <h4 class="">25.8K</h4>
                         </div>
                         <div class="w-50">
@@ -74,7 +74,24 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Total Posts</p>
+                            <p>Số lượng bài viết</p>
+                            <h4 class=""><?php echo count_all_posts() ?></h4>
+                        </div>
+                        <div class="w-50">
+                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Total Comment -->
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-50">
+                            <p>Số bình luận</p>
                             <h4 class="">25.8K</h4>
                         </div>
                         <div class="w-50">
@@ -91,7 +108,24 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Customers</p>
+                            <p>Phản hồi</p>
+                            <h4 class="">25.8K</h4>
+                        </div>
+                        <div class="w-50">
+                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Total phản hồi -->
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-50">
+                            <p>Số người dùng</p>
                             <h4 class="">25.8K</h4>
                         </div>
                         <div class="w-50">
@@ -372,7 +406,7 @@
             <div class="card radius-10 w-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Recent Orders</h6>
+                        <h6 class="mb-0">Đơn hàng gần đây</h6>
                         <div class="fs-5 ms-auto dropdown">
                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
                                 data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
@@ -387,15 +421,16 @@
                         </div>
                     </div>
                     <div class="table-responsive mt-2">
-                        <table class="table align-middle mb-0">
+                        <table id="table-recent-order" class="table align-middle mb-0">
                             <thead class="table-light">
                                 <tr>
                                     <th>#ID</th>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
+                                    <th>Khách hàng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày đặt</th>
+                                    <th>SL</th>
+                                    <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>

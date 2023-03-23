@@ -162,8 +162,6 @@
 <!-- <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script> -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-
-
 <!--app-->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/index.js"></script>
@@ -221,6 +219,13 @@ if (isset($_GET['act'])) {
             echo '
               <script src="assets/js/pages/cart.js"></script>
           ';
+            break;
+        case 'orderlist':
+        case 'editorder':
+        case 'deleteorder':
+            echo '
+                <script src="assets/js/pages/order.js"></script>
+            ';
             break;
         default:
             # code...

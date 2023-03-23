@@ -32,8 +32,8 @@ function report_comments()
 
 function sum_all_sales()
 {
-    $sql = 'SELECT sum(tongdonhang) as sum_all_sales from tbl_order';
-    return pdo_query_one($sql);
+    $sql = 'SELECT sum(tongdonhang) as sum_all_sales from tbl_order where trangthai = 1';
+    return pdo_query_value($sql);
 }
 
 function count_all_orders()
@@ -45,5 +45,29 @@ function count_all_orders()
 function count_all_comments()
 {
     $sql = 'SELECT count(*) from tbl_binhluan';
+    return pdo_query_value($sql);
+}
+
+function count_all_views()
+{
+    $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
+    return pdo_query_value($sql);
+}
+
+function count_all_posts()
+{
+    $sql = 'SELECT count(*) from tbl_blog ';
+    return pdo_query_value($sql);
+}
+
+function count_all_customer()
+{
+    $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
+    return pdo_query_value($sql);
+}
+
+function count_all_user()
+{
+    $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
     return pdo_query_value($sql);
 }

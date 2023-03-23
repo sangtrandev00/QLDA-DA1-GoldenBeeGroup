@@ -42,3 +42,15 @@ ul.top-cart-inner-wrapper {
 .change-ul .ul-about{
   background-color: #ff7f00;
 }
+
+table#table-history-order {
+  width: 100%!important;
+}
+
+#table-history-order_filter label{
+    width: 100%;
+}
+
+#table-history-order_filter .form-control {
+  width: 80%;
+}

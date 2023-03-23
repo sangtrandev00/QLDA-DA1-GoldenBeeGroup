@@ -235,11 +235,11 @@ if (isset($_SESSION['iduser'])) {
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                             data-bs-parent="#accordion">
                             <div class="card-body">
-                                <table class="table mt-5 table-hover shadow p-3">
-                                    <form action="" method="post">
+                                <table id="table-history-order" class="table mt-5 table-hover shadow p-3">
+                                    <!-- <form action="" method="post">
                                         <input type="text" name="searchhistory" class="form-control" id="" value=""
                                             placeholder="Tìm kiếm lịch sử theo mã đơn hàng">
-                                    </form>
+                                    </form> -->
                                     <thead class="text-dark bg-light p-3">
                                         <tr>
                                             <th scope="col">iddh</th>
