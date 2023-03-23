@@ -82,7 +82,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 <form action="./index.php?act=addtocart" method="post" method="POST">
                                     <div class="single-product-info">
                                         <h3 class="text-black-1"><?php echo $product['tensp'] ?> <span
-                                                class="fs-4 fw-light"> (20 đã bán )</span>
+                                                class="fs-4 fw-light">
+                                                (<?php echo count_sold_product_by_id($_GET['id']) ?>
+                                                đã bán )</span>
                                         </h3>
                                         <h6 class="my-4">Thương hiệu: <?php echo $cate_name ?> </h6>
                                         <h6 class="my-4">Dòng sản phẩm: <?php echo $subcate_name ?></h6>
@@ -390,57 +392,7 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
         $addcartfunc = "handleAddCart('addtocart', 'addcart')";
         $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
         # code...
-        echo '
-        <form action="./index.php?act=addtocart" method="post">
-                <div class="product-item position-relatve">
-                <span class="ms-2 badge bg-secondary">' . $product_item['giam_gia'] . '%</span>
-                <div class="product-img">
-                    <a href="./index.php?act=detailproduct&id=' . $product_item['masanpham'] . '">
-                        <img src="' . $thumbnail . '" alt="" />
-                    </a>
-                </div>
-                <div class="product-info">
-                    <h6 class="product-title">
-                        <a href="./index.php?act=detailproduct&id=' . $product_item['masanpham'] . '">' . $product_item['tensp'] . '</a>
-                    </h6>
-                    <div class="pro-rating">
-                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                    </div>
-                    <h3 class="pro-price">' . $new_price . ' VND</h3>
-                    <ul class="action-button w-100">
-                        <li>
-                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                            <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
-
-                        </li>
-                        <li>
-                            <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                        </li>
-                        <li>
-                            <a onclick="' . $addcartfunc . '" class="add-to-cart" href="#" title="Add to cart"><i
-                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            <input type="submit" class="d-none" name="addtocartbtn" value="add to cart">
-
-                        </li>
-                        <input type="hidden" name="id" value="' . $product_item['masanpham'] . '"/>
-                        <input type="hidden" name="tensp" value="' . $product_item['tensp'] . '"/>
-                        <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
-                        <input type="hidden" name="sl" value="1">
-                        <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
-                        <input type="hidden" name="iddm" value="' . $product_item['ma_danhmuc'] . '"/>
-                        <input type="hidden" name="don_gia" value="' . $product_item['don_gia'] . '"/>
-                        <input type="hidden" name="mo_ta" value="' . $product_item['mo_ta'] . '">
-                        <input type="hidden" name="giam_gia" value="' . $product_item['giam_gia'] . '">
-                    </ul>
-                </div>
-            </div>
-        </form>
-        ';
+        echo cardItem($product_item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format);
     }
     ?>
                                 </div>

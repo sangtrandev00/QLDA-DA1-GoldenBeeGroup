@@ -35,3 +35,17 @@ function select_orderdetail_by_orderid($iddh)
     return pdo_query($sql);
     // return true;
 }
+
+// select * from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham having trangthai = 4;
+
+function count_sold_product_by_id($id)
+{
+    $sql = "SELECT count(*) from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 and idsanpham = '$id'";
+    return pdo_query_value($sql);
+}
+
+function count_all_sold_products()
+{
+    $sql = "SELECT count(*) from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4";
+    return pdo_query_value($sql);
+}

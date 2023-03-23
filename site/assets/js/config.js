@@ -1,4 +1,4 @@
-const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
+            const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
 const ADMIN_URL = `${ROOT_URL}/admin`;
 const SITE_URL = `${ROOT_URL}/site`;
 function logout(){
@@ -100,9 +100,10 @@ function handleAddCart (actionForm, logicType){
                     // $('body').html(response);
 
                     if(logicType == 'buynow') {
+                        
                         location.assign("index.php?act=viewcart");
-                        // console.log('go here buy now!');
                         return;
+                        // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
                             $.get('./logic/topwishlist.php', function(responseHtml) {
@@ -377,7 +378,56 @@ const zoomProductDetail = () => {
 //     })
 // })
 
+$.ajax({
+            type: "POST",
+            url: SITE_URL+ "/view/pages/account/table-order-database.php",
+            // data: "data",
+            // dataType: "dataType",
+            success: function (response) {
+                // console.log('res: ', response);
+                    const {order_list} = JSON.parse(response);
+                    console.log('list: ', order_list);
+                    var table = $('#table-history-order').DataTable({
+                        data: order_list,
+                        retrieve: true,
+                        lengthChange: false,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
+                    });
 
+                    table.buttons().container()
+                    .appendTo( '#table-history-order_wrapper .col-md-12' );
+
+                    table.column('0:visible').order('desc').draw();
+            }
+        });
+
+
+function showOrder() {
+    $.ajax({
+        type: "POST",
+        url: SITE_URL+ "/view/pages/account/table-order-database.php",
+        // data: "data",
+        // dataType: "dataType",
+        success: function (response) {
+            // console.log('res: ', response);
+                const {order_list} = JSON.parse(response);
+                console.log('list: ', order_list);
+                var table = $('#table-history-order').DataTable({
+                    data: order_list,
+                    retrieve: true,
+                    lengthChange: false,
+                    buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                    "ordering":true,
+                });
+
+                table.buttons().container()
+                .appendTo( '#table-history-order_wrapper .col-md-12' );
+
+                table.column('0:visible').order('desc').draw();
+        }
+    });
+}
 
 
 

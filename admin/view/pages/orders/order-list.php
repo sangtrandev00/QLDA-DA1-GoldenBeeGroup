@@ -37,7 +37,8 @@
                                 <th>ID</th>
                                 <th>Tên khách hàng</th>
                                 <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
+                                <th>Trạng thái đơn hàng</th>
+                                <!-- <th>Thanh toán</th> -->
                                 <th>Ngày đặt</th>
                                 <th>SL</th>
                                 <th>Hành động</th>

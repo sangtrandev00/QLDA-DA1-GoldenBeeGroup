@@ -71,3 +71,8 @@ function count_all_user()
     $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
     return pdo_query_value($sql);
 }
+
+function count_total_sales_by_product($id)
+{
+
+}

@@ -34,12 +34,32 @@ foreach ($order_list as $order) {
 
     // var_dump(count_products_of_order($order['id']));
     # code...
+    $trangthai = showStatus($order['trangthai'])[0];
+    $thanhtoan = showPayment($order['thanhtoan']);
+    switch ($order['trangthai']) {
+        case '1':
+        case '2':
+        case '3':
+            $alert_class = 'text-warning';
+            break;
+        case '4':
+            $alert_class = 'text-success';
+            break;
+        case '5':
+        case '6':
+            $alert_class = 'text-danger';
+            break;
+        default:
+            # code...
+            break;
+    }
+
     $row = array();
     $row[0] = "#" . $order['id'];
     $row[1] = $order['name'];
 
     $row[2] = $order['tongdonhang'];
-    $row[3] = '<span class="badge rounded-pill alert-success">Đã xác nhận</span>';
+    $row[3] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
     $row[4] = $order['timeorder'];
     $row[5] = $order['tongsoluong'];
     $row[6] = '

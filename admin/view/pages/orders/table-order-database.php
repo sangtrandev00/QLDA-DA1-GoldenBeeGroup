@@ -32,6 +32,7 @@ $result = array();
 
 foreach ($order_list as $order) {
     $trangthai = showStatus($order['trangthai'])[0];
+    $thanhtoan = showPayment($order['thanhtoan']);
     switch ($order['trangthai']) {
         case '1':
         case '2':
@@ -54,9 +55,9 @@ foreach ($order_list as $order) {
     $row = array();
     $row[0] = "#" . $order['id'];
     $row[1] = $order['name'];
-
     $row[2] = $order['tongdonhang'];
-    $row[3] = '<span class="' . $alert_class . ' w-100">' . $trangthai . '</span>';
+    $row[3] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
+    // $row[4] = $thanhtoan;
     $row[4] = $order['timeorder'];
     $row[5] = $order['tongsoluong'];
     $row[6] = '

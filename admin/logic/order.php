@@ -15,6 +15,11 @@ switch ($_GET['act']) {
         if (isset($_POST['orderid'])) {
             $iddh = $_POST['orderid'];
             $status = $_POST['status'];
+            if ($status == 4) {
+                $is_updated_status = updatepaymentstatus($iddh, 1);
+            } else {
+                $is_updated_status = false;
+            }
             $is_updated = updateorderstatus($iddh, $status);
 
             if ($is_updated) {
@@ -22,6 +27,7 @@ switch ($_GET['act']) {
                     array(
                         "status" => 1,
                         "message" => "Cập nhật thái thành công!",
+                        "thanhtoan" => $is_updated_status ? 1 : 0,
                     )
                 );
             }

@@ -21,7 +21,7 @@ include "$ROOT_URL" . "/global.php";
 
 // var_dump($_POST);
 $orderInfo = getorderinfo($_POST['id']);
-$cartList = getshoworderdetail($_POST['id']);
+$cartList = get_order_and_detail($_POST['id']);
 // $orderInfo = getorderinfo($_GET['id']);
 // var_dump($orderInfo);
 $trangthai = showStatus($orderInfo['trangthai'])[0];
@@ -72,7 +72,8 @@ switch ($orderInfo['trangthai']) {
 # code...
         break;
     case '3':
-        ?>
+        if ($orderInfo['thanhtoan'] == 1) {
+            ?>
                     <form onsubmit="confirmOrder(<?php echo $_POST['id'] ?>)" id="confirm-order-form" class="col-6"
                         action="<?php echo './index.php?act=updateorder&id=' . $orderInfo['id']; ?>" method="post">
                         <input type="submit" name="updateorderbtn" class="btn btn-outline-success"
@@ -80,7 +81,8 @@ switch ($orderInfo['trangthai']) {
                         <input type="hidden" name="updatestatus" value="4">
                     </form>
                     <?php
-break;
+}
+        break;
     case '4':
     case '5':
     case '6':
@@ -93,6 +95,7 @@ break;
                     </form>
                     <?php
 break;
+        break;
     default:
         # code...
         break;
@@ -140,8 +143,8 @@ switch ($orderInfo['trangthai']) {
 
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">id sản phẩm</th>
-                        <th scope="col">id đơn hàng</th>
+                        <!-- <th scope="col">id sản phẩm</th>
+                        <th scope="col">id đơn hàng</th> -->
                         <!-- <th scope="col">Hình ảnh</th>
             <th scope="col">Tên sản phẩm</th> -->
                         <th scope="col">số lượng</th>
@@ -149,6 +152,8 @@ switch ($orderInfo['trangthai']) {
                         <th scope="col">đơn giá</th>
                         <th scope="col">tên sp</th>
                         <th scope="col">hình ảnh</th>
+                        <?php if ($orderInfo['trangthai'] == 4 && $orderInfo['thanhtoan'] == 1) {echo '<th scope="col">Đánh giá</th>';}
+?>
 
                     </tr>
 
@@ -158,19 +163,35 @@ switch ($orderInfo['trangthai']) {
                     <?php
 
 if (isset($_SESSION['iduser'])) {
-
+    // <td class="">' . $cart_item['idsanpham'] . '</td>
+    // <td class="">' . $cart_item['iddonhang'] . '</td>
     foreach ($cartList as $cart_item) {
         # code...
+        if ($cart_item['trangthai'] == 4 && $cart_item['thanhtoan']) {
+            $row_review = '
+            <td>
+                <form onsubmit="reviewProduct()" id="re-order-form" class="col-6"
+                        action="" method="post">
+                        <input type="submit" name="reviewproductbtn" class="btn btn-outline-primary"
+                            value="Đánh giá" />
+                        <input type="hidden" name="reorder" value="">
+                </form>
+            </td>
+            ';
+        } else {
+            $row_review = "";
+        }
+
         echo '
 
     <tr class="p-3">
         <td class="" scope="row"> ' . $cart_item['id'] . '</td>
-        <td class="">' . $cart_item['idsanpham'] . '</td>
-        <td class="">' . $cart_item['iddonhang'] . '</td>
+
         <td class="">' . $cart_item['soluong'] . '</td>
         <td class="">' . $cart_item['dongia'] . '</td>
-        <td class="">' . $cart_item['tensp'] . '</td>
+        <td class=""><a href="./index.php?act=detailproduct&id=' . $cart_item['idsanpham'] . '">' . $cart_item['tensp'] . '</a></td>
         <td class=""><img width=100 height=100 src="../uploads/' . $cart_item['hinhanh'] . '" alt=""></td>
+       ' . $row_review . '
         </tr>
     ';
     }

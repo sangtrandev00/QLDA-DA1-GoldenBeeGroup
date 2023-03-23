@@ -25,37 +25,61 @@ if (isset($_GET['iddh'])) {
 <div class="card">
     <div class="card-header py-3">
         <div class="row g-3 align-items-center">
-            <div class="col-12 col-lg-4 col-md-6 me-auto">
+            <div class="col-12 col-lg-3 col-md-6 me-auto">
                 <h5 class="mb-1">Thời gian đặt: <?php echo $order_info['timeorder'] ?></h5>
                 <p class="mb-0">Order ID : #<?php echo $order_info['id'] ?></p>
+            </div>
+            <div class="col-12 col-lg-3 col-md-6">
+                <select id="select-payment" class="form-select">
+                    <option value="-1">Trạng thái thanh toán</option>
+                    <option <?php ?> value="2">Xác nhận đã thanh toán
+                    </option>
+                </select>
             </div>
             <div class="col-12 col-lg-3 col-6 col-md-3">
                 <?php
 switch ($order_info['trangthai']) {
     case "1":
+        ?>
+                <select id="select-status" class="form-select">
+                    <option value="-1">Thay đổi trạng thái đơn hàng</option>
+                    <option <?php ?> value="2">Xác nhận đơn hàng
+                    </option>
+                </select>
+
+                <?php
+break;
     case "2":
+        ?>
+                <select id="select-status" class="form-select">
+                    <option value="-1">Thay đổi trạng thái đơn hàng</option>
+                    <option <?php ?> value="3">Đang gửi hàng
+                    </option>
+                </select>
+                <?php
+break;
     case "3":
         ?>
                 <select id="select-status" class="form-select">
-                    <option value="-1">Thay đổi trạng thái</option>
-                    <option <?php if ($order_info['trangthai'] == 1) {echo "hidden";}?> value="1">Chưa xác nhận
-                    </option>
-                    <option <?php if ($order_info['trangthai'] == 2) {echo "hidden";}?> value="2">Xác nhận đơn hàng
-                    </option>
-                    <option <?php if ($order_info['trangthai'] == 3) {echo "hidden";}?> value="3">Đang gửi hàng
-                    </option>
-                    <option <?php if ($order_info['trangthai'] == 4) {echo "hidden";}?> value="4">Đã gửi hàng thành
+                    <option value="-1">Thay đổi trạng thái đơn hàng</option>
+                    <option <?php ?> value="4">Đã gửi hàng thành
                         công</option>
-                    <option <?php if ($order_info['trangthai'] == 5) {echo "hidden";}?> value="5">Giao hàng thất bại
+                    <option <?php ?> value="5">Giao hàng thất bại
                     </option>
-                    <option <?php if ($order_info['trangthai'] == 6) {echo "hidden";}?> value="6">Đã hủy hàng
+                    <option <?php ?> value="6">Đã hủy hàng
                     </option>
                 </select>
                 <?php
 break;
     case "4":
-    case "5":
-    case "6":
+        ?>
+
+                <?php
+case "5":
+        ?>
+
+                <?php
+case "6":
         ?>
                 <select disabled="true" class="form-select">
                     <option <?php if ($order_info['trangthai'] == 4) {echo 'selected';}?> value="4">Giao hàng thành công

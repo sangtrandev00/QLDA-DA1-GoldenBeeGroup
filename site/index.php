@@ -45,6 +45,7 @@ include "../DAO/product.php";
 include "../DAO/user.php";
 include "../DAO/comment.php";
 include "../DAO/blog.php";
+include "../DAO/order.php";
 
 // Model to connect database
 include "./models/connectdb.php";

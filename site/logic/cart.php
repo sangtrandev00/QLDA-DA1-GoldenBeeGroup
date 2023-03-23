@@ -245,7 +245,6 @@ switch ($_GET['act']) {
         // Khởi tạo một mảng con trước khi đưa vào giỏ
 
         $i = 0;
-
         foreach ($_SESSION['giohang'] as $itemsp) {
             # code...
             // var_dump($itemsp);
@@ -256,13 +255,16 @@ switch ($_GET['act']) {
                 // echo "So LUONG MOI: " . $slnew;
 
                 $_SESSION['giohang'][$i]['sl'] = $slnew;
+
+                // echo "So luong moi tren gio:" . $_SESSION['giohang'][$i]['sl'];
                 $flag = 1;
 
                 break;
             }
-
             $i++;
         }
+
+        // exit;
 
         if ($flag == 0) {
             $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
@@ -273,7 +275,7 @@ switch ($_GET['act']) {
             $_SESSION['giohang'][] = $itemsp;
 
         }
-
+        // var_dump($_SESSION['giohang'][$i]);
         var_dump($_SESSION['giohang']);
         // }
         // else {

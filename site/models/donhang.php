@@ -44,6 +44,16 @@ function getshoworderdetail($iddh)
     return $kq;
 }
 
+function get_order_and_detail($iddh)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT detail.id as id, idsanpham, iddonhang, soluong, dongia, tensp, hinhanh, trangthai, thanhtoan FROM tbl_order_detail detail inner join tbl_order od on od.id = detail.iddonhang WHERE iddonhang = " . $iddh);
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetchAll();
+    return $kq;
+}
+
 function getorderinfo($iddh)
 {
     $conn = connectdb();

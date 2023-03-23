@@ -161,6 +161,11 @@
   margin-bottom: 30px;
   transition: all 0.3s ease 0s;
 }
+
+.product-item .product-item__views {
+  top: 1.4rem;
+  right: -3rem;
+}
 .product-img img {
   width: 100%;
 }

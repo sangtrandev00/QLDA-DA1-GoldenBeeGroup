@@ -1,8 +1,6 @@
 
 function viewOrderdetail(orderId) {
-        // event.preventDefault();
-
-        
+        // event.preventDefault();     
 
         // console.log('clicked, ', orderId);
 
@@ -170,6 +168,8 @@ function destroyOrder(orderId) {
             const {status, message} = JSON.parse(response);
                 showToast("Hủy đơn hàng #"+orderId , message)
                 $("#orderDetailModalBtn").trigger("click");
+                location.reload();
+                
         }
     });
 }
@@ -187,7 +187,10 @@ function confirmOrder(orderId) {
     },
     // dataType: "dataType",
     success: function (response) {
-
+        const {status, message} = JSON.parse(response);
+        showToast("Xác nhận đơn hàng #"+orderId , message);
+        $("#orderDetailModalBtn").trigger("click");
+        location.reload();
     }
 });
 }
