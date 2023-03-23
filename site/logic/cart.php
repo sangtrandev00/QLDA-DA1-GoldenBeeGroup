@@ -8,76 +8,76 @@ include "../../pdo-library.php";
 
 switch ($_GET['act']) {
     case 'addtowishlist':
-        if (isset($_SESSION['iduser'])) {
-            echo 'hello wishlist action';
+        // if (isset($_SESSION['iduser'])) {
+        // echo 'hello wishlist action';
 
-            $id = $_POST['id'];
-            $product_item = product_select_by_id($id);
-            $tendanhmuc = $_POST['danhmuc'];
-            $tensp = $product_item['tensp'];
-            $hinh_anh = $_POST['hinh_anh'];
-            $don_gia = $product_item['don_gia'];
-            $giam_gia = $product_item['giam_gia'];
-            $gia_moi = $don_gia * (1 - $giam_gia / 100);
-            $sl = $_POST['sl'];
+        $id = $_POST['id'];
+        $product_item = product_select_by_id($id);
+        $tendanhmuc = $_POST['danhmuc'];
+        $tensp = $product_item['tensp'];
+        $hinh_anh = $_POST['hinh_anh'];
+        $don_gia = $product_item['don_gia'];
+        $giam_gia = $product_item['giam_gia'];
+        $gia_moi = $don_gia * (1 - $giam_gia / 100);
+        $sl = $_POST['sl'];
 
-            // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
-            //     $sl = $_POST['cart_quantity'];
+        // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+        //     $sl = $_POST['cart_quantity'];
 
-            //     $product = product_select_by_id($id);
-            //     if ($sl > $product['ton_kho']) {
-            //         $sl = $product['ton_kho'];
-            //         $GLOBALS['changed_cart'] = true;
-            //     }
+        //     $product = product_select_by_id($id);
+        //     if ($sl > $product['ton_kho']) {
+        //         $sl = $product['ton_kho'];
+        //         $GLOBALS['changed_cart'] = true;
+        //     }
 
-            // } else {
-            //     $sl = 1;
-            // }
+        // } else {
+        //     $sl = 1;
+        // }
 
-            $flag = 0;
+        $flag = 0;
 
-            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
-            // Nếu có chỉ cập nhất lại số lượng
+        // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+        // Nếu có chỉ cập nhất lại số lượng
 
-            // Ngược lại add mới sp vào giỏ hàng
+        // Ngược lại add mới sp vào giỏ hàng
 
-            // Khởi tạo một mảng con trước khi đưa vào giỏ
+        // Khởi tạo một mảng con trước khi đưa vào giỏ
 
-            $i = 0;
+        $i = 0;
 
-            foreach ($_SESSION['wishlist'] as $itemsp) {
-                # code...
-                // var_dump($itemsp);
+        foreach ($_SESSION['wishlist'] as $itemsp) {
+            # code...
+            // var_dump($itemsp);
 
-                if ($itemsp['id'] === $id) {
-                    $slnew = $sl + $itemsp['sl'];
+            if ($itemsp['id'] === $id) {
+                $slnew = $sl + $itemsp['sl'];
 
-                    // echo "So LUONG MOI: " . $slnew;
+                // echo "So LUONG MOI: " . $slnew;
 
-                    $_SESSION['wishlist'][$i]['sl'] = $slnew;
-                    $flag = 1;
+                $_SESSION['wishlist'][$i]['sl'] = $slnew;
+                $flag = 1;
 
-                    break;
-                }
-
-                $i++;
+                break;
             }
 
-            if ($flag == 0) {
-                $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
-                // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
-                // array_push($_SESSION['giohang'], $itemsp);
-                // $_SESSION['giohang'][] = $itemsp;
-
-                $_SESSION['wishlist'][] = $itemsp;
-
-            }
-
-            // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
-            var_dump($_SESSION['wishlist']);
-        } else {
-            header('location: ./auth/login.php');
+            $i++;
         }
+
+        if ($flag == 0) {
+            $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
+            // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+            // array_push($_SESSION['giohang'], $itemsp);
+            // $_SESSION['giohang'][] = $itemsp;
+
+            $_SESSION['wishlist'][] = $itemsp;
+
+        }
+
+        // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
+        var_dump($_SESSION['wishlist']);
+        // } else {
+        //     header('location: ./auth/login.php');
+        // }
         break;
 
     case 'updatecart':
@@ -211,73 +211,74 @@ switch ($_GET['act']) {
 
         break;
     case 'addtocart':
-        if (isset($_SESSION['iduser'])) {
-            $id = $_POST['id'];
-            $product_item = product_select_by_id($id);
-            $tendanhmuc = $_POST['danhmuc'];
-            $tensp = $product_item['tensp'];
-            $hinh_anh = $_POST['hinh_anh'];
-            $don_gia = $product_item['don_gia'];
-            $giam_gia = $product_item['giam_gia'];
-            $gia_moi = $don_gia * (1 - $giam_gia / 100);
-            $sl = $_POST['sl'];
+        // if (isset($_SESSION['iduser'])) {
+        $id = $_POST['id'];
+        $product_item = product_select_by_id($id);
+        $tendanhmuc = $_POST['danhmuc'];
+        $tensp = $product_item['tensp'];
+        $hinh_anh = $_POST['hinh_anh'];
+        $don_gia = $product_item['don_gia'];
+        $giam_gia = $product_item['giam_gia'];
+        $gia_moi = $don_gia * (1 - $giam_gia / 100);
+        $sl = $_POST['sl'];
 
-            // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
-            //     $sl = $_POST['cart_quantity'];
+        // if (isset($_POST['cart_quantity']) && ($_POST['cart_quantity'] > 0)) {
+        //     $sl = $_POST['cart_quantity'];
 
-            //     $product = product_select_by_id($id);
-            //     if ($sl > $product['ton_kho']) {
-            //         $sl = $product['ton_kho'];
-            //         $GLOBALS['changed_cart'] = true;
-            //     }
+        //     $product = product_select_by_id($id);
+        //     if ($sl > $product['ton_kho']) {
+        //         $sl = $product['ton_kho'];
+        //         $GLOBALS['changed_cart'] = true;
+        //     }
 
-            // } else {
-            //     $sl = 1;
-            // }
+        // } else {
+        //     $sl = 1;
+        // }
 
-            $flag = 0;
+        $flag = 0;
 
-            // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
-            // Nếu có chỉ cập nhất lại số lượng
+        // Kiểm tra sản phẩm có tồn tại trong giỏ hàng hay không ?
+        // Nếu có chỉ cập nhất lại số lượng
 
-            // Ngược lại add mới sp vào giỏ hàng
+        // Ngược lại add mới sp vào giỏ hàng
 
-            // Khởi tạo một mảng con trước khi đưa vào giỏ
+        // Khởi tạo một mảng con trước khi đưa vào giỏ
 
-            $i = 0;
+        $i = 0;
 
-            foreach ($_SESSION['giohang'] as $itemsp) {
-                # code...
-                // var_dump($itemsp);
+        foreach ($_SESSION['giohang'] as $itemsp) {
+            # code...
+            // var_dump($itemsp);
 
-                if ($itemsp['id'] === $id) {
-                    $slnew = $sl + $itemsp['sl'];
+            if ($itemsp['id'] === $id) {
+                $slnew = $sl + $itemsp['sl'];
 
-                    // echo "So LUONG MOI: " . $slnew;
+                // echo "So LUONG MOI: " . $slnew;
 
-                    $_SESSION['giohang'][$i]['sl'] = $slnew;
-                    $flag = 1;
+                $_SESSION['giohang'][$i]['sl'] = $slnew;
+                $flag = 1;
 
-                    break;
-                }
-
-                $i++;
+                break;
             }
 
-            if ($flag == 0) {
-                $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
-                // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
-                // array_push($_SESSION['giohang'], $itemsp);
-                // $_SESSION['giohang'][] = $itemsp;
-
-                $_SESSION['giohang'][] = $itemsp;
-
-            }
-
-            var_dump($_SESSION['giohang']);
-        } else {
-            header('location: ./auth/login.php');
+            $i++;
         }
+
+        if ($flag == 0) {
+            $itemsp = array("id" => $id, "tensp" => $tensp, "danhmuc" => $tendanhmuc, "hinh_anh" => $hinh_anh, "sl" => $sl, "don_gia" => $gia_moi);
+            // $itemsp = array($id, $tensp, $img, $gia, $sl, $tendanhmuc);
+            // array_push($_SESSION['giohang'], $itemsp);
+            // $_SESSION['giohang'][] = $itemsp;
+
+            $_SESSION['giohang'][] = $itemsp;
+
+        }
+
+        var_dump($_SESSION['giohang']);
+        // }
+        // else {
+        //     header('location: ./auth/login.php');
+        // }
         break;
     case 'checkout':
 

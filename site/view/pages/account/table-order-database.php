@@ -21,7 +21,7 @@ if (isset($_SESSION['iduser'])) {
     $result = array();
     $iduser = $_SESSION['iduser'];
     $cart_list = getShowCartGroupbyOrder($iduser);
-    //var_dump($cart_list);
+    // var_dump($cart_list);
     foreach ($cart_list as $cart_item) {
         # code...
         $trangthai = "Đã xác nhận";
@@ -42,6 +42,8 @@ if (isset($_SESSION['iduser'])) {
 
     }
 }
+
+// var_dump('$result', $result);
 ?>
 
 <?php

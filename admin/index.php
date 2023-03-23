@@ -47,7 +47,7 @@ if (isset($_GET['act'])) {
                             // <div class="alert alert-danger">Bạn đã xóa sản phẩm #' . $_GET['id'] . ' thành công</div>
                             document.addEventListener("DOMContentLoaded", (event) => {
                                 showToast("Xóa sản phẩm", "Chúc mừng bạn đã Xóa sản phẩm #' . $_GET['id'] . ' thành công");
-                            });
+                            });p
                         </script>
                     ';
                 }
@@ -395,14 +395,14 @@ if (isset($_GET['act'])) {
             include "./view/reports/reportlist-page.php";
             break;
         case 'userlist':
-                include "./view/user/userlist-page.php";
+                include "./view/pages/user/userlist-page.php";
            
             
 
             break;
         case 'adminlist':
            
-                include "./view/user/adminlist-page.php";
+                include "./view/pages/user/adminlist-page.php";
             
 
             break;
@@ -466,7 +466,7 @@ if (isset($_GET['act'])) {
                     // }
                 }
             }
-            include "./view/user/adduser-page.php";
+            include "./view/pages/user/adduser-page.php";
             // include "./view/user/adduser-page.php";
             break;
         case 'edituser':
@@ -542,7 +542,7 @@ if (isset($_GET['act'])) {
 
             }
 
-            include "./view/user/edituser-page.php";
+            include "./view/pages/user/edituser-page.php";
             break;
         case 'editadmin':
             $error = array();
@@ -609,7 +609,7 @@ if (isset($_GET['act'])) {
     
                 }
     
-                include "./view/user/editadmin-page.php";
+                include "./view/pages/user/editadmin-page.php";
                 break;
         case 'deleteuser':
             if (isset($_GET['id'])) {
@@ -626,7 +626,7 @@ if (isset($_GET['act'])) {
                 header('Location: index.php?act=userlist');
             }
 
-            include "./view/user/userlist-page.php";
+            include "./view/pages/user/userlist-page.php";
             break;
         case 'deleteadmin':
             if (isset($_GET['id'])) {
@@ -643,7 +643,7 @@ if (isset($_GET['act'])) {
                 // }
             }
 
-            include "./view/user/adminlist-page.php";
+            include "./view/pages/user/adminlist-page.php";
             break;
 
         case 'orderlist':

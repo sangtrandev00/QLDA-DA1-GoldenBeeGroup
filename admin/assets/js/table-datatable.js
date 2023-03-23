@@ -33,10 +33,17 @@ $(function() {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
                     // console.log('list: ', order_list);
-                    $('#table-order').DataTable({
+                    var tableOrder = $('#table-order').DataTable({
                         data: order_list,
                         retrieve: true,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print']
                     });
+
+                    tableOrder.buttons().container()
+                    .appendTo( '#table-order_wrapper .col-md-6:eq(0)' );
+
+                    // tableOrder.column('4:visible').order('desc').draw();
+
             }
         });
 
@@ -49,10 +56,15 @@ $(function() {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
                     // console.log('list: ', order_list);
-                    $('#table-recent-order').DataTable({
+                    var tableRecentOrder  = $('#table-recent-order').DataTable({
                         data: order_list,
                         retrieve: true,
+                        "pageLength": 10,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print']
                     });
+                    tableRecentOrder.buttons().container()
+                    .appendTo( '#table-recent-order_wrapper .col-md-6:eq(0)' );
+                    tableRecentOrder.column('0:visible').order('desc').draw();
             }
         });
 

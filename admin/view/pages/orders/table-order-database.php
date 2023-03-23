@@ -26,7 +26,7 @@ include "$ROOT_URL/global.php";
 // $current_page = $pagination['current_page'];
 // $total_records = $pagination['total_records'];
 
-$order_list = get_all_orders();
+$order_list = get_all_recent_orders();
 
 $result = array();
 
