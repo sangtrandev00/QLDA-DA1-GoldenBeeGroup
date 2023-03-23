@@ -26,14 +26,14 @@ include "./view/layout/breadcrumb.php";
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
 
-        case 'loginpage':
-            if (isset($_SESSION['iduser']) && $_SESSION['iduser'] > 0) {
+        // case 'loginpage':
+        //     if (isset($_SESSION['iduser']) && $_SESSION['iduser'] > 0) {
 
-            }
+        //     }
 
-            // include "./view/pages/loginpage.php";
+        //     // include "./view/pages/loginpage.php";
 
-            break;
+        //     break;
 
         case 'productlist':
             include "./view/pages/products/product-list.php";
@@ -395,21 +395,15 @@ if (isset($_GET['act'])) {
             include "./view/reports/reportlist-page.php";
             break;
         case 'userlist':
-            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-            //     include "./view/user/userlist-page.php";
-            // } else {
-            //     header('location: index.php');
-            // }
-            include "./view/user/userlist-page.php";
+                include "./view/user/userlist-page.php";
+           
+            
 
             break;
         case 'adminlist':
-            // if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
-            //     include "./view/user/customerlist-page.php";
-            // } else {
-            //     header('location: index.php');
-            // }
-            include "./view/user/adminlist-page.php";
+           
+                include "./view/user/adminlist-page.php";
+            
 
             break;
         case 'adduser':
@@ -604,8 +598,6 @@ if (isset($_GET['act'])) {
     
                     if (!$error) {
                         $password = md5($password);
-    
-                        // echo $role;
                         $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
                         // header('Location: adminlist-page.php');
                         // if ($is_updated) {
@@ -623,14 +615,15 @@ if (isset($_GET['act'])) {
             if (isset($_GET['id'])) {
                 // $comments_deleted = comment_delete_by_iduser($_GET['id']);
                 $id_deleted = user_delete($_GET['id']);
-                if ($id_deleted) {
-                    echo '
-                    <script>
-                        window.alert("Chúc mừng bạn đã xóa người dùng thành công!");
-                    </script>
-                    ';
+                // if ($id_deleted) {
+                //     echo '
+                //     <script>
+                //         window.alert("Chúc mừng bạn đã xóa người dùng thành công!");
+                //     </script>
+                //     ';
 
-                }
+                // }
+                header('Location: index.php?act=userlist');
             }
 
             include "./view/user/userlist-page.php";
@@ -639,14 +632,15 @@ if (isset($_GET['act'])) {
             if (isset($_GET['id'])) {
                 // $comments_deleted = comment_delete_by_iduser($_GET['id']);
                 $id_deleted = user_delete($_GET['id']);
-                if ($id_deleted) {
-                    echo '
-                    <script>
-                        window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
-                    </script>
-                    ';
+                header('Location: index.php?act=adminlist');
+                // if ($id_deleted) {
+                //     echo '
+                //     <script>
+                //         window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
+                //     </script>
+                //     ';
 
-                }
+                // }
             }
 
             include "./view/user/adminlist-page.php";
@@ -807,7 +801,7 @@ if (isset($_GET['act'])) {
             // if (isset($_SESSION['iduser'])) {
             include "./view/pages/dashboard/dashboard.php";
             // } else {
-            //     header('location: loginpage.php');
+            //     header('location: login.php');
             // }
 
     }
@@ -815,7 +809,7 @@ if (isset($_GET['act'])) {
     // if (isset($_SESSION['iduser'])) {
     include "./view/pages/dashboard/dashboard.php";
     // } else {
-    //     header('location: loginpage.php');
+    //     header('location: login.php');
     // }
 }
 echo '</div>';

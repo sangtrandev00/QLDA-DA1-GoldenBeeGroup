@@ -1,35 +1,7 @@
   
   <!--start content-->
   <main class="page-content">
-      <!--breadcrumb-->
-      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-          <div class="breadcrumb-title pe-3">eCommerce</div>
-          <div class="ps-3">
-              <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb mb-0 p-0">
-                      <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                      </li>
-                      <li class="breadcrumb-item active" aria-current="page">Products List</li>
-                  </ol>
-              </nav>
-          </div>
-          <div class="ms-auto">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-primary">Settings</button>
-                  <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                      data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                          href="javascript:;">Action</a>
-                      <a class="dropdown-item" href="javascript:;">Another action</a>
-                      <a class="dropdown-item" href="javascript:;">Something else here</a>
-                      <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-                          link</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--end breadcrumb-->
+      
 
       <div class="card">
           
@@ -51,6 +23,24 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         }else{
         $hinh = "không có hình";
         }
+}
+$role="";
+switch ($user['vai_tro']) {
+    case '1':
+        # code...
+        $role = "Quản trị viên";
+        break;
+    case '2':
+        # code...
+        $role = "Nhân viên";
+        break;
+    case '3':
+        # code...
+        $role = "Khách hàng";
+        break;
+    default:
+        $role = "Khách hàng";
+        break;
 }
 
 ?>
@@ -111,9 +101,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Vai trò </label>
-                        <select name="role" class="form-select" aria-label="Default select example">
-                            <option selected>Chọn vai trò</option>
-                            <option value="1">Quản Trị Viên</option>
+                        <select name="role" class="form-select" aria-label="Default select example">        
+                            <option>Chọn vai trò</option>
+                            <?php
+                            echo " <option value=".$user['vai_tro']." selected>".$role."</option>";
+                            
+                            ?>
+                            <option value="1" >Quản Trị Viên</option>
                             <option value="2">Nhân Viên</option>
                             <option value="3">Khách Hàng</option>
                         </select>

@@ -61,7 +61,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     <a class="my-3 d-inline-block btn btn-outline-primary" href="./index.php?act=adminlist">
         << Trở lại trang quản trị</a>
             <h3 class="h3 mb-4 text-gray-500 btn-info text-white p-2">Cập nhật quản trị viên</h1>
-                <form id="edituserForm" class="pb-3" action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>"
+                <form id="edituserForm" class="pb-3" action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>"
                     method="post" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="">Tên quản trị viên: </label>
