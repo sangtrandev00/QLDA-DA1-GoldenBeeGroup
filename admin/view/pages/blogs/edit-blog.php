@@ -8,7 +8,7 @@
     if(is_file($imgpart)){
         $img ="<img src='".$imgpart."' height='120   '>";
     }else{
-
+        $img = "";
     }
 ?>
 <!--start content-->

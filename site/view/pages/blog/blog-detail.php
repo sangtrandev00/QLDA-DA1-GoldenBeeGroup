@@ -195,24 +195,24 @@
                                     <h4 class="blog-section-title border-left mb-30">Để Lại Bình Luận Của bạn</h4>
                                     <?php
                                     if(!isset($_SESSION['iduser'])){ 
-                                        $thongbao = "Đăng Nhập Để Bình Luận";
-                                        
-                                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';
-                                                                          
-                                    }else
-                                        $date = date('Y-m-d H:i:s');   
-                                        $makh = $_SESSION['iduser'];                                  
-                                    ?>
+                                        $thongbao = "Đăng Nhập Để Bình Luận";                                       
+                                        echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>';                             
+                                    }
+                                    // else
+                                    //     $date = date('Y-m-d H:i:s');   
+                                    //     $makh = $_SESSION['iduser'];  
+
+                                    // ?>
                                     <div class="row">
                                         <!-- <div class="col-lg-6">
                                             <input type="text" name="name" placeholder="Tên Của Bạn...">
                                         </div> -->
-                                        <div class="col-lg-6">
-                                            <input type="hidden" name="makh" value="<?php echo $makh?>" placeholder="Tên Của Bạn...">
+                                        <!-- <div class="col-lg-6">
+                                            <input type="hidden" name="makh" value="" placeholder="Tên Của Bạn...">
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="hidden" name="date" value="<?php echo $date;?>" placeholder="Tên Của Bạn...">
-                                        </div>
+                                            <input type="hidden" name="date" value="" placeholder="Tên Của Bạn...">
+                                        </div> -->
                                         
                                         <!-- <div class="col-lg-6">
                                             <input type="text" name="email" placeholder="Email Của Bạn...">

@@ -839,21 +839,11 @@ if (isset($_SESSION['iduser'])) {
             default:
                 // if (isset($_SESSION['iduser'])) {
                 include "./view/pages/dashboard/dashboard.php";
-                // } else {
-                //     header('location: login.php');
-                // }
-
         }
-
     } else {
-        // if (isset($_SESSION['iduser'])) {
         include "./view/pages/dashboard/dashboard.php";
-        // } else {
-        //     header('location: login.php');
-        // }
     }
     echo '</div>';
-
     include "./view/layout/footer.php";
 
 } else {

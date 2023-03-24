@@ -781,21 +781,23 @@ if (isset($_GET['act'])) {
             //         //     header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
             //         // }
             //     endif;
+
             if (isset($_POST['sencomment']) && ($_POST['sencomment'])) {
-                $name = $_POST['name'];
+                // $name = $_POST['name'];
                 $idblog = $_GET['id'];
                 $content = $_POST['content'];
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $date = $_POST['date'];
-                $makh = $_POST['makh'];
+                $date = date('Y-m-d H:m:s');
+                echo $date;
+                // exit;
+                $makh = $_SESSION['iduser'];
                 if (isset($_SESSION['iduser'])) {
-                    comment_blog($makh, $content, $idblog, $name, $date);
-                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $idblog . '');
+                    comment_blog($makh, $content, $idblog, $date);
+                    // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $idblog . '');
                 }
-
             }
             include "./view/pages/blog/blog-detail.php";
             break;

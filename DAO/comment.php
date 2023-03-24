@@ -107,7 +107,7 @@ function showcomment($id){
     $sql = "SELECT * FROM tbl_blog_comment 
     JOIN tbl_blog ON tbl_blog_comment.id_blog = tbl_blog.blog_id 
     JOIN tbl_nguoidung ON tbl_blog_comment.ma_kh = tbl_nguoidung.id
-    WHERE tbl_blog_comment.id_blog ='$id'";
+    WHERE tbl_blog_comment.id_blog ='$id' ORDER BY ngay_bl DESC ";
     $showcomment = pdo_query($sql);
     return $showcomment;
 }
@@ -120,5 +120,4 @@ function deletecmt($id){
     $sql = "DELETE FROM tbl_blog_comment WHERE id_bl='$id'";
     pdo_execute($sql);
 }
-
 ?>

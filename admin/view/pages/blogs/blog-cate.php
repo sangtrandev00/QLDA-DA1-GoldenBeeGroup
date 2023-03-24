@@ -9,6 +9,10 @@ if (isset($thongbao) && ($thongbao != "")) {
 if (isset($thongbaodelete) && ($thongbaodelete != "")) {
     echo '<div class="alert alert-primary" role="alert">' . $thongbaodelete . '</div>';
 }
+if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
+    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdatecateblog . '</div>';
+}
+
 ?>
     <div class="card-body">
         <div class="row">
@@ -60,6 +64,7 @@ $cate_list = blog_cate_select_all();
 foreach ($cate_list as $cate_item) {
     $xoablog = "index.php?act=deletecateblog&id=" . $cate_item['id'];
     $suablog = "index.php?act=editcateblog&id=" . $cate_item['id'];
+    $viewcateblog = "index.php?act=viewcateblog&id=" . $cate_item['id'];
     echo '
                                             <tr>
                                                 <td>#' . $cate_item['id'] . '</td>
@@ -67,7 +72,7 @@ foreach ($cate_list as $cate_item) {
                                                 <td><img width="100" height="100" src="../uploads/' . $cate_item['hinh_anh'] . '"/></td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
-                                                        <a onclick="editCate(' . $cate_item['id'] . ');" href="./index.php?act=subcatelist&id=' . $cate_item['id'] . '" class=" text-primary"
+                                                        <a href="' . $viewcateblog . '" class=" text-primary"
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                                             data-bs-original-title="View detail" aria-label="Views"><i
                                                                 class="bi bi-eye-fill"></i></a>
@@ -75,35 +80,30 @@ foreach ($cate_list as $cate_item) {
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                                <i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i>
+                                                        <a href="' . $xoablog . '"><i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
                                             ';
 }
 ?>
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Bạn Muốn Xóa Bài Viết
-                                                    </h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Nhấn xóa để xóa bài viết
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Đóng</button>
-                                                    <a href="<?=$xoablog?>"><button type="button"
-                                                            class="btn btn-primary">Xóa</button></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn Muốn Xóa Bài Viết</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      Nhấn xóa để xóa bài viết
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        button type="button" class="btn btn-primary">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div> -->
                                 </tbody>
                             </table>
                         </div>
@@ -126,3 +126,48 @@ foreach ($cate_list as $cate_item) {
 
 </main>
 <!--end page main-->
+
+<script>
+// function editCate(cateId) {
+//     console.log('clicked', cateId);
+// }
+
+// console.log('hello clicked');
+
+// const editCate = () => {
+//     const editCateBtns = document.querySelectorAll('.cate-edit-link');
+
+//     for (const editCateBtn of editCateBtns) {
+//         console.log('edit', editCateBtn);
+
+//         editCateBtn.addEventListener('click', (event) => {
+
+//             console.log('this', event.currentTarget);
+//             const rowElement = event.currentTarget.parentElement.parentElement.parentElement;
+//             console.log('rowElement: ', rowElement);
+
+
+//             const name = rowElement.cells[2].innerText;
+//             const image = rowElement.cells[3].innerText;
+//             const desc = rowElement.cells[4].innerText;
+
+//             console.log('name: ', name);
+
+//             const formElement = document.querySelector('.form-cate');
+
+//             formElement.action = "./index.php?act=editcate&id="
+//             console.log('formElement: ', formElement);
+
+//             formElement.elements[0].value = name;
+//             formElement.elements[3].value = desc;
+//             formElement.elements[4].value = "Sửa danh mục";
+
+//             console.log('inputCate: ', formElement.elements);
+
+//         })
+//     }
+
+// }
+
+// editCate();
+</script>

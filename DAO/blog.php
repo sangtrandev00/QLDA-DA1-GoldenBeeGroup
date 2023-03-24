@@ -7,7 +7,7 @@ function blog_select_by_id($blog_id)
 }
 
 function blog_select_all(){
-    $sql = "SELECT * FROM tbl_blog";
+    $sql = "SELECT * FROM tbl_blog ";
     return pdo_query($sql);
 }
 function blog_cate_select_all(){
@@ -36,6 +36,11 @@ function loadone_blog($id){
     $sp = pdo_query_one($sql);
     return $sp;
 }
+function loadone_cateblog($id){
+    $sql = "select * from tbl_blog_cate where id=".$id;
+    $sp = pdo_query_one($sql);
+    return $sp;
+}
 function updateblog($id,$title,$hinh,$noidung){
     if($hinh!=""){
         $sql = "update tbl_blog set blog_title='".$title."', noi_dung='".$noidung."', images='".$hinh."' where blog_id=".$id;
@@ -51,6 +56,18 @@ function add_cateblog($catename,$hinh){
         $sql = "insert into tbl_blog_cate(blog_catename) values('$catename')";
     }
     pdo_execute($sql);
-
+}
+function update_cateblog($id,$catename,$hinh){
+    if($hinh != ""){
+        $sql = "update tbl_blog_cate set blog_catename='".$catename."', hinh_anh='".$hinh."' where id=".$id;
+    }else{
+        $sql = "update tbl_blog_cate set blog_catename='".$catename."' where id=".$id;
+    }
+    pdo_execute($sql);
+}
+function viewcateblog($id){
+    $sql = "select * from tbl_blog where blogcate_id=".$id;
+    $listviewcateblog = pdo_query($sql);
+    return $listviewcateblog;
 }
 ?>
