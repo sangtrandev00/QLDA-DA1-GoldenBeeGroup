@@ -69,15 +69,15 @@
         </ul>
     </li>
     <?php
-        if(isset($_SESSION['iduser']) && $_SESSION['role']==1){
-            echo'
+if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
+    echo '
             <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="lni lni-users"></i>
                 </div>
                 <div class="menu-title">Người dùng</div>
             </a>
-    
+
             <ul class="">
                 <li class=""> <a href="index.php?act=userlist"><i class="bi bi-circle"></i>Danh sách khách hàng</a>
                 </li>
@@ -88,8 +88,8 @@
             </ul>
         </li>
             ';
-        }
-    ?>
+}
+?>
     <!-- <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="lni lni-users"></i>
@@ -115,6 +115,22 @@
 
         <ul class="">
             <li class=""> <a href="index.php?act=bannerlist"><i class="bi bi-circle"></i>Danh sách banner</a>
+            </li>
+            <!-- <li> <a href="index.php?act=adminlist"><i class="bi bi-circle"></i>Danh sách quản trị viên</a>
+            </li>
+            <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
+            </li> -->
+        </ul>
+    </li>
+    <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"><i class="lni lni-users"></i>
+            </div>
+            <div class="menu-title">Phản hồi</div>
+        </a>
+
+        <ul class="">
+            <li class=""> <a href="index.php?act=feedbacklist"><i class="bi bi-circle"></i>Danh sách phàn hồi</a>
             </li>
             <!-- <li> <a href="index.php?act=adminlist"><i class="bi bi-circle"></i>Danh sách quản trị viên</a>
             </li>
