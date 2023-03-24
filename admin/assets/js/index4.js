@@ -661,12 +661,6 @@ var options = {
   chart.render();
 
 
-
-
-
-
-
-
 // chart 9
 var options = {
 	series: [{

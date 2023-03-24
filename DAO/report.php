@@ -16,6 +16,12 @@ function report_products()
 
 }
 
+function report_products_by_category()
+{
+    $sql = "SELECT dm.ma_danhmuc as ma_danhmuc, dm.ten_danhmuc as ten_danhmuc, count(sp.ma_danhmuc) as sl_sp from tbl_sanpham sp inner join tbl_danhmuc dm on sp.ma_danhmuc = dm.ma_danhmuc group by sp.ma_danhmuc";
+    return pdo_query($sql);
+}
+
 function report_comments()
 {
     $sql = "SELECT hh.ma_hh, hh.ten_hh,"
@@ -60,9 +66,21 @@ function count_all_posts()
     return pdo_query_value($sql);
 }
 
+function count_all_comments_posts()
+{
+    $sql = 'SELECT count(*) from tbl_blog_comment ';
+    return pdo_query_value($sql);
+}
+
 function count_all_customer()
 {
-    $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
+    // $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
+    // return pdo_query_value($sql);
+}
+
+function count_all_comments_products()
+{
+    $sql = "SELECT count(*) from tbl_binhluan;";
     return pdo_query_value($sql);
 }
 

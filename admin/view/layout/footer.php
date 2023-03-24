@@ -159,12 +159,15 @@
 <!-- Chart -->
 <script src="assets/plugins/chartjs/js/Chart.min.js"></script>
 <script src="assets/plugins/chartjs/js/Chart.extension.js"></script>
-<!-- <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script> -->
+<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+<script src="assets/plugins/apexcharts-bundle/js/apex-custom.js"></script>
+<!-- Slick slider -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <!--app-->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/index.js"></script>
+<!-- <script src="assets/js/index4.js"></script> -->
 <script src="assets/js/pages/common.js"></script>
 
 <!-- Custom javasscript -->

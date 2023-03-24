@@ -14,6 +14,7 @@ include "../DAO/user.php";
 include "../DAO/comment.php";
 include "../DAO/report.php";
 include "../DAO/blog.php";
+include "../DAO/order.php";
 
 // HEADER SECTION
 include "./view/layout/header.php";

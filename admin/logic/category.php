@@ -4,9 +4,10 @@ session_start();
 $FOLDER_VAR = "/PRO1014_DA1/main-project/";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "admin/models/category.php";
-include $ROOT_URL . "DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
+include $ROOT_URL . "/admin/models/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
+include $ROOT_URL . "/DAO/report.php";
 
 switch ($_GET['act']) {
     case 'addcate':
@@ -119,6 +120,13 @@ switch ($_GET['act']) {
         if ($is_updated) {
             echo 'Successfully!';
         }
+        break;
+    case 'productsbycate':
+        $report_products = report_products_by_category();
+
+        // var_dump($report_products);
+
+        echo json_encode($report_products);
         break;
     default:
         # code...

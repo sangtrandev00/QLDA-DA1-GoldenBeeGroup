@@ -108,23 +108,25 @@ if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
     </li> -->
     <li>
         <a href="javascript:;" class="has-arrow">
-            <div class="parent-icon"><i class="lni lni-users"></i>
+            <div class="parent-icon"><i class="fadeIn animated bx bx-slideshow"></i>
             </div>
-            <div class="menu-title">Banner</div>
+            <div class="menu-title">Banners/ Sliders</div>
         </a>
 
         <ul class="">
-            <li class=""> <a href="index.php?act=bannerlist"><i class="bi bi-circle"></i>Danh sách banner</a>
+            <li class=""> <a href="index.php?act=bannerlist"><i class="bi bi-circle"></i>Danh sách banners</a>
             </li>
-            <!-- <li> <a href="index.php?act=adminlist"><i class="bi bi-circle"></i>Danh sách quản trị viên</a>
+            <li> <a href="index.php?act=sliderlist"><i class="bi bi-circle"></i>Danh sách sliders</a>
             </li>
-            <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
-            </li> -->
+            <li> <a href="index.php?act=addbanner"><i class="bi bi-circle"></i>Thêm Banner</a>
+            </li>
+            <li> <a href="index.php?act=addslider"><i class="bi bi-circle"></i>Thêm Slider</a>
+            </li>
         </ul>
     </li>
     <li>
         <a href="javascript:;" class="has-arrow">
-            <div class="parent-icon"><i class="lni lni-users"></i>
+            <div class="parent-icon"> <i class="lni lni-wechat"></i>
             </div>
             <div class="menu-title">Phản hồi</div>
         </a>

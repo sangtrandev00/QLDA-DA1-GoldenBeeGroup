@@ -49,3 +49,22 @@ function count_all_sold_products()
     $sql = "SELECT count(*) from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4";
     return pdo_query_value($sql);
 }
+
+function revenue_of_month($month)
+{
+    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month'";
+    return pdo_query_value($sql);
+}
+
+// SELECT *, sum(soluong) as sl_ban from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc;
+
+function select_top_sold_products()
+{
+    $sql = "SELECT sp.tensp as ten_sp, hinhanh, sum(soluong) as sl_ban from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc";
+    return pdo_query($sql);
+}
+
+function count_all_customers_at_shop()
+{
+
+}
