@@ -65,8 +65,10 @@
 
             <li> <a href="index.php?act=blogcate"><i class="bi bi-circle"></i>Danh mục bài viết</a>
             </li>
-            <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Thêm Bài Viết</a>
+            <li> <a href="index.php?act=addblog"><i class="bi bi-circle"></i>Thêm Bài Viết</a></li>
+            <li> <a href="index.php?act=binhluanblog"><i class="bi bi-circle"></i>Bình Luận Bài Viết</a></li>
         </ul>
+        
     </li>
     <li>
         <a href="javascript:;" class="has-arrow">

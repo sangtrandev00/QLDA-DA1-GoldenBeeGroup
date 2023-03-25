@@ -849,6 +849,16 @@ if (isset($_GET['act'])) {
             }
             include './view/pages/blogs/view_cateblog.php';
             break;
+        case 'binhluanblog':
+            include './view/pages/blogs/comment-blog.php';
+            break;
+        case 'deletecommentblog':
+            if(isset($_GET['id']) && ($_GET['id'] > 0)){
+                $delete_comment = deletecomment_blog($_GET['id']);
+                
+            }
+            include './view/pages/blogs/comment-blog.php';
+            break;
         default:
             // if (isset($_SESSION['iduser'])) {
             include "./view/pages/dashboard/dashboard.php";

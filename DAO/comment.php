@@ -111,6 +111,18 @@ function showcomment($id){
     $showcomment = pdo_query($sql);
     return $showcomment;
 }
+function showcomment_admin(){
+    $sql = "SELECT * FROM tbl_blog_comment 
+    JOIN tbl_blog ON tbl_blog_comment.id_blog = tbl_blog.blog_id 
+    JOIN tbl_nguoidung ON tbl_blog_comment.ma_kh = tbl_nguoidung.id
+    ORDER BY ngay_bl DESC ";
+    $showcomment = pdo_query($sql);
+    return $showcomment;
+}
+function deletecomment_blog($id){
+    $sql = "delete from tbl_blog_comment where id_bl='$id'";
+    pdo_execute($sql);
+}
 function getprofile($id){
     $sql = "SELECT * FROM tbl_nguoidung WHERE id='$id'";
     $showprofile = pdo_query($sql);

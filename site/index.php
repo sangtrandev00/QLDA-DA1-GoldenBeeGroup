@@ -778,9 +778,8 @@ if (isset($_GET['act'])) {
                     comment_blog($makh,$content,$idblog,$date);
                     // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
                 }
-                else{
-                    // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                else{               
+                    header('location: http://localhost/PRO1014_DA1/main-project/site/auth/login.php');
                 }             
                          
             }
