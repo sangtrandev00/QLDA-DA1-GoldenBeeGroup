@@ -283,7 +283,7 @@ if (isset($_GET['act'])) {
                 $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $time_order = date('m/d/Y h:i:s a', time());
+                $time_order = date('Y-m-d h:i:s', time());
 
                 $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
                 $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
@@ -382,7 +382,7 @@ if (isset($_GET['act'])) {
 
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-                    $time_order = date('m/d/Y h:i:s a', time());
+                    $time_order = date('Y-m-d h:i:s', time());
 
                     // 2.validate php server
                     if (empty($hoten)) {

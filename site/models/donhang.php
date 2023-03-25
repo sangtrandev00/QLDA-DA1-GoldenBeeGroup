@@ -9,7 +9,7 @@ function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $s
         // $sql = "INSERT INTO `tbl_order` (`madonhang`,`pttt`,`hoten`,`dienthoai`,`email`,`diachi`,`tongdonhang`)
         // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
         // ";
-
+        // echo $timeorder;
         $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder, thanhtoan)
         VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder', $thanhtoan )";
 

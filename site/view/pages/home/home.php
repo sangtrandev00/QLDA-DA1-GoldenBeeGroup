@@ -558,7 +558,7 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
@@ -1032,7 +1032,7 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart" type="submit"  type="submit"  title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>

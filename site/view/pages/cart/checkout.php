@@ -334,23 +334,30 @@
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
     // echo $iduser;
+    $curr_user = user_select_by_id($iduser);
+
+    // var_dump($curr_user);
 }
 ?>
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['hoten'])) {echo $error['hoten'];}?></p>
-                                                    <input type="text" name="name" value=""
+                                                    <input type="text" name="name"
+                                                        value="<?php echo $curr_user['ho_ten']; ?>"
                                                         placeholder="Tên của bạn ...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['email'])) {echo $error['email'];}?></p>
-                                                    <input type="text" name="email" value=""
+                                                    <input type="text" name="email"
+                                                        value="<?php echo $curr_user['email']; ?>"
                                                         placeholder="Địa chỉ email...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
-                                                    <input type="text" name="phone" value=""
+                                                    <input type="text" name="phone"
+                                                        value="<?php echo $curr_user['sodienthoai']; ?>"
                                                         placeholder="Số điện thoại...">
                                                     <p class="error-message text-danger mb-0"></p>
-                                                    <input type="text" name="company" value=""
+                                                    <input type="text" name="company"
+                                                        value="<?php echo $curr_user['congty']; ?>"
                                                         placeholder="Tên công ty...">
 
                                                     <!-- <select class="custom-select">
@@ -378,7 +385,7 @@ if (isset($_SESSION['iduser'])) {
                                                         <?php if (isset($error['address'])) {echo $error['address'];}?>
                                                     </p>
                                                     <textarea name="address" class="custom-textarea shipping-address"
-                                                        value="" placeholder="Địa chỉ của bạn..."></textarea>
+                                                        placeholder="Địa chỉ của bạn..."><?php echo $curr_user['ship_address']; ?></textarea>
                                                     <p class="error-message text-danger mb-0"></p>
                                                     <textarea name="ghichu" class="custom-textarea mt-3" value=""
                                                         placeholder="Ghi chú cho người bán..."></textarea>
@@ -436,9 +443,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                             <div id="codPayment" class="panel-collapse collapse show"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Lorem Ipsum is simply in dummy text of the
-                                                                        printing and type setting industry. Lorem
-                                                                        Ipsum has been.</p>
+                                                                    <p>Giao nhận hàng COD thanh toán khi nhận hàng</p>
                                                                 </div>
                                                             </div>
                                                         </div>
