@@ -156,11 +156,12 @@ if (isset($_SESSION['iduser'])) {
                     <div class="card mb-15">
                         <div class="card-header" id="headingTwo">
                             <h4 class="card-title">
-                                <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                                    aria-controls="collapseTwo">Địa chỉ gửi hàng</a>
+                                <a id="shippingAddressBtn" data-bs-toggle="collapse" data-bs-target="#shippingAddress"
+                                    aria-expanded="false" aria-controls="shippingAddress">Địa chỉ gửi hàng</a>
                             </h4>
                         </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                        <div id="shippingAddress" class="collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordion">
                             <div class="card-body">
                                 <?php ?>
                                 <form onsubmit="updateShippingAddress(<?php echo $iduser ?>);"
@@ -196,11 +197,11 @@ if (isset($_SESSION['iduser'])) {
                     <div class="card mb-15">
                         <div class="card-header">
                             <h4 class="card-title">
-                                <a data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
-                                    aria-controls="collapseThree">Thay đổi mật khẩu</a>
+                                <a id="changePassBtn" data-bs-toggle="collapse" data-bs-target="#changePass"
+                                    aria-expanded="false" aria-controls="changePass">Thay đổi mật khẩu</a>
                             </h4>
                         </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                        <div id="changePass" class="collapse" aria-labelledby="headingThree"
                             data-bs-parent="#accordion">
                             <div class="card-body">
                                 <form onsubmit="changePassword(<?php echo $iduser ?>)" action="#">
@@ -228,11 +229,11 @@ if (isset($_SESSION['iduser'])) {
                     <div class="card mb-15">
                         <div class="card-header">
                             <h4 class="card-title">
-                                <a data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
-                                    aria-controls="collapseFour">Lịch sử đơn hàng </a>
+                                <a id="historyOrderBtn" data-bs-toggle="collapse" data-bs-target="#historyOrder"
+                                    aria-expanded="false" aria-controls="historyOrder">Lịch sử đơn hàng </a>
                             </h4>
                         </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+                        <div id="historyOrder" class="collapse" aria-labelledby="headingFour"
                             data-bs-parent="#accordion">
                             <div class="card-body">
                                 <table id="table-history-order" class="table mt-5 table-hover shadow p-3">
@@ -319,11 +320,11 @@ if (isset($_SESSION['iduser'])) {
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">
-                                <a data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false"
-                                    aria-controls="collapseFive">Phương thức thanh toán</a>
+                                <a id="paymentMethodBtn" data-bs-toggle="collapse" data-bs-target="#paymentMethod"
+                                    aria-expanded="false" aria-controls="paymentMethod">Phương thức thanh toán</a>
                             </h4>
                         </div>
-                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                        <div id="paymentMethod" class="collapse" aria-labelledby="headingFive"
                             data-bs-parent="#accordion">
                             <div class="panel-body">
                                 <form action="#">

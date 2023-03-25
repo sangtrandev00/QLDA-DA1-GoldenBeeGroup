@@ -88,11 +88,11 @@ if (isset($_SESSION['iduser'])) {
                                                     ' . $_SESSION['ho_ten'] . '
                                                 </a>
                                                 <ul class="top-header-menu__dropdown">
-                                                    <li><a href="javascript:viewGeneralSetting()">Quản lý tài khoản</a> </li>
-                                                    <li><a href="javascript:viewOrder()">Lịch sử đơn hàng</a> </li>
-                                                    <li><a href="javascript:">Thay đổi mật khẩu</a> </li>
-                                                    <li><a href="javascript:">Địa chỉ gửi hàng</a> </li>
-                                                    <li><a href="javascript:">Phương thức thanh toán</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount">Quản lý tài khoản</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=history">Lịch sử đơn hàng</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=changepass">Thay đổi mật khẩu</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=shippingaddress">Địa chỉ gửi hàng</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=paymentmethod">Phương thức thanh toán</a> </li>
                                                     <li><a href="./index.php?act=logout">Đăng xuất</a></li>
                                                 </ul>
                                             </li>

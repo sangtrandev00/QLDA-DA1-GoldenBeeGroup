@@ -302,6 +302,8 @@
 <script src="assets/js/config.js"></script>
 <script src="assets/js/validate.js"></script>
 <script src="assets/js/pages/account.js"></script>
+<script src="assets/js/pages/checkout.js"></script>
+
 <?php
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {

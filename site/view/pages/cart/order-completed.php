@@ -9,6 +9,7 @@ if (isset($iddh)) {
     $order_list = [];
     $order = [];
 }
+
 ?>
 
 <!-- BREADCRUMBS SETCTION START -->
@@ -500,6 +501,10 @@ echo number_format($price_item);?>
                                     <h6 class="text-black-5 mb-0 alert alert-warning">Cảm ơn. Đơn đặt hàng của bạn đã
                                         được tiếp nhận; Chúng
                                         tôi sẽ gửi đơn hàng đến bạn một cách sớm nhất.</h6>
+                                    <a class="btn btn-outline-danger mt-5"
+                                        href="./index.php?act=settingaccount&view=history">Xem lịch sử
+                                        đơn
+                                        hàng</a>
                                 </div>
                                 <div class="order-info p-30 mb-10">
                                     <ul class="order-info-list">
@@ -595,8 +600,8 @@ foreach ($order_list as $order_detail) {
                                                     <?php echo $order['dienThoai'] ?>
                                                 </li>
                                                 <li>
-                                                    <span>Phương thức thanh toán : </span>
-                                                    Thanh toán khi nhận hàng
+                                                    <span>PTTT : </span>
+                                                    <?php echo $order['pttt'] ?>
                                                 </li>
                                                 <li>
                                                     <span>Ghi chú : </span>

@@ -68,3 +68,10 @@ function count_all_customers_at_shop()
 {
 
 }
+
+function insert_vnpay($order_id, $amount, $bankcode, $banktransno, $cardtype, $orderinfo, $paydate, $tmncode, $transaction_no)
+{
+    $sql = "INSERT INTO tbl_vnpay (order_id, amount, bankcode, banktransno, cardtype, orderinfo, paydate, tmncode, transaction_no) VALUES (?,?,?,?,?,?,?,?,?)";
+    pdo_execute($sql, $order_id, $amount, $bankcode, $banktransno, $cardtype, $orderinfo, $paydate, $tmncode, $transaction_no);
+    return true;
+}

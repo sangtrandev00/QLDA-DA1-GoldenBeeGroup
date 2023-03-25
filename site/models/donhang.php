@@ -1,6 +1,6 @@
 <?php
 
-function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder)
+function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder, $thanhtoan)
 {
     try {
 
@@ -10,8 +10,8 @@ function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $s
         // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
         // ";
 
-        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder)
-        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder' )";
+        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder, thanhtoan)
+        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder', $thanhtoan )";
 
         // use exec() because no results are returned
         $conn->exec($sql);
@@ -57,7 +57,7 @@ function get_order_and_detail($iddh)
 function getorderinfo($iddh)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_order WHERE id = " . $iddh);
+    $stmt = $conn->prepare("SELECT * FROM tbl_order od inner join tbl_vnpay vnpay on od.id = vnpay.order_id WHERE id = " . $iddh);
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetch();

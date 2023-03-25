@@ -429,10 +429,48 @@ function showOrder() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function(e) {
+    // console.log("hello", location.href);
+    const url = new URL(location.href);
 
+    // console.log('url', url.searchParams.get('act'));
+    // console.log('url', url.searchParams.get('view'));
+    if(url.searchParams.get('act') == 'settingaccount') {
+    
+        switch (url.searchParams.get('view')) {
+            case 'history':
+                // console.log('Hello history order!!!');
+                  document.getElementById('historyOrderBtn').click();
+                break;
+            case 'changepass':
+                    // console.log('Hello history order!!!');
+                  document.getElementById('changePassBtn').click();
+                break;
+            case 'shippingaddress':
+                    // console.log('Hello history order!!!');
+                    document.getElementById('shippingAddressBtn').click();
+                break;
+            case 'paymentmethod':
+                    // console.log('Hello history order!!!');
+                    document.getElementById('paymentMethodBtn').click();
+                break;
+            // case 'history':
+            //         console.log('Hello history order!!!');
+            //     break;
+            // case 'history':
+            //         console.log('Hello history order!!!');
+            //     break;
+        
+            default:
+
+                break;
+        }
+    }
+})
 
 (() => {
     zoomProductDetail();
     // handleAddCart('.add-to-cart', 'addtocart');
     // handleAddCart('.add-to-wishlist', 'addtowishlist');
+   
 })();

@@ -323,7 +323,9 @@
                             <!-- checkout start -->
                             <div class="tab-pane active" id="checkout">
                                 <div class="checkout-content box-shadow p-30">
-                                    <form action="./index.php?act=checkoutbtn" method="POST">
+                                    <!-- onsubmit="handleCheckout(this)" -->
+                                    <form id="checkout-form" action="./index.php?act=checkoutbtn&type=vnpay"
+                                        method="POST">
                                         <div class="row">
                                             <!-- billing details -->
                                             <div class="col-md-6">
@@ -427,11 +429,11 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                     <div id="accordion">
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
-                                                                <a data-bs-toggle="collapse" href="#bank-transfer">
+                                                                <a data-bs-toggle="collapse" href="#codPayment">
                                                                     Thanh toán trực tiếp tại nhà
                                                                 </a>
                                                             </h4>
-                                                            <div id="bank-transfer" class="panel-collapse collapse show"
+                                                            <div id="codPayment" class="panel-collapse collapse show"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
                                                                     <p>Lorem Ipsum is simply in dummy text of the
@@ -443,11 +445,11 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a class="collapsed" data-bs-toggle="collapse"
-                                                                    href="#collapseTwo">
+                                                                    href="#momoPayment">
                                                                     Thanh toán MOMO
                                                                 </a>
                                                             </h4>
-                                                            <div id="collapseTwo" class="panel-collapse collapse"
+                                                            <div id="momoPayment" class="panel-collapse collapse"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
                                                                     <p>Please send your cheque to Store Name, Store
@@ -458,14 +460,20 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                         </div>
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
-                                                                <a data-bs-toggle="collapse" href="#collapseThree">
+                                                                <a data-bs-toggle="collapse" href="#vnpayPayment">
                                                                     Thanh toán VNpay
                                                                 </a>
                                                             </h4>
-                                                            <div id="collapseThree" class="panel-collapse collapse"
+                                                            <div id="vnpayPayment" class="panel-collapse collapse"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Pay via PayPal; you can pay with your credit
+                                                                    <!-- <a href="./index.php?act=vnpaypayment"
+                                                                        class="btn btn-outline-warning">Thanh
+                                                                        Toán VNPAY</a> -->
+                                                                    <input class="btn btn-outline-warning" type="submit"
+                                                                        name="vnpaybtn" value="Thanh toán VNPAY">
+
+                                                                    <!-- <p>Pay via PayPal; you can pay with your credit
                                                                         card if you don't have a PayPal account.</p>
                                                                     <ul class="payent-type mt-10">
                                                                         <li><a href="#"><img src="img/payment/1.png"
@@ -476,7 +484,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                                     alt=""></a></li>
                                                                         <li><a href="#"><img src="img/payment/4.png"
                                                                                     alt=""></a></li>
-                                                                    </ul>
+                                                                    </ul> -->
                                                                 </div>
                                                             </div>
                                                         </div>
