@@ -460,7 +460,7 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
     }
 }
 
@@ -603,7 +603,7 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
     }
 }
 

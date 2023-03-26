@@ -213,3 +213,25 @@ function reOrder(orderId) {
     });
 
 }
+
+function updatePaymentMethod(iduser) {
+        event.preventDefault();
+        const paymentMethod = event.currentTarget.elements['payment-method'].value;
+
+        $.ajax({
+            type: "POST",
+            url: "./logic/account-action.php?act=updatepaymentmethod",
+            data: {
+                iduser,
+                paymentMethod
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                const {status, message} = JSON.parse(response);
+                showToast("Cập nhật phương thức thanh toán" , message);
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        });
+}

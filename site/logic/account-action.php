@@ -16,6 +16,7 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
 include $ROOT_URL . "/DAO/order.php";
+include $ROOT_URL . "/DAO/user.php";
 
 // include "../../site/models/connectdb.php";
 // include "../../site/models/donhang.php";
@@ -166,6 +167,7 @@ switch ($_GET['act']) {
         // var_dump($_SESSION['madonhang']);
         unset($_SESSION['madonhang']);
         break;
+
     case 'destroyorder':
         if (isset($_POST['orderid'])) {
             $is_updated = updateorderstatus($_POST['orderid'], 6);
@@ -231,6 +233,18 @@ switch ($_GET['act']) {
             );
             // }
 
+        }
+        break;
+    case 'updatepaymentmethod':
+        // echo 'payment';
+        $is_updated = user_update_payment_method($_POST['iduser'], $_POST['paymentMethod']);
+        if ($is_updated) {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "message" => "Cập nhật phương thức thanh toán thành công!",
+                )
+            );
         }
         break;
     default:

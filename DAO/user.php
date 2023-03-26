@@ -20,13 +20,13 @@ function user_update($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienth
     pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat == 1, $vai_tro, $iduser);
     return true;
 }
-function user_update_2($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro){
-    if($hinh_anh!=""){
+function user_update_2($iduser, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro)
+{
+    if ($hinh_anh != "") {
         $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?,kich_hoat=?,vai_tro=? WHERE id=?";
         pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat == 1, $vai_tro, $iduser);
         return true;
-    }
-    else{
+    } else {
         $sql = "UPDATE tbl_nguoidung SET tai_khoan=?, mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,kich_hoat=?,vai_tro=? WHERE id=?";
         pdo_execute($sql, $tai_khoan, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $kich_hoat == 1, $vai_tro, $iduser);
         return true;
@@ -121,4 +121,11 @@ function user_change_pass_by_email($email, $newpass)
 {
     $sql = "UPDATE tbl_nguoidung SET mat_khau=? WHERE email=?";
     pdo_execute($sql, $newpass, $email);
+}
+
+function user_update_payment_method($iduser, $payment_method)
+{
+    $sql = "UPDATE tbl_nguoidung SET default_payment=? WHERE id=?";
+    pdo_execute($sql, $payment_method, $iduser);
+    return true;
 }

@@ -45,16 +45,35 @@
                             <!-- short-by -->
                             <div class="short-by f-left text-center">
                                 <span>Lọc bởi :</span>
-                                <select>
-                                    <option value="volvo">Sản phẩm mới nhất</option>
-                                    <option value="saab">Giá từ cao đến thấp</option>
-                                    <option value="mercedes">Giá từ thấp đến cao</option>
-                                    <option value="audi">Sản phẩm xem nhiều nhất</option>
+                                <select onchange="filterProducts(this)">
+                                    <option value="">Lọc sản phẩm ở đây</option>
+                                    <option <?php if (isset($_GET['filter']) && $_GET['filter'] == 'newest') {
+    echo 'selected';
+}
+?> value="newest">Sản
+                                        phẩm mới nhất
+                                    </option>
+                                    <option <?php if (isset($_GET['filter']) && $_GET['filter'] == 'pricedesc') {
+    echo 'selected';
+}
+?> value="pricedesc">Giá từ cao đến thấp</option>
+                                    <option <?php if (isset($_GET['filter']) && $_GET['filter'] == 'priceinsc') {
+    echo 'selected';
+}
+?> value="priceinsc">Giá từ thấp đến cao</option>
+                                    <option <?php if (isset($_GET['filter']) && $_GET['filter'] == 'mostview') {
+    echo 'selected';
+}
+?> value="mostview">
+                                        Sản phẩm xem nhiều nhất</option>
                                 </select>
                             </div>
                             <!-- showing -->
                             <div class="showing f-right text-end">
-                                <span>Kết quả : 01-09 of 12 sản phẩm</span>
+                                <span>Kết quả tìm được :
+                                    <?php ?>
+                                    sản
+                                    phẩm</span>
                             </div>
                         </div>
                         <!-- shop-option end -->
@@ -81,32 +100,91 @@ if (isset($_GET['cateid'])) {
     $sql = "SELECT * FROM tbl_sanpham where ma_danhmuc = '$cate_id'";
 }
 
+if (isset($_GET['query'])) {
+    $query = $_GET['query'];
+    $sql = "SELECT * FROM tbl_sanpham where tensp like '%$query%'";
+    // echo $sql;
+}
+
+// Filter products
+if (isset($_GET['filter']) && $_GET['filter'] == 'pricedesc') {
+    $sql .= " order by don_gia desc";
+
+    // echo $sql;
+
+} else if (isset($_GET['filter']) && $_GET['filter'] == 'priceinsc') {
+    $sql .= " order by don_gia asc";
+
+    // echo $sql;
+
+} else if (isset($_GET['filter']) && $_GET['filter'] == 'newest') {
+    $sql .= " order by ngay_nhap desc";
+    // echo $sql;
+
+} else if (isset($_GET['filter']) && $_GET['filter'] == 'mostview') {
+    $sql .= " order by so_luot_xem desc";
+    // echo $sql;
+
+}
+
+if (isset($_GET['minprice']) && $_GET['minprice'] != 0 && isset($_GET['maxprice']) && $_GET['maxprice'] != 0) {
+    $min_price = $_GET['minprice'];
+    $max_price = $_GET['maxprice'];
+
+    $sql .= " where don_gia between '$min_price' and '$max_price'";
+    // echo $sql;
+}
+
 $_limit = 12;
-$pagination = createDataWithPagination($conn, $sql, $_limit);
-$product_list = $pagination['datalist'];
-// var_dump($productList);
-$total_page = $pagination['totalpage'];
-$start = $pagination['start'];
-$current_page = $pagination['current_page'];
-$total_records = $pagination['total_records'];
-// $product_list = product_select_all();
 
-if (isset($_GET['cateid'])) {
-    $cate_id = $_GET['cateid'];
-    $product_list = array_filter($product_list, function ($product_item) {
-        global $cate_id;
-        return $product_item['ma_danhmuc'] == $cate_id;
-    });
+// BƯỚC 2: TÌM TỔNG SỐ RECORDS
+
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+// set the resulting array to associative
+$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+$finalresult = $stmt->fetchAll();
+$total_records = count($finalresult);
+
+// BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+if (isset($_POST['currentPage'])) {
+    $current_page = $_POST['currentPage'];
+
+    echo 'current_page' . $current_page;
+    // exit;
 }
-if (isset($_GET['subcateid'])) {
-    $subcate_id = $_GET['subcateid'];
-    $product_list = array_filter($product_list, function ($product_item) {
-        global $subcate_id;
 
-        return $product_item['id_dmphu'] == $subcate_id;
-    });
+$limit = $_limit;
 
+// BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+// tổng số trang
+$total_page = ceil($total_records / $limit);
+
+// Giới hạn current_page trong khoảng 1 đến total_page
+if ($current_page > $total_page) {
+    $current_page = $total_page;
+} else if ($current_page < 1) {
+    $current_page = 1;
 }
+
+// Tìm Start
+$start = ($current_page - 1) * $limit;
+
+if ($start < 0) {
+    $start = 0;
+}
+
+// BƯỚC 5: TRUY VẤN LẤY DANH SÁCH SẢN PHẨM
+// Có limit và start rồi thì truy vấn CSDL lấy danh sách SẢN PHẨM
+
+$stmt = $conn->prepare("$sql LIMIT $start, $limit");
+$stmt->execute();
+$datalist = $stmt->fetchAll();
+
+$product_list = $datalist;
+$_SESSION['search_result'] = count($datalist);
 
 // $product_list = product_select_all();
 // var_dump($product_list);
@@ -144,30 +222,6 @@ foreach ($product_list as $item) {
                             <div id="list-view" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <?php
-// PHẦN XỬ LÝ PHP
-// B1: KET NOI CSDL
-$conn = connectdb();
-
-$sql = "SELECT * FROM tbl_sanpham"; // Total Product
-if (isset($_GET['subcateid'])) {
-    $subcate_id = $_GET['subcateid'];
-    $sql = "SELECT * FROM tbl_sanpham where id_dmphu = '$subcate_id'";
-    // echo "$sql";
-}
-
-if (isset($_GET['cateid'])) {
-    $cate_id = $_GET['cateid'];
-    $sql = "SELECT * FROM tbl_sanpham where ma_danhmuc = '$cate_id'";
-}
-$_limit = 12;
-$pagination = createDataWithPagination($conn, $sql, $_limit);
-$product_list = $pagination['datalist'];
-// var_dump($productList);
-$total_page = $pagination['totalpage'];
-$start = $pagination['start'];
-$current_page = $pagination['current_page'];
-$total_records = $pagination['total_records'];
-// var_dump($product_list);
 foreach ($product_list as $item) {
 
     #Thumbnail Image
@@ -202,7 +256,7 @@ foreach ($product_list as $item) {
                                     </div>
                                     <div class="product-info">
                                         <h6 class="product-title">
-                                            <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
+                                            <a  href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                         </h6>
                                         <div class="pro-rating">
                                             <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -221,7 +275,7 @@ foreach ($product_list as $item) {
                                                 <a onclick="' . $addwishlistfunc . '"  href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
                                             </li>
                                             <li>
-                                                <a  href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                <a class="zoom-detail-product"  href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                     title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                             </li>
                                             <li>
@@ -273,9 +327,8 @@ if ($current_page < $total_page && $total_page > 1) {
                 <div class="col-lg-3 order-lg-1 order-2">
                     <!-- widget-search -->
                     <aside class="widget-search mb-30">
-                        <form id="searchForm" action="#">
-                            <input name="searchvalue" onkeyup="searchProducts()" type="text"
-                                placeholder="Tìm kiếm ở đây...">
+                        <form onsubmit="searchProducts(this)" id="searchForm" action="#">
+                            <input name="searchvalue" type="text" placeholder="Tìm kiếm ở đây...">
                             <button type="submit"><i class="zmdi zmdi-search"></i></button>
                         </form>
                     </aside>
@@ -325,11 +378,11 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                     <div class="widget shop-filter box-shadow mb-30">
                         <h6 class="widget-title border-left mb-20">Lọc theo giá</h6>
                         <div class="price_filter">
-                            <form id="form-filter-price" action="" method="post">
+                            <form id="form-filter-price" onsubmit="filterByPrice(this)" action="" method="post">
                                 <div class="price_slider_amount">
                                     <input type="submit" class="w-100" value="Thang giá:" />
                                     <br>
-                                    <input type="text" class="w-100" id="amount" name="price"
+                                    <input onchange="filterByPrice()" type="text" class="w-100" id="amount" name="price"
                                         placeholder="Add Your Price" />
 
                                 </div>
@@ -339,9 +392,8 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                         </div>
 
                         <!-- widget-product -->
-                        <aside class="widget widget-product box-shadow mt-5">
+                        <!-- <aside class="widget widget-product box-shadow mt-5">
                             <h6 class="widget-title border-left mb-20">Sản phẩm gần đây</h6>
-                            <!-- product-item start -->
 
                             <div class="product-item">
                                 <div class="product-img">
@@ -357,8 +409,6 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                                     <h3 class="pro-price">$ 869.00</h3>
                                 </div>
                             </div>
-                            <!-- product-item end -->
-                            <!-- product-item start -->
                             <div class="product-item">
                                 <div class="product-img">
                                     <a href="single-product.html">
@@ -373,8 +423,6 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                                     <h3 class="pro-price">$ 869.00</h3>
                                 </div>
                             </div>
-                            <!-- product-item end -->
-                            <!-- product-item start -->
                             <div class="product-item">
                                 <div class="product-img">
                                     <a href="single-product.html">
@@ -389,8 +437,7 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                                     <h3 class="pro-price">$ 869.00</h3>
                                 </div>
                             </div>
-                            <!-- product-item end -->
-                        </aside>
+                        </aside> -->
                     </div>
                 </div>
             </div>

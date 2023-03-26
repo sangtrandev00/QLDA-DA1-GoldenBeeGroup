@@ -327,16 +327,23 @@ if (isset($_SESSION['iduser'])) {
                         <div id="paymentMethod" class="collapse" aria-labelledby="headingFive"
                             data-bs-parent="#accordion">
                             <div class="panel-body">
-                                <form action="#">
+                                <form onsubmit="updatePaymentMethod(<?php echo $iduser; ?>)" action="#">
                                     <div class="new-customers p-30">
-                                        <select class="custom-select">
-                                            <option value="defalt">Card Type</option>
-                                            <option value="c-1">Master Card</option>
-                                            <option value="c-2">Paypal</option>
-                                            <option value="c-3">Paypal</option>
-                                            <option value="c-4">Paypal</option>
+                                        <h3 class="title">Phương thức thanh toán mặc định của bạn là: </h3>
+                                        <select name="payment-method" class="custom-select">
+                                            <option value="defalt">Chọn phương thức thanh toán mặc định</option>
+                                            <option
+                                                <?php if (isset($user_info) && $user_info['default_payment'] == 'codpayment') {echo "selected";}?>
+                                                value="codpayment">Thanh toán khi nhận hàng</option>
+                                            <option
+                                                <?php if (isset($user_info) && $user_info['default_payment'] == 'vnpaypayment') {echo "selected";}?>
+                                                value="vnpaypayment">Thanh toán qua vnpay</option>
+                                            <option
+                                                <?php if (isset($user_info) && $user_info['default_payment'] == 'momopayment') {echo "selected";}?>
+                                                value="momopayment">Thanh toán qua ví momo</option>
+                                            <!-- <option value="c-4">Paypal</option> -->
                                         </select>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-sm-6">
                                                 <input type="text" placeholder="Card Number">
                                             </div>
@@ -361,20 +368,20 @@ if (isset($_SESSION['iduser'])) {
                                                     <option value="c-3">2014</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                    value="register">pay now</button>
+                                                <button class="submit-btn-1 mt-20 btn-hover-1" name="paymentmethodbtn"
+                                                    type="submit" value="Lưu thông tin">Lưu thông tin</button>
                                             </div>
-                                            <div class="col-md-4">
+                                            <!-- <div class="col-md-4">
                                                 <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
                                                     value="register">cancel order</button>
                                             </div>
                                             <div class="col-md-4">
                                                 <button class="submit-btn-1 mt-20 f-right btn-hover-1" type="submit"
                                                     value="register">continue</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </form>

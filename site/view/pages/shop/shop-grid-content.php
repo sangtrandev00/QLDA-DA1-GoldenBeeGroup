@@ -23,14 +23,80 @@ if (isset($_POST['searchValue'])) {
     $sql = "SELECT * FROM tbl_sanpham WHERE tensp like '%$value%'";
 }
 
+if (isset($_POST['filter']) && $_POST['filter'] == 'priceinsc') {
+    $filterValue = $_POST['filter'];
+    echo $filterValue;
+    $sql = "SELECT * FROM tbl_sanpham order by don_gia ASC";
+}
+
+if (isset($_POST['filter']) && $_POST['filter'] == 'pricedesc') {
+    $filterValue = $_POST['filter'];
+    echo $filterValue;
+    $sql = "SELECT * FROM tbl_sanpham order by don_gia DESC";
+}
+
+if (isset($_POST['filter']) && $_POST['filter'] == 'newest') {
+    $filterValue = $_POST['filter'];
+    $sql = "SELECT * FROM tbl_sanpham order by ngay_nhap DESC";
+}
+
+if (isset($_POST['filter']) && $_POST['filter'] == 'mostview') {
+    $filterValue = $_POST['filter'];
+    echo $filterValue;
+    $sql = "SELECT * FROM tbl_sanpham order by so_luot_xem DESC";
+}
+
 $_limit = 12;
-$pagination = createDataWithPagination($conn, $sql, $_limit);
-$product_list = $pagination['datalist'];
+
+// BƯỚC 2: TÌM TỔNG SỐ RECORDS
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+// set the resulting array to associative
+$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+$finalresult = $stmt->fetchAll();
+$total_records = count($finalresult);
+
+// BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+if (isset($_POST['currentPage'])) {
+    $current_page = $_POST['currentPage'];
+
+    echo 'current_page' . $current_page;
+    // exit;
+}
+
+$limit = $_limit;
+
+// BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+// tổng số trang
+$total_page = ceil($total_records / $limit);
+
+// Giới hạn current_page trong khoảng 1 đến total_page
+if ($current_page > $total_page) {
+    $current_page = $total_page;
+} else if ($current_page < 1) {
+    $current_page = 1;
+}
+
+// Tìm Start
+$start = ($current_page - 1) * $limit;
+
+if ($start < 0) {
+    $start = 0;
+}
+
+// BƯỚC 5: TRUY VẤN LẤY DANH SÁCH SẢN PHẨM
+// Có limit và start rồi thì truy vấn CSDL lấy danh sách SẢN PHẨM
+$stmt = $conn->prepare("$sql LIMIT $start, $limit");
+$stmt->execute();
+$datalist = $stmt->fetchAll();
+$product_list = $datalist;
 // var_dump($productList);
-$total_page = $pagination['totalpage'];
-$start = $pagination['start'];
-$current_page = $pagination['current_page'];
-$total_records = $pagination['total_records'];
+// $total_page = $pagination['totalpage'];
+// $start = $pagination['start'];
+// $current_page = $pagination['current_page'];
+// $total_records = $pagination['total_records'];
 // $product_list = product_select_all();
 
 if (isset($_GET['cateid'])) {

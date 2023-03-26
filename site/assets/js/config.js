@@ -1,4 +1,4 @@
-            const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
+const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
 const ADMIN_URL = `${ROOT_URL}/admin`;
 const SITE_URL = `${ROOT_URL}/site`;
 function logout(){
@@ -429,8 +429,16 @@ function showOrder() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function(e) {
-    // console.log("hello", location.href);
+// document.addEventListener('DOMContentLoaded', function(e) {
+//     // console.log("hello", location.href);
+    
+// })
+
+(() => {
+    zoomProductDetail();
+    // handleAddCart('.add-to-cart', 'addtocart');
+    // handleAddCart('.add-to-wishlist', 'addtowishlist');
+
     const url = new URL(location.href);
 
     // console.log('url', url.searchParams.get('act'));
@@ -466,11 +474,5 @@ document.addEventListener('DOMContentLoaded', function(e) {
                 break;
         }
     }
-})
-
-(() => {
-    zoomProductDetail();
-    // handleAddCart('.add-to-cart', 'addtocart');
-    // handleAddCart('.add-to-wishlist', 'addtowishlist');
    
 })();

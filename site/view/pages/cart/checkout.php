@@ -324,8 +324,8 @@
                             <div class="tab-pane active" id="checkout">
                                 <div class="checkout-content box-shadow p-30">
                                     <!-- onsubmit="handleCheckout(this)" -->
-                                    <form id="checkout-form" action="./index.php?act=checkoutbtn&type=vnpay"
-                                        method="POST">
+                                    <form onsubmit="handleCheckout(this)" id="checkout-form"
+                                        action="./index.php?act=checkoutbtn&type=vnpay" method="POST">
                                         <div class="row">
                                             <!-- billing details -->
                                             <div class="col-md-6">
@@ -435,12 +435,13 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                     </h6>
                                                     <div id="accordion">
                                                         <div class="panel">
-                                                            <h4 class="payment-title box-shadow">
+                                                            <h4 class="payment-title box-shadow ">
                                                                 <a data-bs-toggle="collapse" href="#codPayment">
                                                                     Thanh toán trực tiếp tại nhà
                                                                 </a>
                                                             </h4>
-                                                            <div id="codPayment" class="panel-collapse collapse show"
+                                                            <div id="codPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "codpayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
                                                                     <p>Giao nhận hàng COD thanh toán khi nhận hàng</p>
@@ -454,12 +455,11 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                     Thanh toán MOMO
                                                                 </a>
                                                             </h4>
-                                                            <div id="momoPayment" class="panel-collapse collapse"
+                                                            <div id="momoPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "momopayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Please send your cheque to Store Name, Store
-                                                                        Street, Store Town, Store State / County,
-                                                                        Store Postcode.</p>
+                                                                    <p>Thanh toán đơn giản, tiện lợi qua momo</p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -469,27 +469,18 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                     Thanh toán VNpay
                                                                 </a>
                                                             </h4>
-                                                            <div id="vnpayPayment" class="panel-collapse collapse"
+                                                            <div id="vnpayPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "vnpaypayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
                                                                     <!-- <a href="./index.php?act=vnpaypayment"
                                                                         class="btn btn-outline-warning">Thanh
                                                                         Toán VNPAY</a> -->
-                                                                    <input class="btn btn-outline-warning" type="submit"
-                                                                        name="vnpaybtn" value="Thanh toán VNPAY">
+                                                                    <!-- <input class="btn btn-outline-warning" type="submit"
+                                                                        name="vnpaybtn" value="Thanh toán VNPAY"> -->
 
-                                                                    <!-- <p>Pay via PayPal; you can pay with your credit
-                                                                        card if you don't have a PayPal account.</p>
-                                                                    <ul class="payent-type mt-10">
-                                                                        <li><a href="#"><img src="img/payment/1.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/2.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/3.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/4.png"
-                                                                                    alt=""></a></li>
-                                                                    </ul> -->
+                                                                    Thanh toán đơn giản, tiện lợi, hiệu quả, an toàn qua
+                                                                    vnpay
                                                                 </div>
                                                             </div>
                                                         </div>
