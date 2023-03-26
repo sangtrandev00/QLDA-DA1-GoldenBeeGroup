@@ -461,7 +461,7 @@ $.ajax({
 			}
 		  };
 		
-		  var chart = new ApexCharts(document.querySelector("#chart5"), options);
+		  var chart = new ApexCharts(document.querySelector("#reportSaleByMonths"), options);
 		  chart.render();
 		
 	}

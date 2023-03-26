@@ -7,7 +7,6 @@ include "../global.php";
 include "./models/connectdb.php";
 include "./models/category.php";
 include "./models/order.php";
-
 include "../DAO/category.php";
 include "../DAO/product.php";
 include "../DAO/user.php";

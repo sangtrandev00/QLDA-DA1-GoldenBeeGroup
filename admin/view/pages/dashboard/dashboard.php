@@ -411,7 +411,7 @@ foreach ($top_sold_products as $product) {
                             </ul>
                         </div>
                     </div>
-                    <div id="chart5"></div>
+                    <div id="reportSaleByMonths"></div>
                 </div>
             </div>
         </div>
