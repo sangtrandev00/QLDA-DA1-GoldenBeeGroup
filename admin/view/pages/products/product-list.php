@@ -1,76 +1,57 @@
-  <!--start content-->
-  <main class="page-content">
-      <!--breadcrumb-->
-      <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-          <div class="breadcrumb-title pe-3">eCommerce</div>
-          <div class="ps-3">
-              <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb mb-0 p-0">
-                      <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
-                      </li>
-                      <li class="breadcrumb-item active" aria-current="page">Products List</li>
-                  </ol>
-              </nav>
-          </div>
-          <div class="ms-auto">
-              <div class="btn-group">
-                  <button type="button" class="btn btn-primary">Settings</button>
-                  <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split"
-                      data-bs-toggle="dropdown"> <span class="visually-hidden">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end"> <a class="dropdown-item"
-                          href="javascript:;">Action</a>
-                      <a class="dropdown-item" href="javascript:;">Another action</a>
-                      <a class="dropdown-item" href="javascript:;">Something else here</a>
-                      <div class="dropdown-divider"></div> <a class="dropdown-item" href="javascript:;">Separated
-                          link</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!--end breadcrumb-->
+<div class="card">
+    <div class="card-header py-3">
+        <div class="row align-items-center m-0">
+            <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                <select onchange="filterByCate(this);" onfocus="this.selectedIndex = -1;" class="form-select">
+                    <option value="-1">Tất cả danh mục</option>
+                    <?php
 
-      <div class="card">
-          <div class="card-header py-3">
-              <div class="row align-items-center m-0">
-                  <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                      <select class="form-select">
-                          <option>All category</option>
-                          <option>Fashion</option>
-                          <option>Electronics</option>
-                          <option>Furniture</option>
-                          <option>Sports</option>
-                      </select>
-                  </div>
-                  <div class="col-md-2 col-6">
-                      <input type="date" class="form-control">
-                  </div>
-                  <div class="col-md-2 col-6">
-                      <select class="form-select">
-                          <option>Status</option>
-                          <option>Active</option>
-                          <option>Disabled</option>
-                          <option>Show all</option>
-                      </select>
-                  </div>
-              </div>
-          </div>
-          <div class="card-body">
+$cate_list = cate_select_all();
 
-              <div id="table-product-content" class="table-responsive">
-                  <table class="table align-middle table-striped">
-                      <thead>
-                          <th>Id</th>
-                          <th>Hình ảnh/ Tên sản phẩm </th>
-                          <th>Giá tiền </th>
-                          <th>Tồn kho </th>
-                          <th>Ngày nhập </th>
-                          <th>Hành động </th>
-                      </thead>
-                      <tbody>
-                          <!-- Row Item -->
-                          <!-- Show list product here -->
-                          <?php
+foreach ($cate_list as $cate_item) {
+    # code...
+    echo '
+                                <option value="' . $cate_item['ma_danhmuc'] . '"><a href="./index.php?act=">' . $cate_item['ten_danhmuc'] . '</a></option>
+                            ';
+}
+
+?>
+
+                    <!-- <option>Fashion</option>
+                    <option>Electronics</option>
+                    <option>Furniture</option>
+                    <option>Sports</option> -->
+                </select>
+            </div>
+            <div class="col-md-2 col-6">
+                <input type="date" onchange="filterByDate(this)" class="form-control">
+            </div>
+            <div class="col-md-2 col-6">
+                <select class="form-select">
+                    <option>Status</option>
+                    <option>Active</option>
+                    <option>Disabled</option>
+                    <option>Show all</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div id="table-product-content" class="table-responsive">
+            <table id="table-product" class="table align-middle table-striped">
+                <thead>
+                    <th>Id</th>
+                    <th>Hình ảnh/ Tên sản phẩm </th>
+                    <th>Giá tiền </th>
+                    <th>Tồn kho </th>
+                    <th>Ngày nhập </th>
+                    <th>Hành động </th>
+                </thead>
+                <tbody>
+                    <!-- Row Item -->
+                    <!-- Show list product here -->
+                    <?php
 // PHẦN XỬ LÝ PHP
 // B1: KET NOI CSDL
 $conn = connectdb();
@@ -128,78 +109,50 @@ foreach ($product_list as $product_item) {
                             ';
 }
 ?>
-                      </tbody>
-                  </table>
-              </div>
-
-
-
-              <nav class="float-end mt-4" aria-label="Page navigation">
-                  <?php
+                </tbody>
+            </table>
+            <nav class="float-end mt-4" aria-label="Page navigation">
+                <?php
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
-}
+// if ($current_page > 1 && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page - 1) . '">Trước</a> | ';
+// }
 
-// Lặp khoảng giữa
-for ($i = 1; $i <= $total_page; $i++) {
-    // Nếu là trang hiện tại thì hiển thị thẻ span
-    // ngược lại hiển thị thẻ a
-    if ($i == $current_page) {
-        echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
-    } else {
-        echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
-    }
-}
+// // Lặp khoảng giữa
+// for ($i = 1; $i <= $total_page; $i++) {
+//     // Nếu là trang hiện tại thì hiển thị thẻ span
+//     // ngược lại hiển thị thẻ a
+//     if ($i == $current_page) {
+//         echo '<span class="page-item btn btn-primary">' . $i . '</span> | ';
+//     } else {
+//         echo '<a class="page-item btn btn-light" href="index.php?act=productlist&page=' . $i . '">' . $i . '</a> | ';
+//     }
+// }
 
-// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
-if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
-}
+// // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+// if ($current_page < $total_page && $total_page > 1) {
+//     echo '<a class="page-item btn btn-secondary" href="index.php?act=productlist&page=' . ($current_page + 1) . '">Sau</a> | ';
+// }
 
 ?>
-                  <!-- <ul class="pagination">
+                <!-- <ul class="pagination">
                       <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                       <li class="page-item active"><a class="page-link" href="#">1</a></li>
                       <li class="page-item"><a class="page-link" href="#">2</a></li>
                       <li class="page-item"><a class="page-link" href="#">3</a></li>
                       <li class="page-item"><a class="page-link" href="#">Next</a></li>
                   </ul> -->
-              </nav>
+            </nav>
+        </div>
 
-          </div>
-      </div>
-      <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal for
-          @getbootstrap</button> -->
 
-      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <form>
-                          <div class="mb-3">
-                              <label for="recipient-name" class="col-form-label">Recipient:</label>
-                              <input type="text" class="form-control" id="recipient-name">
-                          </div>
-                          <div class="mb-3">
-                              <label for="message-text" class="col-form-label">Message:</label>
-                              <textarea class="form-control" id="message-text"></textarea>
-                          </div>
-                      </form>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Send message</button>
-                  </div>
-              </div>
-          </div>
-      </div> -->
-  </main>
-  <!--end page main-->
 
-  <!-- Toggle Modal here -->
+
+
+    </div>
+</div>
+</main>
+<!--end page main-->
+
+<!-- Toggle Modal here -->

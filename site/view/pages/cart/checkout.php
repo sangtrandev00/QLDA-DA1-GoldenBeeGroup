@@ -47,7 +47,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="./index.php?act=ordercompleted">
+                                <a href="#">
                                     <span>04</span>
                                     Đặt hàng thành công
                                 </a>
@@ -323,7 +323,9 @@
                             <!-- checkout start -->
                             <div class="tab-pane active" id="checkout">
                                 <div class="checkout-content box-shadow p-30">
-                                    <form action="./index.php?act=checkoutbtn" method="POST">
+                                    <!-- onsubmit="handleCheckout(this)" -->
+                                    <form onsubmit="handleCheckout(this)" id="checkout-form"
+                                        action="./index.php?act=checkoutbtn&type=vnpay" method="POST">
                                         <div class="row">
                                             <!-- billing details -->
                                             <div class="col-md-6">
@@ -332,23 +334,30 @@
 if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
     // echo $iduser;
+    $curr_user = user_select_by_id($iduser);
+
+    // var_dump($curr_user);
 }
 ?>
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['hoten'])) {echo $error['hoten'];}?></p>
-                                                    <input type="text" name="name" value=""
+                                                    <input type="text" name="name"
+                                                        value="<?php echo $curr_user['ho_ten']; ?>"
                                                         placeholder="Tên của bạn ...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['email'])) {echo $error['email'];}?></p>
-                                                    <input type="text" name="email" value=""
+                                                    <input type="text" name="email"
+                                                        value="<?php echo $curr_user['email']; ?>"
                                                         placeholder="Địa chỉ email...">
                                                     <p class="error-message text-danger mb-0">
                                                         <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
-                                                    <input type="text" name="phone" value=""
+                                                    <input type="text" name="phone"
+                                                        value="<?php echo $curr_user['sodienthoai']; ?>"
                                                         placeholder="Số điện thoại...">
                                                     <p class="error-message text-danger mb-0"></p>
-                                                    <input type="text" name="company" value=""
+                                                    <input type="text" name="company"
+                                                        value="<?php echo $curr_user['congty']; ?>"
                                                         placeholder="Tên công ty...">
 
                                                     <!-- <select class="custom-select">
@@ -376,7 +385,7 @@ if (isset($_SESSION['iduser'])) {
                                                         <?php if (isset($error['address'])) {echo $error['address'];}?>
                                                     </p>
                                                     <textarea name="address" class="custom-textarea shipping-address"
-                                                        value="" placeholder="Địa chỉ của bạn..."></textarea>
+                                                        placeholder="Địa chỉ của bạn..."><?php echo $curr_user['ship_address']; ?></textarea>
                                                     <p class="error-message text-danger mb-0"></p>
                                                     <textarea name="ghichu" class="custom-textarea mt-3" value=""
                                                         placeholder="Ghi chú cho người bán..."></textarea>
@@ -426,57 +435,52 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                     </h6>
                                                     <div id="accordion">
                                                         <div class="panel">
-                                                            <h4 class="payment-title box-shadow">
-                                                                <a data-bs-toggle="collapse" href="#bank-transfer">
+                                                            <h4 class="payment-title box-shadow ">
+                                                                <a data-bs-toggle="collapse" href="#codPayment">
                                                                     Thanh toán trực tiếp tại nhà
                                                                 </a>
                                                             </h4>
-                                                            <div id="bank-transfer" class="panel-collapse collapse show"
+                                                            <div id="codPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "codpayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Lorem Ipsum is simply in dummy text of the
-                                                                        printing and type setting industry. Lorem
-                                                                        Ipsum has been.</p>
+                                                                    <p>Giao nhận hàng COD thanh toán khi nhận hàng</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a class="collapsed" data-bs-toggle="collapse"
-                                                                    href="#collapseTwo">
+                                                                    href="#momoPayment">
                                                                     Thanh toán MOMO
                                                                 </a>
                                                             </h4>
-                                                            <div id="collapseTwo" class="panel-collapse collapse"
+                                                            <div id="momoPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "momopayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Please send your cheque to Store Name, Store
-                                                                        Street, Store Town, Store State / County,
-                                                                        Store Postcode.</p>
+                                                                    <p>Thanh toán đơn giản, tiện lợi qua momo</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
-                                                                <a data-bs-toggle="collapse" href="#collapseThree">
+                                                                <a data-bs-toggle="collapse" href="#vnpayPayment">
                                                                     Thanh toán VNpay
                                                                 </a>
                                                             </h4>
-                                                            <div id="collapseThree" class="panel-collapse collapse"
+                                                            <div id="vnpayPayment"
+                                                                class="panel-collapse collapse <?php if (isset($curr_user) && $curr_user['default_payment'] == "vnpaypayment") {echo "show";}?>"
                                                                 data-bs-parent="#accordion">
                                                                 <div class="payment-content">
-                                                                    <p>Pay via PayPal; you can pay with your credit
-                                                                        card if you don't have a PayPal account.</p>
-                                                                    <ul class="payent-type mt-10">
-                                                                        <li><a href="#"><img src="img/payment/1.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/2.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/3.png"
-                                                                                    alt=""></a></li>
-                                                                        <li><a href="#"><img src="img/payment/4.png"
-                                                                                    alt=""></a></li>
-                                                                    </ul>
+                                                                    <!-- <a href="./index.php?act=vnpaypayment"
+                                                                        class="btn btn-outline-warning">Thanh
+                                                                        Toán VNPAY</a> -->
+                                                                    <!-- <input class="btn btn-outline-warning" type="submit"
+                                                                        name="vnpaybtn" value="Thanh toán VNPAY"> -->
+
+                                                                    Thanh toán đơn giản, tiện lợi, hiệu quả, an toàn qua
+                                                                    vnpay
                                                                 </div>
                                                             </div>
                                                         </div>

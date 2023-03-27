@@ -207,7 +207,6 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
     // echo $password;
 
     $islogined = checkuser($email, $password);
-    echo $islogined;
     if ($islogined === -1) {
         // $text_error = "username hoặc password không chính xác";
 

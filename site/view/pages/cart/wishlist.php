@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./index.php?act=ordercompleted">
+                            <a href="#">
                                 <span>04</span>
                                 Đặt hàng thành công
                             </a>
@@ -248,7 +248,7 @@ foreach ($wish_list as $item) {
     $old_price = number_format($product_item['don_gia']);
     $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
     $ton_kho = $product_item['ton_kho'];
-
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     echo '
                                                         <!-- tr -->
                                                             <tr>
@@ -269,7 +269,7 @@ foreach ($wish_list as $item) {
                                                                 <td class="product-stock text-uppercase">' . $ton_kho . '</td>
                                                                 <td class="product-add-cart">
                                                                     <form action="" method="post">
-                                                                        <a class="add-to-cart" href="#" title="Add To Cart">
+                                                                        <a onclick="' . $addcartfunc . '" class="add-to-cart" href="#" title="Add To Cart">
                                                                             <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                                         </a>
                                                                         <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng"/>
@@ -286,7 +286,7 @@ foreach ($wish_list as $item) {
                                                                 </td>
 
                                                                 <td class="product-remove">
-                                                                    <a onclick="handleDeleteCart(' . $item['id'] . ', "wishlist")" data-name="' . $item['tensp'] . '" href="#" ><i class="zmdi zmdi-close"></i></a>
+                                                                    <a onclick="handleDeleteWishlist(' . $item['id'] . ')" data-name="' . $item['tensp'] . '" href="#" ><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
 
 

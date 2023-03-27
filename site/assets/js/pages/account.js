@@ -1,9 +1,9 @@
 
 function viewOrderdetail(orderId) {
-        // event.preventDefault();
 
-        console.log('clicked, ', orderId);
+        // event.preventDefault();     
 
+        // console.log('clicked, ', orderId);
 
         $.ajax({
             type: "POST",
@@ -13,12 +13,12 @@ function viewOrderdetail(orderId) {
             },
             // dataType: "dataType",
             success: function (response) {
-                console.log('res: ', response);
+                // console.log('res: ', response);
 
                 // $.get("./logic/order-detail.php", function(responseHtml) {
                 //     console.log('res: ', responseHtml);
                 // })
-
+                $("#orderDetailModalLabel").html(`<h3>Thống tin chi tiết đơn hàng theo #${orderId}</h3>`)
                 $("#orderDetailModal .modal-body").html(response);
                 $("#orderDetailModalBtn").trigger("click");
                 $("#orderDetailModal .orderDetailModalLabel").text("Đơn hàng chi tiết")
@@ -141,3 +141,97 @@ function searchOrder(currentForm, iduser) {
 //     return ;
    
 // }
+
+
+function viewOrder() {
+    console.log('clicked');
+    location.assign("./index.php?act=settingaccount");
+    $("#collapseFour").trigger("click");
+    console.log('click');
+}
+
+function viewGeneralSetting() {
+    location.assign("./index.php?act=settingaccount");
+}
+
+function destroyOrder(orderId) {
+    event.preventDefault();
+    console.log("submitted: ", orderId);
+    $.ajax({
+        type: "POST",
+        url: "./logic/account-action.php?act=destroyorder",
+        data: {
+            orderid: orderId
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            const {status, message} = JSON.parse(response);
+                showToast("Hủy đơn hàng #"+orderId , message)
+                $("#orderDetailModalBtn").trigger("click");
+                location.reload();
+                
+        }
+    });
+}
+
+function confirmOrder(orderId) {
+ event.preventDefault();
+
+ console.log("submitted: ", orderId);
+
+ $.ajax({
+    type: "POST",
+    url: "./logic/account-action.php?act=confirmorder",
+    data: {
+        orderid: orderId
+    },
+    // dataType: "dataType",
+    success: function (response) {
+        const {status, message} = JSON.parse(response);
+        showToast("Xác nhận đơn hàng #"+orderId , message);
+        $("#orderDetailModalBtn").trigger("click");
+        location.reload();
+    }
+});
+}
+
+function reOrder(orderId) {
+    event.preventDefault();
+
+    console.log('re-order: ',orderId);
+
+    $.ajax({
+        type: "POST",
+        url: "./logic/account-action.php?act=reorder",
+        data: {
+            orderid: orderId
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            location.assign("./index.php?act=viewcart");
+        }
+    });
+
+}
+
+function updatePaymentMethod(iduser) {
+        event.preventDefault();
+        const paymentMethod = event.currentTarget.elements['payment-method'].value;
+
+        $.ajax({
+            type: "POST",
+            url: "./logic/account-action.php?act=updatepaymentmethod",
+            data: {
+                iduser,
+                paymentMethod
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                const {status, message} = JSON.parse(response);
+                showToast("Cập nhật phương thức thanh toán" , message);
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        });
+}

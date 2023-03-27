@@ -345,109 +345,128 @@ var options = {
 
 // chart 5
 
-var options = {
-    series: [{
-        name: "Revenue",
-		data: [240, 460, 171, 657, 160, 471, 340, 230, 458, 98]
-    }],
-    chart: {
-         type: "area",
-       // width: 130,
-	    stacked: true,
-        height: 280,
-        toolbar: {
-            show: !1
-        },
-        zoom: {
-            enabled: !1
-        },
-        dropShadow: {
-            enabled: 0,
-            top: 3,
-            left: 14,
-            blur: 4,
-            opacity: .12,
-            color: "#3461ff"
-        },
-        sparkline: {
-            enabled: !1
-        }
-    },
-    markers: {
-        size: 0,
-        colors: ["#3461ff"],
-        strokeColors: "#fff",
-        strokeWidth: 2,
-        hover: {
-            size: 7
-        }
-    },
-	grid: {
-		row: {
-			colors: ["transparent", "transparent"],
-			opacity: .2
-		},
-		borderColor: "#f1f1f1"
-	},
-    plotOptions: {
-        bar: {
-            horizontal: !1,
-            columnWidth: "25%",
-            //endingShape: "rounded"
-        }
-    },
-    dataLabels: {
-        enabled: !1
-    },
-    stroke: {
-        show: !0,
-        width: [2.5],
-		//colors: ["#3461ff"],
-        curve: "smooth"
-    },
-	fill: {
-		type: 'gradient',
-		gradient: {
-		  shade: 'light',
-		  type: 'vertical',
-		  shadeIntensity: 0.5,
-		  gradientToColors: ['#3461ff'],
-		  inverseColors: false,
-		  opacityFrom: 0.5,
-		  opacityTo: 0.1,
-		 // stops: [0, 100]
+$.ajax({
+	type: "GET",
+	url: "./logic/revenue.php?act=all",
+	// data: "data",
+	// dataType: "dataType",
+	success: function (response) {
+		const revenueList = JSON.parse(response);
+
+		console.log('rev: ', revenueList);
+		
+		for(const [key,value] in revenueList) {
+
 		}
-	},
-	colors: ["#3461ff"],
-    xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    },
-	grid:{
-		show: true,
-		borderColor: 'rgba(66, 59, 116, 0.15)',
-	},
-	responsive: [
-		{
-		  breakpoint: 1000,
-		  options: {
+		
+		var options = {
+	
+			series: [{
+				name: "Revenue",	
+				data: [revenueList['jan'], revenueList['feb'], revenueList['mar'], revenueList['apr'], revenueList['may'], revenueList['jun'], revenueList['july'], revenueList['aug'], revenueList['sep'], revenueList['oct'],revenueList['nov'],revenueList['dec']]
+			}],
 			chart: {
-				type: "area",
+				 type: "area",
 			   // width: 130,
 				stacked: true,
+				height: 280,
+				toolbar: {
+					show: !1
+				},
+				zoom: {
+					enabled: !1
+				},
+				dropShadow: {
+					enabled: 0,
+					top: 3,
+					left: 14,
+					blur: 4,
+					opacity: .12,
+					color: "#3461ff"
+				},
+				sparkline: {
+					enabled: !1
+				}
+			},
+			markers: {
+				size: 0,
+				colors: ["#3461ff"],
+				strokeColors: "#fff",
+				strokeWidth: 2,
+				hover: {
+					size: 7
+				}
+			},
+			grid: {
+				row: {
+					colors: ["transparent", "transparent"],
+					opacity: .2
+				},
+				borderColor: "#f1f1f1"
+			},
+			plotOptions: {
+				bar: {
+					horizontal: !1,
+					columnWidth: "25%",
+					//endingShape: "rounded"
+				}
+			},
+			dataLabels: {
+				enabled: !1
+			},
+			stroke: {
+				show: !0,
+				width: [2.5],
+				//colors: ["#3461ff"],
+				curve: "smooth"
+			},
+			fill: {
+				type: 'gradient',
+				gradient: {
+				  shade: 'light',
+				  type: 'vertical',
+				  shadeIntensity: 0.5,
+				  gradientToColors: ['#3461ff'],
+				  inverseColors: false,
+				  opacityFrom: 0.5,
+				  opacityTo: 0.1,
+				 // stops: [0, 100]
+				}
+			},
+			colors: ["#3461ff"],
+			xaxis: {
+				categories: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
+			},
+			grid:{
+				show: true,
+				borderColor: 'rgba(66, 59, 116, 0.15)',
+			},
+			responsive: [
+				{
+				  breakpoint: 1000,
+				  options: {
+					chart: {
+						type: "area",
+					   // width: 130,
+						stacked: true,
+					}
+				  }
+				}
+			  ],
+			legend: {
+				show: false
+			  },
+			tooltip: {
+				theme: "dark"        
 			}
-		  }
-		}
-	  ],
-	legend: {
-		show: false
-	  },
-    tooltip: {
-        theme: "dark"        
-    }
-  };
+		  };
+		
+		  var chart = new ApexCharts(document.querySelector("#reportSaleByMonths"), options);
+		  chart.render();
+		
+	}
+});
 
-  var chart = new ApexCharts(document.querySelector("#chart5"), options);
-  chart.render();
 
 
   
@@ -963,6 +982,119 @@ var options = {
   var chart = new ApexCharts(document.querySelector("#chart11"), options);
   chart.render();
 
+
+//   Total orders revenue at shop
+
+var options = {
+    series: [{
+        name: "Orders",
+        data: [15, 400, 340, 750, 371, 814, 1055]
+    }],
+    chart: {
+        foreColor: '#9a9797',
+        type: "area",
+        //width: 130,
+        height: 280,
+        toolbar: {
+            show: !1
+        },
+        zoom: {
+            enabled: !1
+        },
+        dropShadow: {
+            enabled: 0,
+            top: 3,
+            left: 15,
+            blur: 4,
+            opacity: .22,
+            color: "#3461ff"
+        },
+        sparkline: {
+            enabled: !1
+        }
+    },
+    markers: {
+        size: 0,
+        colors: ["#3461ff"],
+        strokeColors: "#fff",
+        strokeWidth: 2,
+        hover: {
+            size: 7
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: !1,
+            columnWidth: "35%",
+            endingShape: "rounded"
+        }
+    },
+    dataLabels: {
+        enabled: !1
+    },
+    stroke: {
+        show: !0,
+        width: 3,
+        curve: "straight"
+    },
+    colors: ["#32bfff"],
+    xaxis: {
+        categories: ["1", "2", "3", "4", "5", "6", "7"]
+    },
+	grid:{
+		show: true,
+		borderColor: 'rgba(66, 59, 116, 0.15)',
+	},
+    tooltip: {
+        theme: "dark",
+        fixed: {
+            enabled: !1
+        },
+        x: {
+            show: !1
+        },
+        y: {
+            title: {
+                formatter: function(e) {
+                    return ""
+                }
+            }
+        },
+        marker: {
+            show: !1
+        }
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chartTotalOrders"), options);
+  chart.render();
+
+
+// PIE CHART for summary products
+
+var options = {
+	series: [44, 55, 13, 43, 22],
+	chart: {
+		foreColor: '#9ba7b2',
+		height: 330,
+		type: 'pie',
+	},
+	colors: ["#0d6efd", "#6c757d", "#17a00e", "#f41127", "#ffc107"],
+	labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+	responsive: [{
+		breakpoint: 480,
+		options: {
+			chart: {
+				height: 360
+			},
+			legend: {
+				position: 'bottom'
+			}
+		}
+	}]
+};
+var chart = new ApexCharts(document.querySelector("#productsByCatePieChart"), options);
+chart.render();
 
 
 

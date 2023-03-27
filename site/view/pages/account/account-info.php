@@ -19,14 +19,17 @@ $imgUrl = substr($user['hinh_anh'], 0, 4) == "http" ? $user['hinh_anh'] : "../up
     class="account-img">
 <h5 class="mt-3">Thông tin tài khoản: </h5>
 <ul>
-    <li>
+    <!-- <li>
         Tên đăng nhập: <?php echo $user['tai_khoan']; ?>
-    </li>
+    </li> -->
     <li>
         Họ tên: <?php echo $user['ho_ten']; ?>
     </li>
     <li>
         Địa chỉ: <?php echo $user['diachi']; ?>
+    </li>
+    <li>
+        Công ty: <?php echo $user['congty']; ?>
     </li>
     <li>
         Điện thoại: <?php echo $user['sodienthoai']; ?>

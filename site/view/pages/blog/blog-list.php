@@ -40,20 +40,20 @@
                                 <aside class="widget widget-categories box-shadow">
                                     <h6 class="widget-title border-left mb-20">Categories</h6>
                                     <?php
-                                        $list_catename_blog = get_all_catename_blog();
-                                        foreach ($list_catename_blog as $items) {
-                                            extract($items);
-                                        
-                                    ?>
+$list_catename_blog = get_all_catename_blog();
+foreach ($list_catename_blog as $items) {
+    extract($items);
+
+    ?>
                                     <div id="cat-treeview" class="product-cat">
                                         <ul>
-                                            <li class="closed"><a href="#"><?php echo $items['blog_catename']?></a>
+                                            <li class="closed"><a href="#"><?php echo $items['blog_catename'] ?></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <?php
-                                    }
-                                    ?>
+}
+?>
                                 </aside>
                             </div>
                         </div>
@@ -141,47 +141,47 @@
             </div>
             <div class="row">
                 <!-- blog-item start -->
-                <?php 
-                    $list_blog = get_all_list_blog();
-                    // var_dump($list_blog);
-                    foreach ($list_blog as $blog) {
-                        extract($blog);
-                        $image_list = explode(',', $blog['images']);
-                        foreach ($image_list as $image_item) {
+                <?php
+$list_blog = get_all_list_blog();
+// var_dump($list_blog);
+foreach ($list_blog as $blog) {
+    extract($blog);
+    $image_list = explode(',', $blog['images']);
+    foreach ($image_list as $image_item) {
 
-                            if (substr($image_item, 0, 6) == "thumb-") {
-                                // echo $image_item;
-                                $thumbnail = "../uploads/" . $image_item;
-                                break;
-                            }
-                        }
-                        $conten = mb_substr($blog['noi_dung'],0,100);
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            break;
+        }
+    }
+    $conten = mb_substr($blog['noi_dung'], 0, 100);
 
-                        echo '<div class="col-md-6 boder">
+    echo '<div class="col-md-6 boder">
                         <div class="blog-item-2">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="blog-image">
-                                        <a href="index.php?act=blogdetail&id='.$blog_id.'"><img src="'.$thumbnail.'"
-                                                alt="'.$thumbnail.'"></a>
+                                        <a href="index.php?act=blogdetail&id=' . $blog_id . '"><img src="' . $thumbnail . '"
+                                                alt="' . $thumbnail . '"></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="blog-desc">
-                                        <h5 class="blog-title-2"><a href="index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a>
+                                        <h5 class="blog-title-2"><a href="index.php?act=blogdetail&id=' . $blog_id . '">' . $blog_title . '</a>
                                         </h5>
-                                        <p class="conten_blog">'.$conten.'...</p>
+                                        <p class="conten_blog">' . $conten . '...</p>
                                         <div class="read-more">
-                                            <a href="index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                            <a href="index.php?act=blogdetail&id=' . $blog_id . '">Read more</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>';
-                    }
-                ?>
-                
+}
+?>
+
                 <!-- blog-item end -->
                 <!-- blog-item start -->
                 <!-- <div class="col-md-6">

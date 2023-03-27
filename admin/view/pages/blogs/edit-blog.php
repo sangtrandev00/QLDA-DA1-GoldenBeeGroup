@@ -2,12 +2,13 @@
 <?php
     if(is_array($blog)){
         extract($blog);
+       
     }
     $imgpart ="../uploads/".$images;
     if(is_file($imgpart)){
         $img ="<img src='".$imgpart."' height='120   '>";
     }else{
-
+        $img = "";
     }
 ?>
 <!--start content-->
@@ -55,6 +56,9 @@
                                 <input type="text" name="title" value="<?=$blog_title?>" class="form-control" placeholder="Blog title">
                             </div>
                             <div class="col-12">
+                                <?php
+                                
+                                ?>
                                 <label class="form-label">Thêm hình ảnh</label>
                                 <input class="form-control" name="hinh"type="file"> <br>
                                 <?=$img?>

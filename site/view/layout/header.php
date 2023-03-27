@@ -13,10 +13,15 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
-
+    <!-- font Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- All CSS Files -->
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Data table -->
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <!-- Nivo-slider css -->
     <link rel="stylesheet" href="assets/lib/css/nivo-slider.css">
     <!-- This core.css file contents all plugings css file. -->
@@ -30,16 +35,10 @@
     <!-- User style -->
     <link rel="stylesheet" href="assets/css/custom.css">
 
-    <!-- Style customizer (Remove these two lines please) -->
-    <link rel="stylesheet" href="assets/css/style-customizer.css">
-    <link href="#" data-style="styles" rel="stylesheet">
-    <!-- font Roboto -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+
+
 </head>
 
 <body>
@@ -52,6 +51,22 @@
 
         <!-- START HEADER AREA -->
         <header id="header" class="header-area header-wrapper">
+            <!-- Toast -->
+
+
+            <div class="toast-container position-fixed end-0 p-3 mt-5 ">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div id="toast-content" class="toast-header text-bg-warning">
+                        <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                        <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
+                        <small>1 seconds ago</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Hello, world! This is a toast message.
+                    </div>
+                </div>
+            </div>
             <!-- header-top-bar -->
             <div class="header-top-bar plr-185">
                 <div class="container-fluid">
@@ -73,11 +88,11 @@ if (isset($_SESSION['iduser'])) {
                                                     ' . $_SESSION['ho_ten'] . '
                                                 </a>
                                                 <ul class="top-header-menu__dropdown">
-                                                    <li><a href="index.php?act=settingaccount">Quản lý tài khoản</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Lịch sử đơn hàng</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Thay đổi mật khẩu</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Địa chỉ gửi hàng</a> </li>
-                                                    <li><a href="index.php?act=settingaccount">Phương thức thanh toán</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount">Quản lý tài khoản</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=history">Lịch sử đơn hàng</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=changepass">Thay đổi mật khẩu</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=shippingaddress">Địa chỉ gửi hàng</a> </li>
+                                                    <li><a href="./index.php?act=settingaccount&view=paymentmethod">Phương thức thanh toán</a> </li>
                                                     <li><a href="./index.php?act=logout">Đăng xuất</a></li>
                                                 </ul>
                                             </li>

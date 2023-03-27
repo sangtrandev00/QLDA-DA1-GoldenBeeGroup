@@ -162,6 +162,66 @@ function renderCardShoppage($productList)
     }
 }
 
+function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format)
+{
+    return '
+                                        <form action="./index.php?act=addtocart" method="post">
+                                                <div class="product-item position-relative">
+                                                <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                ' . $item['so_luot_xem'] . ' views
+                                                <span class="visually-hidden">unread messages</span>
+                                                </span>
+                                                <div class="product-img">
+                                                    <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
+                                                        <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
+                                                    </a>
+                                                </div>
+                                                <div class="product-info">
+                                                    <h6 class="product-title">
+                                                        <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
+                                                    </h6>
+                                                    <div class="pro-rating">
+                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                    </div>
+                                                    <h3 class="pro-price"> ' . $price_format . ' VND</h3>
+
+                                                        <ul class="action-button">
+                                                        <li>
+                                                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                            <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
+                                                        </li>
+                                                        <li>
+                                                            <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                                title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                        </li>
+                                                        <li>
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart" data-bs-toggle="modal" data-bs-target="#cartModal" type="submit"  type="submit"  title="Add to cart"><i
+                                                                    class="zmdi zmdi-shopping-cart-plus"></i></button>
+                                                            <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
+                                                        </li>
+
+                                                    </ul>
+
+                                                    <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
+                                                    <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
+                                                    <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
+                                                    <input type="hidden" name="sl" value="1">
+                                                    <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
+                                                    <input type="hidden" name="iddm" value="' . $item['ma_danhmuc'] . '"/>
+                                                    <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
+                                                    <input type="hidden" name="mo_ta" value="' . $item['mo_ta'] . '">
+                                                    <input type="hidden" name="giam_gia" value="' . $item['giam_gia'] . '">
+                                                </div>
+                                            </div>
+                                            </form>
+    ';
+}
+
 function validating($phone)
 {
     if (preg_match('/^[0-9]{10}+$/', $phone)) {
@@ -301,26 +361,25 @@ function showStatus($num)
     return [$trangthai, $statusMess];
 }
 
-function updateorderstatus($iddh, $trangthai)
+function showPayment($num)
 {
-    $sql = "update tbl_order set trangthai = ? where id = ?";
-    $mess = pdo_execute($sql, $trangthai, $iddh);
-    echo $mess;
-    return true;
-}
+    $trangthai = '';
+    $statusMess = '';
 
-function deleteorderdetailbyid($iddh)
-{
-    $sql = "delete from tbl_cart where iddonhang = $iddh;";
-    pdo_execute($sql);
-    return true;
-}
+    switch ($num) {
+        case '0':
+            # code...
+            $trangthai = "Chưa thanh toán";
+            break;
+        case '1':
+            $trangthai = "Đã thanh toán";
+            break;
+        default:
+            # code...
+            break;
+    }
 
-function deleteorderbyid($iddh)
-{
-    $sql = "delete from tbl_order where id = $iddh;";
-    pdo_execute($sql);
-    return true;
+    return $trangthai;
 }
 
 function getthumbnail($image_list)

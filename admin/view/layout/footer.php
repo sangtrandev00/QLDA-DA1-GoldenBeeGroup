@@ -89,7 +89,8 @@
                 </div>
                 <div class="modal-footer">
                     <form action="./index.php?act=deletecart&idcart=" method="post">
-                        <input type="submit" name="actionbtn" class="btn btn-secondary action-btn" value="Tiếp tục" />
+                        <input type="submit" name="actionbtn" class="btn btn-secondary action-btn d-none"
+                            value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn"
                             data-bs-dismiss="modal">Đóng</button>
                     </form>
@@ -129,7 +130,7 @@
 <!--start footer-->
 <footer class="footer">
     <div class="footer-text">
-        Copyright © 2022. All right reserved.
+        GoldenBeeGroup . Make By GoldenBeeGroup Team
     </div>
 </footer>
 <!--end footer-->
@@ -149,15 +150,24 @@
 <script src="assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 <script src="assets/js/pace.min.js"></script>
+
+<!-- Data table -->
+<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
+<script src="assets/js/table-datatable.js"></script>
+
+<!-- Chart -->
 <script src="assets/plugins/chartjs/js/Chart.min.js"></script>
 <script src="assets/plugins/chartjs/js/Chart.extension.js"></script>
-<!-- <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script> -->
+<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+<script src="assets/plugins/apexcharts-bundle/js/apex-custom.js"></script>
+<!-- Slick slider -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 
 <!--app-->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/index.js"></script>
+<!-- <script src="assets/js/index4.js"></script> -->
 <script src="assets/js/pages/common.js"></script>
 
 <!-- Custom javasscript -->
@@ -185,6 +195,7 @@ if (isset($_GET['act'])) {
         case 'productlist':
         case 'updateproduct':
         case 'editproduct':
+        case 'deleteproduct':
             echo '
             <script src="assets/js/pages/product.js"></script>
         ';
@@ -212,16 +223,25 @@ if (isset($_GET['act'])) {
               <script src="assets/js/pages/cart.js"></script>
           ';
             break;
+        case 'orderlist':
+        case 'editorder':
+        case 'deleteorder':
+            echo '
+                <script src="assets/js/pages/order.js"></script>
+            ';
+            break;
         default:
             # code...
             echo '
               <script src="assets/js/pages/home.js"></script>
+              <script src="assets/js/pages/order.js"></script>
           ';
             break;
     }
 } else {
     echo '
       <script src="assets/js/pages/home.js"></script>
+      <script src="assets/js/pages/order.js"></script>
   ';
 }
 ?>

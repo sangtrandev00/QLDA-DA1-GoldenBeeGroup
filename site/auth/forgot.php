@@ -116,16 +116,12 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
 
     if (!$error) {
         if (email_exist($email)) {
-            // if (email_exist_by_username($email, $username)) {
-            $title = "Mã Code lấy lại mật khẩu";
+            $title = "Code Reset Password";
             $messageCode = random_int(100000, 999999);
             $_SESSION['emailreset'] = $email;
             $_SESSION['verifycode'] = $messageCode;
             sendmail($email, $title, $messageCode);
             header("location: ./verify-code.php");
-            // } else {
-            //     echo '<div class="alert alert-danger" >Email của bạn không đúng với tài khoản</div>';
-            // }
         } else {
             echo '<div class="alert alert-danger" >Email của bạn không tồn tại</div>';
         }

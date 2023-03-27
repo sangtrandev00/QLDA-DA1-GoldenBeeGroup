@@ -249,7 +249,153 @@ $(function () {
 	};
 	var chart = new ApexCharts(document.querySelector("#chart4"), options);
 	chart.render();
+
+	// chart totalOrderByWeeks
+
+	const arrayNumberWeeksOfYear = [];
+
+	for (let i = 1; i <= 52; i++) {
+		// const element = array[i];
+		console.log('i', i.toString());
+		arrayNumberWeeksOfYear.push(i.toString());
+	}
+
+	console.log('arrayNumberWeeksOfYear', arrayNumberWeeksOfYear);
+	const arrayNumberDaysOfMonth = [];
+	var options = {
+		series: [
+		// 	{
+		// 	name: 'Net Profit',
+		// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+		// }, 
+		{
+			name: 'Revenue',
+			data: [76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94]
+		},
+		//  {
+		// 	name: 'Free Cash Flow',
+		// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+		// }
+	],
+		chart: {
+			foreColor: '#9ba7b2',
+			type: 'bar',
+			height: 360
+		},
+		plotOptions: {
+			bar: {
+				horizontal: false,
+				columnWidth: '30%',
+				endingShape: 'rounded'
+			},
+		},
+		dataLabels: {
+			enabled: false
+		},
+		stroke: {
+			show: true,
+			width: 1,
+			colors: ['transparent']
+		},
+		title: {
+			text: 'Column Chart',
+			align: 'left',
+			style: {
+				fontSize: '10'
+			}
+		},
+		colors: ["#6184ff", '#3461ff', '#c4d1ff'],
+		xaxis: {
+			categories: arrayNumberWeeksOfYear,
+		},
+		yaxis: {
+			title: {
+				text: '(VND) $'
+			}
+		},
+		fill: {
+			opacity: 1
+		},
+		tooltip: {
+			y: {
+				formatter: function (val) {
+					return val + " VND"
+				}
+			}
+		}
+	};
+	var chart = new ApexCharts(document.querySelector("#totalOrderByWeeks"), options);
+	chart.render();
 	
+
+
+	
+
+	var options = {
+		series: [
+		// 	{
+		// 	name: 'Net Profit',
+		// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+		// }, 
+		{
+			name: 'Revenue',
+			data: [76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114,87, 105, 91, 114]
+		},
+		//  {
+		// 	name: 'Free Cash Flow',
+		// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+		// }
+		],
+		chart: {
+			foreColor: '#9ba7b2',
+			type: 'bar',
+			height: 360
+		},
+		plotOptions: {
+			bar: {
+				horizontal: false,
+				columnWidth: '30%',
+				endingShape: 'rounded'
+			},
+		},
+		dataLabels: {
+			enabled: false
+		},
+		stroke: {
+			show: true,
+			width: 1,
+			colors: ['transparent']
+		},
+		title: {
+			text: 'Column Chart',
+			align: 'left',
+			style: {
+				fontSize: '10'
+			}
+		},
+		colors: ["#6184ff", '#3461ff', '#c4d1ff'],
+		xaxis: {
+			categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9','10', '11', '12', '13', '14', '15', '16', ''],
+		},
+		yaxis: {
+			title: {
+				text: '(VND)'
+			}
+		},
+		fill: {
+			opacity: 1
+		},
+		tooltip: {
+			y: {
+				formatter: function (val) {
+					return val + " VND"
+				}
+			}
+		}
+	};
+		// chart totalOrderByDays
+	var chart = new ApexCharts(document.querySelector("#totalOrderByDays"), options);
+	chart.render();
 	
 	// chart 5
 	var options = {
@@ -441,6 +587,47 @@ $(function () {
 	};
 	var chart = new ApexCharts(document.querySelector("#chart8"), options);
 	chart.render();
+
+	// chart productsByCatePieChart
+
+	$.ajax({
+		type: "GET",
+		url: "./logic/category.php?act=productsbycate",
+		// data: "data",
+		// dataType: "dataType",
+		success: function (response) {
+			const reportProduct = JSON.parse(response);
+			console.log('report: ', reportProduct);
+			const cateNames = reportProduct.map((report) => report['ten_danhmuc']);
+			const numberProductsOfCate = reportProduct.map((report) => +report['sl_sp']);
+
+			console.log('list', cateNames, numberProductsOfCate);
+			var options = {
+				series: numberProductsOfCate,
+				chart: {
+					foreColor: '#9ba7b2',
+					height: 330,
+					type: 'pie',
+				},
+				colors: ["#0d6efd", "#6c757d", "#17a00e", "#f41127", "#ffc107"],
+				labels: cateNames,
+				responsive: [{
+					breakpoint: 480,
+					options: {
+						chart: {
+							height: 360
+						},
+						legend: {
+							position: 'bottom'
+						}
+					}
+				}]
+			};
+			var chart = new ApexCharts(document.querySelector("#productsByCatePieChart"), options);
+			chart.render();
+		}
+	});
+	
 	
 	
 	// chart 9

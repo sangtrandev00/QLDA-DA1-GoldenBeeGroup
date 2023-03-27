@@ -133,6 +133,10 @@
 $cate_list = cate_select_all();
 // var_dump($cate_list);
 
+$cate_list = array_filter($cate_list, function ($cate_item) {
+    return $cate_item['ma_danhmuc'] != 0;
+});
+
 foreach ($cate_list as $cate_item) {
     # code...
     echo '
@@ -198,8 +202,12 @@ foreach ($featured_products as $item) {
     # code...
     echo '
                         <form action="./index.php?act=addtocart" method="post">
-                                <div class="product-item">
+                                <div class="product-item position-relative">
                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                ' . $item['so_luot_xem'] . ' views
+                                                <span class="visually-hidden">unread messages</span>
+                                </span>
                                     <div class="product-img">
                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                             <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
@@ -217,7 +225,6 @@ foreach ($featured_products as $item) {
                                             <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                         </div>
                                         <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-
                                             <ul class="action-button">
                                                 <li>
                                                     <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -227,7 +234,6 @@ foreach ($featured_products as $item) {
                                                     <a product-id="' . $item['masanpham'] . '" class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
                                                         title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                 </li>
-
                                                 <li>
                                                     <button onclick="' . $addcartfunc . '" class="add-to-cart" title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></button>
@@ -349,7 +355,7 @@ foreach ($featured_products as $item) {
 // B1: KET NOI CSDL
 $conn = connectdb();
 
-$sql = "SELECT * FROM tbl_sanpham"; // Total Product
+$sql = "SELECT * FROM tbl_sanpham order by so_luot_xem desc"; // Total Product
 $_limit = 12;
 $pagination = createDataWithPagination($conn, $sql, $_limit);
 $product_list = $pagination['datalist'];
@@ -383,8 +389,12 @@ foreach ($product_list as $item) {
     echo '
                                         <div class="col-lg-3 col-md-4">
                                         <form action="./index.php?act=addtocart" method="post">
-                                                <div class="product-item">
+                                                <div class="product-item position-relative">
                                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                ' . $item['so_luot_xem'] . ' views
+                                                <span class="visually-hidden">unread messages</span>
+                                                </span>
                                                 <div class="product-img">
                                                     <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
@@ -402,7 +412,6 @@ foreach ($product_list as $item) {
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-
                                                         <ul class="action-button">
                                                         <li>
                                                             <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -417,9 +426,7 @@ foreach ($product_list as $item) {
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
-
                                                     </ul>
-
                                                     <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
                                                     <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
                                                     <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
@@ -453,7 +460,7 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
     }
 }
 
@@ -518,8 +525,12 @@ foreach ($product_list as $item) {
     echo '
                                         <div class="col-lg-3 col-md-4">
                                         <form action="./index.php?act=addtocart" method="post">
-                                                <div class="product-item">
+                                                <div class="product-item position-relative">
                                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                ' . $item['so_luot_xem'] . ' views
+                                                <span class="visually-hidden">unread messages</span>
+                                                </span>
                                                 <div class="product-img">
                                                     <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
@@ -537,7 +548,6 @@ foreach ($product_list as $item) {
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-
                                                         <ul class="action-button">
                                                         <li>
                                                             <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -548,13 +558,11 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
-
                                                     </ul>
-
                                                     <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
                                                     <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
                                                     <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
@@ -595,7 +603,7 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
     }
 }
 
@@ -615,7 +623,7 @@ if ($current_page < $total_page && $total_page > 1) {
                             <div class="row">
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/12.jpg" alt="" />
@@ -655,7 +663,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/11.jpg" alt="" />
@@ -695,7 +703,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/10.jpg" alt="" />
@@ -735,7 +743,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/8.jpg" alt="" />
@@ -775,7 +783,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/1.jpg" alt="" />
@@ -815,7 +823,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/2.jpg" alt="" />
@@ -855,7 +863,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/3.jpg" alt="" />
@@ -895,7 +903,7 @@ if ($current_page < $total_page && $total_page > 1) {
                                 <!-- product-item end -->
                                 <!-- product-item start -->
                                 <div class="col-lg-3 col-md-4">
-                                    <div class="product-item">
+                                    <div class="product-item position-relative">
                                         <div class="product-img">
                                             <a href="index.php?act=detailproduct">
                                                 <img src="assets/img/product/4.jpg" alt="" />
@@ -991,8 +999,12 @@ foreach ($product_list as $item) {
     echo '
                                         <div class="col-lg-3 col-md-4">
                                         <form action="./index.php?act=addtocart" method="post">
-                                                <div class="product-item">
+                                                <div class="product-item position-relative">
                                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                ' . $item['so_luot_xem'] . ' views
+                                                <span class="visually-hidden">unread messages</span>
+                                                </span>
                                                 <div class="product-img">
                                                     <a onclick="' . $addwishlistfunc . '" href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
@@ -1010,7 +1022,6 @@ foreach ($product_list as $item) {
                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-
                                                         <ul class="action-button">
                                                         <li>
                                                             <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
@@ -1021,13 +1032,11 @@ foreach ($product_list as $item) {
                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                         </li>
                                                         <li>
-                                                            <button class="add-to-cart"  type="submit"  type="submit"  title="Add to cart"><i
+                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart" type="submit"  type="submit"  title="Add to cart"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
                                                         </li>
-
                                                     </ul>
-
                                                     <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
                                                     <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
                                                     <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
@@ -1104,26 +1113,26 @@ if ($current_page < $total_page && $total_page > 1) {
                     <div class="blog">
                         <div class="active-blog slick-arrow-1">
                             <?php
-                                $list_newblog_home = get_all_new_blog_home();
-                                foreach ($list_newblog_home as $newblog) {
-                                    extract($newblog);
-                                    $image_list = explode(',', $newblog['images']);
-                                    foreach ($image_list as $image_item) {
+$list_newblog_home = get_all_new_blog_home();
+foreach ($list_newblog_home as $newblog) {
+    extract($newblog);
+    $image_list = explode(',', $newblog['images']);
+    foreach ($image_list as $image_item) {
 
-                                        if (substr($image_item, 0, 6) == "thumb-") {
-                                            // echo $image_item;
-                                            $thumbnail = "../uploads/" . $image_item;
-                                            break;
-                                        }
-                                    }
-                                    $conten = mb_substr($newblog['noi_dung'],0,100);
-                                    echo '<div class="blog-item">
-                                    <img style="width: 365px; height: 265px;" src="'.$thumbnail.'" alt="lastest-blog-1.jpg">
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            break;
+        }
+    }
+    $conten = mb_substr($newblog['noi_dung'], 0, 100);
+    echo '<div class="blog-item">
+                                    <img style="width: 365px; height: 265px;" src="' . $thumbnail . '" alt="lastest-blog-1.jpg">
                                     <div class="blog-desc">
-                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id='.$blog_id.'">'.$blog_title.'</a></h5>
-                                        <p>'.$conten.'...</p>
+                                        <h5 class="blog-title"><a href="./index.php?act=blogdetail&id=' . $blog_id . '">' . $blog_title . '</a></h5>
+                                        <p>' . $conten . '...</p>
                                         <div class="read-more">
-                                            <a href="./index.php?act=blogdetail&id='.$blog_id.'">Read more</a>
+                                            <a href="./index.php?act=blogdetail&id=' . $blog_id . '">Read more</a>
                                         </div>
                                         <ul class="blog-meta">
                                             <li>
@@ -1138,8 +1147,8 @@ if ($current_page < $total_page && $total_page > 1) {
                                         </ul>
                                     </div>
                                 </div>';
-                                }
-                            ?>
+}
+?>
                         </div>
                     </div>
                 </div>

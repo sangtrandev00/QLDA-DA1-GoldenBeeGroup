@@ -5,18 +5,33 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
 include $ROOT_URL . "./admin/models/category.php";
 include $ROOT_URL . "./DAO/category.php";
+
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $cate_item = cate_select_by_id($id);
+    // $image_list = explode(',', $product_item['images']);
+    $image = $cate_item['hinh_anh'];
+}
 ?>
 
 
 <form id="cate-form" action="./index.php?act=addcate" method="POST" class="row g-3 form-cate"
     enctype="multipart/form-data">
+    <input type="hidden" name="id" value="">
     <div class="col-12">
         <label class="form-label">Tên danh mục</label>
-        <input type="text" class="form-control" name="catename" placeholder="Tên danh mục">
+        <input type="text" class="form-cocntrol" name="catename" placeholder="Tên danh mục">
+        <p class="error-message"><?php if (isset($error['catename'])) {echo $error['catename'];}?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Hình ảnh</label>
         <input type="file" class="form-control" name="cateimage" accept="image/png, image/jpeg" placeholder="Hình ảnh">
+        <?php if (isset($error['catename'])) {echo $error['catename'];}?>
+    </div>
+    <div class="col-12">
+        <label for=""></label>
+        <img src="..uploads/<?php if (isset($image)) {echo $image;}?>" style="" class="w-100 cate-img"
+            alt="<?php if (isset($image)) {echo $image;}?>">
     </div>
     <div class="col-12">
         <label class="form-label">Danh mục cha</label>

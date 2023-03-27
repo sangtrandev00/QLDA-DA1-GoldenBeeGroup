@@ -1,3 +1,12 @@
+<?php
+ob_start();
+session_start();
+include "../models/connectdb.php";
+include "../models/user.php";
+include "../../pdo-library.php";
+include "../../DAO/user.php";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -51,17 +60,18 @@
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Quên mật khẩu</h5>
                                     <p class="card-text mb-5">Hãy nhập địa chỉ email của bạn để lấy lại mật khẩu</p>
-                                    <form class="form-body">
+                                    <form class="form-body" action="./forgot.php" method="post">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Email</label>
                                                 <input type="email" class="form-control radius-30" id="inputEmailid"
-                                                    placeholder="Email">
+                                                    placeholde r="Email" required name="email">
+                                                    <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
-                                                    <button type="submit" class="btn btn-primary radius-30 bg-guii">Gửi
-                                                    </button>
+                                                <input type="submit" name="forgotbtn"
+                                                        class="btn btn-primary radius-30 bg-guii" value="Gửi" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại
                                                         đăng nhập</a>
                                                 </div>
@@ -89,3 +99,27 @@
 </body>
 
 </html>
+<?php
+if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
+    $email = $_POST['email'];
+
+    // Validate
+
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+
+    if (!$error) {
+        if (email_exist($email)) {
+            $title = "Code Reset Password";
+            $messageCode = random_int(100000, 999999);
+            $_SESSION['emailreset'] = $email;
+            $_SESSION['verifycode'] = $messageCode;
+            sendmail($email, $title, $messageCode);
+            header("location: ./verify-code.php");
+        } else {
+            echo '<div class="alert alert-danger" >Email của bạn không tồn tại</div>';
+        }
+    }
+}
+?>

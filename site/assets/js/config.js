@@ -22,6 +22,28 @@ function getParent(element, selector) {
     }
 }
 
+function showToast(toastTitle, toastMessage) {
+    const toastBtn = document.getElementById("liveToastBtn");
+    if(!toastBtn) return;
+    toastBtn.click();
+
+    const toastElement = document.getElementById("liveToast");
+    toastElement.querySelector("#toast-content-header").textContent = toastTitle;
+    toastElement.querySelector(".toast-body").textContent = toastMessage;
+}
+
+const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+if (toastTrigger) {
+toastTrigger.addEventListener('click', () => {
+  const toast = new bootstrap.Toast(toastLiveExample)
+  toast.show()
+})
+}
+
+// const toast = new bootstrap.Toast(toastLiveExample)
+//   toast.show()
+
 // const handleAddCart = (cartBtnSelector, formAction) => {
 //     const handleCartBtns = document.querySelectorAll(cartBtnSelector);
 //     [...handleCartBtns].forEach((btn) => {
@@ -57,7 +79,6 @@ function handleAddCart (actionForm, logicType){
             const danhmuc = formElement.elements['danhmuc'].value;
             const hinh_anh = formElement.elements['hinh_anh'].value;
 
-
             console.log(productId, sl, tensp, danhmuc, hinh_anh);
             // return;
             console.log('action: ', actionForm);
@@ -73,22 +94,33 @@ function handleAddCart (actionForm, logicType){
                     hinh_anh: hinh_anh,
                 },
                 // dataType: "dataType",
-                success: function (responseHtml) {
-
+                success: function (response) {
+                    const {status, content} = JSON.parse(response);
+                    console.log('res', status, content);
                     // $('body').html(response);
-
+                    const cartModalBtn = document.getElementById("cartModalBtn");
                     if(logicType == 'buynow') {
-                        location.assign("index.php?act=viewcart");
-                        // console.log('go here buy now!');
-                        return;
+                        if(status == 1) {
+                            location.assign("index.php?act=viewcart");
+                        }else if(status == 0) {
+                            cartModalBtn.click();
+                            $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                            $("#cartModal .modal-body").text(`${content}, vào xem giỏ hàng`);  
+                         
+                            // $("#cartModal input[name='actionbtn']").addClass("d-none");
+                        }
+                        
+                        
+                        
+                        // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
-                            $.get('./logic/topwishlist.php', function(responseHtml) {
-                                console.log('res: ', responseHtml);
+                            $.get('./logic/topwishlist.php', function(response) {
+                                console.log('res: ', response);
 
-                                $("#topWishlist").html(responseHtml);
+                                $("#topWishlist").html(response);
                             })
-                            const cartModalBtn = document.getElementById("cartModalBtn");
+
 
                             console.log('cartModalBtn: ', cartModalBtn);
          
@@ -108,28 +140,30 @@ function handleAddCart (actionForm, logicType){
 
                             return;
                     }else if(logicType == 'addcart') {
-                        console.log('res: ', responseHtml);
-                        // $("#header").html(responseHtml);
-                        $.get("./logic/topcart.php", function(responseHtml) {
-                            $("#topHeaderCart").html(responseHtml);
-                            // console.log('res: ', responseHtml);
-                        });
-    
-    
-                       const cartModalBtn = document.getElementById("cartModalBtn");
-    
-                       console.log('cartModalBtn: ', cartModalBtn);
+                       
                         
-                    //    console.log('modalHeader: ', $("#cartModalLabel"))
-                       $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
-                       $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
-    
-                       $("#cartModal input[name='actionbtn']").click(function(e) {
-                        e.preventDefault();
-    
-                        location.assign("./index.php?act=viewcart");
-                       })
-                       cartModalBtn.click();
+                        // console.log('cartModalBtn: ', cartModalBtn);
+                        $("#cartModal input[name='actionbtn']").click(function(e) {
+                            e.preventDefault();
+        
+                            location.assign("./index.php?act=viewcart");
+                           })
+                           cartModalBtn.click();
+                       
+                        if(status == 1) {
+                            // Load Top Header Cart
+                            $.get("./logic/topcart.php", function(content) {
+                                $("#topHeaderCart").html(content);
+                            });
+
+                            $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
+                            $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
+         
+                        }else if(status == 0) {
+                            // Show Error message
+                            $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                            $("#cartModal .modal-body").text(`${content}, vào xem giỏ hàng`);     
+                        }
                
                     }
 
@@ -193,6 +227,68 @@ function handleDeleteCart(idcart) {
                             $("#notify-update-cart").removeClass("d-none");
                         } 
                         $("#notify-update-cart").text(`Sản phẩm ${tensp} đã được xóa khỏi giỏ hàng!`);
+                    })
+
+                  
+                    // console.log('removed cart', $("#notify-update-cart"));
+
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    })
+
+}
+
+function handleDeleteWishlist(idWishlist) {
+    event.preventDefault();
+    console.log('this: ', event.currentTarget);
+    console.log('id: ', idWishlist);
+    console.log('tensp: ', event.currentTarget.getAttribute('data-name'));
+    const tensp = event.currentTarget.getAttribute('data-name');
+    
+    $("#cartModalBtn").trigger("click");
+
+    $("#cartModalLabel").text(`Xóa sản phẩm ${tensp} khỏi danh sách yêu thích`);
+    $("#cartModal .modal-body").text(`Bạn có muốn xóa sản phẩm ${tensp} danh sách yêu thích hay không ? Có chọn tiếp tục không chọn đóng`);
+
+
+    $("#cartModal .continue-btn").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "./logic/cart.php?act=deletewishlist",
+            data: {id: idWishlist},
+            // dataType: 'json',
+            success: function (response, statusText) {
+                    console.log('res: ', response);
+                    // $("#cartModalBtn").trigger("click");
+                    // $("#cartModal .modal-header").text(`Bạn đã xóa sản phẩm thành công`)
+                    // $("#table-content-wrapper").html(response);
+
+                    // alert(JSON.parse(response));
+
+                    $("#cartModalBtn").trigger("click");
+
+                    // $.get("./logic/header.php", function(reponseHtml) {
+                    //     console.log('html: ', reponseHtml);
+                    //     $("#header").html(reponseHtml);
+                    // })
+
+                    $.get("./logic/topwishlist.php", function(responseHtml) {
+                        $("#topWishlist").html(responseHtml);
+                        // console.log('res: ', responseHtml);
+                    });
+
+                    $.get('./logic/wishlist-table-content.php', function(reponseHtml) {
+                        console.log('html: ', reponseHtml);
+                        $("#wishlist").html(reponseHtml);
+
+                        // if($("#notify-update-cart").hasClass("d-none")) {
+                        //     $("#notify-update-cart").removeClass("d-none");
+                        // } 
+                        // $("#notify-update-cart").text(`Sản phẩm ${tensp} đã được xóa khỏi giỏ hàng!`);
                     })
 
                   
@@ -293,12 +389,111 @@ const zoomProductDetail = () => {
 //     })
 // })
 
+$.ajax({
+            type: "POST",
+            url: SITE_URL+ "/view/pages/account/table-order-database.php",
+            // data: "data",
+            // dataType: "dataType",
+            success: function (response) {
+                // console.log('res: ', response);
+                    const {order_list} = JSON.parse(response);
+                    console.log('list: ', order_list);
+                    var table = $('#table-history-order').DataTable({
+                        data: order_list,
+                        retrieve: true,
+                        lengthChange: false,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
+                    });
+
+                    table.buttons().container()
+                    .appendTo( '#table-history-order_wrapper .col-md-12' );
+
+                    table.column('0:visible').order('desc').draw();
+            }
+        });
 
 
+function showOrder() {
+    $.ajax({
+        type: "POST",
+        url: SITE_URL+ "/view/pages/account/table-order-database.php",
+        // data: "data",
+        // dataType: "dataType",
+        success: function (response) {
+            // console.log('res: ', response);
+                const {order_list} = JSON.parse(response);
+                console.log('list: ', order_list);
+                var table = $('#table-history-order').DataTable({
+                    data: order_list,
+                    retrieve: true,
+                    lengthChange: false,
+                    buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                    "ordering":true,
+                });
+
+                table.buttons().container()
+                .appendTo( '#table-history-order_wrapper .col-md-12' );
+
+                table.column('0:visible').order('desc').draw();
+        }
+    });
+}
+
+// Call GHN API
+// GET all Province
+$.ajax({
+    type: "GET",
+    url: "url",
+    data: "data",
+    dataType: "dataType",
+    success: function (response) {
+        
+    }
+});
+// [GET] all district
+// [GET] all 
 
 
 (() => {
     zoomProductDetail();
     // handleAddCart('.add-to-cart', 'addtocart');
     // handleAddCart('.add-to-wishlist', 'addtowishlist');
+
+    const url = new URL(location.href);
+
+    // console.log('url', url.searchParams.get('act'));
+    // console.log('url', url.searchParams.get('view'));
+    if(url.searchParams.get('act') == 'settingaccount') {
+    
+        switch (url.searchParams.get('view')) {
+            case 'history':
+                // console.log('Hello history order!!!');
+                  document.getElementById('historyOrderBtn').click();
+                break;
+            case 'changepass':
+                    // console.log('Hello history order!!!');
+                  document.getElementById('changePassBtn').click();
+                break;
+            case 'shippingaddress':
+                    // console.log('Hello history order!!!');
+                    document.getElementById('shippingAddressBtn').click();
+                break;
+            case 'paymentmethod':
+                    // console.log('Hello history order!!!');
+                    document.getElementById('paymentMethodBtn').click();
+                break;
+            // case 'history':
+            //         console.log('Hello history order!!!');
+            //     break;
+            // case 'history':
+            //         console.log('Hello history order!!!');
+            //     break;
+        
+            default:
+
+                break;
+        }
+    }
+   
 })();

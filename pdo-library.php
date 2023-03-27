@@ -7,7 +7,7 @@ function pdo_get_connection()
     $password = "";
 
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=duan1_database", $username, $password);
+        $conn = new PDO("mysql:host=$servername;dbname=duan1_database;charset=utf8", $username, $password);
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // echo "Connected successfully";
@@ -128,7 +128,7 @@ function sendmail($recipient_mail, $title, $message)
         $mail->isHTML(true); // Set email format to HTML
         $mail->Subject = $title;
         $mail->Body = $message;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->AltBody = '';
         $mail->send();
         echo 'Message has been sent';
     } catch (Exception $e) {

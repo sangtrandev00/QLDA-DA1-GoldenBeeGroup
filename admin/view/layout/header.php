@@ -13,13 +13,14 @@
     <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
     <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
 
+    <!-- Data table -->
+    <link href="assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+
     <!-- Bootstrap CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/bootstrap-extended.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/icons.css" rel="stylesheet">
-
-
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -33,8 +34,6 @@
     <link href="assets/css/semi-dark.css" rel="stylesheet" />
     <link href="assets/css/header-colors.css" rel="stylesheet" />
 
-
-    <!-- Post styles -->
 
     <!-- Slider -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -50,12 +49,12 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <title>GoldenBeeGroup - Bootstrap 5 Admin Template</title>
     <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/k2m4sc5jqh89t3qkeh7zuxw8frzsdjp5ugstbkb6mf2iepql/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/k2m4sc5jqh89t3qkeh7zuxw8frzsdjp5ugstbkb6mf2iepql/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-            selector: '.blognoidung'
-        });
-        
+    tinymce.init({
+        selector: '.blognoidung'
+    });
     </script>
 </head>
 
@@ -71,7 +70,7 @@
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div id="toast-content" class="toast-header text-bg-warning">
                     <!-- <img src="..." class="rounded me-2" alt="..."> -->
-                    <strong id="toast-content" class="me-auto">Bootstrap</strong>
+                    <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
                     <small>1 seconds ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
