@@ -1,9 +1,9 @@
 
 function viewOrderdetail(orderId) {
+
         // event.preventDefault();     
 
         // console.log('clicked, ', orderId);
-
 
         $.ajax({
             type: "POST",

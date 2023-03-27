@@ -21,6 +21,9 @@ include "$ROOT_URL" . "/global.php";
 
 // var_dump($_POST);
 $orderInfo = getorderinfo($_POST['id']);
+// var_dump($_POST);
+// var_dump($orderInfo);
+// exit;
 $cartList = get_order_and_detail($_POST['id']);
 // $orderInfo = getorderinfo($_GET['id']);
 // var_dump($orderInfo);

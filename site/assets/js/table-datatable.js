@@ -22,7 +22,6 @@ $(function() {
 
                     table.buttons().container()
                     .appendTo( '#table-history-order_wrapper .col-md-12' );
-
                     table.column('0:visible').order('desc').draw();
             }
         });

@@ -54,10 +54,20 @@ function get_order_and_detail($iddh)
     return $kq;
 }
 
+function getorderinfowithvnpay($iddh)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT od.id as id, madonhang, tongdonhang, pttt, iduser, name, dienThoai, email, address, ghichu, timeorder, trangthai, thanhtoan FROM tbl_order od inner join tbl_vnpay vnpay on od.id = vnpay.order_id WHERE od.id = " . $iddh);
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    return $kq;
+}
+
 function getorderinfo($iddh)
 {
     $conn = connectdb();
-    $stmt = $conn->prepare("SELECT * FROM tbl_order od inner join tbl_vnpay vnpay on od.id = vnpay.order_id WHERE id = " . $iddh);
+    $stmt = $conn->prepare("SELECT * FROM tbl_order where id = '$iddh'");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetch();

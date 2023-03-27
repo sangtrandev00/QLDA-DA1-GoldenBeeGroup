@@ -150,7 +150,7 @@ if (isset($_SESSION['iduser'])) {
                     // }
                 }
 
-                include "./view/pages/products/product-list.php";
+                include "./view/pages//product-list.productsphp";
                 break;
             case 'addproduct':
                 $error = array();
