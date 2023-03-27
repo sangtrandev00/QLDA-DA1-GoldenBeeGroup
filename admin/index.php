@@ -21,6 +21,8 @@ echo '<div class="d-flex">';
 include "./view/components/sidebar/sidebar.php";
 // SIDEBAR SECTION
 include "./view/layout/breadcrumb.php";
+
+$GLOBALS['inventory_cart'] = "Vượt quá số lượng tồn kho";
 if (isset($_SESSION['iduser'])) {
     // var_dump($_SESSION);
     if (isset($_GET['act'])) {

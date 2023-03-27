@@ -122,7 +122,7 @@
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
                             <p>Phản hồi</p>
-                            <h4 class="">25.8K</h4>
+                            <h4 class="">0</h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
@@ -133,7 +133,7 @@
             </div>
         </div>
         <!-- Total phản hồi -->
-        <div class="col">
+        <!-- <div class="col">
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
@@ -141,17 +141,13 @@
                             <p>Số người dùng</p>
                             <h4 class="">25.8K</h4>
                         </div>
-                        <!-- <div class="w-50">
-                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
-                            <div id="chart4"></div>
-                        </div> -->
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="row">
-        <div class="col-12 col-lg-6 d-flex">
+        <div class="col-12 col-lg-12 d-flex">
             <div class="card rounded-4 w-100">
                 <div class="card-header bg-transparent border-0">
                     <div class="row g-3 align-items-center">
@@ -352,7 +348,7 @@ foreach ($top_sold_products as $product) {
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-6 d-flex">
+        <!-- <div class="col-12 col-lg-6 d-flex">
             <div class="card rounded-4 w-100 overflow-hidden">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
@@ -385,7 +381,7 @@ foreach ($top_sold_products as $product) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <!--end row-->
 
@@ -418,7 +414,7 @@ foreach ($top_sold_products as $product) {
     </div>
     <!--end row-->
 
-    <h6 class="mb-0 text-uppercase">Doanh thu theo tuần</h6>
+    <!-- <h6 class="mb-0 text-uppercase">Doanh thu theo tuần</h6>
     <hr />
     <div class="card">
         <div class="card-body">
@@ -432,7 +428,7 @@ foreach ($top_sold_products as $product) {
         <div class="card-body">
             <div id="totalOrderByDays"></div>
         </div>
-    </div>
+    </div> -->
 
     <h6 class="mb-0 text-uppercase">Thống kê sản phẩm theo danh mục</h6>
     <hr />

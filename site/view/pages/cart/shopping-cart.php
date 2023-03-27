@@ -1,3 +1,10 @@
+<?php
+// echo $GLOBALS['inventory_cart'];
+// var_dump($GLOBALS);
+
+// var_dump($_ENV);
+?>
+
 <!-- BREADCRUMBS SETCTION START -->
 <div class="breadcrumbs-section plr-200 mb-80 section">
     <div class="breadcrumbs overlay-bg">
@@ -58,6 +65,10 @@
                     <div class="tab-content">
                         <!-- shopping-cart start -->
                         <div class="tab-pane active" id="shopping-cart">
+                            <?php
+$cart_list = $_SESSION['giohang'];
+if (count($cart_list) > 0) {
+    ?>
                             <div class="shopping-cart-content">
                                 <form action="#">
 
@@ -75,19 +86,31 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-$cart_list = $_SESSION['giohang'];
-$i = 0;
-$subtotal = 0;
-foreach ($cart_list as $cart_item) {
-    # code...
-    $price_item = number_format($cart_item['don_gia']);
-    $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
-    // echo $cart_item['sl'] * $cart_item['don_gia'];
-    $id = $cart_item['id'];
-    $delcartfunc = "handleDeleteCart($id)";
 
-    $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
-    echo '
+    $i = 0;
+    $subtotal = 0;
+    $error = array();
+    foreach ($cart_list as $cart_item) {
+        # code...
+        $price_item = number_format($cart_item['don_gia']);
+        $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
+        // echo $cart_item['sl'] * $cart_item['don_gia'];
+
+        $id = $cart_item['id'];
+
+        $delcartfunc = "handleDeleteCart($id)";
+        $current_product = product_select_by_id($id);
+        // if ($cart_item['sl'] > $current_product['ton_kho']) {
+        //     $error['inventory'] = "Vượt quá sl tồn kho";
+        //     $reload_btn = '<button class="btn btn-outline-danger">Reload</button>';
+        // } else {
+        //     $error['inventory'] = "";
+        //     $reload_btn = "";
+        // }
+
+        $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
+
+        echo '
                                                         <!-- tr -->
                                                         <tr class="product-item__row" data-id="' . $cart_item['id'] . '">
                                                                 <td class="product-thumbnail">
@@ -114,9 +137,9 @@ foreach ($cart_list as $cart_item) {
                                                                 </td>
                                                             </tr>
                                                         ';
-    $i++;
-}
-?>
+        $i++;
+    }
+    ?>
 
                                             </tbody>
 
@@ -191,7 +214,14 @@ foreach ($cart_list as $cart_item) {
                                     </div>
                                 </form>
                             </div>
+                            <?php
+
+} else {
+    echo '<div class="alert alert-danger text-center">Giỏ hàng rỗng, <a class="btn btn-outline-danger" href="./index.php?act=shop">Mua hàng ngay</a></div>';
+}
+?>
                         </div>
+
                         <!-- shopping-cart end -->
                         <!-- wishlist start -->
                         <div class="tab-pane" id="wishlist">
