@@ -283,7 +283,7 @@ if (isset($_GET['act'])) {
                 $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $time_order = date('Y-m-d h:i:s', time());
+                $time_order = date('Y-m-d H:i:s', time());
 
                 $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
                 $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
@@ -383,7 +383,7 @@ if (isset($_GET['act'])) {
 
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-                    $time_order = date('Y-m-d h:i:s', time());
+                    $time_order = date('Y-m-d H:i:s', time());
 
                     // 2.validate php server
                     if (empty($hoten)) {
@@ -968,7 +968,7 @@ if (isset($_GET['act'])) {
             //         }
             //         // else{
             //         //     $_SESSION['error'] = 'Đăng Nhập Để Bình Luận';
-            //         //     header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+            //         //     header('location: index.php?act=blogdetail&id='.$idblog.'');
             //         // }
             //     endif;
 
@@ -983,10 +983,10 @@ if (isset($_GET['act'])) {
                 $makh = $_SESSION['iduser'];
                 if (isset($_SESSION['iduser'])) {
                     comment_blog($makh, $content, $idblog, $date);
-                    // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                    // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $idblog . '');
+                    header('location: index.php?act=blogdetail&id=' . $idblog . '');
                 }
             }
             include "./view/pages/blog/blog-detail.php";
@@ -994,7 +994,7 @@ if (isset($_GET['act'])) {
         case 'deletecmt':
             $id = $_GET['idblog'] ? $_GET['idblog'] : '';
             deletecmt($id);
-            header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $_GET['idprofile'] . '');
+            header('location: index.php?act=blogdetail&id=' . $_GET['idprofile'] . '');
             break;
 
         // Thanh toan
