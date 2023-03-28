@@ -124,14 +124,14 @@ function updatepass($iduser, $newpass)
     $conn = null;
 }
 
-function update_shipping_address($iduser, $shipping_address)
+function update_shipping_address($iduser, $province_id, $district_id, $ward_id, $detail_address)
 {
     try {
         $conn = connectdb();
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "UPDATE tbl_nguoidung SET ship_address='$shipping_address'  WHERE id=" . $iduser;
+        $sql = "UPDATE tbl_shipping SET province_id='$province_id', district_id='$district_id', ward_id='$ward_id', detail_address='$detail_address' WHERE id_user=" . $iduser;
 
         // Prepare statement
         $stmt = $conn->prepare($sql);

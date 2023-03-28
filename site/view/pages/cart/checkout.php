@@ -335,61 +335,145 @@ if (isset($_SESSION['iduser'])) {
     $iduser = $_SESSION['iduser'];
     // echo $iduser;
     $curr_user = user_select_by_id($iduser);
-
+    $shipping = shipping_select_by_iduser($iduser);
+    // $_SESSION['shipping'] = $shipping;
+    // var_dump($shipping);
     // var_dump($curr_user);
 }
 ?>
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
-                                                    <p class="error-message text-danger mb-0">
-                                                        <?php if (isset($error['hoten'])) {echo $error['hoten'];}?></p>
-                                                    <input type="text" name="name"
-                                                        value="<?php echo $curr_user['ho_ten']; ?>"
-                                                        placeholder="Tên của bạn ...">
-                                                    <p class="error-message text-danger mb-0">
-                                                        <?php if (isset($error['email'])) {echo $error['email'];}?></p>
-                                                    <input type="text" name="email"
-                                                        value="<?php echo $curr_user['email']; ?>"
-                                                        placeholder="Địa chỉ email...">
-                                                    <p class="error-message text-danger mb-0">
-                                                        <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
-                                                    <input type="text" name="phone"
-                                                        value="<?php echo $curr_user['sodienthoai']; ?>"
-                                                        placeholder="Số điện thoại...">
-                                                    <p class="error-message text-danger mb-0"></p>
-                                                    <input type="text" name="company"
-                                                        value="<?php echo $curr_user['congty']; ?>"
-                                                        placeholder="Tên công ty...">
 
-                                                    <!-- <select class="custom-select">
-                                                        <option value="defalt">country</option>
-                                                        <option value="c-1">Australia</option>
-                                                        <option value="c-2">Bangladesh</option>
-                                                        <option value="c-3">Unitd States</option>
-                                                        <option value="c-4">Unitd Kingdom</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Tỉnh</option>
-                                                        <option value="c-1">Melbourne</option>
-                                                        <option value="c-2">Dhaka</option>
-                                                        <option value="c-3">New York</option>
-                                                        <option value="c-4">London</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Thành phố</option>
-                                                        <option value="c-1">Victoria</option>
-                                                        <option value="c-2">Chittagong</option>
-                                                        <option value="c-3">Boston</option>
-                                                        <option value="c-4">Cambridge</option>
-                                                    </select> -->
-                                                    <p class="error-message text-danger mb-0">
-                                                        <?php if (isset($error['address'])) {echo $error['address'];}?>
-                                                    </p>
-                                                    <textarea name="address" class="custom-textarea shipping-address"
-                                                        placeholder="Địa chỉ của bạn..."><?php echo $curr_user['ship_address']; ?></textarea>
-                                                    <p class="error-message text-danger mb-0"></p>
-                                                    <textarea name="ghichu" class="custom-textarea mt-3" value=""
-                                                        placeholder="Ghi chú cho người bán..."></textarea>
+                                                    <div class="form-group row">
+                                                        <label for="" class="form-label col-md-3">Họ tên: </label>
+                                                        <div class="col-md-9">
+                                                            <input class="" type="text" name="name"
+                                                                value="<?php echo $curr_user['ho_ten']; ?>"
+                                                                placeholder="Tên của bạn ...">
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['hoten'])) {echo $error['hoten'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['email'])) {echo $error['email'];}?>
+                                                        </p>
+                                                        <label for="" class="form-label col-md-3">Địa chỉ email:
+                                                        </label>
+                                                        <div class="col-md-9">
+                                                            <input class="" type="text" name="email"
+                                                                value="<?php echo $curr_user['email']; ?>"
+                                                                placeholder="Địa chỉ email...">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
 
+                                                        <label for="" class="form-label col-md-3">Số điện thoại</label>
+                                                        <div class="col-md-9">
+                                                            <input class="" type="text" name="phone"
+                                                                value="<?php echo $curr_user['sodienthoai']; ?>"
+                                                                placeholder="Số điện thoại...">
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['phone'])) {echo $error['phone'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+
+                                                        <label for="" class="form-label col-md-3">Tên công ty</label>
+                                                        <div class="col-md-9">
+                                                            <input class="col-md-8" type="text" name="company"
+                                                                value="<?php echo $curr_user['congty']; ?>"
+                                                                placeholder="Tên công ty...">
+                                                            <p class="error-message text-danger mb-0"></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+
+                                                        <label for="province-select" class="form-label col-md-3">Chọn
+                                                            tỉnh thành
+                                                            phố:</label>
+                                                        <div class="col-md-9">
+                                                            <select name="province_id" onchange="selectProvince(this)"
+                                                                value="<?php echo $shipping['province_id'] ?>"
+                                                                id="province-select" class="custom-select">
+                                                                <option value="default">Tỉnh - Thành</option>
+                                                            </select>
+                                                            <input type="hidden" name="province_name" value="">
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['province_id'])) {echo $error['province_id'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="district-select" class="form-label col-md-3">Quận
+                                                            huyện</label>
+                                                        <div class="col-md-9">
+                                                            <select name="district_id" onchange="selectDistrict(this)"
+                                                                value="<?php echo $shipping['district_id'] ?>"
+                                                                id="district-select" class="custom-select">
+                                                                <option value="default">Quận Huyện</option>
+                                                                <input type="hidden" name="district_name" value="">
+                                                            </select>
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['district_id'])) {echo $error['district_id'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="ward-select" value=""
+                                                            class="ward-select col-md-3">Phường
+                                                            xã</label>
+                                                        <div class="col-md-9">
+                                                            <select onchange="selectWard(this)" name="ward_id"
+                                                                id="ward-select"
+                                                                value="<?php echo $shipping['ward_id'] ?>"
+                                                                class="custom-select">
+                                                                <option value="default">Phường Xã</option>
+                                                                <input type="hidden" name="ward_name" value="">
+                                                            </select>
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['ward_id'])) {echo $error['ward_id'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="" class="form-label col-md-3">Địa chỉ chi
+                                                            tiết</label>
+                                                        <div class="col-md-9">
+                                                            <textarea name="detail_address" class="custom-textarea"
+                                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php echo $shipping['detail_address'] ?></textarea>
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['detail_address'])) {echo $error['detail_address'];}?>
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="" class="form-label col-md-3">Ghi chú</label>
+
+                                                        <div class="col-md-9">
+                                                            <textarea name="ghichu" class="custom-textarea mt-3"
+                                                                value=""
+                                                                placeholder="Ghi chú cho người bán..."></textarea>
+                                                            <p class="error-message text-danger mb-0"></p>
+                                                            <p class="error-message text-danger mb-0">
+                                                                <?php if (isset($error['note'])) {echo $error['note'];}?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button
+                                                            class="ms-auto submit-btn-1 mt-30 btn-hover-1 col-md-5 d-none">Tính
+                                                            phí
+                                                            vận
+                                                            chuyển</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -408,24 +492,37 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                     <tr>
                                                                         <td class="td-title-1">' . $cart_item['tensp'] . ' x ' . $cart_item['sl'] . '</td>
                                                                         <td class="td-title-2">' . number_format($price_item) . ' VND</td>
+
                                                                     </tr>
                                                                     ';
     }
 }
-?>
-                                                        <tr>
-                                                            <td class="td-title-1">Vận chuyển và bàn giao</td>
+?> <tr>
+                                                            <td class="td-title-1">Tổng phụ :
+                                                            </td>
                                                             <td class="td-title-2">
-                                                                <?php echo 0 ?> VND</td>
+                                                                <?php echo number_format($subtotal) ?> VND</td>
+                                                            <input type="hidden" name="tongphu"
+                                                                value="<?php echo $subtotal ?>">
                                                         </tr>
                                                         <tr>
-                                                            <td class="td-title-1">Vat</td>
-                                                            <td class="td-title-2">00.00 VND</td>
+                                                            <td class="td-title-1">Vận chuyển và bàn giao</td>
+                                                            <td id="shipping-fee" class="td-title-2">
+                                                                <?php echo 0 ?> VND</td>
+                                                            <input id="shipping-fee-hidden" type="hidden"
+                                                                name="shippingfee" value="">
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td-title-1">Vat (10%)</td>
+                                                            <td id="vat-fee" class="td-title-2"><?php echo 0 ?> VND</td>
+                                                            <input type="hidden" name="vat_fee" id="vat-fee-hidden"
+                                                                name="vat">
                                                         </tr>
                                                         <tr>
                                                             <td class="order-total">Tổng giá trị đơn hàng</td>
-                                                            <td class="order-total-price">
+                                                            <td id="total-order-fee" class="order-total-price">
                                                                 <?php echo number_format($subtotal) ?> VND</td>
+
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -491,7 +588,8 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                     hàng</button> -->
                                                 <input class="submit-btn-1 mt-30 btn-hover-1" name="checkoutbtn"
                                                     type="submit" value="Đặt hàng">
-                                                <input type="hidden" name="tongdonhang" value="<?php echo $subtotal ?>">
+                                                <input type="hidden" id="total-order-hidden" name="tongdonhang"
+                                                    value="<?php echo $subtotal ?>">
                                                 <input type="hidden" name="pttt" value="1">
                                             </div>
                                         </div>
@@ -607,3 +705,288 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
 
     </section>
     <!-- End page content -->
+
+    <script type="text/javascript">
+var iduser = "<?php echo $_SESSION['iduser']; ?>";
+var provinceId = "<?php echo $shipping['province_id']; ?>";
+var districtId = "<?php echo $shipping['district_id']; ?>";
+var wardId = "<?php echo $shipping['ward_id']; ?>";
+var insuranceValue = "<?php echo $subtotal; ?>"
+var cartList = <?php echo json_encode(array("cartList" => $_SESSION['giohang'])); ?>;
+// console.log('sessionId: ' + sessionId);
+var currUser = <?php echo json_encode(array("currUser" => $curr_user)); ?>;
+var shippingInfo = <?php echo json_encode(array("shippingInfo" => $shipping)); ?>;
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    initAddress(<?php echo $shipping['province_id']; ?>, <?php echo $shipping['district_id']; ?>,
+        <?php echo $shipping['ward_id']; ?>);
+    calcShippingFee(districtId, 53320, 2, wardId, 2, 10, 1000, 10, insuranceValue, null);
+})
+
+function initAddress(provinceId, districtId, wardId) {
+
+    console.log('iduser', provinceId, districtId, wardId);
+    const checkoutForm = document.getElementById('checkout-form');
+    // Init province list
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        data: "data",
+        // dataType: "dataType",
+        // contentType: application/json
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"
+        },
+        success: function(response) {
+            // console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const provinceHtmlList = data.map((province) => {
+                return (
+                    `<option ${province.ProvinceID == provinceId ? 'selected' : ""} value="${province.ProvinceID}">${province.ProvinceName}</option>`
+                );
+            })
+
+            $("#province-select").html(provinceHtmlList);
+
+            // Handle add province, district, ward name to input hidden value
+            console.log('checkoutForm', checkoutForm.elements);
+            console.log('province', checkoutForm.elements['province-select'].options[checkoutForm.elements[
+                    'province-select'].selectedIndex]
+                .text);
+
+            const provinceName = checkoutForm.elements['province-select'].options[checkoutForm.elements[
+                'province-select'].selectedIndex].text;
+            checkoutForm.elements['province_name'].value = provinceName;
+
+        }
+    });
+
+    // Init District
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district",
+        data: {
+            "province_id": provinceId
+        },
+        // dataType: "dataType",
+
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "Content-Type": "application/json"
+        },
+        success: function(response) {
+            // console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const districtHtmlList = data.map((district) => {
+                return (
+                    `<option ${district.DistrictID == districtId ? 'selected' : ""} value="${district.DistrictID}">${district.DistrictName}</option>`
+                );
+            })
+
+            $("#district-select").html(districtHtmlList);
+            // console.log('district', checkoutForm.elements['district-select'].options[checkoutForm.elements[
+            //         'district-select'].selectedIndex]
+            //     .text);
+
+            const districtName = checkoutForm.elements['district-select'].options[checkoutForm.elements[
+                'district-select'].selectedIndex].text;
+            checkoutForm.elements['district_name'].value = districtName;
+        }
+    });
+
+    // Init ward
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward",
+        data: {
+            "district_id": districtId
+        },
+        // dataType: "dataType",
+
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "Content-Type": "application/json"
+        },
+        success: function(response) {
+            console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const wardHtmlList = data.map((ward) => {
+                return (
+                    `<option ${ward.WardCode == wardId ? 'selected' : ""} value="${ward.WardCode}">${ward.WardName}</option>`
+                );
+            })
+
+            $("#ward-select").html(wardHtmlList);
+
+            const wardName = checkoutForm.elements['ward-select'].options[checkoutForm.elements[
+                'ward-select'].selectedIndex].text;
+            checkoutForm.elements['ward_name'].value = wardName;
+        }
+    });
+}
+
+function calcShippingFee(districtId, serviceId = 53320, serviceTypeId = 2, wardCode, height = 2, length = 10, weight =
+    1000, width = 10, insuranceValue, coupon = null) {
+
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+        data: {
+            "from_district_id": districtId,
+            "service_id": serviceId,
+            "service_type_id": serviceTypeId,
+            "to_district_id": districtId,
+            "to_ward_code": wardCode,
+            "height": height,
+            "length": length,
+            "weight": weight,
+            "width": width,
+            "insurance_value": insuranceValue,
+            "coupon": null
+        },
+        // dataType: "dataType",
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "ShopId": 123689,
+            "Content-type": "application/json"
+        },
+        success: function(response) {
+            console.log(response);
+            const {
+                data: {
+                    total: shippingFee,
+                    insurance_fee
+                }
+            } = response;
+
+            console.log(shippingFee, insuranceValue);
+            const totalFeeNoVat = shippingFee + +insuranceValue;
+            const vatFee = totalFeeNoVat * 0.1;
+            const totalFee = totalFeeNoVat + vatFee;
+            console.log('shipping fee hidden', $("#shipping-fee-hidden"));
+            document.getElementById("shipping-fee-hidden").value = shippingFee;
+            $("#shipping-fee").html(`${shippingFee.toLocaleString("en-US")} VND`);
+            $("#total-order-fee").html(`${totalFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee").html(`${vatFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee-hidden").val(vatFee);
+            $("#total-order-hidden").val(totalFee);
+
+        }
+    });
+}
+
+function orderCreate(cartSessionList, User, Shipping) {
+    const {
+        cartList
+    } = cartSessionList;
+
+    const {
+        currUser
+    } = User
+    const {
+        shippingInfo
+    } = Shipping
+    console.log('user', currUser);
+    console.log('shippingInfo', shippingInfo);
+
+    return;
+    const cartItems = cartList.map((cartItem) => {
+        return `
+            {
+                "name": "${cartItem['tensp']}",
+                "code": "${cartItem['id']}",
+                "quantity": ${cartItem['sl']},
+                "price": ${cartItem['don_gia']},
+                "length": 8,
+                "width": 8,
+                "height": 1,
+                "category": {
+                    "level1": "${cartItem['danhmuc']}"
+                }
+            }
+        `;
+    })
+
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create",
+        data: {
+            "payment_type_id": 1,
+            "note": "Giao hàng cẩn thận",
+            "required_note": "CHOXEMHANGKHONGTHU",
+            "return_phone": "0937988510",
+            "return_address": "19/7c Đông Tác",
+            "return_district_id": 1540,
+            "return_ward_code": "440507",
+            "client_order_code": "11",
+            "to_name": "Tran Nhat Sang",
+            "to_phone": "0937988510",
+            "to_address": "19/7c Đông Tác",
+            "to_ward_name": "Phường Tân Đông Hiệp",
+            "to_district_name": "Thành phố Dĩ An",
+            "to_province_name": "Tỉnh Bình Dương",
+            "cod_amount": 100000,
+            "content": "Theo New York Times",
+            "weight": 1000,
+            "length": 10,
+            "width": 10,
+            "height": 5,
+            "cod_failed_amount": 2000,
+            "pick_station_id": 1444,
+            "deliver_station_id": null,
+            "insurance_value": 10000000,
+            "service_id": 0,
+            "service_type_id": 2,
+            "coupon": null,
+            "pick_shift": [2],
+            "items": [cartItems]
+        },
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "ShopId": 123689,
+            "Content-type": "application/json"
+        },
+        success: function(response) {
+            console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+        }
+    });
+}
+
+function selectWard(currentWard) {
+    console.log('ward change ', currentWard.value);
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    const districtId = checkoutForm.elements['district_id'].value;
+    const wardCode = currentWard.value;
+    const subTotal = checkoutForm.elements['tongphu'].value;
+    calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+}
+    </script>

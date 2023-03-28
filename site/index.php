@@ -211,6 +211,8 @@ if (isset($_GET['act'])) {
                         $iduser = $_SESSION['iduser'];
                         $time_order = $bill['time_order'];
 
+                        $shippingfee = $bill['shippingfee'];
+                        $vat_fee = $bill['vat_fee'];
                         // LOOP and insert to giohang
                         $cart_list = $_SESSION['giohang'];
                         foreach ($cart_list as $cart_item) {
@@ -223,7 +225,7 @@ if (isset($_GET['act'])) {
                         }
 
                         // 3. tạo đơn hàng và trả về một id đơn hàng
-                        $iddh = taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 1);
+                        $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 1);
                         $_SESSION['iddh'] = $iddh;
                         if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                             foreach ($_SESSION['giohang'] as $item) {
@@ -275,11 +277,11 @@ if (isset($_GET['act'])) {
                 $iduser = $_SESSION['iduser'];
                 $tongdonhang = $_POST['tongdonhang'];
                 $hoten = $_POST['name'];
-                $diachi = $_POST['address'];
+                $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
                 $email = $_POST['email'];
                 $sodienthoai = $_POST['phone'];
                 $ghichu = $_POST['ghichu'];
-                $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
+                // Array[0,1,2,3] (hiện tại đang mặc định)
                 $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -324,6 +326,8 @@ if (isset($_GET['act'])) {
                 $_SESSION['bill']['diachi'] = $diachi;
                 $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
                 $_SESSION['bill']['time_order'] = $time_order;
+                $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
+                $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
 
                 // $_SESSION['bill'][''] = $time_order;
                 if (isset($vnp_BankCode) && $vnp_BankCode != "") {
@@ -368,19 +372,21 @@ if (isset($_GET['act'])) {
 
                 if (isset($_POST['checkoutbtn']) && $_POST['checkoutbtn']) {
                     // echo "HELLO WORLD checkout";
-
+                    // var_dump($_POST);
                     // 1. Lấy dữ liệu
                     $iduser = $_SESSION['iduser'];
+                    $tongphu = $_POST['tongphu'];
+                    $shippingfee = $_POST['shippingfee'];
                     $tongdonhang = $_POST['tongdonhang'];
                     $hoten = $_POST['name'];
-                    $diachi = $_POST['address'];
+                    $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
                     $email = $_POST['email'];
                     $sodienthoai = $_POST['phone'];
                     $ghichu = $_POST['ghichu'];
                     $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
                     // Sinh ra mã đơn hàng
                     $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
-
+                    $vat_fee = $_POST['vat_fee'];
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                     $time_order = date('Y-m-d H:i:s', time());
@@ -399,9 +405,9 @@ if (isset($_GET['act'])) {
                     if (empty($email)) {
                         $error['email'] = "Không để trống email";
                     }
-                    if (empty($diachi)) {
-                        $error['address'] = "Không để trống địa chỉ";
-                    }
+                    // if (empty($diachi)) {
+                    //     $error['address'] = "Không để trống địa chỉ";
+                    // }
 
                     if (!$error) {
                         // Trừ số lượng trong hàng tồn kho đi.
@@ -416,7 +422,7 @@ if (isset($_GET['act'])) {
                         }
 
                         // 3. tạo đơn hàng và trả về một id đơn hàng
-                        $iddh = taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
+                        $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
                         $_SESSION['iddh'] = $iddh;
                         if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                             foreach ($_SESSION['giohang'] as $item) {

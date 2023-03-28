@@ -397,7 +397,7 @@ $.ajax({
             success: function (response) {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
-                    console.log('list: ', order_list);
+                    // console.log('list: ', order_list);
                     var table = $('#table-history-order').DataTable({
                         data: order_list,
                         retrieve: true,
@@ -497,3 +497,102 @@ $.ajax({
     }
    
 })();
+
+function selectProvince(currentProvince) {
+    console.log('change ',currentProvince.value);
+
+    const provinceId = currentProvince.value;
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district",
+        data: {
+            "province_id": provinceId
+        },
+        // dataType: "dataType",
+        
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9", "Content-Type": "application/json"},
+        success: function (response) {
+            console.log('res', response);
+    
+            const {code, message, data} = response;
+
+                const districtHtmlList = data.map((district) => {
+                    return (
+                        `<option value="${district.DistrictID}">${district.DistrictName}</option>`
+                    );
+                } )
+
+                $("#district-select").html(districtHtmlList);
+    
+        }
+    });
+}
+
+function selectDistrict(currentDistrict) {
+    console.log('change ',currentDistrict.value);
+
+    const districtId = currentDistrict.value;
+    console.log('district Id: ', districtId);
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward",
+        data: {
+            "district_id": districtId
+        },
+        // dataType: "dataType",
+        
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9", "Content-Type": "application/json"},
+        success: function (response) {
+            // console.log('res', response);
+    
+            const {code, message, data} = response;
+
+                const wardHtmlList = data.map((ward) => {
+                    return (
+                        `<option value="${ward.WardCode}">${ward.WardName}</option>`
+                    );
+                } )
+
+                $("#ward-select").html(wardHtmlList);
+                
+
+                // Calculate shipping fee here again when change
+        }
+    });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // $.ajax({
+    //     type: "POST",
+    //     url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+    //     data: "data",
+    //     // dataType: "dataType",
+    //     // contentType: application/json
+    //     headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
+    //     success: function (response) {
+    //         console.log('res', response);
+    
+    //         const {code, message, data} = response;
+
+    //             const provinceHtmlList = data.map((province) => {
+    //                 return (
+    //                     `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
+    //                 );
+    //             } )
+
+    //             $("#province-select").append(provinceHtmlList);
+    
+    //     }
+    // });
+
+    // initAddress();
+    // console.log('<?php var_dump($_SESSION)?>')
+
+    
+})
+
+
+

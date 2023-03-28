@@ -565,15 +565,18 @@ foreach ($order_list as $order_detail) {
                                                 <tr>
                                                     <td class="td-title-1">Tổng phụ</td>
                                                     <td class="td-title-2">
-                                                        <?php echo number_format($order['tongdonhang']) ?> VND</td>
+                                                        <?php echo number_format($order['tongdonhang'] - $order['shipping_fee'] - $order['vat_fee']) ?>
+                                                        VND</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="td-title-1">Chi phí vận chuyển</td>
-                                                    <td class="td-title-2">0 VND</td>
+                                                    <td class="td-title-2">
+                                                        <?php echo number_format($order['shipping_fee']) ?> VND</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="td-title-1">Vat</td>
-                                                    <td class="td-title-2">0 VND</td>
+                                                    <td class="td-title-1">Vat (10%)</td>
+                                                    <td class="td-title-2">
+                                                        <?php echo number_format($order['vat_fee']) ?> VND</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="order-total">Tổng đơn hàng</td>

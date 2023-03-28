@@ -1,6 +1,6 @@
 <?php
 
-function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder, $thanhtoan)
+function taodonhang($madonhang, $tongdonhang, $phivanchuyen, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder, $thanhtoan)
 {
     try {
 
@@ -10,8 +10,8 @@ function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $s
         // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
         // ";
         // echo $timeorder;
-        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder, thanhtoan)
-        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder', $thanhtoan )";
+        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, shipping_fee, vat_fee, ghichu, iduser, timeorder, thanhtoan)
+        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang', '$phivanchuyen', '$vat_fee', '$ghichu', '$iduser','$timeorder', $thanhtoan )";
 
         // use exec() because no results are returned
         $conn->exec($sql);

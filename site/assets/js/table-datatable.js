@@ -11,7 +11,7 @@ $(function() {
             success: function (response) {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
-                    console.log('list: ', order_list);
+                    // console.log('list: ', order_list);
                     var table = $('#table-history-order').DataTable({
                         data: order_list,
                         retrieve: true,
