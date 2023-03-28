@@ -59,3 +59,8 @@ table#table-history-order {
   font-size: 1.4rem;
   margin-top: 6rem;
 }
+
+/* comment product */
+#comment-wrapper .message-box {
+  margin-top: 8rem;
+}

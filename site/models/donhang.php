@@ -112,3 +112,13 @@ function getShowCartGroupbyOrder($userId)
     $kq = $stmt->fetchAll();
     return $kq;
 }
+
+function get_all_reviews_of_product($idsp)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT * from tbl_danhgiasp review inner join tbl_nguoidung user on user.id = review.iduser where idsanpham = '$idsp' order by review.date_create desc");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetchAll();
+    return $kq;
+}
