@@ -129,15 +129,16 @@ switch ($_GET['act']) {
         $i = 0;
         foreach ($cart_list as $cart_item) {
             # code...
+            $product_item = product_select_by_id($cart_item['id']);
+
             if ($cart_item['id'] == $_POST['id']) {
                 if ($_POST['type'] == "minus") {
                     $slnew = $cart_item['sl'] - 1;
                     if ($slnew <= 1) {
                         $slnew = 1;
                     }
-                } else {
+                } else if ($_POST['type'] == 'add') {
                     $slnew = $cart_item['sl'] + 1;
-                    $product_item = product_select_by_id($cart_item['id']);
                     // var_dump($product_item);
                     if ($slnew > $product_item['ton_kho']) {
                         $slnew = $product_item['ton_kho'];
@@ -150,6 +151,22 @@ switch ($_GET['act']) {
                         exit;
                     }
                     // Handle tồn kho ở đây!
+                } else if ($_POST['type'] == 'keyup') {
+
+                    $slnew = $_POST['sl'];
+                    // echo "hello keyup" . $slnew;
+
+                    if ($slnew > $product_item['ton_kho']) {
+                        $slnew = $product_item['ton_kho'];
+
+                        echo json_encode(
+                            array(
+                                "status" => 0,
+                                "content" => 'Cập nhật số lượng sản phẩm' . $cart_item["tensp"] . ' thất bại, vượt quá số lượng tồn kho (còn lại: ' . $product_item['ton_kho'] . ')',
+                            )
+                        );
+                        exit;
+                    }
                 }
                 $_SESSION['giohang'][$i]['sl'] = $slnew;
             }

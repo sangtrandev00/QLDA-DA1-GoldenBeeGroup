@@ -188,7 +188,7 @@ if (isset($_SESSION['iduser'])) {
         echo '
 
     <tr class="p-3">
-        <td class="" scope="row"> ' . $cart_item['id'] . '</td>
+        <td class="" scope="row"> ' . $cart_item['idsanpham'] . '</td>
 
         <td class="">' . $cart_item['soluong'] . '</td>
         <td class="">' . $cart_item['dongia'] . '</td>

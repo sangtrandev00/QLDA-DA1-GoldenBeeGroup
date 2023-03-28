@@ -109,7 +109,7 @@ if (count($cart_list) > 0) {
         // }
 
         $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
-
+        $update_cart_func_keyup = "updateCart('onkeyup')";
         echo '
                                                         <!-- tr -->
                                                         <tr class="product-item__row" data-id="' . $cart_item['id'] . '">
@@ -127,7 +127,7 @@ if (count($cart_list) > 0) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                            <input type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                            <input onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                                 class="cart-plus-minus-box" >
                                                                     </div>
                                                                 </td>

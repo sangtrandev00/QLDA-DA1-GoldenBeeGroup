@@ -29,23 +29,24 @@ function viewOrderdetail(orderId) {
 function updateShippingAddress(iduser) {
     event.preventDefault();
 
-    console.log('submited: ', iduser );
-    const shippingaddress = event.currentTarget.elements['shippingaddress'].value;
+    // const shippingaddress = event.currentTarget.elements['shippingaddress'].value;
+    const currentForm = event.currentTarget;
+    console.log('submited: ', $(currentForm).serializeArray() );
+    $(currentForm).serializeArray()
     $.ajax({
         type: "POST",
         url: "./logic/account-action.php?act=updateshippingaddress",
-        data: {
-            iduser: iduser,
-            shippingaddress
-        },
+        data: $(currentForm).serializeArray(),
         // dataType: "dataType",
         success: function (response) {
-
+            const {status, content} = JSON.parse(response);
             console.log('res', response);
+
+            
             // if(response == 1) {
                 $("#cartModalBtn").trigger("click");
-                $('#cartModal #cartModalLabel').text("Chúc mừng bạn đã cập nhật địa chỉ thành công!");
-                $('#cartModal .modal-body').text("Đã cập nhật địa chỉ");
+                $('#cartModal #cartModalLabel').text("Cập nhật địa chỉ");
+                $('#cartModal .modal-body').text(content);
             // }
             // else {
                 
@@ -76,10 +77,18 @@ function changePassword(iduser) {
             // if(response['status'] == 1) {
                 console.log('res: ', response);
                 console.log('res: ', JSON.parse(response));
-                const res = JSON.parse(response);
-                $("#cartModalBtn").trigger("click");
-                $("#cartModal #cartModalLabel").text("Thay đổi mật khẩu");
-                $("#cartModal .modal-body").text(res['content']);
+                const {status, content} = JSON.parse(response);
+                showToast("Cập nhật mật khẩu", content);
+                if(status == 1) {
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000)
+                }
+
+                
+                // $("#cartModalBtn").trigger("click");
+                // $("#cartModal #cartModalLabel").text("Thay đổi mật khẩu");
+                // $("#cartModal .modal-body").text(res['content']);
             // }else {
             //     $("#cartModalBtn").trigger("click");
             //     $("#cartModal #cartModalLabel").text(response['content']);
@@ -235,3 +244,6 @@ function updatePaymentMethod(iduser) {
             }
         });
 }
+
+
+

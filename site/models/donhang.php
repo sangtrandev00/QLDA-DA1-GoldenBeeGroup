@@ -1,6 +1,6 @@
 <?php
 
-function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder, $thanhtoan)
+function taodonhang($madonhang, $tongdonhang, $phivanchuyen, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $timeorder, $thanhtoan)
 {
     try {
 
@@ -10,8 +10,8 @@ function taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $s
         // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
         // ";
         // echo $timeorder;
-        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, ghichu, iduser, timeorder, thanhtoan)
-        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang','$ghichu', '$iduser','$timeorder', $thanhtoan )";
+        $sql = "INSERT INTO tbl_order (madonhang, pttt, name, dienthoai, email, address, tongdonhang, shipping_fee, vat_fee, ghichu, iduser, timeorder, thanhtoan)
+        VALUES ('$madonhang', '$pttt', '$hoten', '$sodienthoai','$email','$diachi','$tongdonhang', '$phivanchuyen', '$vat_fee', '$ghichu', '$iduser','$timeorder', $thanhtoan )";
 
         // use exec() because no results are returned
         $conn->exec($sql);
@@ -107,6 +107,16 @@ function getShowCartGroupbyOrder($userId)
 {
     $conn = connectdb();
     $stmt = $conn->prepare("SELECT tbl_order.id, madonhang, iddonhang,tongdonhang, pttt,sum(soluong) as soluong, timeorder,iduser, trangthai FROM tbl_order_detail INNER JOIN tbl_order on tbl_order_detail.iddonhang = tbl_order.id group by iddonhang HAVING iduser = '$userId' order by timeorder desc");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetchAll();
+    return $kq;
+}
+
+function get_all_reviews_of_product($idsp)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT * from tbl_danhgiasp review inner join tbl_nguoidung user on user.id = review.iduser where idsanpham = '$idsp' order by review.date_create desc");
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq = $stmt->fetchAll();

@@ -256,12 +256,46 @@ $(function () {
 
 	for (let i = 1; i <= 52; i++) {
 		// const element = array[i];
-		console.log('i', i.toString());
+		// console.log('i', i.toString());
 		arrayNumberWeeksOfYear.push(i.toString());
 	}
 
 	console.log('arrayNumberWeeksOfYear', arrayNumberWeeksOfYear);
 	const arrayNumberDaysOfMonth = [];
+
+	$.ajax({
+		type: "POST",
+		url: "./logic/revenue.php?act=allweeks",
+		data: "data",
+		// dataType: "dataType",
+		success: function (response) {
+				const {result} = JSON.parse(response);
+				// console.log(result);
+				// let revenueWeekList = result.map((week) => {
+				// 	const weekObj = {
+				// 		weekNum: week['week'],
+				// 		revenueOfWeek: week['tongdonhang'],
+				// 		status: week['trangthai'],
+				// 	}
+				// 	return weekObj;
+				// })
+				
+				 const list = arrayNumberWeeksOfYear.map((weekNumber) => {
+					const weekObj = {
+						weekNum: +weekNumber,
+						revenueOfWeek: result[+weekNumber - 1 ]['week'] == weekNumber ? result[+weekNumber - 1 ]['tongdonhang'] : 0,
+						status: result[+weekNumber - 1 ]['week'] == weekNumber ? result[+weekNumber - 1 ]['trangthai'] : 0,
+					}
+					
+					return weekObj;
+				 })
+
+				console.log('revenueWeekList', list);
+
+		}	
+	});
+
+
 	var options = {
 		series: [
 		// 	{
@@ -298,7 +332,7 @@ $(function () {
 			colors: ['transparent']
 		},
 		title: {
-			text: 'Column Chart',
+			text: 'Thống kê theo tuần (52 tuần )',
 			align: 'left',
 			style: {
 				fontSize: '10'
@@ -310,7 +344,7 @@ $(function () {
 		},
 		yaxis: {
 			title: {
-				text: '(VND) $'
+				text: '(VND)'
 			}
 		},
 		fill: {

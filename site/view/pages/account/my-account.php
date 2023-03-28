@@ -163,20 +163,49 @@ if (isset($_SESSION['iduser'])) {
                         <div id="shippingAddress" class="collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#accordion">
                             <div class="card-body">
-                                <?php ?>
+                                <?php
+$shipping = shipping_select_by_iduser($iduser);
+// $_SESSION['shipping'] = $shipping;
+// var_dump($shipping);
+
+?>
                                 <form onsubmit="updateShippingAddress(<?php echo $iduser ?>);"
                                     action="./index.php?act=updateshippingaddress" method="POST">
+                                    <input type="hidden" name="iduser" value="<?php echo $iduser ?>">
                                     <div class="new-customers p-30">
-                                        <!-- <div class="col-md-12">
-                                            <input type="text" placeholder="Họ và tên">
+
+                                        <div class="form-group">
+                                            <label for="province-select" class="form-label">Chọn tỉnh thành phố:</label>
+                                            <select name="province_id" onchange="selectProvince(this)"
+                                                value="<?php echo $shipping['province_id'] ?>" id="province-select"
+                                                class="custom-select">
+                                                <option value="default">Tỉnh - Thành</option>
+                                            </select>
                                         </div>
-                                        <input type="text" placeholder="Số điện thoại...">
-                                        <input type="text" placeholder="Tên công ty của bạn...">
-                                        <input type="text" placeholder="Địa chỉ email..."> -->
-                                        <textarea name="shippingaddress" class="custom-textarea"
-                                            placeholder="Địa chỉ gửi hàng..."><?php echo $user_info['ship_address'] ?></textarea>
-                                        <!-- <textarea class="custom-textarea"
-                                            placeholder="Thêm tin nhắn cho cửa hàng..."></textarea> -->
+
+                                        <div class="form-group">
+                                            <label for="district-select" class="form-label">Quận huyện</label>
+                                            <select name="district_id" onchange="selectDistrict(this)"
+                                                value="<?php echo $shipping['district_id'] ?>" id="district-select"
+                                                class="custom-select">
+                                                <option value="default">Quận Huyện</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ward-select" value="" class="ward-select">Phường xã</label>
+                                            <select name="ward_id" id="ward-select"
+                                                value="<?php echo $shipping['ward_id'] ?>" class="custom-select">
+                                                <option value="default">Phường Xã</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="form-label">Địa chỉ chi tiết</label>
+                                            <textarea name="detail_address" class="custom-textarea"
+                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php echo $shipping['detail_address'] ?></textarea>
+
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <input name="savebtn" class="submit-btn-1 mt-20 btn-hover-1"
@@ -396,3 +425,118 @@ if (isset($_SESSION['iduser'])) {
 <!-- LOGIN SECTION END -->
 </div>
 <!-- End page content -->
+
+<script type="text/javascript">
+var iduser = "<?php echo $_SESSION['iduser']; ?>";
+var provinceId = "<?php echo $shipping['province_id']; ?>";
+var districtId = "<?php echo $shipping['district_id']; ?>";
+var wardId = "<?php echo $shipping['ward_id']; ?>";
+
+// console.log('sessionId: ' + sessionId);
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    initAddress(<?php echo $shipping['province_id']; ?>, <?php echo $shipping['district_id']; ?>,
+        <?php echo $shipping['ward_id']; ?>);
+})
+
+function initAddress(provinceId, districtId, wardId) {
+
+    console.log('iduser', provinceId, districtId, wardId);
+    // Init province list
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        data: "data",
+        // dataType: "dataType",
+        // contentType: application/json
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"
+        },
+        success: function(response) {
+            console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const provinceHtmlList = data.map((province) => {
+                return (
+                    `<option ${province.ProvinceID == provinceId ? 'selected' : ""} value="${province.ProvinceID}">${province.ProvinceName}</option>`
+                );
+            })
+
+            $("#province-select").append(provinceHtmlList);
+
+        }
+    });
+
+    // Init District
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district",
+        data: {
+            "province_id": provinceId
+        },
+        // dataType: "dataType",
+
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "Content-Type": "application/json"
+        },
+        success: function(response) {
+            console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const districtHtmlList = data.map((district) => {
+                return (
+                    `<option ${district.DistrictID == districtId ? 'selected' : ""} value="${district.DistrictID}">${district.DistrictName}</option>`
+                );
+            })
+
+            $("#district-select").append(districtHtmlList);
+
+        }
+    });
+
+    // Init ward
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward",
+        data: {
+            "district_id": districtId
+        },
+        // dataType: "dataType",
+
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "Content-Type": "application/json"
+        },
+        success: function(response) {
+            console.log('res', response);
+
+            const {
+                code,
+                message,
+                data
+            } = response;
+
+            const wardHtmlList = data.map((ward) => {
+                return (
+                    `<option ${ward.WardCode == wardId ? 'selected' : ""} value="${ward.WardCode}">${ward.WardName}</option>`
+                );
+            })
+
+            $("#ward-select").append(wardHtmlList);
+
+        }
+    });
+}
+</script>

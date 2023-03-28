@@ -129,3 +129,9 @@ function user_update_payment_method($iduser, $payment_method)
     pdo_execute($sql, $payment_method, $iduser);
     return true;
 }
+
+function shipping_select_by_iduser($iduser)
+{
+    $sql = "SELECT * FROM tbl_shipping WHERE id_user=?";
+    return pdo_query_one($sql, $iduser);
+}
