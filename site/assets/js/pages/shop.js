@@ -16,6 +16,7 @@ function searchProducts(currentForm) {
     url.searchParams.set('cateid', "");
     url.searchParams.set('minprice', "");
     url.searchParams.set('maxprice', "");
+    url.searchParams.set('page', 1);
     history.pushState({},'', url);
     location.reload();
     // setTimeout(() => {

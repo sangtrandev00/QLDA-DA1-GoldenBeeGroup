@@ -79,7 +79,6 @@ function handleAddCart (actionForm, logicType){
             const danhmuc = formElement.elements['danhmuc'].value;
             const hinh_anh = formElement.elements['hinh_anh'].value;
 
-
             console.log(productId, sl, tensp, danhmuc, hinh_anh);
             // return;
             console.log('action: ', actionForm);
@@ -95,23 +94,33 @@ function handleAddCart (actionForm, logicType){
                     hinh_anh: hinh_anh,
                 },
                 // dataType: "dataType",
-                success: function (responseHtml) {
-
+                success: function (response) {
+                    const {status, content} = JSON.parse(response);
+                    console.log('res', status, content);
                     // $('body').html(response);
-
+                    const cartModalBtn = document.getElementById("cartModalBtn");
                     if(logicType == 'buynow') {
+                        if(status == 1) {
+                            location.assign("index.php?act=viewcart");
+                        }else if(status == 0) {
+                            cartModalBtn.click();
+                            $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                            $("#cartModal .modal-body").text(`${content}, vào xem giỏ hàng`);  
+                         
+                            // $("#cartModal input[name='actionbtn']").addClass("d-none");
+                        }
                         
-                        location.assign("index.php?act=viewcart");
-                        return;
+                        
+                        
                         // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
-                            $.get('./logic/topwishlist.php', function(responseHtml) {
-                                console.log('res: ', responseHtml);
+                            $.get('./logic/topwishlist.php', function(response) {
+                                console.log('res: ', response);
 
-                                $("#topWishlist").html(responseHtml);
+                                $("#topWishlist").html(response);
                             })
-                            const cartModalBtn = document.getElementById("cartModalBtn");
+
 
                             console.log('cartModalBtn: ', cartModalBtn);
          
@@ -131,28 +140,30 @@ function handleAddCart (actionForm, logicType){
 
                             return;
                     }else if(logicType == 'addcart') {
-                        console.log('res: ', responseHtml);
-                        // $("#header").html(responseHtml);
-                        $.get("./logic/topcart.php", function(responseHtml) {
-                            $("#topHeaderCart").html(responseHtml);
-                            // console.log('res: ', responseHtml);
-                        });
-    
-    
-                       const cartModalBtn = document.getElementById("cartModalBtn");
-    
-                       console.log('cartModalBtn: ', cartModalBtn);
+                       
                         
-                    //    console.log('modalHeader: ', $("#cartModalLabel"))
-                       $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
-                       $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
-    
-                       $("#cartModal input[name='actionbtn']").click(function(e) {
-                        e.preventDefault();
-    
-                        location.assign("./index.php?act=viewcart");
-                       })
-                       cartModalBtn.click();
+                        // console.log('cartModalBtn: ', cartModalBtn);
+                        $("#cartModal input[name='actionbtn']").click(function(e) {
+                            e.preventDefault();
+        
+                            location.assign("./index.php?act=viewcart");
+                           })
+                           cartModalBtn.click();
+                       
+                        if(status == 1) {
+                            // Load Top Header Cart
+                            $.get("./logic/topcart.php", function(content) {
+                                $("#topHeaderCart").html(content);
+                            });
+
+                            $("#cartModalLabel").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng`);
+                            $("#cartModal .modal-body").text(`Đã thêm sản phẩm ${tensp} vào giỏ hàng, Bạn có muốn vào xem giỏ hàng hay không ?`);
+         
+                        }else if(status == 0) {
+                            // Show Error message
+                            $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                            $("#cartModal .modal-body").text(`${content}, vào xem giỏ hàng`);     
+                        }
                
                     }
 
@@ -386,7 +397,7 @@ $.ajax({
             success: function (response) {
                 // console.log('res: ', response);
                     const {order_list} = JSON.parse(response);
-                    console.log('list: ', order_list);
+                    // console.log('list: ', order_list);
                     var table = $('#table-history-order').DataTable({
                         data: order_list,
                         retrieve: true,
@@ -429,10 +440,20 @@ function showOrder() {
     });
 }
 
-// document.addEventListener('DOMContentLoaded', function(e) {
-//     // console.log("hello", location.href);
-    
-// })
+// Call GHN API
+// GET all Province
+$.ajax({
+    type: "GET",
+    url: "url",
+    data: "data",
+    dataType: "dataType",
+    success: function (response) {
+        
+    }
+});
+// [GET] all district
+// [GET] all 
+
 
 (() => {
     zoomProductDetail();
@@ -476,3 +497,102 @@ function showOrder() {
     }
    
 })();
+
+function selectProvince(currentProvince) {
+    console.log('change ',currentProvince.value);
+
+    const provinceId = currentProvince.value;
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district",
+        data: {
+            "province_id": provinceId
+        },
+        // dataType: "dataType",
+        
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9", "Content-Type": "application/json"},
+        success: function (response) {
+            console.log('res', response);
+    
+            const {code, message, data} = response;
+
+                const districtHtmlList = data.map((district) => {
+                    return (
+                        `<option value="${district.DistrictID}">${district.DistrictName}</option>`
+                    );
+                } )
+
+                $("#district-select").html(districtHtmlList);
+    
+        }
+    });
+}
+
+function selectDistrict(currentDistrict) {
+    console.log('change ',currentDistrict.value);
+
+    const districtId = currentDistrict.value;
+    console.log('district Id: ', districtId);
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward",
+        data: {
+            "district_id": districtId
+        },
+        // dataType: "dataType",
+        
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9", "Content-Type": "application/json"},
+        success: function (response) {
+            // console.log('res', response);
+    
+            const {code, message, data} = response;
+
+                const wardHtmlList = data.map((ward) => {
+                    return (
+                        `<option value="${ward.WardCode}">${ward.WardName}</option>`
+                    );
+                } )
+
+                $("#ward-select").html(wardHtmlList);
+                
+
+                // Calculate shipping fee here again when change
+        }
+    });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // $.ajax({
+    //     type: "POST",
+    //     url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+    //     data: "data",
+    //     // dataType: "dataType",
+    //     // contentType: application/json
+    //     headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
+    //     success: function (response) {
+    //         console.log('res', response);
+    
+    //         const {code, message, data} = response;
+
+    //             const provinceHtmlList = data.map((province) => {
+    //                 return (
+    //                     `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
+    //                 );
+    //             } )
+
+    //             $("#province-select").append(provinceHtmlList);
+    
+    //     }
+    // });
+
+    // initAddress();
+    // console.log('<?php var_dump($_SESSION)?>')
+
+    
+})
+
+
+

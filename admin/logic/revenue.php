@@ -78,7 +78,7 @@ switch ($_GET['act']) {
 
         echo $revenue;
         break;
-    case 'all':
+    case 'allmonth':
         $result = array(
             'jan' => revenue_of_month(1),
             'feb' => revenue_of_month(2),
@@ -97,7 +97,17 @@ switch ($_GET['act']) {
         echo json_encode($result);
 
         return;
+    case 'allweeks':
+        $revenue_weeks = revenue_of_weeks();
 
+        // var_dump($revenue_weeks);
+        echo json_encode(
+            array(
+                "result" => $revenue_weeks,
+            )
+        );
+        exit;
+        break;
     default:
         # code...
         break;

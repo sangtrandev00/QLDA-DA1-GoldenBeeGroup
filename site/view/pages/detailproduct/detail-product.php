@@ -127,7 +127,7 @@ if ($product['ton_kho'] > 0) {
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                                                <span class="text-black-5">( 27 đánh giá )</span>
+                                                <span class="text-black-5">( 2 đã đánh giá )</span>
                                             </div>
                                         </div>
                                         <!-- hr -->
@@ -219,21 +219,105 @@ if ($product['ton_kho'] > 0) {
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active show" id="description">
-                                            <!-- <p>There are many variations of passages of Lorem Ipsum available,
-                                                but the
-                                                majo Rity have be suffered alteration in some form, by injected
-                                                humou or
-                                                randomis Rity have be suffered alteration in some form, by
-                                                injected
-                                                humou or randomis words which donot look even slightly
-                                                believable. If
-                                                you are going to use a passage Lorem Ipsum.</p>
-                                            <p>rerum blanditiis dolore dignissimos expedita consequatur deleniti
-                                                consectetur non exercitationem. rerum blanditiis dolore
-                                                dignissimos
-                                                expedita consequatur deleniti consectetur non exercitationem.
-                                            </p> -->
                                             <?php echo $product['mo_ta'] ?>
+                                            <br>
+                                            <div id="comment-wrapper" class="message-box-section mt--50 mb-80">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="message-box box-shadow white-bg">
+                                                                <form id="contact-form" action="">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <h4
+                                                                                class="blog-section-title border-left mb-30">
+                                                                                bình luận</h4>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <input type="text" name="com_name"
+                                                                                placeholder="Họ Và Tên">
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <input type="text" name="com_email"
+                                                                                placeholder="Email">
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <input type="text" name="com_phone"
+                                                                                placeholder="Số Điện Thoại">
+                                                                        </div>
+                                                                        <div class="col-lg-12 mb-30">
+                                                                            <textarea class="custom-textarea"
+                                                                                name="com_message"
+                                                                                placeholder="Nội dung Bình Luận"></textarea>
+                                                                            <button
+                                                                                class="submit-btn-1 mt-30 btn-hover-1"
+                                                                                type="submit">Bình
+                                                                                Luận</button>
+                                                                        </div>
+                                                                        <div class="col-lg-12 comment">
+                                                                            <div class="name-comment">
+                                                                                <p>Lam Phối</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <p>Điện thoại này còn hàng không</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <ul class="reply">
+                                                                                    <li>Trả Lời</li>
+                                                                                    <li><i
+                                                                                            class="zmdi zmdi-favorite"></i>
+                                                                                        Thích</li>
+                                                                                    <li>3/14/2023</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div class="reply-commnet">
+                                                                                <div class="name-comment">
+                                                                                    <p>Goden Bee Group</p>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <p>Hiện vẫn còn hàng trên cách chi
+                                                                                        nhánh bạn có thể cho mình
+                                                                                        biết bạn ở khu vực nào không ạ
+                                                                                    </p>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <ul class="reply">
+                                                                                        <li>Trả Lời</li>
+                                                                                        <li><i
+                                                                                                class="zmdi zmdi-favorite"></i>
+                                                                                            Thích</li>
+                                                                                        <li>3/14/2023</li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr>
+                                                                        </div>
+                                                                        <div class="col-lg-12 comment">
+                                                                            <div class="name-comment">
+                                                                                <p>Lam Phối</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <p>Điện thoại này còn hàng không</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <ul class="reply">
+                                                                                    <li>Trả Lời</li>
+                                                                                    <li><i
+                                                                                            class="zmdi zmdi-favorite"></i>
+                                                                                        Thích</li>
+                                                                                    <li>3/14/2023</li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <hr>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p class="form-message"></p>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="information">
                                             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem,
@@ -250,6 +334,43 @@ if ($product['ton_kho'] > 0) {
                                             <!-- reviews-tab-desc -->
                                             <div class="reviews-tab-desc">
                                                 <!-- single comments -->
+                                                <?php
+$review_list = get_all_reviews_of_product($product_id);
+
+    // var_dump($review_list);
+
+    foreach ($review_list as $review) {
+        # code...
+        echo '
+        <div class="media mt-30">
+            <div class="media-left">
+                <!-- ảnh người đánh giá -->
+                <a href="#"><img style="width: 40px; height: 40px;" class="media-object" src="' . $review['hinh_anh'] . '" alt="#"></a>
+            </div>
+            <div class="media-body">
+                <div class="clearfix">
+                    <div class="pro-rating sin-pro-rating ">
+                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                        <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+                        <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                        <span class="text-black-5">(4.5 sao)</span>
+                    </div>
+                    <div class="name-commenter pull-left">
+                        <h6 class="media-heading"><a href="#">' . $review['ho_ten'] . '</a> </h6>
+                        <p class="mb-10">' . $review['date_create'] . '</p>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+                <p class="mb-0">' . $review['noidung'] . '</p>
+            </div>
+        </div>
+        ';
+    }
+    ?>
                                                 <div class="media mt-30">
                                                     <div class="media-left">
                                                         <!-- ảnh người đánh giá -->
@@ -267,7 +388,7 @@ if ($product['ton_kho'] > 0) {
                                                     </div>
                                                 </div>
                                                 <!-- single comments -->
-                                                <div class="media-body mt-40">
+                                                <!-- <div class="media-body mt-40">
                                                     <input type="text" placeholder="Tên Của Bạn" name="">
                                                     <input type="text" placeholder="Email Của Bạn" name="">
                                                     <textarea name="review" id="" cols="30" rows="5"
@@ -275,7 +396,7 @@ if ($product['ton_kho'] > 0) {
                                                     <input
                                                         style="width: 100px; height: 40px; background-color: #ff7f00; color: white; border: none;text-transform: uppercase;font-weight: 700;"
                                                         type="submit" value="Đánh Giá">
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -285,87 +406,7 @@ if ($product['ton_kho'] > 0) {
                             </div>
                         </div>
                     </div>
-                    <div class="message-box-section mt--50 mb-80">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="message-box box-shadow white-bg">
-                                        <form id="contact-form" action="">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <h4 class="blog-section-title border-left mb-30">bình luận</h4>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="com_name" placeholder="Họ Và Tên">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="com_email" placeholder="Email">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input type="text" name="com_phone" placeholder="Số Điện Thoại">
-                                                </div>
-                                                <div class="col-lg-12 mb-30">
-                                                    <textarea class="custom-textarea" name="com_message"
-                                                        placeholder="Nội dung Bình Luận"></textarea>
-                                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Bình
-                                                        Luận</button>
-                                                </div>
-                                                <div class="col-lg-12 comment">
-                                                    <div class="name-comment">
-                                                        <p>Lam Phối</p>
-                                                    </div>
-                                                    <div>
-                                                        <p>Điện thoại này còn hàng không</p>
-                                                    </div>
-                                                    <div>
-                                                        <ul class="reply">
-                                                            <li>Trả Lời</li>
-                                                            <li><i class="zmdi zmdi-favorite"></i> Thích</li>
-                                                            <li>3/14/2023</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="reply-commnet">
-                                                        <div class="name-comment">
-                                                            <p>Goden Bee Group</p>
-                                                        </div>
-                                                        <div>
-                                                            <p>Hiện vẫn còn hàng trên cách chi nhánh bạn có thể cho mình
-                                                                biết bạn ở khu vực nào không ạ</p>
-                                                        </div>
-                                                        <div>
-                                                            <ul class="reply">
-                                                                <li>Trả Lời</li>
-                                                                <li><i class="zmdi zmdi-favorite"></i> Thích</li>
-                                                                <li>3/14/2023</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                                <div class="col-lg-12 comment">
-                                                    <div class="name-comment">
-                                                        <p>Lam Phối</p>
-                                                    </div>
-                                                    <div>
-                                                        <p>Điện thoại này còn hàng không</p>
-                                                    </div>
-                                                    <div>
-                                                        <ul class="reply">
-                                                            <li>Trả Lời</li>
-                                                            <li><i class="zmdi zmdi-favorite"></i> Thích</li>
-                                                            <li>3/14/2023</li>
-                                                        </ul>
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <p class="form-message"></p>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- single-product-area end -->
                     <div class="related-product-area">
                         <div class="row">

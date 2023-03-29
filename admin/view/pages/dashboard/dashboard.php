@@ -122,7 +122,7 @@
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
                             <p>Phản hồi</p>
-                            <h4 class="">25.8K</h4>
+                            <h4 class="">0</h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
@@ -133,7 +133,7 @@
             </div>
         </div>
         <!-- Total phản hồi -->
-        <div class="col">
+        <!-- <div class="col">
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
@@ -141,14 +141,10 @@
                             <p>Số người dùng</p>
                             <h4 class="">25.8K</h4>
                         </div>
-                        <!-- <div class="w-50">
-                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
-                            <div id="chart4"></div>
-                        </div> -->
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="row">
         <div class="col-12 col-lg-6 d-flex">
@@ -187,7 +183,7 @@
 $top_sold_products = select_top_sold_products();
 
 // var_dump($top_sold_products);
-
+exit;
 foreach ($top_sold_products as $product) {
     # code...
     echo '
@@ -212,147 +208,92 @@ foreach ($top_sold_products as $product) {
 }
 ?>
 
-                        <!-- <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/01.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">White Polo T-Shirt <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/02.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 70%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Black Coat Pant <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/03.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Blue Shade Jeans <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/04.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-orange" role="progressbar" style="width: 50%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Yellow Winter Jacket <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/05.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-purple" role="progressbar" style="width: 40%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Men Sports Shoes Nike <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/06.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Fancy Home Sofa <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/07.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-pink" role="progressbar" style="width: 20%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Sports Time Watch <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="best-product-item">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="product-box border">
-                                    <img src="assets/images/products/08.png" alt="">
-                                </div>
-                                <div class="product-info flex-grow-1">
-                                    <div class="progress-wrapper">
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 10%;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="product-name mb-0 mt-2 fs-6">Women Blue Heals <span
-                                            class="float-end">245</span></p>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 col-lg-6 d-flex">
+            <div class="card rounded-4 w-100">
+                <div class="card-header bg-transparent border-0">
+                    <div class="row g-3 align-items-center">
+                        <div class="col">
+                            <h6 class="mb-0">Top Views (Sản phẩm được xem nhiều nhất )</h6>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
+                                        data-bs-toggle="dropdown" aria-expanded="false"><i
+                                            class="bx bx-dots-horizontal-rounded font-22 text-option"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="best-product p-2 mb-3 ps ps-active-y">
+                        <?php
+$top_views_products = select_top_view_products();
+
+// var_dump($top_sold_products);
+
+foreach ($top_views_products as $product) {
+    # code...
+    $image_list = explode(',', $product['images']);
+    foreach ($image_list as $image_item) {
+
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            break;
+        }
+
+    }
+    echo '
+        <div class="best-product-item">
+            <div class="d-flex align-items-center gap-3">
+                <div class="product-box border">
+                    <img src="../uploads/' . $thumbnail . '" alt="' . $product['tensp'] . '">
+                </div>
+                <div class="product-info flex-grow-1">
+                    <div class="progress-wrapper">
+                        <div class="progress" style="height: 5px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="product-name mb-0 mt-2 fs-6">' . $product['tensp'] . ' <span
+                            class="float-end">' . $product['so_luot_xem'] . ' đã xem</span></p>
+                </div>
+            </div>
+        </div>
+    ';
+}
+?>
+
+                    </div>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; height: 420px; right: 0px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 253px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-12 col-lg-6 d-flex">
             <div class="card rounded-4 w-100 overflow-hidden">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
@@ -385,7 +326,7 @@ foreach ($top_sold_products as $product) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <!--end row-->
 

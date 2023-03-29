@@ -21,6 +21,8 @@ echo '<div class="d-flex">';
 include "./view/components/sidebar/sidebar.php";
 // SIDEBAR SECTION
 include "./view/layout/breadcrumb.php";
+
+$GLOBALS['inventory_cart'] = "Vượt quá số lượng tồn kho";
 if (isset($_SESSION['iduser'])) {
     // var_dump($_SESSION);
     if (isset($_GET['act'])) {
@@ -148,7 +150,7 @@ if (isset($_SESSION['iduser'])) {
                     // }
                 }
 
-                include "./view/pages/products/product-list.php";
+                include "./view/pages//product-list.productsphp";
                 break;
             case 'addproduct':
                 $error = array();
@@ -835,6 +837,16 @@ if (isset($_SESSION['iduser'])) {
 
                 }
                 include './view/pages/blogs/blog-cate.php';
+                break;
+            case 'binhluanblog':
+                include './view/pages/blogs/comment-blog.php';
+                break;
+            case 'deletecommentblog':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $delete_comment = deletecomment_blog($_GET['id']);
+
+                }
+                include './view/pages/blogs/comment-blog.php';
                 break;
             default:
                 // if (isset($_SESSION['iduser'])) {

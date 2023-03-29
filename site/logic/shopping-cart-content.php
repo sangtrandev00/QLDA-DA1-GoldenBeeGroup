@@ -47,7 +47,8 @@ foreach ($cart_list as $cart_item) {
     // echo $cart_item['sl'] * $cart_item['don_gia'];
     $id = $cart_item['id'];
     $delcartfunc = "handleDeleteCart($id)";
-
+    $update_cart_func_click = "updateCart('onclick')";
+    $update_cart_func_keyup = "updateCart('onkeyup')";
     $subtotal += $cart_item['sl'] * $cart_item['don_gia'];
     echo '
                                                         <!-- tr -->
@@ -66,10 +67,10 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                    <div class="dec qtybutton" onclick="updateCart()">-</div>
-                                                                        <input type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                    <div class="dec qtybutton" onclick="' . $update_cart_func_click . '">-</div>
+                                                                        <input onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
-                                                                            <div class="inc qtybutton" onclick="updateCart()">+</div>
+                                                                            <div class="inc qtybutton" onclick="' . $update_cart_func_click . '">+</div>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>

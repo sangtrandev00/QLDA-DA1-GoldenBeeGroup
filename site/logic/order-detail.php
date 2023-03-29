@@ -21,6 +21,9 @@ include "$ROOT_URL" . "/global.php";
 
 // var_dump($_POST);
 $orderInfo = getorderinfo($_POST['id']);
+// var_dump($_POST);
+// var_dump($orderInfo);
+// exit;
 $cartList = get_order_and_detail($_POST['id']);
 // $orderInfo = getorderinfo($_GET['id']);
 // var_dump($orderInfo);
@@ -184,7 +187,7 @@ if (isset($_SESSION['iduser'])) {
         echo '
 
     <tr class="p-3">
-        <td class="" scope="row"> ' . $cart_item['id'] . '</td>
+        <td class="" scope="row"> ' . $cart_item['idsanpham'] . '</td>
 
         <td class="">' . $cart_item['soluong'] . '</td>
         <td class="">' . $cart_item['dongia'] . '</td>

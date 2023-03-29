@@ -347,7 +347,7 @@ var options = {
 
 $.ajax({
 	type: "GET",
-	url: "./logic/revenue.php?act=all",
+	url: "./logic/revenue.php?act=allmonth",
 	// data: "data",
 	// dataType: "dataType",
 	success: function (response) {

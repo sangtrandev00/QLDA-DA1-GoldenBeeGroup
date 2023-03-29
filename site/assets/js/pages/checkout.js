@@ -4,7 +4,6 @@
 
 function handleCheckout(checkoutForm) {
    
-   
     if($("#checkout-form #vnpayPayment").hasClass("show")) {
         console.log('vnpay');
         checkoutForm.action = "./index.php?act=checkoutbtn&type=vnpay";

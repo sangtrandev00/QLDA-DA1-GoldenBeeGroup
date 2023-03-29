@@ -211,6 +211,8 @@ if (isset($_GET['act'])) {
                         $iduser = $_SESSION['iduser'];
                         $time_order = $bill['time_order'];
 
+                        $shippingfee = $bill['shippingfee'];
+                        $vat_fee = $bill['vat_fee'];
                         // LOOP and insert to giohang
                         $cart_list = $_SESSION['giohang'];
                         foreach ($cart_list as $cart_item) {
@@ -223,7 +225,7 @@ if (isset($_GET['act'])) {
                         }
 
                         // 3. tạo đơn hàng và trả về một id đơn hàng
-                        $iddh = taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 1);
+                        $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 1);
                         $_SESSION['iddh'] = $iddh;
                         if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                             foreach ($_SESSION['giohang'] as $item) {
@@ -275,15 +277,15 @@ if (isset($_GET['act'])) {
                 $iduser = $_SESSION['iduser'];
                 $tongdonhang = $_POST['tongdonhang'];
                 $hoten = $_POST['name'];
-                $diachi = $_POST['address'];
+                $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
                 $email = $_POST['email'];
                 $sodienthoai = $_POST['phone'];
                 $ghichu = $_POST['ghichu'];
-                $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
+                // Array[0,1,2,3] (hiện tại đang mặc định)
                 $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $time_order = date('Y-m-d h:i:s', time());
+                $time_order = date('Y-m-d H:i:s', time());
 
                 $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
                 $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
@@ -324,6 +326,8 @@ if (isset($_GET['act'])) {
                 $_SESSION['bill']['diachi'] = $diachi;
                 $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
                 $_SESSION['bill']['time_order'] = $time_order;
+                $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
+                $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
 
                 // $_SESSION['bill'][''] = $time_order;
                 if (isset($vnp_BankCode) && $vnp_BankCode != "") {
@@ -364,25 +368,28 @@ if (isset($_GET['act'])) {
                 // } else {
                 //     echo json_encode($returnData);
                 // }
-            } else {
+            } else if ($_GET['type'] == 'cod') {
+
                 if (isset($_POST['checkoutbtn']) && $_POST['checkoutbtn']) {
                     // echo "HELLO WORLD checkout";
-
+                    // var_dump($_POST);
                     // 1. Lấy dữ liệu
                     $iduser = $_SESSION['iduser'];
+                    $tongphu = $_POST['tongphu'];
+                    $shippingfee = $_POST['shippingfee'];
                     $tongdonhang = $_POST['tongdonhang'];
                     $hoten = $_POST['name'];
-                    $diachi = $_POST['address'];
+                    $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
                     $email = $_POST['email'];
                     $sodienthoai = $_POST['phone'];
                     $ghichu = $_POST['ghichu'];
                     $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
                     // Sinh ra mã đơn hàng
                     $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
-
+                    $vat_fee = $_POST['vat_fee'];
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-                    $time_order = date('Y-m-d h:i:s', time());
+                    $time_order = date('Y-m-d H:i:s', time());
 
                     // 2.validate php server
                     if (empty($hoten)) {
@@ -398,9 +405,9 @@ if (isset($_GET['act'])) {
                     if (empty($email)) {
                         $error['email'] = "Không để trống email";
                     }
-                    if (empty($diachi)) {
-                        $error['address'] = "Không để trống địa chỉ";
-                    }
+                    // if (empty($diachi)) {
+                    //     $error['address'] = "Không để trống địa chỉ";
+                    // }
 
                     if (!$error) {
                         // Trừ số lượng trong hàng tồn kho đi.
@@ -415,7 +422,7 @@ if (isset($_GET['act'])) {
                         }
 
                         // 3. tạo đơn hàng và trả về một id đơn hàng
-                        $iddh = taodonhang($madonhang, $tongdonhang, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
+                        $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
                         $_SESSION['iddh'] = $iddh;
                         if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                             foreach ($_SESSION['giohang'] as $item) {
@@ -724,13 +731,12 @@ if (isset($_GET['act'])) {
             $error = array();
             if (isset($_POST['updateacountinfobtn']) && $_POST['updateacountinfobtn']) {
                 // $tai_khoan = $_POST['tai_khoan'];
-
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
-                $congty= $_POST['companyname'];
+                $company= $_POST['companyname'];
                 $email = $_POST['email'];
-                // $password = $_POST[''];
+                $company = $_POST['companyname'];
                 $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
                 move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
@@ -739,10 +745,10 @@ if (isset($_GET['act'])) {
 
                 // Validate php here
 
-                if (empty($_FILES["hinh_anh"]["name"])) {
-                    $error['hinh_anh'] = "Không để trống hình ảnh";
-                }
-                // Validate at server
+                // if (empty($_FILES["hinh_anh"]["name"])) {
+                //     $error['hinh_anh'] = "Không để trống hình ảnh";
+                // }
+                // // Validate at server
 
                 if (strlen($ho_ten) == 0) {
                     $error['ho_ten'] = "Không để trống họ tên!";
@@ -757,45 +763,57 @@ if (isset($_GET['act'])) {
                 } else if (!is_email($email)) {
                     $error['email'] = "Email không đúng định dạng!";
                 }
+                // if (strlen($ho_ten) == 0) {
+                //     $error['ho_ten'] = "Không để trống họ tên!";
+                // } else if (strlen($ho_ten) > 30) {
+                //     $error['ho_ten'] = "Họ tên không vượt quá 30 ký tự!";
+                // }
 
-                if (strlen($sodienthoai) == 0) {
-                    $error['sodienthoai'] = "Không để trống số điện thoại!";
-                } else if (!validating($sodienthoai)) {
-                    $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
-                }
+                // if (empty($email)) {
+                //     $error['email'] = "không để trống email";
+                // } else if (!is_email($email)) {
+                //     $error['email'] = "Email không đúng định dạng!";
+                // }
+
+                // if (strlen($sodienthoai) == 0) {
+                //     $error['sodienthoai'] = "Không để trống số điện thoại!";
+                // } else if (!validating($sodienthoai)) {
+                //     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
+                // }
 
                 // if (empty($tai_khoan)) {
                 //     $error['tai_khoan'] = "Không để trống tài khoản!";
                 // }
 
+                // if (!$error) {
+                // echo 'Success!';
+                $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $company);
                 if (!$error) {
                     // echo 'Success!';
-                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $congty);
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $company);
 
-                    if ($is_updated) {
+                // if ($is_updated) {
 
-                        echo '
-                        <script>
+                //     // echo '
+                //     //     <script>
 
-                        </script>
-                        ';
-                    } else {
-
-                    }
-                } else {
-                    // echo "Error: ";
-                    echo '
-                        <script>
-                            $("#cartModal").trigger("click");
-                        </script>
-                    ';
+                //     //     </script>
+                //     //     ';
+                // } 
+                // } else {
+                //     echo "Error: ";
+                //     echo '
+                //         <script>
+                //             $("#cartModal").trigger("click");
+                //         </script>
+                //     ';
+                // }
                 }
-
-            } else {
-
+            
             }
             include "./view/pages/account/my-account.php";
             break;
+
         case 'updatepass':
             $error = array();
             if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
@@ -971,7 +989,7 @@ if (isset($_GET['act'])) {
             //         }
             //         // else{
             //         //     $_SESSION['error'] = 'Đăng Nhập Để Bình Luận';
-            //         //     header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+            //         //     header('location: index.php?act=blogdetail&id='.$idblog.'');
             //         // }
             //     endif;
 
@@ -986,10 +1004,10 @@ if (isset($_GET['act'])) {
                 $makh = $_SESSION['iduser'];
                 if (isset($_SESSION['iduser'])) {
                     comment_blog($makh, $content, $idblog, $date);
-                    // header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id='.$idblog.'');
+                    // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $idblog . '');
+                    header('location: index.php?act=blogdetail&id=' . $idblog . '');
                 }
             }
             include "./view/pages/blog/blog-detail.php";
@@ -997,7 +1015,7 @@ if (isset($_GET['act'])) {
         case 'deletecmt':
             $id = $_GET['idblog'] ? $_GET['idblog'] : '';
             deletecmt($id);
-            header('location: http://localhost/PRO1014_DA1/main-project/site/index.php?act=blogdetail&id=' . $_GET['idprofile'] . '');
+            header('location: index.php?act=blogdetail&id=' . $_GET['idprofile'] . '');
             break;
 
         // Thanh toan

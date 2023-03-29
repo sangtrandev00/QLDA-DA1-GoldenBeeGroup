@@ -17,6 +17,8 @@ include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
 include $ROOT_URL . "/DAO/order.php";
 include $ROOT_URL . "/DAO/user.php";
+include $ROOT_URL . "/site/models/connectdb.php";
+include $ROOT_URL . "/site/models/user.php";
 
 // include "../../site/models/connectdb.php";
 // include "../../site/models/donhang.php";
@@ -112,13 +114,19 @@ switch ($_GET['act']) {
         break;
     case 'updateshippingaddress':
         #code ...
-        // var_dump($_POST);
-        $is_updated = update_shipping_address($_POST['iduser'], $_POST['shippingaddress']);
-        echo $_POST['shippingaddress'];
-        $result = [
-            "status" => 1,
-            "content" => $_POST['shippingaddress'],
-        ];
+        $is_updated = update_shipping_address($_POST['iduser'], $_POST['province_id'], $_POST['district_id'], $_POST['ward_id'], $_POST['detail_address']);
+        if ($is_updated) {
+            $result = [
+                "status" => 1,
+                "content" => "Cập nhật địa chỉ giao hàng thành công!",
+            ];
+
+        } else {
+            $result = [
+                "status" => 0,
+                "content" => "Cập nhật thất bại",
+            ];
+        }
         var_dump($result);
         break;
     case 'changepass':

@@ -30,11 +30,11 @@ if (isset($_GET['iddh'])) {
                 <p class="mb-0">Order ID : #<?php echo $order_info['id'] ?></p>
             </div>
             <div class="col-12 col-lg-3 col-md-6">
-                <select id="select-payment" class="form-select">
+                <!-- <select id="select-payment" class="form-select">
                     <option value="-1">Trạng thái thanh toán</option>
                     <option <?php ?> value="2">Xác nhận đã thanh toán
                     </option>
-                </select>
+                </select> -->
             </div>
             <div class="col-12 col-lg-3 col-6 col-md-3">
                 <?php
@@ -300,7 +300,7 @@ foreach ($order_detail_list as $order_detail) {
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
                             <div>
-                                <h5 class="mb-0">Tóm tắt đơn hàng</h5>
+                                <h5 class="mb-0">Tóm tắt </h5>
                             </div>
                             <div class="ms-auto">
                                 <button type="button"
@@ -309,7 +309,7 @@ foreach ($order_detail_list as $order_detail) {
                         </div>
                         <div class="d-flex align-items-center mb-3">
                             <div>
-                                <p class="mb-0">Tổng phụ</p>
+                                <p class="mb-0">Tổng</p>
                             </div>
                             <div class="ms-auto">
                                 <h5 class="mb-0"><?php echo number_format($order_info['tongdonhang']) ?> VND</h5>
