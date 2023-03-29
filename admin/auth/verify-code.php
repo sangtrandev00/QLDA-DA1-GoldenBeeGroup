@@ -9,7 +9,6 @@ var_dump($_SESSION);
 ?>
 <?php
 
-
 if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
     $error = array();
     $code = $_POST['code'];
