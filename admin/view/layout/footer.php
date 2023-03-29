@@ -149,6 +149,8 @@
 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
 <script src="assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+<script src="assets/plugins/ckeditor/ckeditor.js"></script>
 <script src="assets/js/pace.min.js"></script>
 
 <!-- Data table -->

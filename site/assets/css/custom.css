@@ -64,3 +64,9 @@ table#table-history-order {
 #comment-wrapper .message-box {
   margin-top: 8rem;
 }
+
+/* Review products */
+
+#reviewModal.modal {
+  margin-top: 9rem;
+}

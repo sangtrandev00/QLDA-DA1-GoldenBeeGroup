@@ -122,3 +122,43 @@ function get_all_reviews_of_product($idsp)
     $kq = $stmt->fetchAll();
     return $kq;
 }
+
+function is_rated_producted($idsp, $iddh, $iduser)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT count(*) as is_rated from tbl_danhgiasp where iduser = '$iduser' and iddonhang = '$iddh' and idsanpham = '$idsp'");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    // var_dump($kq);
+    return $kq['is_rated'];
+}
+
+function count_number_reviews_of_product($idsp)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT count(*) as number_reviews from tbl_danhgiasp where idsanpham = '$idsp'");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    // var_dump($kq);
+    return $kq['number_reviews'];
+}
+
+function insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, $trangthai_review)
+{
+
+    $conn = connectdb();
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // $sql = "INSERT INTO `tbl_order` (`madonhang`,`pttt`,`hoten`,`dienthoai`,`email`,`diachi`,`tongdonhang`)
+    // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
+    // ";
+    // echo $timeorder;
+    $sql = "INSERT INTO tbl_danhgiasp (iduser, idsanpham, noidung, rating_star, date_create, iddonhang, trangthai_review)
+    VALUES ('$iduser', '$idsanpham', '$noidung', '$rating_star','$date_create','$iddh','$trangthai_review')";
+
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    // echo "New record created successfully";
+    return true;
+}

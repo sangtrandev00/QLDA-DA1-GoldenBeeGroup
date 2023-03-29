@@ -13,6 +13,7 @@ function logout(){
 
 }
 
+
 function getParent(element, selector) {
     while (element.parentElement) {
       if (element.parentElement.matches(selector)) {
@@ -20,6 +21,12 @@ function getParent(element, selector) {
       }
       element = element.parentElement;
     }
+}
+
+function alertModal(title, message) {
+    $("#cartModalBtn").trigger("click");
+    $("#cartModal #cartModalLabel").text(`${title}`);
+    $("#cartModal .modal-body").text(`${message}`);
 }
 
 function showToast(toastTitle, toastMessage) {

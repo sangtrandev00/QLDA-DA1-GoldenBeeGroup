@@ -183,7 +183,7 @@
 $top_sold_products = select_top_sold_products();
 
 // var_dump($top_sold_products);
-exit;
+
 foreach ($top_sold_products as $product) {
     # code...
     echo '

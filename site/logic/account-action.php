@@ -19,6 +19,7 @@ include $ROOT_URL . "/DAO/order.php";
 include $ROOT_URL . "/DAO/user.php";
 include $ROOT_URL . "/site/models/connectdb.php";
 include $ROOT_URL . "/site/models/user.php";
+include $ROOT_URL . "/site/models/donhang.php";
 
 // include "../../site/models/connectdb.php";
 // include "../../site/models/donhang.php";
@@ -254,6 +255,27 @@ switch ($_GET['act']) {
                 )
             );
         }
+        break;
+    case 'reviewproduct':
+
+        // var_dump($_POST);
+        $iduser = $_POST['iduser'];
+        $idsanpham = $_POST['idsanpham'];
+        $noidung = $_POST['noidung'];
+        $rating_star = $_POST['rating_star'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date_create = date('Y-m-d H:i:s');
+        $iddh = $_POST['iddh'];
+        $is_inserted = insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, 1);
+        if ($is_inserted) {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => "Đánh giá sản phẩm thành công!",
+                )
+            );
+        }
+        // exit;
         break;
     default:
         # code...
