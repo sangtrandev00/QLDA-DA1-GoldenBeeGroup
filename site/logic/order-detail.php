@@ -98,7 +98,6 @@ switch ($orderInfo['trangthai']) {
                     </form>
                     <?php
 break;
-        break;
     default:
         # code...
         break;

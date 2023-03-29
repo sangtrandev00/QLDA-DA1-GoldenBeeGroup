@@ -5,7 +5,54 @@ include "../models/connectdb.php";
 include "../models/user.php";
 
 ?>
+<?php
+$error = array();
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    // Đối chiếu password
+    //Validate form
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+    if (empty($password)) {
+        $error['password'] = "Không để trống password";
+    }
+    // echo $email;
+    // echo $password;
+    if (!$error) {
+        $password = md5($password);
+        // echo $password;
+        $islogined = checkuser2($email, $password);
+        // echo $islogined;
+        if ($islogined === -1) {
+            echo '
+                <script>
+                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                </script>
+                ';
+        } else {
+            $kq = getuserinfo2($email, $password);
+            $role = $kq[0]['vai_tro'];
+            // echo $role;
+            if ($role == 1 || $role == 2) {
+                $_SESSION['role'] = $role;
+                $_SESSION['username'] = $kq[0]['ho_ten'];
+                $_SESSION['iduser'] = $kq[0]['id'];
+                $_SESSION['img'] = $kq[0]['hinh_anh'];
+                header('Location: ../index.php');
+            } else {
+                echo '
+                    <script>
+                        window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                    </script>
+                    ';
+            }
+        }
+    }
+}
+?>
 
 
 <!doctype html>
@@ -56,7 +103,7 @@ include "../models/user.php";
     }
     </style>
 
-    <title>GoldenBeeGroup Authentication</title>
+    <title>Bootstrap 5 Admin Template</title>
 
 </head>
 
@@ -107,6 +154,8 @@ include "../models/user.php";
                                                     <p class="error-message">
                                                         <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                                 </div>
+                                                <p class="error-message-login">
+                                                    <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
 
                                             <div class="col-12">
@@ -124,6 +173,9 @@ include "../models/user.php";
                                                         <?php echo isset($error['password']) ? $error['password'] : ''; ?>
                                                     </p>
                                                 </div>
+                                                <p class="error-message-login">
+                                                    <?php echo isset($error['password']) ? $error['password'] : ''; ?>
+                                                </p>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
@@ -174,9 +226,7 @@ include "../models/user.php";
 </body>
 
 </html>
-
 <?php
-
 $error = array();
 if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 

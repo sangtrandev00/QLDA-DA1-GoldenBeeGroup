@@ -94,7 +94,6 @@ if (isset($_SESSION['iduser'])) {
                                                             <input type="text" name="sodienthoai"
                                                                 placeholder="Số điện thoại...">
                                                         </div>
-
                                                         <div class="form-group">
                                                             <p class="error-message">
                                                                 <?php if (isset($error['company'])) {echo $error['company'];}?>
@@ -115,7 +114,7 @@ if (isset($_SESSION['iduser'])) {
                                                                 <?php if (isset($error['diachi'])) {echo $error['diachi'];}?>
                                                             </p>
                                                             <textarea name="diachi" class="custom-textarea"
-                                                                placeholder="Dịa chỉ..."></textarea>
+                                                                placeholder="Địa chỉ..."></textarea>
                                                         </div>
                                                         <div class="checkbox">
 

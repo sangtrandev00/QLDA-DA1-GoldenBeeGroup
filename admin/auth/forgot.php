@@ -6,6 +6,35 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
 ?>
+<?php
+$error = array();
+if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
+    $email = $_POST['email'];
+
+    // Validate
+
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+
+    if (!$error) {
+        if (email_exist($email)) {
+            $title = "Code Reset Password";
+            $messageCode = random_int(100000, 999999);
+            $_SESSION['emailreset'] = $email;
+            $_SESSION['verifycode'] = $messageCode;
+            sendmail($email, $title, $messageCode);
+            header("location: ./verify-code.php");
+        } else {
+            echo '
+            <script>
+                window.alert("Email của bạn không đúng. Xin vui lòng nhập lại!");
+            </script>
+            ';
+        }
+    }
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -36,6 +65,12 @@ include "../../DAO/user.php";
         .images img{
             width: 80%;
         }
+        .error-message-forgot{
+            color: red;
+            font-weight: 500;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -65,8 +100,8 @@ include "../../DAO/user.php";
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Email</label>
                                                 <input type="email" class="form-control radius-30" id="inputEmailid"
-                                                    placeholde r="Email" required name="email">
-                                                    <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
+                                                    placeholde r="Email" name="email" required>
+                                                    <p class="error-message-forgot"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
@@ -99,27 +134,3 @@ include "../../DAO/user.php";
 </body>
 
 </html>
-<?php
-if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
-    $email = $_POST['email'];
-
-    // Validate
-
-    if (empty($email)) {
-        $error['email'] = "Không để trống email";
-    }
-
-    if (!$error) {
-        if (email_exist($email)) {
-            $title = "Code Reset Password";
-            $messageCode = random_int(100000, 999999);
-            $_SESSION['emailreset'] = $email;
-            $_SESSION['verifycode'] = $messageCode;
-            sendmail($email, $title, $messageCode);
-            header("location: ./verify-code.php");
-        } else {
-            echo '<div class="alert alert-danger" >Email của bạn không tồn tại</div>';
-        }
-    }
-}
-?>

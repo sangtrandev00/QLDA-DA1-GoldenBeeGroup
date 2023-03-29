@@ -6,7 +6,29 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
 ?>
+<?php
 
+$error = array();
+if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
+    $code = $_POST['code'];
+
+    if (empty($code)) {
+        $error['code'] = "Không để trống mã code";
+    }
+
+    if (isset($_SESSION['verifycode'])) {
+        $verifycode = $_SESSION['verifycode'];
+        if ($code != $verifycode) {
+            // echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác, mời gửi lại email</div>';
+            unset($_SESSION['verifycode']);
+            header('location: ./forgot.php');
+        } else {
+            header('location: ./reset-pass.php');
+        }
+    }
+
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -26,7 +48,7 @@ include "../../DAO/user.php";
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-    .bg-guii {
+    HEAD .bg-guii {
         background-color: #ff7f00;
         border: none;
     }
@@ -37,6 +59,24 @@ include "../../DAO/user.php";
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
+    =======
+    .bg-guii{
+    background-color: #ff7f00;
+    border: none;
+    }
+    .bg-guii:hover{
+    background-color: #ff7f00;
+    }
+    .error-message-veryfi{
+    color: red;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-left: 5px;
+    }
+    </style>
+
+    <title>verify-code</title>
+    >>>>>>> 02af978 (Checklist form file auth)
 </head>
 
 <body class="bg-surface">
@@ -59,13 +99,14 @@ include "../../DAO/user.php";
                                     <h5 class="card-title">Nhập mã code</h5>
                                     <p class="card-text mb-5">Nhập mã code đã gửi đến email của bạn để lấy lại mật khẩu
                                     </p>
-                                    <form class="form-body" action="./verify-code.php" method="POST">
+                                    <form class="form-body" action="./verify-code.php" method="post">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code" required>
-                                                <p class="error-message">
+
+                                                <p class="error-message-veryfi">
                                                     <?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
@@ -99,27 +140,3 @@ include "../../DAO/user.php";
 </body>
 
 </html>
-
-<?php
-
-$error = array();
-if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
-    $code = $_POST['code'];
-
-    if (empty($code)) {
-        $error['code'] = "Không để trống mã code";
-    }
-
-    if (isset($_SESSION['verifycode'])) {
-        $verifycode = $_SESSION['verifycode'];
-        if ($code != $verifycode) {
-            echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác, mời gửi lại email</div>';
-            unset($_SESSION['verifycode']);
-            header('location: ./forgot.php');
-        } else {
-            header('location: ./reset-pass.php');
-        }
-    }
-
-}
-?>

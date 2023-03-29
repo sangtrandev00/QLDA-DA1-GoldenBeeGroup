@@ -369,6 +369,7 @@ if (isset($_SESSION['iduser'])) {
                                                     </div>
                                                     <div class="form-group row">
 
+
                                                         <label for="" class="form-label col-md-3">Số điện thoại</label>
                                                         <div class="col-md-9">
                                                             <input class="" type="text" name="phone"

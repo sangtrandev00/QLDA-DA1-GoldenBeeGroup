@@ -753,9 +753,10 @@ if (isset($_GET['act'])) {
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
-                // $email = $_POST['email'];
-                $company = $_POST['companyname'];
 
+                $congty = $_POST['companyname'];
+                $email = $_POST['email'];
+                // $password = $_POST[''];
                 $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
                 move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
@@ -784,11 +785,14 @@ if (isset($_GET['act'])) {
                     $error['ho_ten'] = "Họ tên không vượt quá 50 ký tự!";
                 }
 
-                // if (empty($email)) {
-                //     $error['email'] = "không để trống email";
-                // } else if (!is_email($email)) {
-                //     $error['email'] = "Email không đúng định dạng!";
+                // if (empty($congty)) {
+                //     $error['congty'] = "không để trống email";
                 // }
+                if (empty($email)) {
+                    $error['email'] = "không để trống email";
+                } else if (!is_email($email)) {
+                    $error['email'] = "Email không đúng định dạng!";
+                }
 
                 if (strlen($sodienthoai) == 0) {
                     $error['sodienthoai'] = "Không để trống số điện thoại!";
@@ -796,7 +800,7 @@ if (isset($_GET['act'])) {
                     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
                 }
 
-                if (empty($company)) {
+                if (empty($congty)) {
                     $error['company'] = "Không để trống tài khoản!";
                 }
 
@@ -806,7 +810,8 @@ if (isset($_GET['act'])) {
 
                 if (!$error) {
 
-                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $role = 1, $company);
+                    // echo 'Success!';
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $congty);
 
                     if ($is_updated) {
 
@@ -815,6 +820,7 @@ if (isset($_GET['act'])) {
                     }
                 } else {
                     $_SESSION['alert'] = "Cập nhật thông tin tài khoản thất bại!";
+
                 }
 
             } else {
