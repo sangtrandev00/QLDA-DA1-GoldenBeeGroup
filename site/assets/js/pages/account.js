@@ -245,5 +245,53 @@ function updatePaymentMethod(iduser) {
         });
 }
 
+function reviewProduct(currentForm) {
+    event.preventDefault();
 
+    $("#reviewModalBtn").trigger("click");
+    console.log(currentForm);
+    const productName = currentForm.elements['tensp'].value;
+    const thumbnail = currentForm.elements['hinhanh'].value;
+    const price = currentForm.elements['dongia'].value;
+    const productId = currentForm.elements['idproduct'].value;
+    const iddh = currentForm.elements['iddh'].value;
+    const iduser = currentForm.elements['iduser'].value;
+   
+    // const reviewImage = currentForm.elements['review_img'].value;
+    $("#reviewModal .review-product__name").text(productName);
+    $("#reviewModal .review-product__name").attr("href", "./index.php?act=detailproduct&id="+productId);
+    $("#reviewModal .review-product__price").text((+price).toLocaleString("en-us"));
+    $("#reviewModal .review-product__img").attr("src", "../uploads/"+thumbnail);
+
+    $("#reviewModal .save-review-btn").click(function(e){
+        const reviewForm = document.querySelector("#reviewModal .review-product__form");
+        console.log(reviewForm.elements);
+       
+        const reviewContent = reviewForm.elements['review_content'].value;
+        const reviewStarRating = reviewForm.elements['review_star_rating'].value;
+
+        // console.log(reviewContent, reviewStarRating);
+            $.ajax({
+                type: "POST",
+                url: "./logic/account-action.php?act=reviewproduct",
+                data: {
+                    iduser,
+                    idsanpham: productId,
+                    noidung: reviewContent,
+                    rating_star:reviewStarRating,
+                    iddh,
+                    // reviewImage
+                },
+                // dataType: "dataType",
+                success: function (response) {
+                    const {status, content } = JSON.parse(response);
+
+                    // showToast("Đánh giá sản phẩm", content);
+                    alertModal(content +", Xem bình luận", "Bạn có muốn xem bình luận ?");
+                    $("#cartModal form").action="./index.php?act=detailproduct&id="+productId+"view=reviews";
+                }
+            });
+        })
+
+}
 

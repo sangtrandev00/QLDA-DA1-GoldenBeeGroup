@@ -42,3 +42,8 @@ if (toastTrigger) {
     toast.show()
   })
 }
+
+$(document).ready(function () {
+    CKEDITOR.replace( 'descriptionProductEditor' );
+    CKEDITOR.replace( 'infoProductEditor' );
+});

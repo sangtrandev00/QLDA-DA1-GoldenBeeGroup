@@ -14,13 +14,13 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label">Mô tả sản phẩm</label>
-                            <textarea name="mo_ta" class="form-control" placeholder="Full description" rows="4"
-                                cols="4"></textarea>
+                            <textarea id="descriptionProductEditor" name="mo_ta" class="form-control"
+                                placeholder="Full description" rows="4" cols="4"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Thông tin sản phẩm</label>
-                            <textarea name="thong_tin" class="form-control" placeholder="Full description" rows="4"
-                                cols="4"></textarea>
+                            <textarea id="infoProductEditor" name="thong_tin" class="form-control"
+                                placeholder="Full description" rows="4" cols="4"></textarea>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Thêm hình ảnh (Có thể thêm nhiều hình ảnh )</label>
