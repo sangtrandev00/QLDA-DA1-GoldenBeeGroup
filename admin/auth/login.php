@@ -5,7 +5,54 @@ include "../models/connectdb.php";
 include "../models/user.php";
 
 ?>
-
+<?php
+    $error = array();
+    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        // Đối chiếu password
+        //Validate form
+        if (empty($email)) {
+            $error['email'] = "Không để trống email";
+        } 
+        if (empty($password)) {
+            $error['password'] = "Không để trống password";
+        }
+        // echo $email;
+        // echo $password;
+        if (!$error) {
+            $password = md5($password);
+            // echo $password;
+            $islogined = checkuser2($email, $password);
+            // echo $islogined;
+            if ($islogined === -1) {
+                echo '
+                <script>
+                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                </script>
+                ';
+            } else {
+                $kq = getuserinfo2($email, $password);
+                $role = $kq[0]['vai_tro'];
+                // echo $role;
+                if ($role == 1 || $role == 2) {
+                    $_SESSION['role'] = $role;
+                    $_SESSION['username'] = $kq[0]['ho_ten'];
+                    $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['img'] = $kq[0]['hinh_anh'];
+                    header('Location: ../index.php');
+                } else {
+                    echo '
+                    <script>
+                        window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                    </script>
+                    ';
+                }
+            }
+        }
+    }
+?>
 
 
 <!doctype html>
@@ -49,9 +96,15 @@ include "../models/user.php";
         .images img{
             width: 70%;
         }
+        .error-message-login{
+            color: red;
+            font-weight: 500;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>Admin Golden Bee Group</title>
 
 </head>
 
@@ -98,8 +151,8 @@ include "../models/user.php";
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
                                                         id="inputEmailAddress" placeholder="Email" name="email" required>
-                                                    <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                                 </div>
+                                                <p class="error-message-login"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
 
                                             <div class="col-12">
@@ -112,8 +165,8 @@ include "../models/user.php";
                                                     </div>
                                                     <input type="password" class="form-control radius-30 ps-5"
                                                         id="inputChoosePassword" placeholder="Mật khẩu" name="password" required>
-                                                    <p class="error-message"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                                                 </div>
+                                                <p class="error-message-login"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
@@ -160,50 +213,3 @@ include "../models/user.php";
 </body>
 
 </html>
-<?php
-    $error = array();
-    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-    
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        // Đối chiếu password
-        //Validate form
-        if (empty($email)) {
-            $error['email'] = "Không để trống email";
-        } 
-        if (empty($password)) {
-            $error['password'] = "Không để trống password";
-        }
-    
-        if (!$error) {
-            $password = md5($password);
-            // echo $password;
-            $islogined = checkuser2($email, $password);
-            // echo $islogined;
-            if ($islogined === -1) {
-                echo '
-                <script>
-                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
-                </script>
-                ';
-            } else {
-                $kq = getuserinfo2($email, $password);
-                $role = $kq[0]['vai_tro'];
-                // echo $role;
-                if ($role == 1 || $role == 2) {
-                    $_SESSION['role'] = $role;
-                    $_SESSION['username'] = $kq[0]['ho_ten'];
-                    $_SESSION['iduser'] = $kq[0]['id'];
-                    $_SESSION['img'] = $kq[0]['hinh_anh'];
-                    header('Location: ../index.php');
-                } else {
-                    echo '
-                    <script>
-                        window.alert("Email hoặc của bạn không đúng. Xin vui lòng nhập lại!");
-                    </script>
-                    ';
-                }
-            }
-        }
-    }
-?>

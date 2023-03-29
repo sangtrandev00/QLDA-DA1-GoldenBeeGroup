@@ -385,7 +385,7 @@ if (isset($_SESSION['iduser'])) {
                                                         <?php if (isset($error['address'])) {echo $error['address'];}?>
                                                     </p>
                                                     <textarea name="address" class="custom-textarea shipping-address"
-                                                        placeholder="Địa chỉ của bạn..."><?php echo $curr_user['ship_address']; ?></textarea>
+                                                        placeholder="Địa chỉ của bạn..."><?php echo $curr_user['diachi'];?></textarea>
                                                     <p class="error-message text-danger mb-0"></p>
                                                     <textarea name="ghichu" class="custom-textarea mt-3" value=""
                                                         placeholder="Ghi chú cho người bán..."></textarea>

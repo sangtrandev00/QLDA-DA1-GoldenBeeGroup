@@ -6,6 +6,37 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
 ?>
+<?php
+ $error = array();
+if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+    $newpass = $_POST['newpass'];
+    $renewpass = $_POST['renewpass'];
+    //Validate reset-pass
+    if (empty($newpass)) {
+        $error['newpass'] = "Không để trống mật khẩu";
+    }
+    if (empty($renewpass)) {
+        $error['renewpass'] = "Không để trống nhập lại mật khẩu";
+    }
+    if ($newpass != $renewpass) {
+        echo '
+            <script>
+                window.alert("Bạn nhập mật khẩu không đúng, xin mời bạn nhập lại!");
+            </script>
+            ';
+    } else {
+        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
+        unset($_SESSION['emailreset']);
+        unset($_SESSION['verifycode']);
+        header('location: ./login.php');
+        echo '
+            <script>
+                window.alert("Bạn đã thay đổi thành công, xin mời bạn đăng nhập!");
+            </script>
+            ';
+    }
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -35,6 +66,12 @@ include "../../DAO/user.php";
         }
         .images img{
             width: 70%;
+        }
+        .error-message-reset{
+            color: red;
+            font-weight: 500;
+            margin-top: 5px;
+            margin-left: 5px;
         }
     </style>
 
@@ -74,8 +111,9 @@ include "../../DAO/user.php";
                                                     </div>
                                                     <input type="password" name="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
-                                                        placeholder="Nhập mật khẩu mới">
+                                                        placeholder="Nhập mật khẩu mới" required>
                                                 </div>
+                                                <p class="error-message-reset"><?php echo isset($error['newpass']) ? $error['newpass'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputConfirmPassword" class="form-label">Xác nhận mật
@@ -87,8 +125,9 @@ include "../../DAO/user.php";
                                                     </div>
                                                     <input type="password" name="renewpass"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
-                                                        placeholder="Xác nhận mật khẩu">
+                                                        placeholder="Xác nhận mật khẩu" required>
                                                 </div>
+                                                <p class="error-message-reset"><?php echo isset($error['renewpass']) ? $error['renewpass'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
@@ -122,28 +161,3 @@ include "../../DAO/user.php";
 </body>
 
 </html>
-<?php
-$error = array();
-if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
-    $newpass = $_POST['newpass'];
-    $renewpass = $_POST['renewpass'];
-
-    if ($newpass != $renewpass) {
-        echo '
-            <script>
-                window.alert("Bạn nhập mật khẩu không đúng, xin mời bạn nhập lại!");
-            </script>
-            ';
-    } else {
-        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
-        unset($_SESSION['emailreset']);
-        unset($_SESSION['verifycode']);
-        header('location: ./login.php');
-        echo '
-            <script>
-                window.alert("Bạn đã thay đổi thành công, xin mời bạn đăng nhập!");
-            </script>
-            ';
-    }
-}
-?>

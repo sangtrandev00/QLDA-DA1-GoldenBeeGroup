@@ -728,6 +728,7 @@ if (isset($_GET['act'])) {
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
+                $congty= $_POST['companyname'];
                 $email = $_POST['email'];
                 // $password = $_POST[''];
                 $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
@@ -748,7 +749,9 @@ if (isset($_GET['act'])) {
                 } else if (strlen($ho_ten) > 30) {
                     $error['ho_ten'] = "Họ tên không vượt quá 30 ký tự!";
                 }
-
+                // if (empty($congty)) {
+                //     $error['congty'] = "không để trống email";
+                // }
                 if (empty($email)) {
                     $error['email'] = "không để trống email";
                 } else if (!is_email($email)) {
@@ -766,8 +769,8 @@ if (isset($_GET['act'])) {
                 // }
 
                 if (!$error) {
-                    echo 'Success!';
-                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1);
+                    // echo 'Success!';
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $congty);
 
                     if ($is_updated) {
 
@@ -780,7 +783,7 @@ if (isset($_GET['act'])) {
 
                     }
                 } else {
-                    echo "Error: ";
+                    // echo "Error: ";
                     echo '
                         <script>
                             $("#cartModal").trigger("click");
