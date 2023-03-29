@@ -30,6 +30,8 @@
                                 <div class="form-group mb-3">
                                     <label for="">Địa chỉ: </label>
                                     <input type="text" class="form-control" name="address" value="" required>
+                                    <p class="error-message">
+                                    <?php echo isset($error['address']) ? $error['address'] : ''; ?></p>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="">Email: </label>
@@ -64,7 +66,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Hình ảnh: </label> 
-                        <input type="file" class="form-control" name="image" value="" accept="image/gif, image/jpeg, image/png, image/jpg" required>
+                        <input type="file" class="form-control" name="image" value="" accept="image/gif, image/jpeg, image/png, image/jpg">
                         <p class="error-message"><?php echo isset($error['img']) ? $error['img'] : ''; ?></p>
                     </div>
                     <div class="form-group mb-3">

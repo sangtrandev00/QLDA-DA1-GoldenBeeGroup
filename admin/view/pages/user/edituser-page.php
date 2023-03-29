@@ -39,7 +39,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <div class="form-group mb-3">
                                                 <label for="">Tên User: </label>
                                                 <input type="text" class="form-control" name="fullname"
-                                                    value="<?php echo $user['ho_ten'] ?>">
+                                                    value="<?php echo $user['ho_ten'] ?>" required>
                                                 <p class="error-message">
                                                     <?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
 
@@ -47,12 +47,14 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <div class="form-group mb-3">
                                                 <label for="">Địa chỉ: </label>
                                                 <input type="text" class="form-control" name="address"
-                                                    value="<?php echo $user['diachi'] ?>">
+                                                    value="<?php echo $user['diachi'] ?>" required>
+                                                    <p class="error-message">
+                                                    <?php echo isset($error['address']) ? $error['address'] : ''; ?></p>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="">Email: </label>
                                                 <input type="email" class="form-control" name="email"
-                                                    value="<?php echo $user['email'] ?>">
+                                                    value="<?php echo $user['email'] ?>" required>
                                                 <p class="error-message">
                                                     <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
 
@@ -60,7 +62,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <div class="form-group mb-3">
                                                 <label for="">Phone: </label>
                                                 <input type="text" class="form-control" name="phone"
-                                                    value="<?php echo $user['sodienthoai'] ?>">
+                                                    value="<?php echo $user['sodienthoai'] ?>" required>
                                                 <p class="error-message">
                                                     <?php echo isset($error['phone']) ? $error['phone'] : ''; ?></p>
 
@@ -73,7 +75,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <div class="form-group mb-3">
                                                 <label for="">Username: </label>
                                                 <input type="text" class="form-control" name="username"
-                                                    value="<?php echo $user['tai_khoan'] ?>">
+                                                    value="<?php echo $user['tai_khoan'] ?>" required>
                                                 <p class="error-message">
                                                     <?php echo isset($error['username']) ? $error['username'] : ''; ?>
                                                 </p>
@@ -81,7 +83,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <div class="form-group mb-3">
                                                 <label for="">Password: </label>
                                                 <input type="text" class="form-control" name="password"
-                                                    value="<?php echo $user['mat_khau'] ?>">
+                                                    value="<?php echo $user['mat_khau'] ?>" required>
                                                 <p class="error-message">
                                                     <?php echo isset($error['password']) ? $error['password'] : ''; ?>
                                                 </p>
@@ -90,7 +92,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 <label for="">Hình ảnh: </label>
                                                 <?=$hinh?>
                                                 <input type="file" class="form-control" name="image" value=""
-                                                    style="margin-top: 5px;">
+                                                    style="margin-top: 5px;" accept="image/gif, image/jpeg, image/png, image/jpg">
                                                 <p class="error-message">
                                                     <?php echo isset($error['img']) ? $error['img'] : ''; ?></p>
                                             </div>

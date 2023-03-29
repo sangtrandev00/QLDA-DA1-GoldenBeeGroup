@@ -114,6 +114,13 @@
 .rate:hover .face {
     opacity: 1;
 }
+
+.fanpage-facebook{
+    margin-top: 15px;
+}
+.footer-brief{
+    margin-bottom: 10px;   
+}
 </style>
 
 
@@ -341,6 +348,8 @@
                                     <p>Email: admin@thephonerstore.online </p>
                                     <p>Số điện thoại: 0937988510 </p>
                                 </div>
+
+                                
                                 <ul class="footer-social">
                                     <li>
                                         <a class="facebook" href="" title="Facebook"><i
@@ -357,6 +366,7 @@
                                         <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                     </li>
                                 </ul>
+                                <iframe class="fanpage-facebook" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100091145059135&tabs&width=300px&height=200px&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=603944711072413" width="300px" height="200px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
                         </div>
                         <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">

@@ -434,9 +434,11 @@ if (isset($_SESSION['iduser'])) {
                     } else if (strlen($name) > 30) {
                         $error['name'] = "Họ tên không vượt quá 30 ký tự!";
                     }
-
+                    if (empty($address)) {
+                        $error['address'] = "Không để trống địa chỉ!";
+                    }
                     if (empty($email)) {
-                        $error['email'] = "không để trống email";
+                        $error['email'] = "Không để trống email!";
                     } else if (!is_email($email)) {
                         $error['email'] = "Email không đúng định dạng!";
                     }
@@ -452,7 +454,7 @@ if (isset($_SESSION['iduser'])) {
                     }
 
                     if (empty($password)) {
-                        $error['password'] = "không để trống password!";
+                        $error['password'] = "Không để trống password!";
                     }
 
                     if (!$error) {
@@ -502,8 +504,12 @@ if (isset($_SESSION['iduser'])) {
                         $error['name'] = "Họ tên không vượt quá 30 ký tự!";
                     }
 
+                    if (empty($address)) {
+                        $error['address'] = "Không để trống địa chỉ!";
+                    }
+
                     if (empty($email)) {
-                        $error['email'] = "không để trống email";
+                        $error['email'] = "Không để trống email";
                     } else if (!is_email($email)) {
                         $error['email'] = "Email không đúng định dạng!";
                     }
@@ -568,15 +574,19 @@ if (isset($_SESSION['iduser'])) {
                     //     $error['img'] = "Không để trống hình ảnh";
                     // }
                     // Validate at server
-
+                    
                     if (strlen($name) == 0) {
                         $error['name'] = "Không để trống họ tên!";
                     } else if (strlen($name) > 30) {
                         $error['name'] = "Họ tên không vượt quá 30 ký tự!";
                     }
+                    
+                    if (empty($address)) {
+                        $error['address'] = "Không để trống địa chỉ!";
+                    }
 
                     if (empty($email)) {
-                        $error['email'] = "không để trống email";
+                        $error['email'] = "không để trống email!";
                     } else if (!is_email($email)) {
                         $error['email'] = "Email không đúng định dạng!";
                     }
