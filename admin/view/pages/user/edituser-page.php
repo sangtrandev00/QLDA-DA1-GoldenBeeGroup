@@ -1,11 +1,14 @@
 <!--start content-->
 <main class="page-content">
+
+
     <?php
+
 // var_dump($user);
 if (isset($_GET['id']) && $_GET['id'] > 0) {
     $user = user_select_by_id($_GET['id']);
     // var_dump($user);
-    $hinhpath = "..đuploads/" . $user['hinh_anh'];
+    $hinhpath = "../uploads/" . $user['hinh_anh'];
     if (is_file($hinhpath)) {
         $hinh = "<img src='" . $hinhpath . "' height='40'>";
     } else {
@@ -18,13 +21,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         <a class="my-3 d-inline-block btn btn-outline-primary col-xl-3 ms-3" href="./index.php?act=userlist">
             <-- Trở lại trang người dùng</a>
                 <div class="card-body">
-
                     <div class="border p-3 rounded">
 
                         <h6 class="mb-0 text-uppercase">Cập nhật người dùng</h6>
                         <hr />
-                        <form class="row g-3" action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>"
-                            method="post" enctype="multipart/form-data">
+                        <form class="row g-3" id="form-edit-user"
+                            action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>" method="post"
+                            enctype="multipart/form-data">
                             <div class="col-12">
                                 <label class="form-label">Họ và Tên:</label>
                                 <input type="text" class="form-control" name="fullname"
@@ -60,9 +63,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                             <!-- <div class="col-12">
                                 <label class="form-label">Username</label>
                                 <input type="text" class="form-control" name="username"
-                                    value="<?php echo $user['tai_khoan'] ?>" required>
+                                    value="" required>
                                 <p class="error-message">
-                                    <?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
+
                             </div> -->
                             <div class="col-12">
                                 <label class="form-label">Password:</label>
@@ -107,4 +110,15 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 </main>
 <!--end page main-->
 
-<!-- Toggle Modal here -->
+<!-- Bootstrap bundle JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<!--plugins-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>
+src = "assets/js/additional-methods.min.js"
+</script>
+
+<script src="assets/js/pages/validate.js">
+
+</script>

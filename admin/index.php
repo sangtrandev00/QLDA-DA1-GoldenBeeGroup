@@ -652,6 +652,10 @@ if (isset($_SESSION['idadmin'])) {
                         $error['address'] = "Không để trống địa chỉ!";
                     }
 
+                    if (empty($address)) {
+                        $error['address'] = "Không để trống địa chỉ!";
+                    }
+
                     if (empty($email)) {
                         $error['email'] = "không để trống email!";
                     } else if (!is_email($email)) {

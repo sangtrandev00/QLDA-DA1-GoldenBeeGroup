@@ -1,4 +1,6 @@
+<!--start content-->
 <main class="page-content">
+
 
     <?php
 
@@ -19,13 +21,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         <a class="my-3 d-inline-block btn btn-outline-primary col-xl-3 ms-3" href="./index.php?act=adminlist">
             <-- Trở lại trang quản trị viên</a>
                 <div class="card-body">
-
                     <div class="border p-3 rounded">
 
                         <h6 class="mb-0 text-uppercase">Cập nhật quản trị viên</h6>
                         <hr />
-                        <form class="row g-3" action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>"
-                            method="post" enctype="multipart/form-data">
+                        <form class="row g-3" id="form-edit-admin"
+                            action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>" method="post"
+                            enctype="multipart/form-data">
                             <div class="col-12">
                                 <label class="form-label">Họ và Tên:</label>
                                 <input type="text" class="form-control" name="fullname"
@@ -37,8 +39,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 <input type="text" class="form-control" name="address"
                                     value="<?php echo $user['diachi'] ?>" required>
                                 <p class="error-message">
-                                    <?php echo isset($error['address']) ? $error['address'] : ''; ?>
-                                </p>
+                                    <?php echo isset($error['address']) ? $error['address'] : ''; ?></p>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Email:</label>
@@ -62,18 +63,16 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                             <!-- <div class="col-12">
                                 <label class="form-label">Username</label>
                                 <input type="text" class="form-control" name="username"
-                                    value="<?php echo $user['tai_khoan'] ?>" required>
+                                    value="" required>
                                 <p class="error-message">
-                                    <?php echo isset($error['username']) ? $error['username'] : ''; ?>
-                                </p>
+
                             </div> -->
                             <div class="col-12">
                                 <label class="form-label">Password:</label>
                                 <input type="text" class="form-control" name="password"
                                     value="<?php echo $user['mat_khau'] ?>" required>
                                 <p class="error-message">
-                                    <?php echo isset($error['password']) ? $error['password'] : ''; ?>
-                                </p>
+                                    <?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Hình ảnh:</label>
@@ -87,8 +86,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 <select name="role" class="form-select" aria-label="Default select example">
                                     <option selected disabled>Chọn vai trò</option>
                                     <option <?php if ($user['vai_tro'] == 1) {echo 'selected';}?> value="1">Quản Trị
-                                        Viên
-                                    </option>
+                                        Viên</option>
                                     <option <?php if ($user['vai_tro'] == 2) {echo 'selected';}?> value="2">Nhân Viên
                                     </option>
                                     <option <?php if ($user['vai_tro'] == 3) {echo 'selected';}?> value="3">Khách Hàng
@@ -107,8 +105,20 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     </div>
                 </div>
     </div>
+    <!-- >>>>>>> 11022a8 (Edit file list user and admin/ Add user) -->
 
 </main>
 <!--end page main-->
 
-<!-- Toggle Modal here -->
+<!-- Bootstrap bundle JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<!--plugins-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>
+src = "assets/js/additional-methods.min.js"
+</script>
+
+<script src="assets/js/pages/validate.js">
+
+</script>
