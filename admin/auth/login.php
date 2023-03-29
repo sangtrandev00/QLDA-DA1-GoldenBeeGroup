@@ -129,49 +129,49 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
     <div class="wrapper">
 
         <?php
-   
-    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-        $error = array();    
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        // Đối chiếu password
-        //Validate form
-        if (empty($email)) {
-            $error['email'] = "Không để trống email!";
-        } 
-        if (empty($password)) {
-            $error['password'] = "Không để trống password!";
-        }
-        // echo $email;
+
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    $error = array();
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    // Đối chiếu password
+    //Validate form
+    if (empty($email)) {
+        $error['email'] = "Không để trống email!";
+    }
+    if (empty($password)) {
+        $error['password'] = "Không để trống password!";
+    }
+    // echo $email;
+    // echo $password;
+    if (!$error) {
+        $password = md5($password);
         // echo $password;
-        if (!$error) {
-            $password = md5($password);
-            // echo $password;
-            $islogined = checkuser2($email, $password);
-            // echo $islogined;
-            if ($islogined === -1) {
-                echo '<div class="alert-warning alert text-center" style="">Email hoặc password không chính xác</div>';
-                // $_SESSION['toastAlert'] = "Email hoặc password không chính xác";
+        $islogined = checkuser2($email, $password);
+        // echo $islogined;
+        if ($islogined === -1) {
+            echo '<div class="alert-warning alert text-center" style="">Email hoặc password không chính xác</div>';
+            // $_SESSION['toastAlert'] = "Email hoặc password không chính xác";
+        } else {
+            $kq = getuserinfo2($email, $password);
+            $role = $kq[0]['vai_tro'];
+            // echo $role;
+            if ($role == 1 || $role == 2) {
+                $_SESSION['role'] = $role;
+                $_SESSION['username'] = $kq[0]['ho_ten'];
+                $_SESSION['iduser'] = $kq[0]['id'];
+                $_SESSION['img'] = $kq[0]['hinh_anh'];
+                header('Location: ../index.php');
             } else {
-                $kq = getuserinfo2($email, $password);
-                $role = $kq[0]['vai_tro'];
-                // echo $role;
-                if ($role == 1 || $role == 2) {
-                    $_SESSION['role'] = $role;
-                    $_SESSION['username'] = $kq[0]['ho_ten'];
-                    $_SESSION['iduser'] = $kq[0]['id'];
-                    $_SESSION['img'] = $kq[0]['hinh_anh'];
-                    header('Location: ../index.php');
-                } else {
-                    echo '
+                echo '
                     <script>
                         window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
                     </script>
                     ';
-                }
             }
         }
     }
+}
 ?>
 
         <!--start content-->
