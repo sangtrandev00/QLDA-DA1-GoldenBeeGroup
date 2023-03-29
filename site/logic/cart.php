@@ -79,7 +79,13 @@ switch ($_GET['act']) {
         }
 
         // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
-        var_dump($_SESSION['wishlist']);
+        // var_dump($_SESSION['wishlist']);
+        echo json_encode(
+            array(
+                "status" => 1,
+                "content" => $_SESSION['wishlist'],
+            )
+        );
         // } else {
         //     header('location: ./auth/login.php');
         // }

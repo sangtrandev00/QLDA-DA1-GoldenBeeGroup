@@ -117,6 +117,7 @@ switch ($_GET['act']) {
         #code ...
         $is_updated = update_shipping_address($_POST['iduser'], $_POST['province_id'], $_POST['district_id'], $_POST['ward_id'], $_POST['detail_address']);
         if ($is_updated) {
+
             $result = [
                 "status" => 1,
                 "content" => "Cập nhật địa chỉ giao hàng thành công!",
@@ -128,7 +129,9 @@ switch ($_GET['act']) {
                 "content" => "Cập nhật thất bại",
             ];
         }
-        var_dump($result);
+
+        // var_dump();
+        echo json_encode($result);
         break;
     case 'changepass':
         // var_dump($_POST);

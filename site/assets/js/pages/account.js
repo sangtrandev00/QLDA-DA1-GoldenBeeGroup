@@ -46,6 +46,7 @@ function updateShippingAddress(iduser) {
             // if(response == 1) {
                 $("#cartModalBtn").trigger("click");
                 $('#cartModal #cartModalLabel').text("Cập nhật địa chỉ");
+                $("#cartModal .continue-btn").addClass("d-none");
                 $('#cartModal .modal-body').text(content);
             // }
             // else {
@@ -288,7 +289,13 @@ function reviewProduct(currentForm) {
 
                     // showToast("Đánh giá sản phẩm", content);
                     alertModal(content +", Xem bình luận", "Bạn có muốn xem bình luận ?");
-                    $("#cartModal form").action="./index.php?act=detailproduct&id="+productId+"view=reviews";
+                    // $("#cartModal form").action="./index.php?act=detailproduct&id="+productId+"view=reviews";
+
+                    $("#cartModal .continue-btn").click(function(e) {
+                        e.preventDefault();
+
+                        location.assign("./index.php?act=detailproduct&id="+productId+"&view=reviews");
+                    })
                 }
             });
         })

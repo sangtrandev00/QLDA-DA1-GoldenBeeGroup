@@ -122,6 +122,8 @@ function handleAddCart (actionForm, logicType){
                         // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
+
+                            
                             $.get('./logic/topwishlist.php', function(response) {
                                 console.log('res: ', response);
 
@@ -309,9 +311,6 @@ function handleDeleteWishlist(idWishlist) {
     })
 
 }
-
-
-
 
 const zoomProductDetail = () => {
     const zoomProductBtns = document.querySelectorAll(".zoom-detail-product");

@@ -217,7 +217,8 @@ if ($product['ton_kho'] > 0) {
                                                 phẩm</a>
                                         </li>
                                         <li><a href="#information" data-bs-toggle="tab">Thông tin sản phẩm</a></li>
-                                        <li><a href="#reviews" data-bs-toggle="tab">reviews/đánh giá</a></li>
+                                        <li><a id="reviews-tab-btn" href="#reviews" data-bs-toggle="tab">reviews/đánh
+                                                giá</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active show" id="description">
