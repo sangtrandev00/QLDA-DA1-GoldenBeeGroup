@@ -1,5 +1,3 @@
-
-
 <header class="top-header">
     <nav class="navbar navbar-expand gap-3">
         <div class="mobile-toggle-icon fs-3">
@@ -28,7 +26,7 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <div class="row row-cols-3 gx-2">
                             <div class="col">
-                                <a href="ecommerce-orders.html">
+                                <a href="./index.php?act=orderlist">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-purple">
                                             <i class="bi bi-basket2-fill"></i>
@@ -38,7 +36,7 @@
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="javascript:;">
+                                <a href="./index.php?act=userlist">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-info">
                                             <i class="bi bi-people-fill"></i>
@@ -48,16 +46,16 @@
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="ecommerce-products-grid.html">
+                                <a href="./index.php?act=productlist">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-success">
                                             <i class="bi bi-trophy-fill"></i>
                                         </div>
-                                        <p class="mb-0 apps-name">Products</p>
+                                        <p class="mb-0 apps-name">Sản phẩm</p>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <a href="component-media-object.html">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-danger">
@@ -66,14 +64,14 @@
                                         <p class="mb-0 apps-name">Media</p>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -->
                             <div class="col">
-                                <a href="pages-user-profile.html">
+                                <a href="./index.php?act=my-profile">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-warning">
                                             <i class="bi bi-person-circle"></i>
                                         </div>
-                                        <p class="mb-0 apps-name">Account</p>
+                                        <p class="mb-0 apps-name">QL tài khoản</p>
                                     </div>
                                 </a>
                             </div>
@@ -97,7 +95,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col">
+                            <!-- <div class="col">
                                 <a href="javascript:;">
                                     <div class="apps p-2 radius-10 text-center">
                                         <div class="apps-icon-box mb-1 text-white bg-gradient-desert">
@@ -116,7 +114,7 @@
                                         <p class="mb-0 apps-name">Story</p>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </li>
@@ -129,7 +127,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end p-0">
                         <div class="p-2 border-bottom m-2">
-                            <h5 class="h5 mb-0">Tin nhắn</h5>
+                            <h5 class="h5 mb-0">Feedbacks</h5>
                         </div>
                         <div class="header-message-list p-2">
                             <a class="dropdown-item" href="#">
@@ -257,7 +255,7 @@
                                 <hr class="dropdown-divider">
                             </div>
                             <a class="dropdown-item" href="#">
-                                <div class="text-center">View All Messages</div>
+                                <div class="text-center">Xem toàn bộ phản hồi</div>
                             </a>
                         </div>
                     </div>
@@ -271,7 +269,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end p-0">
                         <div class="p-2 border-bottom m-2">
-                            <h5 class="h5 mb-0">Notifications</h5>
+                            <h5 class="h5 mb-0">Thống báo</h5>
                         </div>
                         <div class="header-notifications-list p-2">
                             <a class="dropdown-item" href="#">
@@ -279,7 +277,7 @@
                                     <div class="notification-box bg-light-primary text-primary"><i
                                             class="bi bi-basket2-fill"></i></div>
                                     <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">New Orders <span
+                                        <h6 class="mb-0 dropdown-msg-user">Đơn hàng mới <span
                                                 class="msg-time float-end text-secondary">1
                                                 m</span></h6>
                                         <small
@@ -293,14 +291,14 @@
                                     <div class="notification-box bg-light-purple text-purple"><i
                                             class="bi bi-people-fill"></i></div>
                                     <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">New Customers <span
+                                        <h6 class="mb-0 dropdown-msg-user">Khách hàng mới <span
                                                 class="msg-time float-end text-secondary">7 m</span></h6>
                                         <small class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">5
-                                            new user registered</small>
+                                            khách hàng mới đã đăng ký</small>
                                     </div>
                                 </div>
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <!-- <a class="dropdown-item" href="#">
                                 <div class="d-flex align-items-center">
                                     <div class="notification-box bg-light-success text-success"><i
                                             class="bi bi-file-earmark-bar-graph-fill"></i></div>
@@ -340,17 +338,17 @@
                                             new product has approved</small>
                                     </div>
                                 </div>
-                            </a>
+                            </a> -->
                             <a class="dropdown-item" href="#">
                                 <div class="d-flex align-items-center">
                                     <div class="notification-box bg-light-pink text-pink"><i
                                             class="bi bi-gift-fill"></i></div>
                                     <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">New Comments <span
+                                        <h6 class="mb-0 dropdown-msg-user">Bình luận mới <span
                                                 class="msg-time float-end text-secondary">2 w</span></h6>
                                         <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">New
-                                            customer comments recived</small>
+                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Nhận
+                                            xét mới của khách hàng đã được nhận</small>
                                     </div>
                                 </div>
                             </a>
@@ -427,7 +425,7 @@
                                 <hr class="dropdown-divider">
                             </div>
                             <a class="dropdown-item" href="#">
-                                <div class="text-center">View All Notifications</div>
+                                <div class="text-center">Xem toàn bộ thông báo</div>
                             </a>
                         </div>
                     </div>
@@ -438,61 +436,61 @@
             <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                 <div class="user-setting d-flex align-items-center gap-3">
                     <?php
-                    if (isset($_SESSION['img'])) {
-                        $img = substr($_SESSION['img'], 0, 4) == 'http' ? $_SESSION['img'] : "../uploads/" . $_SESSION['img'];  
-                        echo'
-                        <img src="'.$img.'" class="user-img" alt="">
+if (isset($_SESSION['img'])) {
+    $img = substr($_SESSION['img'], 0, 4) == 'http' ? $_SESSION['img'] : "../uploads/" . $_SESSION['img'];
+    echo '
+                        <img src="' . $img . '" class="user-img" alt="">
                         ';
-                }
-                    ?>
+}
+?>
                     <div class="d-none d-sm-block">
                         <?php
-                           if (isset($_SESSION['iduser'])) {
-                            $role='';
-                            switch ($_SESSION['role']) {
-                                case '1':
-                                    # code...
-                                    $role = "Quản trị viên";
-                                    break;
-                                case '2':
-                                    # code...
-                                    $role = "Nhân viên";
-                                    break;
-                                default:
-                                    $role = "Nhân viên";
-                                    break;
-                            }
-                            echo '
-                            <p class="user-name mb-0">'.$_SESSION['username'].'</p>
-                            <small class="mb-0 dropdown-user-designation">'.$role.'</small>
+if (isset($_SESSION['iduser'])) {
+    $role = '';
+    switch ($_SESSION['role']) {
+        case '1':
+            # code...
+            $role = "Quản trị viên";
+            break;
+        case '2':
+            # code...
+            $role = "Nhân viên";
+            break;
+        default:
+            $role = "Nhân viên";
+            break;
+    }
+    echo '
+                            <p class="user-name mb-0">' . $_SESSION['username'] . '</p>
+                            <small class="mb-0 dropdown-user-designation">' . $role . '</small>
                             ';
-                           }
-                        ?>
-                        
-                        
-                        
+}
+?>
+
+
+
                     </div>
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="./index.php?act=my-profile">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-person-fill"></i></div>
                             <div class="ms-3"><span>Profile</span></div>
                         </div>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="dropdown-item" href="#!">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-gear-fill"></i></div>
                             <div class="ms-3"><span>Setting</span></div>
                         </div>
                     </a>
-                </li>
+                </li> -->
                 <li>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="./index.php?act=dashboard">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-speedometer"></i></div>
                             <div class="ms-3"><span>Dashboard</span></div>
@@ -500,7 +498,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#!">
+                    <a class="dropdown-item" href="./index.php?act=orderlist">
                         <div class="d-flex align-items-center">
                             <div class=""><i class="bi bi-piggy-bank-fill"></i></div>
                             <div class="ms-3"><span>Earnings</span></div>

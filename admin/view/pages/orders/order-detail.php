@@ -36,7 +36,7 @@ if (isset($_GET['iddh'])) {
                     </option>
                 </select> -->
             </div>
-            <div class="col-12 col-lg-3 col-6 col-md-3">
+            <div class="col-12 col-lg-3 col-6 col-md-3 hide-on-print">
                 <?php
 switch ($order_info['trangthai']) {
     case "1":
@@ -96,10 +96,11 @@ break;
 ?>
 
             </div>
-            <div class="col-12 col-lg-3 col-6 col-md-3">
+            <div class="col-12 col-lg-3 col-6 col-md-3 hide-on-print">
                 <button type="button" class="btn btn-primary"
                     onclick="changeStatus(<?php echo $_GET['iddh'] ?>)">Lưu</button>
-                <button type="button" class="btn btn-secondary"><i class="bi bi-printer-fill"></i> In</button>
+                <a href="javascript:window.print()" type="button" class="btn btn-secondary"><i
+                        class="bi bi-printer-fill"></i> In</a>
             </div>
         </div>
     </div>
@@ -161,7 +162,7 @@ break;
         </div>
         <!--end row-->
 
-        <div class="row">
+        <div class="row order-detail__products">
             <div class="col-12 col-lg-8">
                 <div class="card border shadow-none radius-10">
                     <div class="card-body">
@@ -309,10 +310,10 @@ foreach ($order_detail_list as $order_detail) {
                         </div>
                         <div class="d-flex align-items-center mb-3">
                             <div>
-                                <p class="mb-0">Tổng</p>
+                                <p class="mb-0">Giảm giá</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0"><?php echo number_format($order_info['tongdonhang']) ?> VND</h5>
+                                <h5 class="mb-0">0 VND</h5>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-3">
@@ -320,7 +321,7 @@ foreach ($order_detail_list as $order_detail) {
                                 <p class="mb-0">Chi phí ship</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0">0.00 VND</h5>
+                                <h5 class="mb-0"><?php echo number_format($order_info['shipping_fee']) ?> VND</h5>
                             </div>
                         </div>
                         <div class="d-flex align-items-center mb-3">
@@ -328,7 +329,7 @@ foreach ($order_detail_list as $order_detail) {
                                 <p class="mb-0">Thuế</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0">0.00 VND</h5>
+                                <h5 class="mb-0"><?php echo number_format($order_info['vat_fee']) ?> VND</h5>
                             </div>
                         </div>
                         <!-- <div class="d-flex align-items-center mb-3">
@@ -341,10 +342,11 @@ foreach ($order_detail_list as $order_detail) {
                             </div> -->
                         <div class="d-flex align-items-center mb-3">
                             <div>
-                                <p class="mb-0">Giảm giá</p>
+                                <p class="mb-0">Tổng</p>
                             </div>
                             <div class="ms-auto">
-                                <h5 class="mb-0 text-danger">0 VND </h5>
+                                <h5 class="mb-0 text-danger"><?php echo number_format($order_info['tongdonhang']) ?> VND
+                                </h5>
                             </div>
                         </div>
                     </div>

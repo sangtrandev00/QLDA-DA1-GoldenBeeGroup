@@ -41,7 +41,8 @@
     <!-- Modernizr JS -->
     <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
 
-
+    <style type="text/css">
+    </style>
 </head>
 
 <body>

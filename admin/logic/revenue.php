@@ -79,34 +79,64 @@ switch ($_GET['act']) {
         echo $revenue;
         break;
     case 'allmonth':
+
+        if (isset($_POST['year'])) {
+            $year = $_POST['year'];
+        }
+
         $result = array(
-            'jan' => revenue_of_month(1),
-            'feb' => revenue_of_month(2),
-            'mar' => revenue_of_month(3),
-            'apr' => revenue_of_month(4),
-            'may' => revenue_of_month(5),
-            'jun' => revenue_of_month(6),
-            'jul' => revenue_of_month(7),
-            'aug' => revenue_of_month(8),
-            'sep' => revenue_of_month(9),
-            'oct' => revenue_of_month(10),
-            'nov' => revenue_of_month(11),
-            'dec' => revenue_of_month(12),
+            'jan' => revenue_of_month($year, 1),
+            'feb' => revenue_of_month($year, 2),
+            'mar' => revenue_of_month($year, 3),
+            'apr' => revenue_of_month($year, 4),
+            'may' => revenue_of_month($year, 5),
+            'jun' => revenue_of_month($year, 6),
+            'jul' => revenue_of_month($year, 7),
+            'aug' => revenue_of_month($year, 8),
+            'sep' => revenue_of_month($year, 9),
+            'oct' => revenue_of_month($year, 10),
+            'nov' => revenue_of_month($year, 11),
+            'dec' => revenue_of_month($year, 12),
         );
 
-        echo json_encode($result);
+        echo json_encode(
+            array(
+                "result" => $result,
+            )
+        );
 
         return;
     case 'allweeks':
-        $revenue_weeks = revenue_of_weeks();
 
-        // var_dump($revenue_weeks);
+        $result = [];
+        for ($i = 1; $i <= 52; $i++) {
+            # code...
+            $result[] = revenue_of_week($i);
+        }
         echo json_encode(
             array(
-                "result" => $revenue_weeks,
+                "result" => $result,
             )
         );
-        exit;
+        break;
+    case 'alldaysofmonth':
+        if (isset($_POST['month'])) {
+            $month = $_POST['month'];
+        }
+        $days_in_month = cal_days_in_month(CAL_GREGORIAN, 3, 2023);
+        $result = [];
+        $days = [];
+        for ($i = 1; $i <= $days_in_month; $i++) {
+            # code...
+            $days[] = $i;
+            $result[] = revenue_of_day_by_month($month, $i);
+        }
+        echo json_encode(
+            array(
+                "days" => $days,
+                "result" => $result,
+            )
+        );
         break;
     default:
         # code...

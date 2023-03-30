@@ -153,7 +153,7 @@ if (count($cart_list) > 0) {
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">
                                                 <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
-                                                <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
+                                                <p>Nhập mã/ phiếu giảm giá của bạn nếu bạn có!</p>
                                                 <input type="text" name="name" placeholder="Nhập mã của bạn ở đây...">
                                                 <button class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập mã
                                                     giảm giá</button>

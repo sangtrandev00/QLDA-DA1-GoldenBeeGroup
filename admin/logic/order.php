@@ -33,6 +33,7 @@ switch ($_GET['act']) {
         break;
     case 'updatepayment':
         break;
+
     default:
         # code...
         break;

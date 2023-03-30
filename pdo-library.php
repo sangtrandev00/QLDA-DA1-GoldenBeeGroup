@@ -78,7 +78,10 @@ function pdo_query_value($sql)
         $stmt = $conn->prepare($sql);
         $stmt->execute($sql_args);
         $row = $stmt->fetch(PDO::FETCH_NUM);
-        // var_dump($row[0]);
+        // var_dump($row);
+        if (!$row) {
+            return 0;
+        }
         return $row[0];
     } catch (PDOException $e) {
         throw $e;

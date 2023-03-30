@@ -1374,7 +1374,7 @@ table {width: 100%}
     11.2 Coupon-discount
 ------------------------------------- */
 .coupon-discount input {
-  margin-bottom: 28.5px;
+  /* margin-bottom: 28.5px; */
 }
 /* -------------------------------------
     11.3 Payment-details

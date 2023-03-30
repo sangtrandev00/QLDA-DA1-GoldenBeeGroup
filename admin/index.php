@@ -396,6 +396,9 @@ if (isset($_SESSION['iduser'])) {
             case 'reportlist':
                 include "./view/reports/reportlist-page.php";
                 break;
+            case 'my-profile':
+                include "./view/pages/user/user-profile.php";
+                break;
             case 'userlist':
                 include "./view/pages/user/userlist-page.php";
 
@@ -752,6 +755,14 @@ if (isset($_SESSION['iduser'])) {
                     // header('location: index.php?act=orderdetail&iddh=' . $iddh);
                 }
                 break;
+
+            case 'addcoupon':
+                include "./view/pages/coupons/addcoupon.php";
+                break;
+            case 'couponlist':
+                include "./view/pages/coupons/couponlist.php";
+                break;
+
             case 'logout':
                 unset($_SESSION['role']);
                 unset($_SESSION['username']);

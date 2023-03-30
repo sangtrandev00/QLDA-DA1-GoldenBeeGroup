@@ -1,4 +1,5 @@
 <?php
+
 if (!in_array('ob_gzhandler', ob_list_handlers())) {
     ob_start('ob_gzhandler');
 } else {
