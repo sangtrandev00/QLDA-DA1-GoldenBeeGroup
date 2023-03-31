@@ -1,6 +1,7 @@
 const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
 const ADMIN_URL = `${ROOT_URL}/admin`;
 const SITE_URL = `${ROOT_URL}/site`;
+
 function logout(){
     console.log("Hello clicked");
     const continueLogout = document.getElementById("continueLogout");
@@ -13,6 +14,7 @@ function logout(){
 
 }
 
+
 function getParent(element, selector) {
     while (element.parentElement) {
       if (element.parentElement.matches(selector)) {
@@ -20,6 +22,12 @@ function getParent(element, selector) {
       }
       element = element.parentElement;
     }
+}
+
+function alertModal(title, message) {
+    $("#cartModalBtn").trigger("click");
+    $("#cartModal #cartModalLabel").text(`${title}`);
+    $("#cartModal .modal-body").text(`${message}`);
 }
 
 function showToast(toastTitle, toastMessage) {
@@ -115,6 +123,8 @@ function handleAddCart (actionForm, logicType){
                         // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
+
+                            
                             $.get('./logic/topwishlist.php', function(response) {
                                 console.log('res: ', response);
 
@@ -302,9 +312,6 @@ function handleDeleteWishlist(idWishlist) {
     })
 
 }
-
-
-
 
 const zoomProductDetail = () => {
     const zoomProductBtns = document.querySelectorAll(".zoom-detail-product");

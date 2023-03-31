@@ -170,19 +170,36 @@ if (isset($_SESSION['iduser'])) {
     // <td class="">' . $cart_item['iddonhang'] . '</td>
     foreach ($cartList as $cart_item) {
         # code...
-        if ($cart_item['trangthai'] == 4 && $cart_item['thanhtoan']) {
+        // echo "is rated ?" . is_rated_producted($cart_item['idsanpham'], $cart_item['iddonhang'], $_SESSION['iduser']);
+        $is_rated = is_rated_producted($cart_item['idsanpham'], $cart_item['iddonhang'], $_SESSION['iduser']);
+        if ($is_rated) {
             $row_review = '
             <td>
-                <form onsubmit="reviewProduct()" id="re-order-form" class="col-6"
-                        action="" method="post">
-                        <input type="submit" name="reviewproductbtn" class="btn btn-outline-primary"
-                            value="Đánh giá" />
-                        <input type="hidden" name="reorder" value="">
-                </form>
+                <input type="submit" readonly name="reviewproductbtn" class="btn btn-outline-danger"
+                value="Đã đánh giá" />
             </td>
             ';
         } else {
-            $row_review = "";
+            if ($cart_item['trangthai'] == 4 && $cart_item['thanhtoan'] == 1) {
+                $row_review = '
+                <td>
+                    <form onsubmit="reviewProduct(this)" id="re-order-form" class="col-6"
+                            action="" method="post">
+                            <input type="submit"  name="reviewproductbtn" class="btn btn-outline-primary"
+                                value="Đánh giá" />
+                            <input type="hidden" name="reorder" value="">
+                            <input type="hidden" name="idproduct" value="' . $cart_item['idsanpham'] . '">
+                            <input type="hidden" name="tensp" value="' . $cart_item['tensp'] . '">
+                            <input type="hidden" name="hinhanh" value="' . $cart_item['hinhanh'] . '">
+                            <input type="hidden" name="dongia" value="' . $cart_item['dongia'] . '">
+                            <input type="hidden" name="iddh" value="' . $cart_item['iddonhang'] . '">
+                            <input type="hidden" name="iduser" value="' . $_SESSION['iduser'] . '">
+                    </form>
+                </td>
+                ';
+            } else {
+                $row_review = "";
+            }
         }
 
         echo '

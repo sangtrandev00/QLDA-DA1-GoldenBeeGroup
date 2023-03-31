@@ -1,4 +1,5 @@
 <?php
+
 if (!in_array('ob_gzhandler', ob_list_handlers())) {
     ob_start('ob_gzhandler');
 } else {
@@ -19,6 +20,7 @@ include $ROOT_URL . "/DAO/order.php";
 include $ROOT_URL . "/DAO/user.php";
 include $ROOT_URL . "/site/models/connectdb.php";
 include $ROOT_URL . "/site/models/user.php";
+include $ROOT_URL . "/site/models/donhang.php";
 
 // include "../../site/models/connectdb.php";
 // include "../../site/models/donhang.php";
@@ -116,6 +118,7 @@ switch ($_GET['act']) {
         #code ...
         $is_updated = update_shipping_address($_POST['iduser'], $_POST['province_id'], $_POST['district_id'], $_POST['ward_id'], $_POST['detail_address']);
         if ($is_updated) {
+
             $result = [
                 "status" => 1,
                 "content" => "Cập nhật địa chỉ giao hàng thành công!",
@@ -127,7 +130,9 @@ switch ($_GET['act']) {
                 "content" => "Cập nhật thất bại",
             ];
         }
-        var_dump($result);
+
+        // var_dump();
+        echo json_encode($result);
         break;
     case 'changepass':
         // var_dump($_POST);
@@ -254,6 +259,27 @@ switch ($_GET['act']) {
                 )
             );
         }
+        break;
+    case 'reviewproduct':
+
+        // var_dump($_POST);
+        $iduser = $_POST['iduser'];
+        $idsanpham = $_POST['idsanpham'];
+        $noidung = $_POST['noidung'];
+        $rating_star = $_POST['rating_star'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date_create = date('Y-m-d H:i:s');
+        $iddh = $_POST['iddh'];
+        $is_inserted = insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, 1);
+        if ($is_inserted) {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => "Đánh giá sản phẩm thành công!",
+                )
+            );
+        }
+        // exit;
         break;
     default:
         # code...

@@ -2,6 +2,10 @@
 ob_start();
 session_start();
 
+if (!isset($_SESSION['alert'])) {
+    $_SESSION['alert'] = "";
+}
+
 include "../global.php";
 
 include "./models/connectdb.php";
@@ -396,6 +400,9 @@ if (isset($_SESSION['iduser'])) {
             case 'reportlist':
                 include "./view/reports/reportlist-page.php";
                 break;
+            case 'my-profile':
+                include "./view/pages/user/user-profile.php";
+                break;
             case 'userlist':
                 include "./view/pages/user/userlist-page.php";
 
@@ -752,6 +759,54 @@ if (isset($_SESSION['iduser'])) {
                     // header('location: index.php?act=orderdetail&iddh=' . $iddh);
                 }
                 break;
+
+            case 'addcoupon':
+                include "./view/pages/coupons/addcoupon.php";
+                break;
+            case 'editcoupon':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $idcoupon = $_GET['id'];
+
+                }
+                include "./view/pages/coupons/editcoupon.php";
+                break;
+            case 'updatecoupon':
+                if (isset($_POST['updatecouponbtn']) && $_POST['updatecouponbtn']) {
+
+                    $idcoupon = $_GET['id'];
+
+                    $coupon_name = $_POST['coupon_name'];
+                    $coupon_discount = $_POST['coupon_discount'];
+                    $min_value = $_POST['min_value'];
+                    $maximum_use = $_POST['maximum_use'];
+                    $date_start = $_POST['date_start'];
+                    $date_end = $_POST['date_end'];
+
+                    $is_updated = update_coupon($idcoupon, $coupon_name, $coupon_discount, $min_value, $maximum_use, $date_start, $date_end);
+
+                    if ($is_updated) {
+                        $_SESSION['alert'] = "Cập nhật coupon #$idcoupon thành công!";
+                    }
+                    include "./view/pages/coupons/couponlist.php";
+                }
+                break;
+            case 'deletecoupon':
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $idcoupon = $_GET['id'];
+
+                    $is_deleted = delete_coupon_by_id($idcoupon);
+
+                    if ($is_deleted) {
+                        $_SESSION['alert'] = "Delete coupon #$idcoupon thành công!";
+                    }
+                    include "./view/pages/coupons/couponlist.php";
+                }
+                break;
+
+            case 'couponlist':
+                include "./view/pages/coupons/couponlist.php";
+                break;
+
             case 'logout':
                 unset($_SESSION['role']);
                 unset($_SESSION['username']);
@@ -834,6 +889,28 @@ if (isset($_SESSION['iduser'])) {
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     $blog = delete_cateblog($_GET['id']);
                     $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #" . $_GET['id'] . " Thành Công";
+
+                }
+                include './view/pages/blogs/blog-cate.php';
+                break;
+            case 'editcateblog':
+                if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
+                    $cateblog = loadone_cateblog($_GET['id']);
+                }
+                include './view/pages/blogs/edit-cateblog.php';
+                break;
+            case 'updatecateblog':
+                if (isset($_POST['updatecate']) && ($_POST['updatecate'])) {
+                    $id = $_POST['id'];
+                    $catename = $_POST['catename'];
+                    $hinh = $_FILES['hinh']['name'];
+                    $target_dir = "../uploads/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                    }
+                    update_cateblog($id, $catename, $hinh);
+
+                    $thongbaoupdatecateblog = "Đã Cập Nhật Danh Mục Bài Viết " . $id . " Thành Công";
 
                 }
                 include './view/pages/blogs/blog-cate.php';

@@ -127,7 +127,9 @@ if ($product['ton_kho'] > 0) {
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                                                <span class="text-black-5">( 2 đã đánh giá )</span>
+                                                <span class="text-black-5">(
+                                                    <?php echo count_number_reviews_of_product($_GET['id']) ?> đã đánh
+                                                    giá)</span>
                                             </div>
                                         </div>
                                         <!-- hr -->
@@ -215,7 +217,8 @@ if ($product['ton_kho'] > 0) {
                                                 phẩm</a>
                                         </li>
                                         <li><a href="#information" data-bs-toggle="tab">Thông tin sản phẩm</a></li>
-                                        <li><a href="#reviews" data-bs-toggle="tab">reviews/đánh giá</a></li>
+                                        <li><a id="reviews-tab-btn" href="#reviews" data-bs-toggle="tab">reviews/đánh
+                                                giá</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active show" id="description">
@@ -355,7 +358,7 @@ $review_list = get_all_reviews_of_product($product_id);
                         <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                         <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
                         <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                        <span class="text-black-5">(4.5 sao)</span>
+                        <span class="text-black-5">(' . $review['rating_star'] . ' sao)</span>
                     </div>
                     <div class="name-commenter pull-left">
                         <h6 class="media-heading"><a href="#">' . $review['ho_ten'] . '</a> </h6>

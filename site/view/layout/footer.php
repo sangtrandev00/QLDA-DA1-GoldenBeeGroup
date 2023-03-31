@@ -1,4 +1,124 @@
+<style>
+.wrap {
+    width: 250px;
+    height: 50px;
+    background: #fff;
+    /* position: absolute; */
+
+    /* transform: translate(-50%, -50%); */
+    border-radius: 10px;
+}
+
+.stars {
+    width: fit-content;
+    /* margin: 0 auto; */
+    cursor: pointer;
+}
+
+.star {
+    color: var(--main-color) !important;
+}
+
+.rate {
+    height: 50px;
+    margin-left: -5px;
+    padding: 5px;
+    font-size: 25px;
+    position: relative;
+    cursor: pointer;
+}
+
+.rate input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    pointer-events: none;
+}
+
+.star-over::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 16px;
+    content: "\f005";
+    display: inline-block;
+    color: #d3dcff;
+    z-index: 1;
+    position: absolute;
+    top: 17px;
+    left: 10px;
+}
+
+.rate:nth-child(1) .face::after {
+    content: "\f119";
+    /* ☹ */
+}
+
+.rate:nth-child(2) .face::after {
+    content: "\f11a";
+    /* 😐 */
+}
+
+.rate:nth-child(3) .face::after {
+    content: "\f118";
+    /* 🙂 */
+}
+
+.rate:nth-child(4) .face::after {
+    content: "\f580";
+    /* 😊 */
+}
+
+.rate:nth-child(5) .face::after {
+    content: "\f59a";
+    /* 😄 */
+}
+
+.face {
+    opacity: 0;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #91a6ff;
+    border-radius: 5px;
+    top: -50px;
+    left: 2px;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.face::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: "\f0dd";
+    display: inline-block;
+    color: #91a6ff;
+    z-index: 1;
+    position: absolute;
+    left: 9px;
+    bottom: -15px;
+}
+
+.face::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    display: inline-block;
+    color: #fff;
+    z-index: 1;
+    position: absolute;
+    left: 5px;
+    top: -1px;
+}
+
+.rate:hover .face {
+    opacity: 1;
+}
+</style>
+
+
 <!-- START QUICKVIEW PRODUCT -->
+
 <div id="quickview-wrapper">
     <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
 
@@ -103,7 +223,7 @@
                     <h1 class="modal-title fs-5" id="orderDetailModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body print">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -114,6 +234,93 @@
             </div>
         </div>
     </div>
+
+    <!-- Review modal -->
+
+    <!-- Button trigger modal -->
+    <button type="button" id="reviewModalBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#reviewModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade " id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="reviewModalLabel">Đánh giá sản phẩm</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="review-product__form" action="" method="post">
+                        <div class="mb-3 row">
+                            <div class="col-md-2">
+                                <img style="width: 60px; height: 60px;" class="review-product__img" src="" alt="hihi">
+                            </div>
+                            <div class="col-md-10">
+                                <a href="" class="review-product__name">OPPO Reno T8</a>
+                                <!-- <p class="">Loại hàng: <span class="review-product__cate-name">OPPO</span></p> -->
+                                <p>Giá tiền: <span class="review-product__price">200000</span> VND</p>
+                            </div>
+                        </div>
+                        <div class="star_rating position-relative mb-3">
+                            <label for="" class="form-label">Đánh giá chất lượng sản phẩm</label>
+                            <div class="wrap">
+                                <div class="stars">
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star1" value="star1">
+                                        <div class="face"></div>
+                                        <i class="far fa-star star one-star"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star2" value="star2">
+                                        <div class="face"></div>
+                                        <i class="far fa-star star two-star"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star3" value="star3">
+                                        <div class="face"></div>
+                                        <i class="far fa-star star three-star"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star4" value="star4">
+                                        <div class="face"></div>
+                                        <i class="far fa-star star four-star"></i>
+                                    </label>
+                                    <label class="rate">
+                                        <input type="radio" name="radio1" id="star5" value="star5">
+                                        <div class="face"></div>
+                                        <i class="far fa-star star five-star"></i>
+                                    </label>
+                                </div>
+                                <input type="hidden" id="star-rating-hidden" name="review_star_rating" value="">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
+                            <input type="file" class="form-control" name="review_img" id="review-image" placeholder=""
+                                aria-describedby="fileHelpId">
+                            <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Nội dung đánh giá</label>
+                            <textarea class="form-control" placeholder="Giống với mô tả,..." name="review_content" id=""
+                                rows="8"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="save-review-btn btn btn-primary main-bg-color main-border-color">Lưu
+                        đánh giá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+
+
 </div>
 <!-- END QUICKVIEW PRODUCT -->
 
@@ -303,7 +510,48 @@
 <script src="assets/js/validate.js"></script>
 <script src="assets/js/pages/account.js"></script>
 <script src="assets/js/pages/checkout.js"></script>
+<script>
+$(function() {
 
+    $(document).on({
+        mouseover: function(event) {
+            $(this).find('.far').addClass('star-over');
+            $(this).prevAll().find('.far').addClass('star-over');
+        },
+        mouseleave: function(event) {
+            $(this).find('.far').removeClass('star-over');
+            $(this).prevAll().find('.far').removeClass('star-over');
+        }
+    }, '.rate');
+
+
+    $(document).on('click', '.rate', function() {
+        if (!$(this).find('.star').hasClass('rate-active')) {
+            $(this).siblings().find('.star').addClass('far').removeClass('fas rate-active');
+            $(this).find('.star').addClass('rate-active fas').removeClass('far star-over');
+            $(this).prevAll().find('.star').addClass('fas').removeClass('far star-over');
+        } else {
+            console.log('has', this);
+            const starRating = $(this).find(".star").attr("class");
+
+            console.log(starRating.includes("five-star"));
+            const starRatingHiden = document.getElementById("star-rating-hidden");
+            if (starRating.includes("five-star")) {
+                $("#star-rating-hidden").val("5");
+            } else if (starRating.includes("four-star")) {
+                $("#star-rating-hidden").val("4");
+            } else if (starRating.includes("three-star")) {
+                $("#star-rating-hidden").val("3");
+            } else if (starRating.includes("two-star")) {
+                $("#star-rating-hidden").val("2");
+            } else if (starRating.includes("one-star")) {
+                $("#star-rating-hidden").val("1");
+            }
+        }
+    });
+
+});
+</script>
 <?php
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {

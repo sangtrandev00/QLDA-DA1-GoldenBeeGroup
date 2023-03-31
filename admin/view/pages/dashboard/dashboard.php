@@ -40,7 +40,7 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-100">
                             <p>Tổng doanh thu</p>
                             <h4 class=""><?php echo number_format(sum_all_sales()) ?> VND</h4>
                         </div>
@@ -86,7 +86,7 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-100">
                             <p>Bình luận bài viết</p>
                             <h4 class=""><?php echo count_all_comments_posts() ?></h4>
                         </div>
@@ -103,7 +103,7 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-100">
                             <p>Bình luận sản phẩm</p>
                             <h4 class=""><?php echo count_all_comments_products(); ?></h4>
                         </div>
@@ -183,7 +183,7 @@
 $top_sold_products = select_top_sold_products();
 
 // var_dump($top_sold_products);
-exit;
+
 foreach ($top_sold_products as $product) {
     # code...
     echo '
@@ -338,7 +338,7 @@ foreach ($top_views_products as $product) {
             <div class="card radius-10 w-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Doanh thu theo tháng</h6>
+                        <h6 class="mb-0">Doanh thu theo tháng (Năm 2023 )</h6>
                         <div class="fs-5 ms-auto dropdown">
                             <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
                                 data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
@@ -359,7 +359,7 @@ foreach ($top_views_products as $product) {
     </div>
     <!--end row-->
 
-    <h6 class="mb-0 text-uppercase">Doanh thu theo tuần</h6>
+    <h6 class="mb-0 text-uppercase">Doanh thu theo tuần (Năm 2023 )</h6>
     <hr />
     <div class="card">
         <div class="card-body">
@@ -367,7 +367,7 @@ foreach ($top_views_products as $product) {
         </div>
     </div>
 
-    <h6 class="mb-0 text-uppercase">Doanh thu theo ngày/ Tháng 3</h6>
+    <h6 class="mb-0 text-uppercase">Doanh thu theo ngày (Tháng 3/ Năm 2023 )</h6>
     <hr />
     <div class="card">
         <div class="card-body">

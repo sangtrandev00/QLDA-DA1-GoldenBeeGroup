@@ -162,9 +162,10 @@
                                                 <div class="coupon-discount box-shadow p-30 mb-50">
                                                     <h6 class="widget-title border-left mb-20">coupon discount</h6>
                                                     <p>Enter your coupon code if you have one!</p>
-                                                    <input type="text" name="name" placeholder="Enter your code here.">
+                                                    <input type="text" name="" placeholder="Enter your code here.">
                                                     <button class="submit-btn-1 black-bg btn-hover-2"
-                                                        type="submit">apply coupon</button>
+                                                        type="submit">apply
+                                                        coupon</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -476,7 +477,18 @@ if (isset($_SESSION['iduser'])) {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6">
+                                                <div class="coupon-discount mb-40">
+                                                    <h6 class="widget-title border-left mb-2">Mã giảm giá</h6>
+                                                    <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
+                                                    <input id="coupon-code" type="text" name=""
+                                                        placeholder="Nhập mã của bạn ở đây..." class="">
+                                                    <button onclick="applyCoupon(iduser)"
+                                                        class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập
+                                                        mã
+                                                        giảm giá</button>
+                                                </div>
                                                 <!-- our order -->
                                                 <div class="payment-details pl-10 mb-50">
                                                     <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
@@ -502,7 +514,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                             </td>
                                                             <td class="td-title-2">
                                                                 <?php echo number_format($subtotal) ?> VND</td>
-                                                            <input type="hidden" name="tongphu"
+                                                            <input id="subtotal-hidden" type="hidden" name="tongphu"
                                                                 value="<?php echo $subtotal ?>">
                                                         </tr>
                                                         <tr>
@@ -511,6 +523,17 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                 <?php echo 0 ?> VND</td>
                                                             <input id="shipping-fee-hidden" type="hidden"
                                                                 name="shippingfee" value="">
+                                                        </tr>
+                                                        <tr class="coupon-row">
+                                                            <td class="td-titl-1">Áp dụng mã giảm giá (Coupon ) -0%
+                                                            </td>
+                                                            <td id="discount-money" class="td-title-2">
+                                                                0 VND
+                                                            </td>
+                                                            <input id="discount-money-hidden" type="hidden" value=""
+                                                                name="discount_money">
+                                                            <input type="hidden" id="coupon-code-hidden"
+                                                                name="coupon_code" value="">
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Vat (10%)</td>
@@ -526,6 +549,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                         </tr>
                                                     </table>
                                                 </div>
+
                                                 <!-- payment-method -->
                                                 <div class="payment-method">
                                                     <h6 class="widget-title border-left mb-20">Phương thức thanh toán
@@ -893,6 +917,15 @@ function calcShippingFee(districtId, serviceId = 53320, serviceTypeId = 2, wardC
 
         }
     });
+}
+
+function calcAllTotal(shippingFee, vatFee, totalFee) {
+    document.getElementById("shipping-fee-hidden").value = shippingFee;
+    $("#shipping-fee").html(`${shippingFee.toLocaleString("en-US")} VND`);
+    $("#total-order-fee").html(`${totalFee.toLocaleString("en-US")} VND`);
+    $("#vat-fee").html(`${vatFee.toLocaleString("en-US")} VND`);
+    $("#vat-fee-hidden").val(vatFee);
+    $("#total-order-hidden").val(totalFee);
 }
 
 function orderCreate(cartSessionList, User, Shipping) {

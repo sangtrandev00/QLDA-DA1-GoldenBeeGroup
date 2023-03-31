@@ -42,3 +42,26 @@ if (toastTrigger) {
     toast.show()
   })
 }
+
+function deleteCoupon(couponId) {
+  event.preventDefault();
+
+  const alertModal = new bootstrap.Modal('#alertModal');
+  alertModal.show();
+
+
+  $("#alertModal .continue-btn").removeClass("d-none");
+  $("#alertModal .modal-body").text("Bạn có muốn xóa coupon này không ?");
+  $("#alertModal .continue-btn").click(function(e){
+    e.preventDefault();
+
+    location.assign("./index.php?act=deletecoupon&id="+couponId);
+
+  })
+
+}
+
+$(document).ready(function () {
+    CKEDITOR.replace( 'descriptionProductEditor' );
+    CKEDITOR.replace( 'infoProductEditor' );
+});

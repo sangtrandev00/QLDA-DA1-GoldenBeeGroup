@@ -152,11 +152,11 @@ if (count($cart_list) > 0) {
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="coupon-discount box-shadow p-30 mb-50">
-                                                <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
-                                                <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
+                                                <!-- <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
+                                                <p>Nhập mã/ phiếu giảm giá của bạn nếu bạn có!</p>
                                                 <input type="text" name="name" placeholder="Nhập mã của bạn ở đây...">
                                                 <button class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập mã
-                                                    giảm giá</button>
+                                                    giảm giá</button> -->
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -168,14 +168,14 @@ if (count($cart_list) > 0) {
                                                         <td class="td-title-2"><?php echo number_format($subtotal) ?>
                                                             VND</td>
                                                     </tr>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td class="td-title-1">Chi phí vận chuyển</td>
                                                         <td class="td-title-2">00.00 VND</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="td-title-1">Vat</td>
                                                         <td class="td-title-2">00.00 VND</td>
-                                                    </tr>
+                                                    </tr> -->
                                                     <tr>
                                                         <td class="order-total">Tổng đơn hàng</td>
                                                         <td class="order-total-price">
@@ -189,7 +189,7 @@ if (count($cart_list) > 0) {
                                     <a href="./index.php?act=checkout" class="btn btn-dark mb-5 ml-auto d-block">Thanh
                                         toán</a>
                                     <!-- Module extra --- Làm thêm -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="culculate-shipping box-shadow p-30">
                                                 <h6 class="widget-title border-left mb-20">culculate shipping</h6>
@@ -211,7 +211,7 @@ if (count($cart_list) > 0) {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                             <?php
