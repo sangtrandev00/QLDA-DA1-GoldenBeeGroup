@@ -32,6 +32,16 @@ if (isset($_GET['act'])) {
         case 'addcoupon':
             $breadcrumbs = "Thêm Coupon";
             break;
+        case 'editcoupon':
+        case 'updatecoupon':
+            $breadcrumbs = "Sửa/ Cập nhật coupon";
+            break;
+        case 'addcoupon':
+            $breadcrumbs = "Thêm Coupon";
+            break;
+        case "deletecoupon":
+            $breadcrumbs = "Xóa coupon";
+            break;
         case 'userlist':
             $breadcrumbs = "Danh sách người dùng";
             break;

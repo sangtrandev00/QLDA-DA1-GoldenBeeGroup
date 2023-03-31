@@ -7,6 +7,10 @@ if (!isset($_SESSION['views'])) {
     $_SESSION['views'] = [];
 }
 
+if (!isset($_SESSION['alert'])) {
+    $_SESSION['alert'] = "";
+}
+
 // var_dump($_SESSION['views']);
 
 if (!isset($_SESSION['giohang'])) {
@@ -846,7 +850,9 @@ if (isset($_GET['act'])) {
 
                 if (!$error) {
                     if ($newpass == $renewpass) {
+
                         user_change_password($iduser, $newpass);
+
                         echo '<div class="mt-5 mb-3 text-muted alert alert-success">Cập nhật mật khẩu thành công</div>';
                         echo '
                         <script>

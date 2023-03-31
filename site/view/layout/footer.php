@@ -317,6 +317,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Alert Modal -->
+
+
 </div>
 <!-- END QUICKVIEW PRODUCT -->
 

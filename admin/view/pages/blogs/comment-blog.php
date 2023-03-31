@@ -10,14 +10,14 @@
             <div class="col-md-2 col-6">
                 <input type="date" class="form-control">
             </div>
-            <div class="col-md-2 col-6">
+            <!-- <div class="col-md-2 col-6">
                 <select class="form-select">
                     <option>Status</option>
                     <option>Active</option>
                     <option>Disabled</option>
                     <option>Show all</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="card-body">
@@ -140,7 +140,8 @@ foreach ($showcomment as $comment) {
 
     </div>
 </div>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal for
+<button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">Open modal
+    for
     @getbootstrap</button>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

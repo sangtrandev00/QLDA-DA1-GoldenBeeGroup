@@ -111,6 +111,33 @@ function insert_momo()
 
 }
 
+function insert_coupon($coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end)
+{
+    $sql = "INSERT INTO tbl_coupon (coupon_code, discount_percent, min_value, maximum_use, date_start, date_end) values (?,?,?,?,?,?)";
+    pdo_execute($sql, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end);
+    return true;
+}
+
+function update_coupon($idcoupon, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end)
+{
+    $sql = "UPDATE tbl_coupon set coupon_code = ?, discount_percent = ?, min_value = ?, maximum_use = ?, date_start = ?, date_end = ? where id_coupon = ?";
+    pdo_execute($sql, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end, $idcoupon);
+    return true;
+}
+
+function select_coupon_by_id($idcoupon)
+{
+    $sql = "SELECT * from tbl_coupon where id_coupon = '$idcoupon'";
+    return pdo_query_one($sql);
+}
+
+function delete_coupon_by_id($idcoupon)
+{
+    $sql = "DELETE from tbl_coupon where id_coupon = $idcoupon";
+    pdo_execute($sql);
+    return true;
+}
+
 function get_discount_percent($coupon)
 {
     $sql = "SELECT discount_percent from tbl_coupon where coupon_code = '$coupon'";

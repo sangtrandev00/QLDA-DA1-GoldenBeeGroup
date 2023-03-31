@@ -162,7 +162,7 @@
                                                 <div class="coupon-discount box-shadow p-30 mb-50">
                                                     <h6 class="widget-title border-left mb-20">coupon discount</h6>
                                                     <p>Enter your coupon code if you have one!</p>
-                                                    <input type="text" name="name" placeholder="Enter your code here.">
+                                                    <input type="text" name="" placeholder="Enter your code here.">
                                                     <button class="submit-btn-1 black-bg btn-hover-2"
                                                         type="submit">apply
                                                         coupon</button>
@@ -482,7 +482,7 @@ if (isset($_SESSION['iduser'])) {
                                                 <div class="coupon-discount mb-40">
                                                     <h6 class="widget-title border-left mb-2">Mã giảm giá</h6>
                                                     <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
-                                                    <input id="coupon-code" type="text" name="name"
+                                                    <input id="coupon-code" type="text" name=""
                                                         placeholder="Nhập mã của bạn ở đây..." class="">
                                                     <button onclick="applyCoupon(iduser)"
                                                         class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập

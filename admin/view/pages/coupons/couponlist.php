@@ -46,9 +46,9 @@ foreach ($coupon_list as $coupon) {
                             <div class="table-actions d-flex align-items-center gap-3 fs-6">
                                 <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="Views"><i class="bi bi-eye-fill"></i></a>
-                                <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip"
+                                <a  href="./index.php?act=editcoupon&id=' . $coupon['id_coupon'] . '" class="text-warning" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
-                                <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip"
+                                <a onclick="deleteCoupon(' . $coupon['id_coupon'] . ')" href="./index.php?act=deletecoupon&id=' . $coupon['id_coupon'] . '" class="text-danger" data-bs-toggle="tooltip"
                                     data-bs-placement="bottom" title="Delete"><i class="bi bi-trash-fill"></i></a>
                             </div>
                         </td>
