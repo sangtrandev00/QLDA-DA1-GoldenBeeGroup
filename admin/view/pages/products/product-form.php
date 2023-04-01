@@ -5,6 +5,7 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include $ROOT_URL . "/admin/models/category.php";
 include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
+
 // var_dump($_GET);
 // var_dump($_POST);
 // if (isset($_POST['id'])) {
@@ -12,6 +13,7 @@ include $ROOT_URL . "/DAO/category.php";
 //     $product_item = product_select_by_id($id);
 //     $image_list = explode(',', $product_item['images']);
 // }
+
 ?>
 
 <form id="product-form" action="./index.php?act=addproduct" class="row g-3" method="POST" enctype="multipart/form-data">
@@ -22,11 +24,13 @@ include $ROOT_URL . "/DAO/category.php";
     </div>
     <div class="col-12">
         <label class="form-label">Mô tả sản phẩm</label>
-        <textarea name="mo_ta" class="form-control" placeholder="Full description" rows="4" cols="4"></textarea>
+        <textarea name="mo_ta" id="descriptionProductEditor" class="form-control" placeholder="Full description"
+            rows="4" cols="4"></textarea>
     </div>
     <div class="col-12">
         <label class="form-label">Thông tin sản phẩm</label>
-        <textarea name="thong_tin" class="form-control" placeholder="Full description" rows="4" cols="4"></textarea>
+        <textarea name="thong_tin" id="infoProductEditor" class="form-control" placeholder="Full description" rows="4"
+            cols="4"></textarea>
     </div>
     <div id="image-input-group" class="col-12">
         <label class="form-label">Thêm hình ảnh</label>

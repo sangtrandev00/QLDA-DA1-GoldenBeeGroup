@@ -164,6 +164,7 @@ if (isset($_GET['act'])) {
                     include "./view/checkout-page.php";
                     // }
                 }
+
                 // Kiểm tra tồn kho ở đây
 
                 include "./view/pages/cart/checkout.php";
@@ -639,7 +640,7 @@ if (isset($_GET['act'])) {
                 $searchProductPattern = "%" . $_POST['searchproductname'] . "%";
                 $searchProductList = product_select_by_name($searchProductPattern);
             }
-            include "./view/shoppage.php";
+            include "./view/pages/shop/shop.php";
             break;
 
         case 'detailproduct':

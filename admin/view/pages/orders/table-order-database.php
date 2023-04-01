@@ -47,6 +47,7 @@ foreach ($order_list as $order) {
             $alert_class = 'text-danger';
             break;
         default:
+            $alert_class = "";
             # code...
             break;
     }

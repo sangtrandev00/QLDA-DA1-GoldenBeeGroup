@@ -132,7 +132,7 @@ break;
                             </div>
                             <div class="info">
                                 <h6 class="mb-2">Thông tin gửi hàng</h6>
-                                <p class="mb-1"><strong>Shipping</strong> : Red Express</p>
+                                <p class="mb-1"><strong>Shipping</strong> : GHN</p>
                                 <p class="mb-1"><strong>Pttt</strong> : <?php echo $order_info['pttt'] ?></p>
                                 <p class="mb-1"><strong>Trạng thái</strong> : <?php echo $message ?></p>
                                 <p class="mb-1"><strong>Trạng thái thanh toán</strong> :

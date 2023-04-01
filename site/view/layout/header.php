@@ -249,10 +249,11 @@ foreach ($cate_list as $cate_item) {
                                             <button class="search-toggle">
                                                 <i class="zmdi zmdi-search"></i>
                                             </button>
-                                            <form action="#">
+                                            <form action="./index.php?act=shop" method="GET">
                                                 <div class="top-search-box">
-                                                    <input type="text" placeholder="Search here your product...">
-                                                    <button type="submit">
+                                                    <input type="hidden" name="act" value="shop">
+                                                    <input type="text" name="query" placeholder="Tìm kiếm sản phẩm...">
+                                                    <button name="" type="submit">
                                                         <i class="zmdi zmdi-search"></i>
                                                     </button>
                                                 </div>

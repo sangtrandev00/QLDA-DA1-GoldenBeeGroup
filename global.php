@@ -222,6 +222,94 @@ function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name,
     ';
 }
 
+function renderStarRatings($number)
+{
+    $result = '
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    ';
+    switch ($number) {
+        case 1:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 1.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 2:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 2.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 3:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 3.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 4:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 4.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+	';
+            break;
+        case 5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+	';
+            break;
+        default:
+
+    }
+    return $result;
+}
+
 function validating($phone)
 {
     if (preg_match('/^[0-9]{10}+$/', $phone)) {

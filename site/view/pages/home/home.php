@@ -188,6 +188,8 @@ foreach ($featured_products as $item) {
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -218,11 +220,7 @@ foreach ($featured_products as $item) {
                                             <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                         </h6>
                                         <div class="pro-rating">
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                            ' . $result_stars . '
                                         </div>
                                         <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                             <ul class="action-button">
@@ -336,11 +334,14 @@ foreach ($featured_products as $item) {
                     <div class="product-tab pro-tab-menu text-end">
                         <!-- Nav tabs -->
                         <ul class="nav">
-                            <li><a class="active" href="#popular-product" data-bs-toggle="tab">Các sản phẩm phổ biến
+                            <li><a class="active" id="popular-product-tab-btn" href="#popular-product"
+                                    data-bs-toggle="tab">Các sản phẩm phổ biến
                                 </a></li>
-                            <li><a href="#new-arrival" data-bs-toggle="tab">Sản phẩm mới về</a></li>
-                            <li><a href="#best-seller" data-bs-toggle="tab">Bán chạy</a></li>
-                            <li><a href="#special-offer" data-bs-toggle="tab">Ưu đãi đặt biệt</a></li>
+                            <li><a id="new-arrival-tab-btn" href="#new-arrival" data-bs-toggle="tab">Sản phẩm mới về</a>
+                            </li>
+                            <li><a id="best-seller-tab-btn" href="#best-seller" data-bs-toggle="tab">Bán chạy</a></li>
+                            <li><a id="special-offer-tab-btn" href="#special-offer" data-bs-toggle="tab">Ưu đãi đặt
+                                    biệt</a></li>
                         </ul>
                     </div>
                 </div>
@@ -375,6 +376,9 @@ foreach ($product_list as $item) {
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -405,11 +409,7 @@ foreach ($product_list as $item) {
                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                                     </h6>
                                                     <div class="pro-rating">
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                    ' . $result_stars . '
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                                         <ul class="action-button">
@@ -450,7 +450,7 @@ foreach ($product_list as $item) {
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
 if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=popular-product&page=' . ($current_page - 1) . '">Trước</a> | ';
 }
 
 // Lặp khoảng giữa
@@ -460,13 +460,13 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?view=popular-product&page=' . $i . '">' . $i . '</a> | ';
     }
 }
 
 // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
 if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=popular-product&page=' . ($current_page + 1) . '">Sau</a> | ';
 }
 
 ?>
@@ -511,6 +511,8 @@ foreach ($product_list as $item) {
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -541,11 +543,7 @@ foreach ($product_list as $item) {
                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                                     </h6>
                                                     <div class="pro-rating">
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                        ' . $result_stars . '
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                                         <ul class="action-button">
@@ -593,6 +591,143 @@ foreach ($product_list as $item) {
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
 if ($current_page > 1 && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=new-arrival&page=' . ($current_page - 1) . '">Trước</a> | ';
+}
+
+// Lặp khoảng giữa
+for ($i = 1; $i <= $total_page; $i++) {
+    // Nếu là trang hiện tại thì hiển thị thẻ span
+    // ngược lại hiển thị thẻ a
+    if ($i == $current_page) {
+        echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
+    } else {
+        echo '<a onclick="setPagination()" class="page-item btn btn-light" href="index.php?view=new-arrival&page=' . $i . '">' . $i . '</a> | ';
+    }
+}
+
+// nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
+if ($current_page < $total_page && $total_page > 1) {
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=new-arrival&page=' . ($current_page + 1) . '">Sau</a> | ';
+}
+
+?>
+                                </ul>
+                                <!-- shop-pagination end -->
+                            </div>
+                        </div>
+                        <!-- new-arrival end -->
+                        <!-- best-seller start -->
+                        <div id="best-seller" class="tab-pane" role="tabpanel">
+                            <div class="row">
+                                <?php
+// PHẦN XỬ LÝ PHP
+// B1: KET NOI CSDL
+$conn = connectdb();
+
+$sql = "SELECT masanpham, sp.don_gia as don_gia, ton_kho, giam_gia, sp.tensp as tensp, hinhanh as thumbnail, sum(soluong) as sl_ban, mo_ta, sp.ma_danhmuc as ma_danhmuc from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc"; // Total Product
+$_limit = 12;
+$pagination = createDataWithPagination($conn, $sql, $_limit);
+$product_list = $pagination['datalist'];
+// var_dump($productList);
+$total_page = $pagination['totalpage'];
+$start = $pagination['start'];
+$current_page = $pagination['current_page'];
+$total_records = $pagination['total_records'];
+
+$top_sold_products = $product_list;
+// var_dump($top_sold_products);
+foreach ($top_sold_products as $item) {
+
+    #Thumbnail Image
+    // $image_list = explode(',', $item['images']);
+
+    $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
+    $addcartfunc = "handleAddCart('addtocart', 'addcart')";
+    $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
+    // foreach ($image_list as $image_item) {
+
+    //     if (substr($image_item, 0, 6) == "thumb-") {
+    //         // echo $image_item;
+    //         $thumbnail = "../uploads/" . $image_item;
+    //         break;
+    // }
+
+    $thumbnail = $item['thumbnail'];
+
+    // }
+
+    # code...
+    echo '
+                                                                        <div class="col-lg-3 col-md-4">
+                                                                        <form action="./index.php?act=addtocart" method="post">
+                                                                                <div class="product-item position-relative">
+                                                                                <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
+                                                                                <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
+                                                                                ' . $item['sl_ban'] . ' đã bán
+                                                                                <span class="visually-hidden">unread messages</span>
+                                                                                </span>
+                                                                                <div class="product-img">
+                                                                                    <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
+                                                                                        <img src="../uploads/' . $thumbnail . '" alt="' . $thumbnail . '" />
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="product-info">
+                                                                                    <h6 class="product-title">
+                                                                                        <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
+                                                                                    </h6>
+                                                                                    <div class="pro-rating">
+                                                                                       ' . $result_stars . '
+                                                                                    </div>
+                                                                                    <h3 class="pro-price"> ' . $price_format . ' VND</h3>
+                                                                                        <ul class="action-button">
+                                                                                        <li>
+                                                                                            <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
+                                                                                            <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
+                                                                                                title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <button onclick="' . $addcartfunc . '" class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
+                                                                                                    class="zmdi zmdi-shopping-cart-plus"></i></button>
+                                                                                            <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                    <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
+                                                                                    <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
+                                                                                    <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
+                                                                                    <input type="hidden" name="sl" value="1">
+                                                                                    <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
+                                                                                    <input type="hidden" name="iddm" value="' . $item['ma_danhmuc'] . '"/>
+                                                                                    <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
+                                                                                    <input type="hidden" name="mo_ta" value="' . $item['mo_ta'] . '">
+                                                                                    <input type="hidden" name="giam_gia" value="' . $item['giam_gia'] . '">
+                                                                                </div>
+                                                                            </div>
+                                                                            </form>
+                                                                        </div>
+                                                                        ';
+}
+?>
+
+                                <!-- shop-pagination start -->
+                                <ul class="shop-pagination box-shadow text-center ptblr-10-30">
+
+                                    <!-- <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                                    <li><a href="#">01</a></li>
+                                    <li><a href="#">02</a></li>
+                                    <li><a href="#">03</a></li>
+                                    <li><a href="#">...</a></li>
+                                    <li><a href="#">05</a></li>
+                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li> -->
+                                    <?php
+// HIỂN THỊ PHÂN TRANG
+// nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+if ($current_page > 1 && $total_page > 1) {
     echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
 }
 
@@ -613,425 +748,6 @@ if ($current_page < $total_page && $total_page > 1) {
 }
 
 ?>
-                                </ul>
-                                <!-- shop-pagination end -->
-                            </div>
-                        </div>
-                        <!-- new-arrival end -->
-                        <!-- best-seller start -->
-                        <div id="best-seller" class="tab-pane" role="tabpanel">
-                            <div class="row">
-                                <?php
-// $top_sold_products = select_top_sold_products_homepage();
-// var_dump($top_sold_products);
-// exit;
-// foreach ($top_sold_products as $item) {
-
-//     #Thumbnail Image
-//     $image_list = explode(',', $item['images']);
-
-//     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
-//     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
-//     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
-//     foreach ($image_list as $image_item) {
-
-//         if (substr($image_item, 0, 6) == "thumb-") {
-//             // echo $image_item;
-//             $thumbnail = "../uploads/" . $image_item;
-//             break;
-//         }
-
-//     }
-
-//     # code...
-//     echo '
-//                                                                         <div class="col-lg-3 col-md-4">
-//                                                                         <form action="./index.php?act=addtocart" method="post">
-//                                                                                 <div class="product-item position-relative">
-//                                                                                 <span class="ms-2 badge bg-secondary">' . $item['giam_gia'] . '%</span>
-//                                                                                 <span class="product-item__views position-absolute translate-middle badge rounded-pill bg-danger">
-//                                                                                 ' . $item['so_luot_xem'] . ' views
-//                                                                                 <span class="visually-hidden">unread messages</span>
-//                                                                                 </span>
-//                                                                                 <div class="product-img">
-//                                                                                     <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">
-//                                                                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '" />
-//                                                                                     </a>
-//                                                                                 </div>
-//                                                                                 <div class="product-info">
-//                                                                                     <h6 class="product-title">
-//                                                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
-//                                                                                     </h6>
-//                                                                                     <div class="pro-rating">
-//                                                                                         <a href="#"><i class="zmdi zmdi-star"></i></a>
-//                                                                                         <a href="#"><i class="zmdi zmdi-star"></i></a>
-//                                                                                         <a href="#"><i class="zmdi zmdi-star"></i></a>
-//                                                                                         <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-//                                                                                         <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-//                                                                                     </div>
-//                                                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
-//                                                                                         <ul class="action-button">
-//                                                                                         <li>
-//                                                                                             <a onclick="' . $addwishlistfunc . '" class="add-to-wishlist" href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-//                                                                                             <input type="submit" class="add-to-wishlist__submit-input d-none" name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
-//                                                                                         </li>
-//                                                                                         <li>
-//                                                                                             <a class="zoom-detail-product" href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-//                                                                                                 title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-//                                                                                         </li>
-//                                                                                         <li>
-//                                                                                             <button onclick="' . $addcartfunc . '" class="add-to-cart"  type="submit" data-bs-toggle="modal" data-bs-target="#cartModal" title="Add to cart"><i
-//                                                                                                     class="zmdi zmdi-shopping-cart-plus"></i></button>
-//                                                                                             <input type="submit" class="d-none add-to-cart__submit-input" name="addtocartbtn" value="Thêm vào giỏ hàng" >
-//                                                                                         </li>
-//                                                                                     </ul>
-//                                                                                     <input type="hidden" name="id" value="' . $item['masanpham'] . '"/>
-//                                                                                     <input type="hidden" name="tensp" value="' . $item['tensp'] . '"/>
-//                                                                                     <input type="hidden" name="hinh_anh" value="' . $thumbnail . '"/>
-//                                                                                     <input type="hidden" name="sl" value="1">
-//                                                                                     <input type="hidden" name="danhmuc" value="' . $cate_name . '"/>
-//                                                                                     <input type="hidden" name="iddm" value="' . $item['ma_danhmuc'] . '"/>
-//                                                                                     <input type="hidden" name="don_gia" value="' . $item['don_gia'] . '"/>
-//                                                                                     <input type="hidden" name="mo_ta" value="' . $item['mo_ta'] . '">
-//                                                                                     <input type="hidden" name="giam_gia" value="' . $item['giam_gia'] . '">
-//                                                                                 </div>
-//                                                                             </div>
-//                                                                             </form>
-//                                                                         </div>
-//                                                                         ';
-// }
-?>
-
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/12.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/11.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/10.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/8.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/1.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/2.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/3.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                                <!-- product-item start -->
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="product-item position-relative">
-                                        <div class="product-img">
-                                            <a href="index.php?act=detailproduct">
-                                                <img src="assets/img/product/4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a href="index.php?act=detailproduct">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            </div>
-                                            <h3 class="pro-price">$ 869.00</h3>
-                                            <ul class="action-button">
-                                                <li>
-                                                    <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" title="Add to cart"><i
-                                                            class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-
-                                <!-- shop-pagination start -->
-                                <ul class="shop-pagination box-shadow text-center ptblr-10-30">
-                                    <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                    <li><a href="#">01</a></li>
-                                    <li><a href="#">02</a></li>
-                                    <li><a href="#">03</a></li>
-                                    <li><a href="#">...</a></li>
-                                    <li><a href="#">05</a></li>
-                                    <li class="active"><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
                                 </ul>
                                 <!-- shop-pagination end -->
                             </div>
@@ -1066,6 +782,8 @@ foreach ($product_list as $item) {
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -1096,11 +814,7 @@ foreach ($product_list as $item) {
                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                                     </h6>
                                                     <div class="pro-rating">
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                        ' . $result_stars . '
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                                         <ul class="action-button">
@@ -1142,7 +856,7 @@ foreach ($product_list as $item) {
 // HIỂN THỊ PHÂN TRANG
 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
 if ($current_page > 1 && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page - 1) . '">Trước</a> | ';
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=special-offer&page=' . ($current_page - 1) . '">Trước</a> | ';
 }
 
 // Lặp khoảng giữa
@@ -1152,13 +866,13 @@ for ($i = 1; $i <= $total_page; $i++) {
     if ($i == $current_page) {
         echo '<span class="page-item btn btn-primary main-bg-color main-border-color">' . $i . '</span> | ';
     } else {
-        echo '<a class="page-item btn btn-light" href="index.php?page=' . $i . '">' . $i . '</a> | ';
+        echo '<a class="page-item btn btn-light" href="index.php?view=special-offer&page=' . $i . '">' . $i . '</a> | ';
     }
 }
 
 // nếu current_page < $total_page và total_page > 1 mới hiển thị nút Next
 if ($current_page < $total_page && $total_page > 1) {
-    echo '<a class="page-item btn btn-secondary" href="index.php?page=' . ($current_page + 1) . '">Sau</a> | ';
+    echo '<a class="page-item btn btn-secondary" href="index.php?view=special-offer&page=' . ($current_page + 1) . '">Sau</a> | ';
 }
 
 ?>

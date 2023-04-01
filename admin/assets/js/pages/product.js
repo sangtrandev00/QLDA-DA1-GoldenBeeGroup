@@ -31,7 +31,12 @@ function editProduct(productId) {
             productForm.elements['addproductbtn'].value = "Sửa sản phẩm";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
             productForm.elements['id'].value = productId;
+
+            CKEDITOR.replace( 'descriptionProductEditor' );
+            CKEDITOR.replace( 'infoProductEditor' );
+            
             $.ajax({
+
                 type: "POST",
                 url: ADMIN_URL+"/view/pages/products/product-images.php",
                 data: {id: productId},
@@ -45,9 +50,13 @@ function editProduct(productId) {
                 e.preventDefault();
                 // console.log('clicked ');
                
+                // console.log(CKEDITOR.instances.descriptionProductEditor.getData());
                 
+                // return;
                 const formData = new FormData($('#cartModal #product-form')[0]);
-                console.log('form: ', formData);
+                // console.log('form: ', formData);
+                formData.append("mo_ta",CKEDITOR.instances.descriptionProductEditor.getData());
+                formData.append("thong_tin",CKEDITOR.instances.infoProductEditor.getData())
                 // return;
                 $.ajax({
                     type: "POST",
@@ -87,6 +96,7 @@ function editProduct(productId) {
     }
 )
 }
+
 function viewDetail(productId) {
     $.get("./logic/product.php?act=getproduct&id="+productId, function(response) {
         $.get("./view/pages/products/product-form.php", function(reponseHtml) {
@@ -120,6 +130,9 @@ function viewDetail(productId) {
             productForm.elements['addproductbtn'].classList = "d-none";
             productForm.elements['resetbtn'].classList = "d-none";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
+            
+            CKEDITOR.replace( 'descriptionProductEditor' );
+            CKEDITOR.replace( 'infoProductEditor' );
             $("#image-input-group").addClass("d-none");
             for(const input of productForm) {
                 console.log("input: ", input);
@@ -138,7 +151,6 @@ function viewDetail(productId) {
         })
     });
 }
-
 
 function deleteProduct(btnElement,productId) {
     // event.preventDefault();

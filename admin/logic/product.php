@@ -48,7 +48,6 @@ switch ($_GET['act']) {
         $promote = 1;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date_create = date('Y-m-d H:i:s');
-
         // Validate at server
 
         // if (strlen($tensp) == 0) {

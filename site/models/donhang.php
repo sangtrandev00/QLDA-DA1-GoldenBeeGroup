@@ -144,6 +144,16 @@ function count_number_reviews_of_product($idsp)
     // var_dump($kq);
     return $kq['number_reviews'];
 }
+function avg_star_reviews_of_product($idsp)
+{
+    $conn = connectdb();
+    $stmt = $conn->prepare("SELECT avg(rating_star) as avg_stars from tbl_danhgiasp where idsanpham = '$idsp'");
+    $stmt->execute();
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    // var_dump($kq);
+    return $kq['avg_stars'];
+}
 
 function insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, $trangthai_review)
 {

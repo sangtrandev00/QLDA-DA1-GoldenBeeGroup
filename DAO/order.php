@@ -84,7 +84,8 @@ function select_top_sold_products()
 
 function select_top_sold_products_homepage()
 {
-    $sql = "SELECT sum(soluong) as sl_ban sp.masanpham as masanpham, sp.tensp as tensp, sp.don_gia as don_gia, ton_kho, images, giam_gia, dac_biet, so_luot_xem, ngay_nhap, date_modified, mo_ta, ma_danhmuc, id_dmphu, information, promote from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc";
+    // sum(soluong) as sl_ban sp.masanpham as masanpham, sp.tensp as tensp, sp.don_gia as don_gia, ton_kho, images, giam_gia, dac_biet, so_luot_xem, ngay_nhap, date_modified, mo_ta, ma_danhmuc, id_dmphu, information, promote
+    $sql = "SELECT masanpham, sp.don_gia as don_gia, ton_kho, giam_gia, sp.tensp as tensp, hinhanh as thumbnail, sum(soluong) as sl_ban, mo_ta, sp.ma_danhmuc as ma_danhmuc from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc";
     return pdo_query($sql);
 }
 

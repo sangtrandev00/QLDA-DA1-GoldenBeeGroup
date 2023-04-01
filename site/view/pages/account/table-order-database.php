@@ -17,8 +17,8 @@ include "$ROOT_URL/global.php";
 
 <?php
 
+$result = array();
 if (isset($_SESSION['iduser'])) {
-    $result = array();
     $iduser = $_SESSION['iduser'];
     $cart_list = getShowCartGroupbyOrder($iduser);
 
