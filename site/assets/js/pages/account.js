@@ -272,17 +272,17 @@ function reviewProduct(currentForm) {
         const reviewStarRating = reviewForm.elements['review_star_rating'].value;
 
         // console.log(reviewContent, reviewStarRating);
+        const formData = new FormData($(reviewForm)[0]);
+        console.log(formData);
+        formData.append("idsanpham", productId),
+        formData.append("iduser", iduser),
+        formData.append("iddh", iddh);
             $.ajax({
                 type: "POST",
                 url: "./logic/account-action.php?act=reviewproduct",
-                data: {
-                    iduser,
-                    idsanpham: productId,
-                    noidung: reviewContent,
-                    rating_star:reviewStarRating,
-                    iddh,
-                    // reviewImage
-                },
+                data: formData,
+                contentType: false,
+                processData: false,
                 // dataType: "dataType",
                 success: function (response) {
                     const {status, content } = JSON.parse(response);

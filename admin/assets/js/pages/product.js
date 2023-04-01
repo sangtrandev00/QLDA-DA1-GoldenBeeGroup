@@ -65,6 +65,7 @@ function editProduct(productId) {
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        
                         // const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
                         // console.log('url: ', productTableContentUrl);
                         // $.get(productTableContentUrl, function(responseHtml) {

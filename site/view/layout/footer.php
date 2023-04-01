@@ -298,8 +298,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
-                            <input type="file" class="form-control" name="review_img" id="review-image" placeholder=""
-                                aria-describedby="fileHelpId">
+                            <input type="file" multiple class="form-control" name="review_imgs[]" id="review-image"
+                                placeholder="" aria-describedby="fileHelpId">
                             <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
                         </div>
                         <div class="mb-3">
@@ -347,8 +347,9 @@
                                 </div>
                                 <ul class="footer-social">
                                     <li>
-                                        <a class="facebook" href="" title="Facebook"><i
-                                                class="zmdi zmdi-facebook"></i></a>
+                                        <a class="facebook"
+                                            href="https://www.facebook.com/profile.php?id=100091145059135"
+                                            title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
                                     </li>
                                     <li>
                                         <a class="google-plus" href="" title="Google Plus"><i
@@ -409,16 +410,16 @@
                                                 thích</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=shopcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
+                                        <a href="./index.php?act=viewcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
                                                 hàng của
                                                 tôi</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=login"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/login.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 nhập</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=signup"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/signup.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 ký</span></a>
                                     </li>
                                     <li>

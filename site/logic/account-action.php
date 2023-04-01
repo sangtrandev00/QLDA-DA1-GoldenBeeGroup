@@ -261,16 +261,29 @@ switch ($_GET['act']) {
         }
         break;
     case 'reviewproduct':
+        // if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
+        $image_files = $_FILES['review_imgs'];
 
-        // var_dump($_POST);
+        $images_review = implode(',', $image_files['name']);
+        // var_dump($image_files);
+        // var_dump($image_list);
+        $i = 0;
+        foreach ($image_files['name'] as $image_name) {
+            # code...
+            // $target_file = "../uploads/" . basename($file_name);
+            // var_dump($image_file_item);
+            move_uploaded_file($image_files["tmp_name"][$i], "$ROOT_URL/uploads/" . $image_name);
+            $i++;
+        }
+
         $iduser = $_POST['iduser'];
         $idsanpham = $_POST['idsanpham'];
-        $noidung = $_POST['noidung'];
-        $rating_star = $_POST['rating_star'];
+        $noidung = $_POST['review_content'];
+        $rating_star = $_POST['review_star_rating'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date_create = date('Y-m-d H:i:s');
         $iddh = $_POST['iddh'];
-        $is_inserted = insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, 1);
+        $is_inserted = insert_reviews($iduser, $idsanpham, $images_review, $noidung, $rating_star, $date_create, $iddh, 1);
         if ($is_inserted) {
             echo json_encode(
                 array(

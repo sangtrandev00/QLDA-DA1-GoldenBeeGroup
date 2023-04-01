@@ -349,6 +349,20 @@ $review_list = get_all_reviews_of_product($product_id);
     foreach ($review_list as $review) {
         $avg_stars = avg_star_reviews_of_product($review['idsanpham']);
         $result = renderStarRatings(round($avg_stars, 0));
+        $image_reviews_html = '';
+        if ($review['images_review'] != "") {
+            $images_review = explode(',', $review['images_review']);
+
+            // var_dump($images_review);
+            foreach ($images_review as $image) {
+                # code...
+                $image_reviews_html .= '<img class="ms-3" style="width: 100px; height: 100px; object-fit: cover" src="../uploads/' . $image . '" alt="">';
+            }
+        } else {
+            $images_reviews_html = "";
+        }
+
+        // var_dump($image_reviews_html);
         # code...
         echo '
         <div class="media mt-30">
@@ -371,6 +385,9 @@ $review_list = get_all_reviews_of_product($product_id);
 
                 </div>
                 <p class="mb-0">' . $review['noidung'] . '</p>
+                <div class="review-images mt-2">
+                    ' . $image_reviews_html . '
+                </div>
             </div>
         </div>
         ';
@@ -436,8 +453,10 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
         $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
         $addcartfunc = "handleAddCart('addtocart', 'addcart')";
         $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+        $avg_stars = avg_star_reviews_of_product($product_item['masanpham']);
+        $result_stars = renderStarRatings(round($avg_stars, 0));
         # code...
-        echo cardItem($product_item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format);
+        echo cardItem($product_item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format, $result_stars);
     }
     ?>
                             </div>

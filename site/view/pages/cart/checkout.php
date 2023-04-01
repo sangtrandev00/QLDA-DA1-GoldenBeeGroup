@@ -525,9 +525,10 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                 name="shippingfee" value="">
                                                         </tr>
                                                         <tr class="coupon-row">
-                                                            <td class="td-titl-1">Áp dụng mã giảm giá (Coupon ) -0%
+                                                            <td class="td-titl-1 fw-bold">Áp dụng mã giảm giá
+                                                                (Coupon ) -0%
                                                             </td>
-                                                            <td id="discount-money" class="td-title-2">
+                                                            <td id="discount-money" class="td-title-2 text-success">
                                                                 0 VND
                                                             </td>
                                                             <input id="discount-money-hidden" type="hidden" value=""

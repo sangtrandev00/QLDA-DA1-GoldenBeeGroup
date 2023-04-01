@@ -162,7 +162,7 @@ function renderCardShoppage($productList)
     }
 }
 
-function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format)
+function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format, $result_stars)
 {
     return '
                                         <form action="./index.php?act=addtocart" method="post">
@@ -182,11 +182,7 @@ function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name,
                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                                     </h6>
                                                     <div class="pro-rating">
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                       ' . $result_stars . '
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
 

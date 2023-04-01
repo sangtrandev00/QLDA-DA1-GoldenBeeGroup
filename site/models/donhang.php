@@ -155,7 +155,7 @@ function avg_star_reviews_of_product($idsp)
     return $kq['avg_stars'];
 }
 
-function insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, $trangthai_review)
+function insert_reviews($iduser, $idsanpham, $images_review, $noidung, $rating_star, $date_create, $iddh, $trangthai_review)
 {
 
     $conn = connectdb();
@@ -164,8 +164,8 @@ function insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_creat
     // VALUES ('" . $madonhang . "','" . $pttt . "','" . $hoten . " ','" . $sodienthoai . " ','" . $email . " ','" . $diachi . " ,' " . $tongdonhang . "  ')
     // ";
     // echo $timeorder;
-    $sql = "INSERT INTO tbl_danhgiasp (iduser, idsanpham, noidung, rating_star, date_create, iddonhang, trangthai_review)
-    VALUES ('$iduser', '$idsanpham', '$noidung', '$rating_star','$date_create','$iddh','$trangthai_review')";
+    $sql = "INSERT INTO tbl_danhgiasp (iduser, idsanpham, images_review, noidung, rating_star, date_create, iddonhang, trangthai_review)
+    VALUES ('$iduser', '$idsanpham', '$images_review', '$noidung', '$rating_star','$date_create','$iddh','$trangthai_review')";
 
     // use exec() because no results are returned
     $conn->exec($sql);

@@ -335,7 +335,7 @@ const zoomProductDetail = () => {
             modalProductnameElement.textContent = tensp;
             modalProductpriceElement.textContent = new_price.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductQtyElement.value = sl;
-            modalProductDescElement.textContent = mo_ta;
+            modalProductDescElement.innerHTML = mo_ta;
             modalProductoldpriceElement.textContent = don_gia.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductSeeAllElement.setAttribute('href', "./index.php?act=detailproduct&id="+productId);
             // modalProductDescElement.textContent = 
