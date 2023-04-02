@@ -149,6 +149,43 @@ function update_shipping_address($iduser, $province_id, $district_id, $ward_id, 
     $conn = null;
 }
 
+function is_existing_shipping_address($iduser)
+{
+    $conn = connectdb();
+
+    $stmt = $conn->prepare("SELECT count(*) as user_shipping FROM tbl_shipping WHERE id_user = '$iduser'");
+
+    $stmt->execute();
+    // return $kq;
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $kq = $stmt->fetch();
+    return $kq['user_shipping'] > 0;
+}
+
+function insert_shipping_address($id_user, $province_id, $district_id, $ward_id, $detail_address)
+{
+    try {
+        $conn = connectdb();
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "INSERT INTO tbl_shipping (id_user, province_id, district_id, ward_id, detail_address)
+        VALUES ('$id_user','$province_id','$district_id', '$ward_id', '$detail_address')";
+
+        // Prepare statement
+        $stmt = $conn->prepare($sql);
+
+        // execute the query
+        $stmt->execute();
+
+        // echo a message to say the UPDATE succeeded
+        return true;
+        echo $stmt->rowCount() . " records UPDATED successfully";
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
+}
+
 function user_get_by_id($iduser)
 {
     $conn = connectdb();

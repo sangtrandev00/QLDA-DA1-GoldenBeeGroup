@@ -209,10 +209,11 @@ new PerfectScrollbar(".best-product")
 <?php
 
 if ($_SESSION['alert'] != "") {
+    // echo $_SESSION['alert'];
     echo "
         <script>
-            const alertModal = new bootstrap.Modal('#alertModal');
-            alertModal.show();
+            var alertModalNotify = new bootstrap.Modal('#alertModal');
+            alertModalNotify.show();
         </script>
    ";
 }
@@ -230,7 +231,7 @@ if (isset($_GET['act'])) {
         case 'updatesubcate':
         case 'deletecate':
             echo '
-              <script src="assets/js/pages/category.js"></script>
+            <script src="assets/js/pages/category.js"></script>
           ';
             break;
 
@@ -242,6 +243,7 @@ if (isset($_GET['act'])) {
             echo '
             <script src="assets/js/pages/product.js"></script>
         ';
+
             break;
             break;
         case 'detailproduct':

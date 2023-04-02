@@ -127,7 +127,7 @@ if (count($cart_list) > 0) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                            <input onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                            <input onkeyup="' . $update_cart_func_keyup . '" type="number" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                                 class="cart-plus-minus-box" >
                                                                     </div>
                                                                 </td>

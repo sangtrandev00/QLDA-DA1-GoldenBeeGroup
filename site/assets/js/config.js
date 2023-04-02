@@ -654,28 +654,28 @@ function selectDistrict(currentDistrict) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // $.ajax({
-    //     type: "POST",
-    //     url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
-    //     data: "data",
-    //     // dataType: "dataType",
-    //     // contentType: application/json
-    //     headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
-    //     success: function (response) {
-    //         console.log('res', response);
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        data: "data",
+        // dataType: "dataType",
+        // contentType: application/json
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
+        success: function (response) {
+            console.log('res', response);
     
-    //         const {code, message, data} = response;
+            const {code, message, data} = response;
 
-    //             const provinceHtmlList = data.map((province) => {
-    //                 return (
-    //                     `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
-    //                 );
-    //             } )
+                const provinceHtmlList = data.map((province) => {
+                    return (
+                        `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
+                    );
+                } )
 
-    //             $("#province-select").append(provinceHtmlList);
+                $("#province-select").append(provinceHtmlList);
     
-    //     }
-    // });
+        }
+    });
 
     // initAddress();
     // console.log('<?php var_dump($_SESSION)?>')
