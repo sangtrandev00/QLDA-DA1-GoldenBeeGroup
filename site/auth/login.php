@@ -3,6 +3,20 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+include "$ROOT_URL/global.php";
+include "$ROOT_URL/pdo-library.php";
+include "$ROOT_URL/DAO/user.php";
+var_dump($_SESSION);
+if (!isset($_SESSION['error'])) {
+    $_SESSION['error'] = [];
+}
+
+if (!isset($_SESSION['toastAlert'])) {
+    $_SESSION['toastAlert'] = "";
+}
 
 ?>
 
@@ -57,8 +71,19 @@ include "../models/user.php";
     .images img {
         width: 50%;
     }
+
+    .error-message {
+        color: red;
+    }
+
+
+    label[id*="-error"] {
+        color: red;
+        position: relative;
+        padding: 0;
+    }
     </style>
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
     <style>
 
     </style>
@@ -70,6 +95,63 @@ include "../models/user.php";
     <div class="wrapper">
         <?php
 include "./auth-header.php";
+?>
+
+        <?php
+// session_start();
+
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    $error = array();
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // echo $email, $password;
+    // Đối chiếu password
+
+    // Mã hóa password
+
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    } else if (!is_email($email)) {
+        $error['email'] = "Định dạng email không chính xác!";
+    } else if (!email_exist($email)) {
+        $error['email'] = "Email chưa chưa đăng ký tại website!";
+    }
+
+    if (empty($password)) {
+        $error['password'] = "Không để trống password";
+    }
+
+    if (!$error) {
+        $password = md5($password);
+        // echo $password;
+
+        $islogined = checkuser($email, $password);
+        if ($islogined === -1) {
+            // $text_error = "username hoặc password không chính xác";
+
+            echo '<div class="alert-warning alert text-center" style="">Email hoặc password không chính xác</div>';
+            $_SESSION['toastAlert'] = "Email hoặc password không chính xác";
+            // include "./view/login-page.php";
+        } else {
+            $kq = getuserinfo($email, $password);
+            // var_dump($kq);
+            $role = $kq['vai_tro'];
+            // echo $role;
+            // if ($role == 3) {
+            $_SESSION['role'] = $role;
+            $_SESSION['email'] = $kq['email'];
+            $_SESSION['iduser'] = $kq['id'];
+            $_SESSION['ho_ten'] = $kq['ho_ten'];
+            header('location: ../../index.php');
+            // } else {
+            // }
+
+        }
+    }
+
+}
 ?>
 
         <!--start content-->
@@ -86,7 +168,7 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title dangnhap-title">Đăng nhập</h5>
                                     <p class="card-text mb-4">Đăng nhập tài khoản để tham gia vào cửa hàng</p>
-                                    <form action="./login.php" class="form-body" method="POST">
+                                    <form id="login-client-form" action="./login.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12">
@@ -98,6 +180,13 @@ include "./auth-header.php";
                                                     </div>
                                                     <input type="email" name="email" class="form-control radius-30 ps-5"
                                                         id="inputEmailAddress" placeholder="Email">
+                                                    <p class="error-message">
+                                                        <?php
+if (isset($error['email'])) {
+    echo $error['email'];
+}
+?>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -111,6 +200,13 @@ include "./auth-header.php";
                                                     <input type="password" name="password"
                                                         class="form-control radius-30 ps-5" id="inputChoosePassword"
                                                         placeholder="Mật khẩu">
+                                                    <p class="error-message">
+                                                        <?php
+if (isset($error['password'])) {
+    echo $error['password'];
+}
+?>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -176,56 +272,67 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
+    <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
+    <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
 
+
+    <script src="../../site/assets/js/jquery.validate.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/additional-methods.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/validate.js">
+
+    </script>
 </body>
 
 </html>
 
+
+
+<div id="liveToast" class="toast top-0 end-0 position-fixed mt-5 me-5" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div id="toast-content" class="toast-header text-bg-warning">
+        <!-- <img src="..." class="rounded me-2" alt="..."> -->
+        <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
+        <small>1 seconds ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+        <?php echo $_SESSION['toastAlert'] ?>
+    </div>
+</div>
+<button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
+<script>
+// const toastTrigger = document.getElementById('liveToastBtn')
+// const toastLiveExample = document.getElementById('liveToast')
+
+// if (toastTrigger) {
+//     toastTrigger.addEventListener('click', () => {
+//         const toast = new bootstrap.Toast(toastLiveExample)
+//         toast.show()
+//     })
+// }
+</script>
+
 <?php
-// session_start();
-
-if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-    $error = array();
-
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    echo $email, $password;
-    // Đối chiếu password
-
-    // Mã hóa password
-
-    if (empty($email)) {
-        $error['email'] = "Không để trống email";
-    }
-
-    if (empty($password)) {
-        $error['password'] = "Không để trống password";
-    }
-
-    $password = md5($password);
-    // echo $password;
-
-    $islogined = checkuser($email, $password);
-    if ($islogined === -1) {
-        // $text_error = "username hoặc password không chính xác";
-
-        echo '<div class="alert-warning alert" style="">username hoặc password không chính xác</div>';
-        // include "./view/login-page.php";
-    } else {
-        $kq = getuserinfo($email, $password);
-        // var_dump($kq);
-        $role = $kq['vai_tro'];
-        // echo $role;
-        // if ($role == 3) {
-        $_SESSION['role'] = $role;
-        $_SESSION['email'] = $kq['email'];
-        $_SESSION['iduser'] = $kq['id'];
-        $_SESSION['ho_ten'] = $kq['ho_ten'];
-        header('location: ../../index.php');
-        // } else {
-        // }
-
-    }
+if (isset($error)) {
+    echo '
+    <script>
+        const toastLiveExample = document.getElementById("liveToast");
+        const toast = new bootstrap.Toast(toastLiveExample)
+        toast.show();
+    </script>
+    ';
 }
+
+$_SESSION['error'] = [];
 ?>
+
+
+<script>
+
+</script>

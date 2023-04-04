@@ -10,7 +10,7 @@ $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
 include "$ROOT_URL/site/models/config_vnpay.php";
-
+include "$ROOT_URL/DAO/order.php";
 switch ($_GET['act']) {
     case 'addtowishlist':
         // if (isset($_SESSION['iduser'])) {
@@ -79,7 +79,13 @@ switch ($_GET['act']) {
         }
 
         // header('location: index.php?act=viewcart'); // Tại sao lại có dòng này ?
-        var_dump($_SESSION['wishlist']);
+        // var_dump($_SESSION['wishlist']);
+        echo json_encode(
+            array(
+                "status" => 1,
+                "content" => $_SESSION['wishlist'],
+            )
+        );
         // } else {
         //     header('location: ./auth/login.php');
         // }
@@ -460,6 +466,110 @@ switch ($_GET['act']) {
             echo json_encode($returnData);
         }
         break;
+    case 'applycoupon':
+        if (isset($_POST['coupon']) && $_POST['coupon'] != "") {
+            $iduser = $_POST['iduser'];
+            $coupon = $_POST['coupon'];
+            $is_applied = is_applied_coupon($coupon, $iduser);
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $current_date = date('Y-m-d H:i:s');
+            $is_outdated = is_outdated_coupon($coupon, $current_date);
+
+            $is_exist_coupon = is_exist_coupon($coupon);
+            if ($is_exist_coupon == 0) {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Mã coupon không tồn tại",
+                    )
+                );
+                exit;
+            }
+
+            if ($is_outdated == 0) {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Mã coupon không hợp lệ, đã quá hạn sử dụng",
+                    )
+                );
+                exit;
+            }
+
+            if ($is_applied > 0) {
+                // echo "is applied: ?" . $is_applied;
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Mã coupon không hợp lệ, đã áp dụng",
+                    )
+                );
+                exit;
+            }
+
+            // is valid money
+
+            $is_valid_money = is_valid_money_for_coupon($coupon, $_POST['subtotal']);
+            if ($is_valid_money == 0) {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Mã coupon không hợp lệ, không đủ tiền",
+                    )
+                );
+                exit;
+            }
+            $discount_percent = get_discount_percent($coupon);
+            if ($discount_percent == 0) {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Mã coupon không hợp lệ",
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => $discount_percent,
+                    )
+                );
+            }
+
+        } else {
+            echo json_encode(
+                array(
+                    "status" => 0,
+                    "content" => "Mã coupon không hợp lệ",
+                )
+            );
+        }
+        break;
+
+    case 'updateordercoupon':
+        if (isset($_POST['coupon'])) {
+            $coupon = $_POST['coupon'];
+
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => $discount_percent,
+                )
+            );
+        }
+        break;
+    // case 'check-applied-coupon':
+    //     if (isset($_POST['coupon'])) {
+    //         $coupon = $_POST['coupon'];
+
+    //         echo json_encode(
+    //             array(
+    //                 "status" => 1,
+    //                 "content" => $discount_percent,
+    //             )
+    //         );
+    //     }
+    //     break;
     default:
         # code...
         break;

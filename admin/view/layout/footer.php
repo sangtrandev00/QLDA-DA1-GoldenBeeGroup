@@ -124,6 +124,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#alertModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="alertModalLabel">Thông báo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php echo $_SESSION['alert']; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="continue-btn btn btn-primary d-none">Tiếp tục</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- END QUICKVIEW PRODUCT -->
 
@@ -144,6 +169,11 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <!--plugins-->
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/additional-methods.min.js">
+
+</script>
+<!--  -->
 <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
 <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
@@ -171,13 +201,32 @@
 <script src="assets/js/index.js"></script>
 <!-- <script src="assets/js/index4.js"></script> -->
 <script src="assets/js/pages/common.js"></script>
+<script src="assets/js/pages/validate.js">
 
+</script>
 <!-- Custom javasscript -->
 <script>
 new PerfectScrollbar(".best-product")
 </script>
 
+<script>
+
+</script>
+
 <?php
+
+if ($_SESSION['alert'] != "") {
+    // echo $_SESSION['alert'];
+    echo "
+        <script>
+            var alertModalNotify = new bootstrap.Modal('#alertModal');
+            alertModalNotify.show();
+        </script>
+   ";
+}
+
+$_SESSION['alert'] = "";
+
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
         case 'catelist':
@@ -189,7 +238,7 @@ if (isset($_GET['act'])) {
         case 'updatesubcate':
         case 'deletecate':
             echo '
-              <script src="assets/js/pages/category.js"></script>
+            <script src="assets/js/pages/category.js"></script>
           ';
             break;
 
@@ -201,6 +250,7 @@ if (isset($_GET['act'])) {
             echo '
             <script src="assets/js/pages/product.js"></script>
         ';
+
             break;
             break;
         case 'detailproduct':

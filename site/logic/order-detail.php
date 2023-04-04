@@ -218,7 +218,7 @@ if (isset($_SESSION['iduser'])) {
     ?>
                 </tbody>
             </table>
-            <button class="btn btn-info">In hóa đơn</button>
+            <!-- <button class="btn btn-info">In hóa đơn</button> -->
         </div>
     </div>
     <?php

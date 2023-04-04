@@ -1,6 +1,7 @@
 const ROOT_URL = location.origin +"/PRO1014_DA1/main-project";
 const ADMIN_URL = `${ROOT_URL}/admin`;
 const SITE_URL = `${ROOT_URL}/site`;
+
 function logout(){
     console.log("Hello clicked");
     const continueLogout = document.getElementById("continueLogout");
@@ -50,23 +51,6 @@ toastTrigger.addEventListener('click', () => {
 
 // const toast = new bootstrap.Toast(toastLiveExample)
 //   toast.show()
-
-// const handleAddCart = (cartBtnSelector, formAction) => {
-//     const handleCartBtns = document.querySelectorAll(cartBtnSelector);
-//     [...handleCartBtns].forEach((btn) => {
-//         btn.addEventListener('click', (e) => {
-//             e.preventDefault();
-
-//             // console.log('event target: ', e.currentTarget);
-//             const submitBtn = e.currentTarget.nextElementSibling;
-//             // console.log('submit Btn: ', submitBtn);
-//             const formElement = getParent(e.currentTarget, 'form');
-//             // console.log('form: ', formElement);
-//             formElement.action = "index.php?act=" + formAction;
-//             submitBtn.click();
-//         })
-//     })
-// }
 
 function handleAddCart (actionForm, logicType){
     event.preventDefault();
@@ -122,6 +106,8 @@ function handleAddCart (actionForm, logicType){
                         // console.log('go here buy now
                     }else if(logicType == 'addwishlist') {
                             // location.assign('index.php?act=wishlist');
+
+                            
                             $.get('./logic/topwishlist.php', function(response) {
                                 console.log('res: ', response);
 
@@ -310,9 +296,6 @@ function handleDeleteWishlist(idWishlist) {
 
 }
 
-
-
-
 const zoomProductDetail = () => {
     const zoomProductBtns = document.querySelectorAll(".zoom-detail-product");
     const productModal = document.getElementById("productModal");
@@ -352,7 +335,7 @@ const zoomProductDetail = () => {
             modalProductnameElement.textContent = tensp;
             modalProductpriceElement.textContent = new_price.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductQtyElement.value = sl;
-            modalProductDescElement.textContent = mo_ta;
+            modalProductDescElement.innerHTML = mo_ta;
             modalProductoldpriceElement.textContent = don_gia.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductSeeAllElement.setAttribute('href', "./index.php?act=detailproduct&id="+productId);
             // modalProductDescElement.textContent = 
@@ -376,26 +359,7 @@ const zoomProductDetail = () => {
     })
 }
 
-// jquery ajax here
-
-// $('.del-icon a').click(function(event) {
-//     event.preventDefault();
-
-//     console.log('clicked here!!!');
-
-//     // $.ajax({
-//     //     url: "./index.php?act=deletecart",
-//     //     type: 'GET',
-//     //     success: function(response) {
-//     //         console.log('res: ', response);
-//     //     }h
-//     // });
-
-//     $.get('./logic/cart.php?idcart=0', function(res) {
-//         console.log('res: ', res);
-//     })
-// })
-
+// Table data at my - account
 $.ajax({
             type: "POST",
             url: SITE_URL+ "/view/pages/account/table-order-database.php",
@@ -449,18 +413,106 @@ function showOrder() {
 
 // Call GHN API
 // GET all Province
-$.ajax({
-    type: "GET",
-    url: "url",
-    data: "data",
-    dataType: "dataType",
-    success: function (response) {
-        
-    }
-});
+
 // [GET] all district
 // [GET] all 
 
+
+function renderStarRatings(number) {
+    const html = `
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    `
+    let result = "";
+    switch(number) {
+        case '1':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '1.5':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '2':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '2.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '3':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '3.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '4':
+              result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '4.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+        `
+            break;
+        case '5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-"></i></a>
+        `
+            break;
+        default:
+    }
+    return result;
+}
 
 (() => {
     zoomProductDetail();
@@ -468,7 +520,7 @@ $.ajax({
     // handleAddCart('.add-to-wishlist', 'addtowishlist');
 
     const url = new URL(location.href);
-
+    console.log(url);
     // console.log('url', url.searchParams.get('act'));
     // console.log('url', url.searchParams.get('view'));
     if(url.searchParams.get('act') == 'settingaccount') {
@@ -502,6 +554,36 @@ $.ajax({
                 break;
         }
     }
+
+    if(!url.searchParams.get('act')) {
+
+        switch (url.searchParams.get('view')) {
+            case 'best-seller':
+                // console.log("homepage best-seller");
+                // $("#best-seller-tab-btn").trigger("click");
+                document.getElementById("best-seller-tab-btn").click();
+                // window.scrollY = 1800;
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'special-offer':
+                document.getElementById("special-offer-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'popular-product':
+                document.getElementById("popular-product-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'new-arrival':
+                document.getElementById("new-arrival-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            default:
+                break;
+        }
+
+        
+    }
+   
    
 })();
 
@@ -572,28 +654,28 @@ function selectDistrict(currentDistrict) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // $.ajax({
-    //     type: "POST",
-    //     url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
-    //     data: "data",
-    //     // dataType: "dataType",
-    //     // contentType: application/json
-    //     headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
-    //     success: function (response) {
-    //         console.log('res', response);
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        data: "data",
+        // dataType: "dataType",
+        // contentType: application/json
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
+        success: function (response) {
+            console.log('res', response);
     
-    //         const {code, message, data} = response;
+            const {code, message, data} = response;
 
-    //             const provinceHtmlList = data.map((province) => {
-    //                 return (
-    //                     `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
-    //                 );
-    //             } )
+                const provinceHtmlList = data.map((province) => {
+                    return (
+                        `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
+                    );
+                } )
 
-    //             $("#province-select").append(provinceHtmlList);
+                $("#province-select").append(provinceHtmlList);
     
-    //     }
-    // });
+        }
+    });
 
     // initAddress();
     // console.log('<?php var_dump($_SESSION)?>')

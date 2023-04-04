@@ -75,7 +75,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
         }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body>
@@ -156,7 +156,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
-    
+
 
 </body>
 

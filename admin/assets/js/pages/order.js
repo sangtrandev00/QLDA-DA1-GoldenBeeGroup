@@ -14,6 +14,7 @@ function deleteOrder(orderId) {
         location.assign("./index.php?act=deleteorder&iddh="+orderId);
     })
 }
+
 function deleteDashboardOrder(orderId) {
     console.log('clicked', orderId);
 

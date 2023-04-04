@@ -81,7 +81,7 @@ foreach ($userList as $user) {
                 </div>
               </div>
 
-</main>
-<!--end page main-->
+  </main>
+  <!--end page main-->
 
-<!-- Toggle Modal here -->
+  <!-- Toggle Modal here -->

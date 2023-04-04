@@ -23,6 +23,25 @@ if (isset($_GET['act'])) {
         case 'orderdetail':
             $breadcrumbs = "Đơn hàng chi tiết";
             break;
+        case 'my-profile':
+            $breadcrumbs = "Thông tin tài khoản";
+            break;
+        case 'couponlist':
+            $breadcrumbs = "Danh sách Voucher/Coupon";
+            break;
+        case 'addcoupon':
+            $breadcrumbs = "Thêm Coupon";
+            break;
+        case 'editcoupon':
+        case 'updatecoupon':
+            $breadcrumbs = "Sửa/ Cập nhật coupon";
+            break;
+        case 'addcoupon':
+            $breadcrumbs = "Thêm Coupon";
+            break;
+        case "deletecoupon":
+            $breadcrumbs = "Xóa coupon";
+            break;
         case 'userlist':
             $breadcrumbs = "Danh sách người dùng";
             break;
@@ -60,9 +79,9 @@ if (isset($_GET['act'])) {
 
 
 <!--start content-->
-<main class="page-content">
+<main class="page-content mt-5">
     <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3 hide-on-print">
         <div class="breadcrumb-title pe-3">eCommerce</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">

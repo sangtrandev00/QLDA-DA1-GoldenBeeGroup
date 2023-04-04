@@ -50,9 +50,15 @@ function count_all_sold_products()
     return pdo_query_value($sql);
 }
 
-function revenue_of_month($month)
+function revenue_of_month($year, $month)
 {
-    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month'";
+    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month' and year(timeorder) = '$year'";
+    return pdo_query_value($sql);
+}
+
+function revenue_of_week($week)
+{
+    $sql = "SELECT sum(tongdonhang) from tbl_order where week(timeorder) = '$week' and trangthai = 4 group by week(timeorder)";
     return pdo_query_value($sql);
 }
 
@@ -62,10 +68,10 @@ function revenue_of_weeks()
     return pdo_query($sql);
 }
 
-function revenue_of_day_by_month($month)
+function revenue_of_day_by_month($month, $day)
 {
-    $sql = "SELECT *, day(timeorder) as day from tbl_order where trangthai = 4 and month(timeorder) = '$month' order by day";
-    return pdo_query($sql);
+    $sql = "SELECT sum(tongdonhang) from tbl_order where trangthai = 4 and month(timeorder) = '$month' and day(timeorder) = '$day' group by day(timeorder)";
+    return pdo_query_value($sql);
 }
 
 // SELECT *, sum(soluong) as sl_ban from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc;
@@ -78,7 +84,8 @@ function select_top_sold_products()
 
 function select_top_sold_products_homepage()
 {
-    $sql = "SELECT sum(soluong) as sl_ban sp.masanpham as masanpham, sp.tensp as tensp, sp.don_gia as don_gia, ton_kho, images, giam_gia, dac_biet, so_luot_xem, ngay_nhap, date_modified, mo_ta, ma_danhmuc, id_dmphu, information, promote from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc";
+    // sum(soluong) as sl_ban sp.masanpham as masanpham, sp.tensp as tensp, sp.don_gia as don_gia, ton_kho, images, giam_gia, dac_biet, so_luot_xem, ngay_nhap, date_modified, mo_ta, ma_danhmuc, id_dmphu, information, promote
+    $sql = "SELECT masanpham, sp.don_gia as don_gia, ton_kho, giam_gia, sp.tensp as tensp, hinhanh as thumbnail, sum(soluong) as sl_ban, mo_ta, sp.ma_danhmuc as ma_danhmuc from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham where trangthai = 4 group by idsanpham order by sl_ban desc";
     return pdo_query($sql);
 }
 
@@ -102,5 +109,88 @@ function insert_vnpay($order_id, $amount, $bankcode, $banktransno, $cardtype, $o
 
 function insert_momo()
 {
+
+}
+
+function insert_coupon($coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end)
+{
+    $sql = "INSERT INTO tbl_coupon (coupon_code, discount_percent, min_value, maximum_use, date_start, date_end) values (?,?,?,?,?,?)";
+    pdo_execute($sql, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end);
+    return true;
+}
+
+function update_coupon($idcoupon, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end)
+{
+    $sql = "UPDATE tbl_coupon set coupon_code = ?, discount_percent = ?, min_value = ?, maximum_use = ?, date_start = ?, date_end = ? where id_coupon = ?";
+    pdo_execute($sql, $coupon_code, $discount_percent, $min_value, $maximum_use, $date_start, $date_end, $idcoupon);
+    return true;
+}
+
+function select_coupon_by_id($idcoupon)
+{
+    $sql = "SELECT * from tbl_coupon where id_coupon = '$idcoupon'";
+    return pdo_query_one($sql);
+}
+
+function delete_coupon_by_id($idcoupon)
+{
+    $sql = "DELETE from tbl_coupon where id_coupon = $idcoupon";
+    pdo_execute($sql);
+    return true;
+}
+
+function get_discount_percent($coupon)
+{
+    $sql = "SELECT discount_percent from tbl_coupon where coupon_code = '$coupon'";
+    return pdo_query_value($sql);
+}
+
+function is_valid_money_for_coupon($coupon, $money)
+{
+    $sql = "SELECT count(*) from tbl_coupon where coupon_code = '$coupon' and min_value <= '$money'";
+    return pdo_query_value($sql);
+}
+
+function is_applied_coupon($coupon, $iduser)
+{
+    $sql = "SELECT count(*) from tbl_order where coupon_code = '$coupon' and iduser ='$iduser'";
+    return pdo_query_value($sql);
+}
+
+function is_outdated_coupon($coupon, $current_date)
+{
+    $sql = "SELECT count(*) from tbl_coupon where coupon_code = '$coupon' and date_start <= '$current_date' and date_end >= '$current_date'";
+    return pdo_query_value($sql);
+}
+
+function is_exist_coupon($coupon)
+{
+    $sql = "SELECT count(*) from tbl_coupon where coupon_code = '$coupon'";
+    return pdo_query_value($sql);
+}
+
+function is_enough_money_order_for_coupon($money, $coupon)
+{
+
+}
+
+function update_coupon_for_orderid($coupon_code, $orderid)
+{
+    $sql = "UPDATE tbl_order set coupon_code = ? where id = ?";
+    pdo_execute($sql, $coupon_code, $orderid);
+    return true;
+}
+
+function update_quantity_of_coupon($coupon_code)
+{
+    $sql = "UPDATE tbl_coupon set maximum_use = maximum_use - 1 where coupon_code = '$coupon_code'";
+    pdo_execute($sql);
+    return true;
+}
+
+function select_all_coupons()
+{
+    $sql = "SELECT * from tbl_coupon";
+    return pdo_query($sql);
 
 }

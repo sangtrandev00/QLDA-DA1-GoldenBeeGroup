@@ -70,7 +70,7 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
 
     <!--start wrapper-->
     <div class="wrapper">
-       
+
         <!--start content-->
         <main class="authentication-content">
             <div class="container">
@@ -78,8 +78,8 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/reset-pass-img-1.png"
-                                    class="img-fluid" alt="">
+                                <img src="../../admin/assets/images/error/reset-pass-img-1.png" class="img-fluid"
+                                    alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">

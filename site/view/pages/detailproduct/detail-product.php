@@ -121,12 +121,18 @@ if ($product['ton_kho'] > 0) {
                                                 </ul>
                                             </div> -->
                                             </div>
-                                            <div class="pro-rating sin-pro-rating f-right">
+                                            <div onclick="viewAllReviews()" class="pro-rating sin-pro-rating f-right">
+                                                <!-- <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                                                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                                                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a> -->
+                                                <?php
+$avg_stars = avg_star_reviews_of_product($_GET['id']);
+    // echo $avg_stars;
+    $result = renderStarRatings(round($avg_stars, 0));
+    echo $result;
+    ?>
                                                 <span class="text-black-5">(
                                                     <?php echo count_number_reviews_of_product($_GET['id']) ?> đã đánh
                                                     giá)</span>
@@ -151,8 +157,11 @@ if ($product['ton_kho'] > 0) {
                                         <hr>
                                         <!-- single-product-price -->
                                         <h3 class="pro-price">Giá sản phẩm: <?php echo $new_price ?> VND <del
-                                                class="ms-3 fs-3 fw-lighter text-text-decoration-line-through"><?php echo $old_price ?>
-                                                VND</del>
+                                                class="ms-3 fs-3 fw-lighter text-text-decoration-line-through"><?php if ($product['giam_gia'] > 0) {
+        echo $old_price . " VND";
+    }
+    ?>
+                                            </del>
                                         </h3>
                                         <!--  hr -->
                                         <hr>
@@ -217,7 +226,8 @@ if ($product['ton_kho'] > 0) {
                                                 phẩm</a>
                                         </li>
                                         <li><a href="#information" data-bs-toggle="tab">Thông tin sản phẩm</a></li>
-                                        <li><a href="#reviews" data-bs-toggle="tab">reviews/đánh giá</a></li>
+                                        <li><a id="reviews-tab-btn" href="#reviews" data-bs-toggle="tab">reviews/đánh
+                                                giá</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active show" id="description">
@@ -322,14 +332,6 @@ if ($product['ton_kho'] > 0) {
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="information">
-                                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem,
-                                                neque
-                                                fugit inventore quo dignissimos est iure natus quis nam illo
-                                                officiis,
-                                                deleniti consectetur non ,aspernatur.</p>
-                                            <p>rerum blanditiis dolore dignissimos expedita consequatur deleniti
-                                                consectetur non exercitationem.</p> -->
-
                                             <?php echo $product['information'] ?>
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="reviews">
@@ -337,11 +339,33 @@ if ($product['ton_kho'] > 0) {
                                             <div class="reviews-tab-desc">
                                                 <!-- single comments -->
                                                 <?php
-$review_list = get_all_reviews_of_product($product_id);
+
+    $review_list = get_all_reviews_of_product($product_id);
+
+    if (count($review_list) == 0) {
+        echo '<div class="alert alert-warning">Chưa có đánh giá nào cho sản phẩm này!</div>';
+    }
 
     // var_dump($review_list);
 
     foreach ($review_list as $review) {
+        // $avg_stars = avg_star_reviews_of_product($review['idsanpham']);
+        // echo $review['rating_star'];
+        $result = renderStarRatings($review['rating_star']);
+        $image_reviews_html = '';
+        if ($review['images_review'] != "") {
+            $images_review = explode(',', $review['images_review']);
+
+            // var_dump($images_review);
+            foreach ($images_review as $image) {
+                # code...
+                $image_reviews_html .= '<img class="ms-3" style="width: 100px; height: 100px; object-fit: cover" src="../uploads/' . $image . '" alt="">';
+            }
+        } else {
+            $images_reviews_html = "";
+        }
+
+        // var_dump($image_reviews_html);
         # code...
         echo '
         <div class="media mt-30">
@@ -352,11 +376,7 @@ $review_list = get_all_reviews_of_product($product_id);
             <div class="media-body">
                 <div class="clearfix">
                     <div class="pro-rating sin-pro-rating ">
-                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                        <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                        <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                        ' . $result . '
                         <span class="text-black-5">(' . $review['rating_star'] . ' sao)</span>
                     </div>
                     <div class="name-commenter pull-left">
@@ -368,14 +388,16 @@ $review_list = get_all_reviews_of_product($product_id);
 
                 </div>
                 <p class="mb-0">' . $review['noidung'] . '</p>
+                <div class="review-images mt-2">
+                    ' . $image_reviews_html . '
+                </div>
             </div>
         </div>
         ';
     }
     ?>
-                                                <div class="media mt-30">
+                                                <!-- <div class="media mt-30">
                                                     <div class="media-left">
-                                                        <!-- ảnh người đánh giá -->
                                                         <a href="#"><img class="media-object" src="" alt="#"></a>
                                                     </div>
                                                     <div class="media-body">
@@ -387,10 +409,10 @@ $review_list = get_all_reviews_of_product($product_id);
                                                         </div>
                                                         <p class="mb-0">Điện thoại rất đẹp, có nhiều ưu đãi khi mua điện
                                                             thoại</p>
-                                                    </div>
-                                                </div>
-                                                <!-- single comments -->
-                                                <!-- <div class="media-body mt-40">
+                                                    </div> -->
+                                            </div>
+                                            <!-- single comments -->
+                                            <!-- <div class="media-body mt-40">
                                                     <input type="text" placeholder="Tên Của Bạn" name="">
                                                     <input type="text" placeholder="Email Của Bạn" name="">
                                                     <textarea name="review" id="" cols="30" rows="5"
@@ -399,28 +421,28 @@ $review_list = get_all_reviews_of_product($product_id);
                                                         style="width: 100px; height: 40px; background-color: #ff7f00; color: white; border: none;text-transform: uppercase;font-weight: 700;"
                                                         type="submit" value="Đánh Giá">
                                                 </div> -->
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--  hr -->
-                                <hr>
                             </div>
+                            <!--  hr -->
+                            <hr>
                         </div>
                     </div>
+                </div>
 
-                    <!-- single-product-area end -->
-                    <div class="related-product-area">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section-title text-start mb-40">
-                                    <h2 class="uppercase">Các sản phẩm liên quan</h2>
-                                    <h6>Ghé xem các sản phẩm liên quan tại cửa hàng</h6>
-                                </div>
+                <!-- single-product-area end -->
+                <div class="related-product-area">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section-title text-start mb-40">
+                                <h2 class="uppercase">Các sản phẩm liên quan</h2>
+                                <h6>Ghé xem các sản phẩm liên quan tại cửa hàng</h6>
+                            </div>
 
 
-                                <div class="active-related-product slick-arrow-2">
-                                    <?php
+                            <div class="active-related-product slick-arrow-2">
+                                <?php
 $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_id);
     // var_dump($relate_products);
 
@@ -434,17 +456,19 @@ $relate_products = product_select_similar_cate($product['ma_danhmuc'], $product_
         $new_price = number_format($product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100));
         $addcartfunc = "handleAddCart('addtocart', 'addcart')";
         $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+        $avg_stars = avg_star_reviews_of_product($product_item['masanpham']);
+        $result_stars = renderStarRatings(round($avg_stars, 0));
         # code...
-        echo cardItem($product_item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format);
+        echo cardItem($product_item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format, $result_stars);
     }
     ?>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- SHOP SECTION END -->
 

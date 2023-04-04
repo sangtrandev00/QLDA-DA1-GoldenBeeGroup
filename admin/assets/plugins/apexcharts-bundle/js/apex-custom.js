@@ -136,7 +136,7 @@ $(function () {
 			offsetY: -20
 		}
 	}
-	var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
+var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 	chartLine.render();
 	
 	
@@ -260,7 +260,7 @@ $(function () {
 		arrayNumberWeeksOfYear.push(i.toString());
 	}
 
-	console.log('arrayNumberWeeksOfYear', arrayNumberWeeksOfYear);
+	// console.log('arrayNumberWeeksOfYear', arrayNumberWeeksOfYear);
 	const arrayNumberDaysOfMonth = [];
 
 	$.ajax({
@@ -270,166 +270,157 @@ $(function () {
 		// dataType: "dataType",
 		success: function (response) {
 				const {result} = JSON.parse(response);
-				// console.log(result);
-				// let revenueWeekList = result.map((week) => {
-				// 	const weekObj = {
-				// 		weekNum: week['week'],
-				// 		revenueOfWeek: week['tongdonhang'],
-				// 		status: week['trangthai'],
-				// 	}
-				// 	return weekObj;
-				// })
-				
-				 const list = arrayNumberWeeksOfYear.map((weekNumber) => {
-					const weekObj = {
-						weekNum: +weekNumber,
-						revenueOfWeek: result[+weekNumber - 1 ]['week'] == weekNumber ? result[+weekNumber - 1 ]['tongdonhang'] : 0,
-						status: result[+weekNumber - 1 ]['week'] == weekNumber ? result[+weekNumber - 1 ]['trangthai'] : 0,
+
+				console.log(result);
+				// Render total orders by weeks here
+				var options = {
+					series: [
+					// 	{
+					// 	name: 'Net Profit',
+					// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+					// }, 
+					{
+						name: 'Revenue',
+						data: result
+					},
+					//  {
+					// 	name: 'Free Cash Flow',
+					// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+					// }
+				],
+					chart: {
+						foreColor: '#9ba7b2',
+						type: 'bar',
+						height: 360
+					},
+					plotOptions: {
+						bar: {
+							horizontal: false,
+							columnWidth: '30%',
+							endingShape: 'rounded'
+						},
+					},
+					dataLabels: {
+						enabled: false
+					},
+					stroke: {
+						show: true,
+						width: 1,
+						colors: ['transparent']
+					},
+					title: {
+						text: 'Thống kê theo tuần (52 tuần )',
+						align: 'left',
+						style: {
+							fontSize: '10'
+						}
+					},
+					colors: ["#6184ff", '#3461ff', '#c4d1ff'],
+					xaxis: {
+						categories: arrayNumberWeeksOfYear,
+					},
+					yaxis: {
+						title: {
+							text: '(VND)'
+						}
+					},
+					fill: {
+						opacity: 1
+					},
+					tooltip: {
+						y: {
+							formatter: function (val) {
+								return val + " VND"
+							}
+						}
 					}
-					
-					return weekObj;
-				 })
-
-				console.log('revenueWeekList', list);
-
+				};
+				var chart = new ApexCharts(document.querySelector("#totalOrderByWeeks"), options);
+				chart.render();
+				
 		}	
 	});
 
 
-	var options = {
-		series: [
-		// 	{
-		// 	name: 'Net Profit',
-		// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-		// }, 
-		{
-			name: 'Revenue',
-			data: [76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94]
+	$.ajax({
+		type: "POST",
+		url: "./logic/revenue.php?act=alldaysofmonth",
+		data: {
+			month: 3
 		},
-		//  {
-		// 	name: 'Free Cash Flow',
-		// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-		// }
-	],
-		chart: {
-			foreColor: '#9ba7b2',
-			type: 'bar',
-			height: 360
-		},
-		plotOptions: {
-			bar: {
-				horizontal: false,
-				columnWidth: '30%',
-				endingShape: 'rounded'
-			},
-		},
-		dataLabels: {
-			enabled: false
-		},
-		stroke: {
-			show: true,
-			width: 1,
-			colors: ['transparent']
-		},
-		title: {
-			text: 'Thống kê theo tuần (52 tuần )',
-			align: 'left',
-			style: {
-				fontSize: '10'
-			}
-		},
-		colors: ["#6184ff", '#3461ff', '#c4d1ff'],
-		xaxis: {
-			categories: arrayNumberWeeksOfYear,
-		},
-		yaxis: {
-			title: {
-				text: '(VND)'
-			}
-		},
-		fill: {
-			opacity: 1
-		},
-		tooltip: {
-			y: {
-				formatter: function (val) {
-					return val + " VND"
-				}
-			}
+		// dataType: "dataType",
+		success: function (response) {
+				const {days, result} = JSON.parse(response);
+				
+				var options = {
+					series: [
+					// 	{
+					// 	name: 'Net Profit',
+					// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+					// }, 
+					{
+						name: 'Revenue',
+						data: result
+					},
+					//  {
+					// 	name: 'Free Cash Flow',
+					// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+					// }
+					],
+					chart: {
+						foreColor: '#9ba7b2',
+						type: 'bar',
+						height: 360
+					},
+					plotOptions: {
+						bar: {
+							horizontal: false,
+							columnWidth: '30%',
+							endingShape: 'rounded'
+						},
+					},
+					dataLabels: {
+						enabled: false
+					},
+					stroke: {
+						show: true,
+						width: 1,
+						colors: ['transparent']
+					},
+					title: {
+						text: 'Column Chart',
+						align: 'left',
+						style: {
+							fontSize: '10'
+						}
+					},
+					colors: ["#6184ff", '#3461ff', '#c4d1ff'],
+					xaxis: {
+						categories: days,
+					},
+					yaxis: {
+						title: {
+							text: '(VND)'
+						}
+					},
+					fill: {
+						opacity: 1
+					},
+					tooltip: {
+						y: {
+							formatter: function (val) {
+								return val + " VND"
+							}
+						}
+					}
+				};
+					// chart totalOrderByDays
+				var chart = new ApexCharts(document.querySelector("#totalOrderByDays"), options);
+				chart.render();
 		}
-	};
-	var chart = new ApexCharts(document.querySelector("#totalOrderByWeeks"), options);
-	chart.render();
-	
-
+	});
 
 	
-
-	var options = {
-		series: [
-		// 	{
-		// 	name: 'Net Profit',
-		// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-		// }, 
-		{
-			name: 'Revenue',
-			data: [76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114, 94,76, 85, 101, 98, 87, 105, 91, 114,87, 105, 91, 114]
-		},
-		//  {
-		// 	name: 'Free Cash Flow',
-		// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-		// }
-		],
-		chart: {
-			foreColor: '#9ba7b2',
-			type: 'bar',
-			height: 360
-		},
-		plotOptions: {
-			bar: {
-				horizontal: false,
-				columnWidth: '30%',
-				endingShape: 'rounded'
-			},
-		},
-		dataLabels: {
-			enabled: false
-		},
-		stroke: {
-			show: true,
-			width: 1,
-			colors: ['transparent']
-		},
-		title: {
-			text: 'Column Chart',
-			align: 'left',
-			style: {
-				fontSize: '10'
-			}
-		},
-		colors: ["#6184ff", '#3461ff', '#c4d1ff'],
-		xaxis: {
-			categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9','10', '11', '12', '13', '14', '15', '16', ''],
-		},
-		yaxis: {
-			title: {
-				text: '(VND)'
-			}
-		},
-		fill: {
-			opacity: 1
-		},
-		tooltip: {
-			y: {
-				formatter: function (val) {
-					return val + " VND"
-				}
-			}
-		}
-	};
-		// chart totalOrderByDays
-	var chart = new ApexCharts(document.querySelector("#totalOrderByDays"), options);
-	chart.render();
 	
 	// chart 5
 	var options = {

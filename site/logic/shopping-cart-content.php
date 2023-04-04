@@ -68,7 +68,7 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
                                                                     <div class="dec qtybutton" onclick="' . $update_cart_func_click . '">-</div>
-                                                                        <input onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                        <input onkeyup="' . $update_cart_func_keyup . '" type="number" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
                                                                             <div class="inc qtybutton" onclick="' . $update_cart_func_click . '">+</div>
                                                                     </div>

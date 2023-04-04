@@ -1,16 +1,19 @@
 <!--start content-->
 <main class="page-content">
-    <?php
+
+
+                        <?php
+
 // var_dump($user);
 if (isset($_GET['id']) && $_GET['id'] > 0) {
-    $user = user_select_by_id($_GET['id']);
-    // var_dump($user);
-    $hinhpath = "../uploads/" . $user['hinh_anh'];
-    if (is_file($hinhpath)) {
-        $hinh = "<img src='" . $hinhpath . "' height='40'>";
-    } else {
-        $hinh = "không có hình";
-    }
+  $user = user_select_by_id($_GET['id']);
+  // var_dump($user);
+  $hinhpath = "../uploads/" . $user['hinh_anh'];
+  if (is_file($hinhpath)) {
+      $hinh = "<img src='" . $hinhpath . "' height='40'>";
+  } else {
+      $hinh = "không có hình";
+  }
 }
 
 ?>
@@ -18,13 +21,12 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     <a class="my-3 d-inline-block btn btn-outline-primary col-xl-3 ms-3" href="./index.php?act=userlist">
                                 <-- Trở lại trang người dùng</a> 
               <div class="card-body">
+              <div class="border p-3 rounded">
 
-                <div class="border p-3 rounded">
-               
-                <h6 class="mb-0 text-uppercase">Cập nhật người dùng</h6>
-                <hr/>
-                <form class="row g-3"  action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>"
-                                            method="post" enctype="multipart/form-data">
+<h6 class="mb-0 text-uppercase">Cập nhật người dùng</h6>
+<hr/>
+<form class="row g-3"  action="<?php echo "index.php?act=edituser&id=" . $_GET['id'] ?>"
+                            method="post" enctype="multipart/form-data">
                   <div class="col-12">
                     <label class="form-label">Họ và Tên:</label>
                     <input type="text" class="form-control" name="fullname" value="<?php echo $user['ho_ten'] ?>" required>
@@ -89,6 +91,4 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             </div>
 
 </main>
-<!--end page main-->
-
-<!-- Toggle Modal here -->
+<!--end page main--

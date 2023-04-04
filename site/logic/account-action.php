@@ -1,4 +1,5 @@
 <?php
+
 if (!in_array('ob_gzhandler', ob_list_handlers())) {
     ob_start('ob_gzhandler');
 } else {
@@ -117,6 +118,7 @@ switch ($_GET['act']) {
         #code ...
         $is_updated = update_shipping_address($_POST['iduser'], $_POST['province_id'], $_POST['district_id'], $_POST['ward_id'], $_POST['detail_address']);
         if ($is_updated) {
+
             $result = [
                 "status" => 1,
                 "content" => "Cập nhật địa chỉ giao hàng thành công!",
@@ -128,10 +130,49 @@ switch ($_GET['act']) {
                 "content" => "Cập nhật thất bại",
             ];
         }
-        var_dump($result);
+
+        // var_dump();
+        echo json_encode($result);
+        break;
+    case 'insertshippingaddress':
+        $is_inserted = insert_shipping_address($_POST['iduser'], $_POST['province_id'], $_POST['district_id'], $_POST['ward_id'], $_POST['detail_address']);
+
+        if ($is_inserted) {
+
+            $result = [
+                "status" => 1,
+                "content" => "Cập nhật địa chỉ giao hàng thành công!",
+            ];
+
+        } else {
+            $result = [
+                "status" => 0,
+                "content" => "Cập nhật thất bại",
+            ];
+        }
+        break;
+    case 'checkexistshippingaddress':
+        $is_existed = is_existing_shipping_address($_POST['iduser']);
+        if ($is_existed) {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => true,
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    "status" => 0,
+                    "content" => false,
+                )
+            );
+        }
         break;
     case 'changepass':
         // var_dump($_POST);
+
+        $error = array();
         $oldpass = md5($_POST['oldpass']);
         $user = user_get_by_id($_POST['iduser']);
         $currpass = $user['mat_khau'];
@@ -139,32 +180,49 @@ switch ($_GET['act']) {
         $newpass = $_POST['newpass'];
         $renewpass = $_POST['renewpass'];
 
-        if ($oldpass != $currpass) {
+        if (empty($oldpass)) {
+            $error['oldpass'] = "Không để trống mật khẩu cũ!";
+        } else if ($oldpass != $currpass) {
             $result = array(
                 "status" => 0,
                 "content" => "Cập nhật mật khẩu thất bại, mật khẩu cũ không chính xác",
             );
+            $error['oldpass'] = "Nhập mật khẩu cũ không chính xác!";
 
-        } else {
-
-            if ($newpass != $renewpass) {
-                $result = array(
-                    "status" => 0,
-                    "content" => "Cập nhật mật khẩu thất bại, nhập lại mật khẩu không chính xác",
-                );
-            } else {
-
-                $is_changed = user_change_pass_by_id($_POST['iduser'], md5($newpass));
-                if ($is_changed) {
-                    $result = array(
-                        "status" => 1,
-                        "content" => "Cập nhật mật khẩu thành công",
-                    );
-                }
-
-                // echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
-            }
         }
+
+        if (empty($newpass)) {
+            $error['newpass'] = "Không để trống mật khẩu mới!";
+        }
+
+        if (empty($newpass)) {
+            $error['renewpass'] = "Không để trống nhập lại mật khẩu!";
+        } else if ($newpass != $renewpass) {
+            $result = array(
+                "status" => 0,
+                "content" => "Cập nhật mật khẩu thất bại, nhập lại mật khẩu không chính xác",
+            );
+            $error['renewpass'] = "Nhập lại mật khẩu không chính xác";
+        }
+
+        if (!$error) {
+            $is_changed = user_change_pass_by_id($_POST['iduser'], md5($newpass));
+            if ($is_changed) {
+                $result = array(
+                    "status" => 1,
+                    "content" => "Cập nhật mật khẩu thành công",
+
+                );
+            }
+        } else {
+            $result = array(
+                "status" => 0,
+                "content" => "Cập nhật mật khẩu thất bại",
+                "error" => $error,
+            );
+        }
+
+        // echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
 
         echo json_encode($result);
 
@@ -257,16 +315,29 @@ switch ($_GET['act']) {
         }
         break;
     case 'reviewproduct':
+        // if (isset($_POST['editproductbtn']) && $_POST['editproductbtn']) {
+        $image_files = $_FILES['review_imgs'];
 
-        // var_dump($_POST);
+        $images_review = implode(',', $image_files['name']);
+        // var_dump($image_files);
+        // var_dump($image_list);
+        $i = 0;
+        foreach ($image_files['name'] as $image_name) {
+            # code...
+            // $target_file = "../uploads/" . basename($file_name);
+            // var_dump($image_file_item);
+            move_uploaded_file($image_files["tmp_name"][$i], "$ROOT_URL/uploads/" . $image_name);
+            $i++;
+        }
+
         $iduser = $_POST['iduser'];
         $idsanpham = $_POST['idsanpham'];
-        $noidung = $_POST['noidung'];
-        $rating_star = $_POST['rating_star'];
+        $noidung = $_POST['review_content'];
+        $rating_star = $_POST['review_star_rating'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date_create = date('Y-m-d H:i:s');
         $iddh = $_POST['iddh'];
-        $is_inserted = insert_reviews($iduser, $idsanpham, $noidung, $rating_star, $date_create, $iddh, 1);
+        $is_inserted = insert_reviews($iduser, $idsanpham, $images_review, $noidung, $rating_star, $date_create, $iddh, 1);
         if ($is_inserted) {
             echo json_encode(
                 array(

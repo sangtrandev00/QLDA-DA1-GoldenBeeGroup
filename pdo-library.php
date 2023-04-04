@@ -78,7 +78,10 @@ function pdo_query_value($sql)
         $stmt = $conn->prepare($sql);
         $stmt->execute($sql_args);
         $row = $stmt->fetch(PDO::FETCH_NUM);
-        // var_dump($row[0]);
+        // var_dump($row);
+        if (!$row) {
+            return 0;
+        }
         return $row[0];
     } catch (PDOException $e) {
         throw $e;
@@ -99,7 +102,9 @@ function sendmail($recipient_mail, $title, $message)
     require 'PHPMailer/src/Exception.php';
     require 'PHPMailer/src/PHPMailer.php';
     require 'PHPMailer/src/SMTP.php';
+
 // Instantiation and passing `true` enables exceptions
+
     $mail = new PHPMailer(true);
 
     try {
@@ -115,10 +120,10 @@ function sendmail($recipient_mail, $title, $message)
         //Recipients
         $mail->setFrom('sangtnps20227@fpt.edu.vn', 'Mailer');
         $mail->addAddress($recipient_mail, 'Customer'); // Add a recipient
-        $mail->addAddress('ellen@example.com'); // Name is optional
-        $mail->addReplyTo('info@example.com', 'Information');
-        $mail->addCC('cc@example.com');
-        $mail->addBCC('bcc@example.com');
+        // $mail->addAddress('ellen@example.com'); // Name is optional
+        // $mail->addReplyTo('info@example.com', 'Information');
+        // $mail->addCC('cc@example.com');
+        // $mail->addBCC('bcc@example.com');
 
         // Attachments
         // $mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments

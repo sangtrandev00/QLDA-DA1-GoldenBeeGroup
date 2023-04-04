@@ -87,3 +87,38 @@ function buyNow () {
                 }
             });
 }
+
+function viewAllReviews() {
+
+    const url = new URL(location.href);
+    url.searchParams.set("view", "reviews");
+    history.pushState({},'', url);
+    scrollToReview();
+}
+
+function scrollToReview() {
+    document.getElementById('reviews-tab-btn').click();
+    $("html, body").animate({ scrollTop: 350 }, "slow");
+}
+
+(() => {
+    const url = new URL(location.href);
+
+    // console.log('url', url.searchParams.get('act'));
+    // console.log('url', url.searchParams.get('view'));
+    if(url.searchParams.get('act') == 'detailproduct') {
+    
+        switch (url.searchParams.get('view')) {
+            case 'reviews':
+                // console.log('Hello history order!!!');
+                scrollToReview();
+                break;
+        
+            default:
+
+                break;
+        }
+    }
+
+
+})()

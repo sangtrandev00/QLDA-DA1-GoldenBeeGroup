@@ -73,7 +73,7 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
         }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body class="bg-surface">

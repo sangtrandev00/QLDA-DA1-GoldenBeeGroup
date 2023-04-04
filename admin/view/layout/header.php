@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="assets/css/blog.css">
 
     <link rel="stylesheet" href="assets/css/main.css">
-    <title>GoldenBeeGroup - Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup - Admin page</title>
     <!-- TinyMCE -->
     <script src="https://cdn.tiny.cloud/1/k2m4sc5jqh89t3qkeh7zuxw8frzsdjp5ugstbkb6mf2iepql/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
@@ -56,6 +56,26 @@
         selector: '.blognoidung'
     });
     </script>
+
+    <style>
+    @media print {
+        .top-header {
+            display: none;
+        }
+
+        .sidebar-wrapper {
+            display: none;
+        }
+
+        .order-detail__products {
+            /* margin-top: 10rem; */
+        }
+
+        .hide-on-print {
+            display: none !important;
+        }
+    }
+    </style>
 </head>
 
 <body>
@@ -64,7 +84,7 @@
     <!--start wrapper-->
     <div class="wrapper">
         <!--start top header-->
-        <button type="button" class="btn btn-primary " id="liveToastBtn">Show live toast</button>
+        <button type="button" class="btn btn-primary d-none" id="liveToastBtn">Show live toast</button>
 
         <div class="toast-container position-fixed top-0 end-0 p-3">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">

@@ -7,6 +7,10 @@ if (!isset($_SESSION['views'])) {
     $_SESSION['views'] = [];
 }
 
+if (!isset($_SESSION['alert'])) {
+    $_SESSION['alert'] = "";
+}
+
 // var_dump($_SESSION['views']);
 
 if (!isset($_SESSION['giohang'])) {
@@ -160,6 +164,9 @@ if (isset($_GET['act'])) {
                     include "./view/checkout-page.php";
                     // }
                 }
+
+                // Kiểm tra tồn kho ở đây
+
                 include "./view/pages/cart/checkout.php";
             } else {
                 header("location: ./auth/login.php");
@@ -226,6 +233,11 @@ if (isset($_GET['act'])) {
 
                         // 3. tạo đơn hàng và trả về một id đơn hàng
                         $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 1);
+                        update_coupon_for_orderid($_SESSION['bill']['coupon_code'], $iddh);
+                        if ($_SESSION['bill']['coupon_code'] != "") {
+                            // Update quantity of coupon code!!!
+                            update_quantity_of_coupon($_SESSION['bill']['coupon_code']);
+                        }
                         $_SESSION['iddh'] = $iddh;
                         if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
                             foreach ($_SESSION['giohang'] as $item) {
@@ -328,7 +340,7 @@ if (isset($_GET['act'])) {
                 $_SESSION['bill']['time_order'] = $time_order;
                 $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
                 $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
-
+                $_SESSION['bill']['coupon_code'] = $_POST['coupon_code'];
                 // $_SESSION['bill'][''] = $time_order;
                 if (isset($vnp_BankCode) && $vnp_BankCode != "") {
                     $inputData['vnp_BankCode'] = $vnp_BankCode;
@@ -387,6 +399,7 @@ if (isset($_GET['act'])) {
                     // Sinh ra mã đơn hàng
                     $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
                     $vat_fee = $_POST['vat_fee'];
+                    $coupon_code = $_POST['coupon_code'];
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
                     $time_order = date('Y-m-d H:i:s', time());
@@ -432,6 +445,12 @@ if (isset($_GET['act'])) {
                             // Xóa đơn hàng sau khi add to cart (database)
                             unset($_SESSION['giohang']);
                             unset($_SESSION['iddh']);
+                        }
+                        // Cập nhật coupon vào đơn hàng ở đây!
+
+                        update_coupon_for_orderid($coupon_code, $iddh);
+                        if ($coupon_code != "") {
+                            update_quantity_of_coupon($coupon_code);
                         }
                         include "./view/pages/cart/order-completed.php";
                     } else {
@@ -621,7 +640,7 @@ if (isset($_GET['act'])) {
                 $searchProductPattern = "%" . $_POST['searchproductname'] . "%";
                 $searchProductList = product_select_by_name($searchProductPattern);
             }
-            include "./view/shoppage.php";
+            include "./view/pages/shop/shop.php";
             break;
 
         case 'detailproduct':
@@ -734,40 +753,36 @@ if (isset($_GET['act'])) {
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
-                $company= $_POST['companyname'];
-                $email = $_POST['email'];
+                // $email = $_POST['email'];
                 $company = $_POST['companyname'];
+
                 $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
                 move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
 
                 // validate at server
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                // Allow certain file formats
+                if ($_FILES['hinh_anh']['name'] == "") {
+                    $error['image'] = "Hình ảnh không được để trống";
+                } else if ($_FILES['hinh_anh']['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif") {
+                    $error['image'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                }
 
-                // Validate php here
-
-                // if (empty($_FILES["hinh_anh"]["name"])) {
-                //     $error['hinh_anh'] = "Không để trống hình ảnh";
-                // }
-                // // Validate at server
+                if (empty($_FILES["hinh_anh"]["name"])) {
+                    $error['hinh_anh'] = "Không để trống hình ảnh";
+                } else if ($_FILES["hinh_anh"]['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif") {
+                    $error['hinh_anh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                }
+                // Validate at server
 
                 if (strlen($ho_ten) == 0) {
                     $error['ho_ten'] = "Không để trống họ tên!";
-                } else if (strlen($ho_ten) > 30) {
-                    $error['ho_ten'] = "Họ tên không vượt quá 30 ký tự!";
+                } else if (strlen($ho_ten) > 50) {
+                    $error['ho_ten'] = "Họ tên không vượt quá 50 ký tự!";
                 }
-                // if (empty($congty)) {
-                //     $error['congty'] = "không để trống email";
-                // }
-                if (empty($email)) {
-                    $error['email'] = "không để trống email";
-                } else if (!is_email($email)) {
-                    $error['email'] = "Email không đúng định dạng!";
-                }
-                // if (strlen($ho_ten) == 0) {
-                //     $error['ho_ten'] = "Không để trống họ tên!";
-                // } else if (strlen($ho_ten) > 30) {
-                //     $error['ho_ten'] = "Họ tên không vượt quá 30 ký tự!";
-                // }
 
                 // if (empty($email)) {
                 //     $error['email'] = "không để trống email";
@@ -775,41 +790,35 @@ if (isset($_GET['act'])) {
                 //     $error['email'] = "Email không đúng định dạng!";
                 // }
 
-                // if (strlen($sodienthoai) == 0) {
-                //     $error['sodienthoai'] = "Không để trống số điện thoại!";
-                // } else if (!validating($sodienthoai)) {
-                //     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
-                // }
-
-                // if (empty($tai_khoan)) {
-                //     $error['tai_khoan'] = "Không để trống tài khoản!";
-                // }
-
-                // if (!$error) {
-                // echo 'Success!';
-                $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $company);
-                if (!$error) {
-                    // echo 'Success!';
-                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $company);
-
-                // if ($is_updated) {
-
-                //     // echo '
-                //     //     <script>
-
-                //     //     </script>
-                //     //     ';
-                // } 
-                // } else {
-                //     echo "Error: ";
-                //     echo '
-                //         <script>
-                //             $("#cartModal").trigger("click");
-                //         </script>
-                //     ';
-                // }
+                if (strlen($sodienthoai) == 0) {
+                    $error['sodienthoai'] = "Không để trống số điện thoại!";
+                } else if (!validating($sodienthoai)) {
+                    $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
                 }
-            
+
+                if (empty($company)) {
+                    $error['company'] = "Không để trống tài khoản!";
+                }
+
+                if (empty($diachi)) {
+                    $error['diachi'] = "Không để trống địa chỉ";
+                }
+
+                if (!$error) {
+
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $role = 1, $company);
+
+                    if ($is_updated) {
+
+                        $_SESSION['alert'] = "Cập nhật thông tin tài khoản thành công!";
+
+                    }
+                } else {
+                    $_SESSION['alert'] = "Cập nhật thông tin tài khoản thất bại!";
+                }
+
+            } else {
+
             }
             include "./view/pages/account/my-account.php";
             break;
@@ -847,7 +856,9 @@ if (isset($_GET['act'])) {
 
                 if (!$error) {
                     if ($newpass == $renewpass) {
+
                         user_change_password($iduser, $newpass);
+
                         echo '<div class="mt-5 mb-3 text-muted alert alert-success">Cập nhật mật khẩu thành công</div>';
                         echo '
                         <script>

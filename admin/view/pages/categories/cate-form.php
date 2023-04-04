@@ -20,18 +20,22 @@ if (isset($_POST['id'])) {
     <input type="hidden" name="id" value="">
     <div class="col-12">
         <label class="form-label">Tên danh mục</label>
-        <input type="text" class="form-cocntrol" name="catename" placeholder="Tên danh mục">
-        <p class="error-message"><?php if (isset($error['catename'])) {echo $error['catename'];}?></p>
+        <input type="text" class="form-control" name="catename" placeholder="Tên danh mục">
+        <p class="catename-error error-message"><?php if (isset($error['catename'])) {echo $error['catename'];}?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Hình ảnh</label>
-        <input type="file" class="form-control" name="cateimage" accept="image/png, image/jpeg" placeholder="Hình ảnh">
-        <?php if (isset($error['catename'])) {echo $error['catename'];}?>
+
+        <input type="file" class=" form-control" name="cateimage" accept="image/png, image/jpeg" placeholder="Hình ảnh">
+        <p class="error-message imagecate-error">
+            <?php if (isset($error['image'])) {echo $error['image'];}?>
+        </p>
     </div>
     <div class="col-12">
         <label for=""></label>
         <img src="..uploads/<?php if (isset($image)) {echo $image;}?>" style="" class="w-100 cate-img"
             alt="<?php if (isset($image)) {echo $image;}?>">
+        <p><?php if (!isset($image)) {echo "Hình ảnh danh mục sản phẩm trống";}?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Danh mục cha</label>
@@ -56,6 +60,7 @@ foreach ($cate_list as $cate_item) {
     <div class="col-12">
         <label class="form-label" name="catedesc">Mô tả</label>
         <textarea name="catedesc" class="form-control" rows="3" cols="3" placeholder="Mô tả danh mục"></textarea>
+        <p class="error-message catedesc-error"><?php if (isset($error['catedesc'])) {echo $error['catedesc'];}?></p>
     </div>
     <div class="col-12">
         <div class="d-grid">

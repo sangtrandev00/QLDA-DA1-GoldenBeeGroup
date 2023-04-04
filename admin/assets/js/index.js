@@ -346,12 +346,15 @@ var options = {
 // chart 5
 
 $.ajax({
-	type: "GET",
+	type: "POST",
 	url: "./logic/revenue.php?act=allmonth",
-	// data: "data",
+	data: {
+		year: 2023
+	},
 	// dataType: "dataType",
 	success: function (response) {
-		const revenueList = JSON.parse(response);
+		const {result} = JSON.parse(response);
+		const revenueList = result
 
 		console.log('rev: ', revenueList);
 		

@@ -170,8 +170,8 @@ include "../models/user.php";
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input form-check-input-change" type="checkbox"
-                                                        id="flexSwitchCheckChecked" checked="">
+                                                    <input class="form-check-input form-check-input-change"
+                                                        type="checkbox" id="flexSwitchCheckChecked" checked="">
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ
                                                         thông tin</label>
                                                 </div>
@@ -180,7 +180,7 @@ include "../models/user.php";
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                <input type="submit" name="loginbtn"
+                                                    <input type="submit" name="loginbtn"
                                                         class="btn btn-primary radius-30 btn-primary-login"
                                                         value="Đăng nhập" />
                                                 </div>
@@ -208,6 +208,10 @@ include "../models/user.php";
     <!--plugins-->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/pace.min.js"></script>
+    <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
+
 
 
 </body>

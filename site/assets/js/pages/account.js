@@ -28,14 +28,33 @@ function viewOrderdetail(orderId) {
 
 function updateShippingAddress(iduser) {
     event.preventDefault();
-
-    // const shippingaddress = event.currentTarget.elements['shippingaddress'].value;
     const currentForm = event.currentTarget;
     console.log('submited: ', $(currentForm).serializeArray() );
-    $(currentForm).serializeArray()
+    $(currentForm).serializeArray();
+
+    let actionType = "";
+
     $.ajax({
         type: "POST",
-        url: "./logic/account-action.php?act=updateshippingaddress",
+        url: "./logic/account-action.php?act=checkexistshippingaddress",
+        data: {
+            iduser
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            const {status, content} = JSON.parse(response);
+            if(status == 1) {
+                actionType = "updateshippingaddress";
+                
+            }else if(status == 0) {
+                actionType = "insertshippingaddress"
+
+            }
+
+            
+    $.ajax({
+        type: "POST",
+        url: "./logic/account-action.php?act="+actionType,
         data: $(currentForm).serializeArray(),
         // dataType: "dataType",
         success: function (response) {
@@ -46,6 +65,7 @@ function updateShippingAddress(iduser) {
             // if(response == 1) {
                 $("#cartModalBtn").trigger("click");
                 $('#cartModal #cartModalLabel').text("Cập nhật địa chỉ");
+                $("#cartModal .continue-btn").addClass("d-none");
                 $('#cartModal .modal-body').text(content);
             // }
             // else {
@@ -53,6 +73,13 @@ function updateShippingAddress(iduser) {
             // }
         }
     });
+        }
+    });
+
+    // const shippingaddress = event.currentTarget.elements['shippingaddress'].value;
+
+
+
 
 }
 
@@ -77,12 +104,16 @@ function changePassword(iduser) {
             // if(response['status'] == 1) {
                 console.log('res: ', response);
                 console.log('res: ', JSON.parse(response));
-                const {status, content} = JSON.parse(response);
+                const {status, content, error} = JSON.parse(response);
                 showToast("Cập nhật mật khẩu", content);
                 if(status == 1) {
                     setTimeout(() => {
                         location.reload();
                     }, 2000)
+                }else if(status == 0) {
+                    $(".oldpass-error").text(error['oldpass'] || "");
+                    $(".newpass-error").text(error['newpass'] || "");
+                    $(".renewpass-error").text(error['renewpass'] || "");
                 }
 
                 
@@ -271,24 +302,30 @@ function reviewProduct(currentForm) {
         const reviewStarRating = reviewForm.elements['review_star_rating'].value;
 
         // console.log(reviewContent, reviewStarRating);
+        const formData = new FormData($(reviewForm)[0]);
+        console.log(formData);
+        formData.append("idsanpham", productId),
+        formData.append("iduser", iduser),
+        formData.append("iddh", iddh);
             $.ajax({
                 type: "POST",
                 url: "./logic/account-action.php?act=reviewproduct",
-                data: {
-                    iduser,
-                    idsanpham: productId,
-                    noidung: reviewContent,
-                    rating_star:reviewStarRating,
-                    iddh,
-                    // reviewImage
-                },
+                data: formData,
+                contentType: false,
+                processData: false,
                 // dataType: "dataType",
                 success: function (response) {
                     const {status, content } = JSON.parse(response);
 
                     // showToast("Đánh giá sản phẩm", content);
                     alertModal(content +", Xem bình luận", "Bạn có muốn xem bình luận ?");
-                    $("#cartModal form").action="./index.php?act=detailproduct&id="+productId+"view=reviews";
+                    // $("#cartModal form").action="./index.php?act=detailproduct&id="+productId+"view=reviews";
+
+                    $("#cartModal .continue-btn").click(function(e) {
+                        e.preventDefault();
+
+                        location.assign("./index.php?act=detailproduct&id="+productId+"&view=reviews");
+                    })
                 }
             });
         })

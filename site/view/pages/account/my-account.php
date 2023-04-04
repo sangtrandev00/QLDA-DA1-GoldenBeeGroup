@@ -68,18 +68,22 @@ if (isset($_SESSION['iduser'])) {
                                                                 <label for="hinh_anh">Avatar: </label>
                                                                 <input type="file" name="hinh_anh" id="hinh_anh">
                                                             </div> -->
-
-                                                            <div class="mb-20 d-flex align-content-center">
+                                                            <div class="form-group mb-20">
                                                                 <p class="error-message">
                                                                     <?php if (isset($error['hinh_anh'])) {echo $error['hinh_anh'];}?>
                                                                 </p>
+                                                                <div class="d-flex align-content-center">
 
-                                                                <label for="formFileMultiple"
-                                                                    class="form-label pl-20 w-25">Avatar:
-                                                                </label>
-                                                                <input class="form-control form-control-lg" type="file"
-                                                                    name="hinh_anh" id="formFileMultiple">
+
+                                                                    <label for="formFileMultiple"
+                                                                        class="form-label pl-20 w-25">Avatar:
+                                                                    </label>
+                                                                    <input class="form-control form-control-lg"
+                                                                        type="file" name="hinh_anh"
+                                                                        id="formFileMultiple">
+                                                                </div>
                                                             </div>
+
 
                                                         </div>
                                                         <div class="form-group">
@@ -89,20 +93,20 @@ if (isset($_SESSION['iduser'])) {
                                                             <input type="text" name="sodienthoai"
                                                                 placeholder="Số điện thoại...">
                                                         </div>
-                                                          <div class="form-group">
-                        
-                                                          <input type="text" name="companyname"
-                                                            placeholder="Tên công ty...">
-
-                                                          </div>                      
-                                                        
                                                         <div class="form-group">
                                                             <p class="error-message">
-                                                                <?php if (isset($error['email'])) {echo $error['email'];}?>
+                                                                <?php if (isset($error['company'])) {echo $error['company'];}?>
+                                                            </p>
+                                                            <input type="text" name="companyname"
+                                                                placeholder="Tên công ty...">
+                                                        </div>
+                                                        <!-- <div class="form-group">
+                                                            <p class="error-message">
+
                                                             </p>
                                                             <input type="text" name="email"
                                                                 placeholder="Địa chỉ email...">
-                                                        </div>
+                                                        </div> -->
 
                                                         <div class="form-group">
                                                             <p class="error-message">
@@ -180,26 +184,30 @@ $shipping = shipping_select_by_iduser($iduser);
 
                                         <div class="form-group">
                                             <label for="province-select" class="form-label">Chọn tỉnh thành phố:</label>
-                                            <select name="province_id" onchange="selectProvince(this)"
-                                                value="<?php echo $shipping['province_id'] ?>" id="province-select"
-                                                class="custom-select">
+                                            <select name="province_id" onchange="selectProvince(this)" value="<?php if (isset($shipping['province_id'])) {
+    echo $shipping['province_id'];
+}
+?>" id="province-select" class="custom-select">
                                                 <option value="default">Tỉnh - Thành</option>
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="district-select" class="form-label">Quận huyện</label>
-                                            <select name="district_id" onchange="selectDistrict(this)"
-                                                value="<?php echo $shipping['district_id'] ?>" id="district-select"
-                                                class="custom-select">
+                                            <select name="district_id" onchange="selectDistrict(this)" value="<?php if (isset($shipping['district_id'])) {
+    echo $shipping['district_id'];
+}
+?>" id="district-select" class="custom-select">
                                                 <option value="default">Quận Huyện</option>
                                             </select>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="ward-select" value="" class="ward-select">Phường xã</label>
-                                            <select name="ward_id" id="ward-select"
-                                                value="<?php echo $shipping['ward_id'] ?>" class="custom-select">
+                                            <select name="ward_id" id="ward-select" value="<?php if (isset($shipping['ward_id'])) {
+    echo $shipping['ward_id'];
+}
+?>" class="custom-select">
                                                 <option value="default">Phường Xã</option>
                                             </select>
                                         </div>
@@ -207,7 +215,10 @@ $shipping = shipping_select_by_iduser($iduser);
                                         <div class="form-group">
                                             <label for="" class="form-label">Địa chỉ chi tiết</label>
                                             <textarea name="detail_address" class="custom-textarea"
-                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php echo $shipping['detail_address'] ?></textarea>
+                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php if (isset($shipping['detail_address'])) {
+    echo $shipping['detail_address'];
+}
+?></textarea>
 
                                         </div>
                                         <div class="row">
@@ -239,9 +250,19 @@ $shipping = shipping_select_by_iduser($iduser);
                             <div class="card-body">
                                 <form onsubmit="changePassword(<?php echo $iduser ?>)" action="#">
                                     <div class="p-30">
-                                        <input name="oldpass" type="password" placeholder="Mật khẩu cũ...">
-                                        <input name="newpass" type="password" placeholder="Mật khẩu mới...">
-                                        <input name="renewpass" type="password" placeholder="Xác nhận mật khẩu mới...">
+                                        <div class="form-group">
+                                            <p class="error-message oldpass-error"></p>
+                                            <input name="oldpass" type="password" placeholder="Mật khẩu cũ...">
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="error-message newpass-error"></p>
+                                            <input name="newpass" type="password" placeholder="Mật khẩu mới...">
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="error-message renewpass-error"></p>
+                                            <input name="renewpass" type="password"
+                                                placeholder="Xác nhận mật khẩu mới...">
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
@@ -364,7 +385,7 @@ if (isset($_SESSION['iduser'])) {
                                     <div class="new-customers p-30">
                                         <h3 class="title">Phương thức thanh toán mặc định của bạn là: </h3>
                                         <select name="payment-method" class="custom-select">
-                                            <option value="defalt">Chọn phương thức thanh toán mặc định</option>
+                                            <!-- <option value="default">Chọn phương thức thanh toán mặc định</option> -->
                                             <option
                                                 <?php if (isset($user_info) && $user_info['default_payment'] == 'codpayment') {echo "selected";}?>
                                                 value="codpayment">Thanh toán khi nhận hàng</option>

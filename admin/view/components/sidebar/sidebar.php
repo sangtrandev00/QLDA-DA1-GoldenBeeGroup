@@ -143,6 +143,23 @@ if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
         </ul>
     </li>
     <li>
+        <a href="javascript:;" class="has-arrow">
+            <div class="parent-icon"> <i class="fadeIn animated bx bx-money"></i>
+            </div>
+            <div class="menu-title">Voucher/Coupon</div>
+        </a>
+
+        <ul class="">
+            <li class=""> <a href="index.php?act=couponlist"><i class="bi bi-circle"></i>Quản lý
+                    voucher/coupon</a>
+            </li>
+            <li> <a href="index.php?act=addcoupon"><i class="bi bi-circle"></i>Tạo mã giảm giá</a>
+            </li>
+            <!-- <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
+            </li> -->
+        </ul>
+    </li>
+    <li>
         <a href="javascript:;" href="rel:0937988510">
             <div class="parent-icon"><i class="bi bi-telephone-fill"></i>
             </div>

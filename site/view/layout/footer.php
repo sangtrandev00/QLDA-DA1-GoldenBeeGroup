@@ -230,7 +230,7 @@
                     <h1 class="modal-title fs-5" id="orderDetailModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body print">
                     ...
                 </div>
                 <div class="modal-footer">
@@ -305,8 +305,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
-                            <input type="file" class="form-control" name="review_img" id="review-image" placeholder=""
-                                aria-describedby="fileHelpId">
+                            <input type="file" multiple class="form-control" name="review_imgs[]" id="review-image"
+                                placeholder="" aria-describedby="fileHelpId">
                             <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
                         </div>
                         <div class="mb-3">
@@ -324,6 +324,27 @@
             </div>
         </div>
     </div>
+
+    <!-- Alert Modal -->
+    <!-- Modal -->
+    <div class="modal fade mt-100" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="alertModalLabel">Thông báo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php echo $_SESSION['alert']; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="continue-btn btn btn-primary d-none">Tiếp tục</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- END QUICKVIEW PRODUCT -->
 
@@ -352,8 +373,9 @@
                                 
                                 <ul class="footer-social">
                                     <li>
-                                        <a class="facebook" href="" title="Facebook"><i
-                                                class="zmdi zmdi-facebook"></i></a>
+                                        <a class="facebook"
+                                            href="https://www.facebook.com/profile.php?id=100091145059135"
+                                            title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
                                     </li>
                                     <li>
                                         <a class="google-plus" href="" title="Google Plus"><i
@@ -415,16 +437,16 @@
                                                 thích</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=shopcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
+                                        <a href="./index.php?act=viewcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
                                                 hàng của
                                                 tôi</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=login"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/login.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 nhập</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=signup"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/signup.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 ký</span></a>
                                     </li>
                                     <li>
@@ -558,7 +580,21 @@ $(function() {
 
 });
 </script>
+
 <?php
+
+if ($_SESSION['alert'] != "") {
+    // echo $_SESSION['alert'];
+    echo "
+        <script>
+            var alertModalNotify = new bootstrap.Modal('#alertModal');
+            alertModalNotify.show();
+        </script>
+   ";
+}
+
+$_SESSION['alert'] = "";
+
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
         // case 'settingaccount':

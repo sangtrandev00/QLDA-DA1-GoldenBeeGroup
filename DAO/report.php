@@ -38,7 +38,7 @@ function report_comments()
 
 function sum_all_sales()
 {
-    $sql = 'SELECT sum(tongdonhang) as sum_all_sales from tbl_order where trangthai = 1';
+    $sql = 'SELECT sum(tongdonhang) as sum_all_sales from tbl_order where trangthai = 4';
     return pdo_query_value($sql);
 }
 
