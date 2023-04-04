@@ -38,7 +38,7 @@ include "../../DAO/user.php";
         }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body>
@@ -117,7 +117,7 @@ include "../../DAO/user.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
-    
+
 
 </body>
 

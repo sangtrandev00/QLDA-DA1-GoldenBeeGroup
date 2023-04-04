@@ -1,22 +1,83 @@
-("#loginForm").validate({
+// Authentication at client 
+
+$("#loginForm").validate({
     rules: {
         email: {
             required: true,
+            email: true,
+        },
+        password: {
+            required: true,
+            minlength: 8,
+            validatePassword: true
         }
-
     },
     messages: {
         "email": {
-            required: "Không để trống email!!!"
+            required: "Email không được để trống!",
+            email: "Định dạng email không chính xác!"
+        },
+        "password": {
+            required: "Password không được để trống!",
+            minlength: "Tối thiểu 8 ký tự"
+        }
+        
+    }
+})
+
+$.validator.addMethod("validatePassword", function(value, element) {
+    return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+    // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");   
+}, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số")
+
+$("#signupForm").validate({
+    rules: {
+        fullname: {
+            required: true,
+        },
+        email: {
+            required: true,
+            email: true
+        },
+        password: {
+            required: true,
+            minlength: 8,
+            validatePassword: true
+        },
+        reenterpass: {
+            required: true,
+            equalTo: "#password"
+        }
+    },
+    messages: {
+        "fullname": {
+            required: "Họ tên không được để trống!"
+        },
+        "email": {
+            required: "Emai không được để trống!",
+            email: "Nhập đúng định dạng email"
+        },
+        "password": {
+            required: "Password không được để trống!"
+        },
+        "reenterpass": {
+            required: "Nhập lại mật khẩu, không được để trống!",
+            equalTo: "Nhập lại mật khẩu không chính xác!"
         }
     }
 })
 
 
 // addproductForm form
-$( "#addproductForm" ).validate({
+$( "#add-product-form" ).validate({
     rules: {
       tensp: {
+        required: true,
+      },
+      mo_ta: {
+        required: true,
+      },
+      thong_tin: {
         required: true,
       },
       don_gia: {
@@ -37,7 +98,7 @@ $( "#addproductForm" ).validate({
         // equalTo: "#newpass"
         number: true
       },
-      hinhanh1: {
+      images: {
         required: true,
         // equalTo: "#newpass"
       }
@@ -45,10 +106,10 @@ $( "#addproductForm" ).validate({
     },
     messages: {
         "tensp": {
-            required: "Bắt buộc nhập tên sản phẩm đầy đủ",
+            required: "Không để trống tên sản phẩm",
         },
         "don_gia": {
-            required: "Bắt buộc nhập số điện thoại",
+            required: "Không để trống đơn giá",
             number: "Giá trị nhập phải là số",
             min: "Giá trị nhập phải lớn hơn 0"
         },
@@ -62,7 +123,7 @@ $( "#addproductForm" ).validate({
             required: "Bắt buộc nhập lại mã danh mục",
             number: "Bắt buộc phải nhập mã danh mục"
         },
-        "hinhanh1": {
+        "images": {
             required: "Bắt buộc nhập lại hình ảnh chính sản phẩm",
             // equalTo: "Bắt buộc nhập giống mật khẩu"
         }

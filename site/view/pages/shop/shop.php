@@ -228,7 +228,7 @@ foreach ($product_list as $item) {
 
     #Thumbnail Image
     $image_list = explode(',', $item['images']);
-
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia']);
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
@@ -266,7 +266,7 @@ foreach ($product_list as $item) {
                                         <div class="pro-rating">
                                             ' . $result_stars . '
                                         </div>
-                                        <h6 class="brand-name mb-30">' . $item['ma_danhmuc'] . '</h6>
+                                        <h6 class="brand-name mb-30">Brand: ' . $cate_name . '</h6>
                                         <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                         <p>
                                         ' . $item['mo_ta'] . '

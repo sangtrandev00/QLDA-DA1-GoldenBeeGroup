@@ -5,8 +5,41 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
-?>
 
+if (isset($_SESSION['emailreset'])) {
+
+    ?>
+<?php
+
+    if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+
+        $error = array();
+        $newpass = $_POST['newpass'];
+        $renewpass = $_POST['renewpass'];
+
+        if (empty($newpass)) {
+            $error['newpass'] = "không để trống mật khẩu mới";
+        }
+
+        if (empty($renewpass)) {
+            $error['renewpass'] = "Không để trống nhập lại mật khẩu mới!";
+        } else if ($newpass != $renewpass) {
+            echo '<div class="alert alert-danger text-center">Mật khẩu xác nhận không chính xác, hãy nhập lại!</div>';
+            $error['renewpass'] = "Mật khẩu xác nhận không chính xác";
+        }
+
+        if (!$error) {
+            user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
+            unset($_SESSION['emailreset']);
+            unset($_SESSION['verifycode']);
+            header('location: ./login.php');
+            echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
+        } else {
+
+        }
+
+    }
+    ?>
 <!doctype html>
 <html lang="en">
 
@@ -26,19 +59,25 @@ include "../../DAO/user.php";
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-        .bg-reset-pass{
-            background-color: #ff7f00;
-            border: none;
-        }
-        .bg-reset-pass:hover{
-            background-color: #ff7f00;
-        }
-        .images img{
-            width: 70%;
-        }
+    .bg-reset-pass {
+        background-color: #ff7f00;
+        border: none;
+    }
+
+    .bg-reset-pass:hover {
+        background-color: #ff7f00;
+    }
+
+    .images img {
+        width: 70%;
+    }
+
+    .error-message {
+        color: red;
+    }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body>
@@ -49,7 +88,7 @@ include "../../DAO/user.php";
         <main class="authentication-content">
             <?php
 include "./auth-header.php";
-?>
+    ?>
 
             <div class="container">
 
@@ -57,8 +96,7 @@ include "./auth-header.php";
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6 d-flex align-items-center justify-content-center border-end images">
-                                <img src="../../admin/assets/images/error/reset-pass.png"
-                                    class="img-fluid" alt="">
+                                <img src="../../admin/assets/images/error/reset-pass.png" class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
@@ -78,6 +116,9 @@ include "./auth-header.php";
                                                     <input type="password" name="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
                                                         placeholder="Nhập mật khẩu mới">
+                                                    <p class="error-message">
+                                                        <?php if (isset($error['newpass'])) {echo $error['newpass'];}?>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -91,12 +132,16 @@ include "./auth-header.php";
                                                     <input type="password" name="renewpass"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
                                                         placeholder="Xác nhận mật khẩu">
+                                                    <p class="error-message">
+                                                        <?php if (isset($error['renewpass'])) {echo $error['renewpass'];}?>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
                                                     <input type="submit" name="updatepassbtn"
-                                                        class="btn btn-primary radius-30 bg-reset-pass" value="Thay đổi mật khẩu" />
+                                                        class="btn btn-primary radius-30 bg-reset-pass"
+                                                        value="Thay đổi mật khẩu" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại đăng
                                                         nhập</a>
                                                 </div>
@@ -114,7 +159,7 @@ include "./auth-header.php";
         <!--end page main-->
         <?php
 include "./auth-footer.php";
-?>
+    ?>
     </div>
     <!--end wrapper-->
 
@@ -123,24 +168,15 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
-    <?php
-$error = array();
-if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
-    $newpass = $_POST['newpass'];
-    $renewpass = $_POST['renewpass'];
 
-    if ($newpass != $renewpass) {
-        echo '<div class="alert alert-danger">Mật khẩu xác nhận không chính xác, hãy nhập lại!</div>';
-    } else {
-        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
-        unset($_SESSION['emailreset']);
-        unset($_SESSION['verifycode']);
-        header('location: ./login.php');
-        echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
-    }
-}
-?>
 
 </body>
 
 </html>
+
+<?php
+
+} else {
+    echo '<div>Trang không tồn tại!</div>';
+}
+?>

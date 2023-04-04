@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div id="add-product-content" class="border p-3 rounded">
-                    <form action="./index.php?act=addproduct" class="row g-3" method="POST"
+                    <form id="add-product-form" action="./index.php?act=addproduct" class="row g-3" method="POST"
                         enctype="multipart/form-data">
                         <div class="col-12">
                             <label class="form-label">Tên sản phẩm</label>

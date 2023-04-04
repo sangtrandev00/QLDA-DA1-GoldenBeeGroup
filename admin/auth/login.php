@@ -27,31 +27,36 @@ include "../models/user.php";
     <!-- loader-->
     <link href="../assets/css/pace.min.css" rel="stylesheet" />
     <style>
-         .btn-primary-login{
-            background-color: #ff7f00;
-            color: white;
-            border: none;
-        }
-        .btn-primary-login:hover{
-            background-color: #ff7f00;
-            border: none;
-        }
-        .mb-0 a{
-            color: #ff7f00;
-        }
-        .form-check-input-change:checked{
-            border: #ff7f00;
-            background-color:#ff7f00;
-        }
-        .text-end a{
-            color: #ff7f00;
-        }
-        .images img{
-            width: 70%;
-        }
+    .btn-primary-login {
+        background-color: #ff7f00;
+        color: white;
+        border: none;
+    }
+
+    .btn-primary-login:hover {
+        background-color: #ff7f00;
+        border: none;
+    }
+
+    .mb-0 a {
+        color: #ff7f00;
+    }
+
+    .form-check-input-change:checked {
+        border: #ff7f00;
+        background-color: #ff7f00;
+    }
+
+    .text-end a {
+        color: #ff7f00;
+    }
+
+    .images img {
+        width: 70%;
+    }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 
 </head>
 
@@ -97,8 +102,10 @@ include "../models/user.php";
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="Email" name="email" required>
-                                                    <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
+                                                        id="inputEmailAddress" placeholder="Email" name="email"
+                                                        required>
+                                                    <p class="error-message">
+                                                        <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                                 </div>
                                             </div>
 
@@ -111,14 +118,17 @@ include "../models/user.php";
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
                                                     <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputChoosePassword" placeholder="Mật khẩu" name="password" required>
-                                                    <p class="error-message"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
+                                                        id="inputChoosePassword" placeholder="Mật khẩu" name="password"
+                                                        required>
+                                                    <p class="error-message">
+                                                        <?php echo isset($error['password']) ? $error['password'] : ''; ?>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input form-check-input-change" type="checkbox"
-                                                        id="flexSwitchCheckChecked" checked="">
+                                                    <input class="form-check-input form-check-input-change"
+                                                        type="checkbox" id="flexSwitchCheckChecked" checked="">
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ
                                                         thông tin</label>
                                                 </div>
@@ -127,7 +137,7 @@ include "../models/user.php";
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                <input type="submit" name="loginbtn"
+                                                    <input type="submit" name="loginbtn"
                                                         class="btn btn-primary radius-30 btn-primary-login"
                                                         value="Đăng nhập" />
                                                 </div>
@@ -155,55 +165,59 @@ include "../models/user.php";
     <!--plugins-->
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/pace.min.js"></script>
+    <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
+
 
 
 </body>
 
 </html>
 <?php
-    $error = array();
-    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-    
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        // Đối chiếu password
-        //Validate form
-        if (empty($email)) {
-            $error['email'] = "Không để trống email";
-        } 
-        if (empty($password)) {
-            $error['password'] = "Không để trống password";
-        }
-    
-        if (!$error) {
-            $password = md5($password);
-            // echo $password;
-            $islogined = checkuser2($email, $password);
-            // echo $islogined;
-            if ($islogined === -1) {
-                echo '
+$error = array();
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    // Đối chiếu password
+    //Validate form
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+    if (empty($password)) {
+        $error['password'] = "Không để trống password";
+    }
+
+    if (!$error) {
+        $password = md5($password);
+        // echo $password;
+        $islogined = checkuser2($email, $password);
+        // echo $islogined;
+        if ($islogined === -1) {
+            echo '
                 <script>
                     window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
                 </script>
                 ';
+        } else {
+            $kq = getuserinfo2($email, $password);
+            $role = $kq[0]['vai_tro'];
+            // echo $role;
+            if ($role == 1 || $role == 2) {
+                $_SESSION['role'] = $role;
+                $_SESSION['username'] = $kq[0]['ho_ten'];
+                $_SESSION['iduser'] = $kq[0]['id'];
+                $_SESSION['img'] = $kq[0]['hinh_anh'];
+                header('Location: ../index.php');
             } else {
-                $kq = getuserinfo2($email, $password);
-                $role = $kq[0]['vai_tro'];
-                // echo $role;
-                if ($role == 1 || $role == 2) {
-                    $_SESSION['role'] = $role;
-                    $_SESSION['username'] = $kq[0]['ho_ten'];
-                    $_SESSION['iduser'] = $kq[0]['id'];
-                    $_SESSION['img'] = $kq[0]['hinh_anh'];
-                    header('Location: ../index.php');
-                } else {
-                    echo '
+                echo '
                     <script>
                         window.alert("Email hoặc của bạn không đúng. Xin vui lòng nhập lại!");
                     </script>
                     ';
-                }
             }
         }
     }
+}
 ?>

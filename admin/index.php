@@ -7,7 +7,6 @@ if (!isset($_SESSION['alert'])) {
 }
 
 include "../global.php";
-
 include "./models/connectdb.php";
 include "./models/category.php";
 include "./models/order.php";
@@ -698,7 +697,6 @@ if (isset($_SESSION['iduser'])) {
                     //         window.alert("Chúc mừng bạn đã xóa quản trị viên thành công!");
                     //     </script>
                     //     ';
-
                     // }
                 }
 

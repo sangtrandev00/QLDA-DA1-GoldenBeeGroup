@@ -38,7 +38,7 @@ include "../../DAO/user.php";
         }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body class="bg-surface">

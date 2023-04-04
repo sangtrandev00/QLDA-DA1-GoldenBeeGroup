@@ -129,6 +129,7 @@ if ($product['ton_kho'] > 0) {
                                                 <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a> -->
                                                 <?php
 $avg_stars = avg_star_reviews_of_product($_GET['id']);
+    // echo $avg_stars;
     $result = renderStarRatings(round($avg_stars, 0));
     echo $result;
     ?>
@@ -338,7 +339,8 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
                                             <div class="reviews-tab-desc">
                                                 <!-- single comments -->
                                                 <?php
-$review_list = get_all_reviews_of_product($product_id);
+
+    $review_list = get_all_reviews_of_product($product_id);
 
     if (count($review_list) == 0) {
         echo '<div class="alert alert-warning">Chưa có đánh giá nào cho sản phẩm này!</div>';
@@ -347,8 +349,9 @@ $review_list = get_all_reviews_of_product($product_id);
     // var_dump($review_list);
 
     foreach ($review_list as $review) {
-        $avg_stars = avg_star_reviews_of_product($review['idsanpham']);
-        $result = renderStarRatings(round($avg_stars, 0));
+        // $avg_stars = avg_star_reviews_of_product($review['idsanpham']);
+        // echo $review['rating_star'];
+        $result = renderStarRatings($review['rating_star']);
         $image_reviews_html = '';
         if ($review['images_review'] != "") {
             $images_review = explode(',', $review['images_review']);

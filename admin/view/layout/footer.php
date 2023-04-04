@@ -169,6 +169,11 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <!--plugins-->
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/additional-methods.min.js">
+
+</script>
+<!--  -->
 <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
 <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
@@ -196,7 +201,9 @@
 <script src="assets/js/index.js"></script>
 <!-- <script src="assets/js/index4.js"></script> -->
 <script src="assets/js/pages/common.js"></script>
+<script src="assets/js/pages/validate.js">
 
+</script>
 <!-- Custom javasscript -->
 <script>
 new PerfectScrollbar(".best-product")
