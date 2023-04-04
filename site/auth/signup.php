@@ -172,7 +172,7 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng ký</h5>
                                     <p class="card-text mb-4">Đăng ký tài khoản để trở thành khách hàng tại shop!</p>
-                                    <form id="signupForm" action="./signup.php" class="form-body" method="POST">
+                                    <form id="signup-client-form" action="./signup.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12 ">
@@ -296,15 +296,17 @@ if (isset($error['repassword'])) {
 
 
     <!-- Jquery validation library -->
-    <script src="../../admin/assets/js/jquery.validate.min.js">
+    <script src="../../site/assets/js/jquery.validate.min.js">
 
     </script>
 
-    <script src="../../admin/assets/js/additional-methods.min.js">
+    <script src="../../site/assets/js/additional-methods.min.js">
 
     </script>
 
-    <script src="../../admin/assets/js/pages/validate.js">
+    <script src="../../site/assets/js/validate.js">
+
+    </script>
 
     </script>
     <!-- Button trigger modal -->

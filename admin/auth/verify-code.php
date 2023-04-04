@@ -26,13 +26,14 @@ include "../../DAO/user.php";
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-        .bg-guii{
-            background-color: #ff7f00;
-            border: none;
-        }
-        .bg-guii:hover{
-            background-color: #ff7f00;
-        }
+    .bg-guii {
+        background-color: #ff7f00;
+        border: none;
+    }
+
+    .bg-guii:hover {
+        background-color: #ff7f00;
+    }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -50,8 +51,8 @@ include "../../DAO/user.php";
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/reset-pass-img-1.png"
-                                    class="img-fluid" alt="">
+                                <img src="../../admin/assets/images/error/reset-pass-img-1.png" class="img-fluid"
+                                    alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
@@ -64,7 +65,8 @@ include "../../DAO/user.php";
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code" required>
-                                                    <p class="error-message"><?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
+                                                <p class="error-message">
+                                                    <?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">

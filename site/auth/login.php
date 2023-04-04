@@ -9,10 +9,11 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include "$ROOT_URL/global.php";
 include "$ROOT_URL/pdo-library.php";
 include "$ROOT_URL/DAO/user.php";
-
+var_dump($_SESSION);
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = [];
 }
+
 if (!isset($_SESSION['toastAlert'])) {
     $_SESSION['toastAlert'] = "";
 }
@@ -167,7 +168,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title dangnhap-title">Đăng nhập</h5>
                                     <p class="card-text mb-4">Đăng nhập tài khoản để tham gia vào cửa hàng</p>
-                                    <form id="loginForm" action="./login.php" class="form-body" method="POST">
+                                    <form id="login-client-form" action="./login.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12">
@@ -275,15 +276,15 @@ include "./auth-footer.php";
     <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
 
 
-    <script src="../../admin/assets/js/jquery.validate.min.js">
+    <script src="../../site/assets/js/jquery.validate.min.js">
 
     </script>
 
-    <script src="../../admin/assets/js/additional-methods.min.js">
+    <script src="../../site/assets/js/additional-methods.min.js">
 
     </script>
 
-    <script src="../../admin/assets/js/pages/validate.js">
+    <script src="../../site/assets/js/validate.js">
 
     </script>
 </body>

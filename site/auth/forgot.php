@@ -6,6 +6,7 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../global.php";
 include "../../DAO/user.php";
+var_dump($_SESSION);
 ?>
 
 
@@ -72,6 +73,10 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
     .error-message {
         color: red;
     }
+
+    label.error {
+        color: red;
+    }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -97,14 +102,14 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Quên mật khẩu</h5>
                                     <p class="card-text mb-5">Hãy nhập địa chỉ email của bạn để lấy lại mật khẩu</p>
-                                    <form class="form-body" action="./forgot.php" method="POST">
+                                    <form id="forgot-pass-client-form" class="form-body" action="./forgot.php"
+                                        method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Email</label>
                                                 <input type="email" name="email" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Email">
-                                                <p
-                                                    class="error-message <?php if (isset($error['email'])) {echo "has-error";}?>">
+                                                <p class="error-message">
                                                     <?php if (isset($error['email'])) {echo $error['email'];}?></p>
                                             </div>
                                             <div class="col-12">
@@ -137,13 +142,24 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
+    <script src="../../site/assets/js/jquery.validate.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/additional-methods.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/validate.js">
+
+    </script>
 
     <script>
-    if ($('.error-message').hasClass("has-error")) {
-        setTimeout(() => {
-            location.assign("./forgot.php");
-        }, 3000)
-    }
+    // if ($('.error-message').hasClass("has-error")) {
+    //     setTimeout(() => {
+    //         location.assign("./forgot.php");
+    //     }, 3000)
+    // }
     </script>
 
 </body>

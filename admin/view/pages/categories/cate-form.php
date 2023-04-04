@@ -60,6 +60,7 @@ foreach ($cate_list as $cate_item) {
     <div class="col-12">
         <label class="form-label" name="catedesc">Mô tả</label>
         <textarea name="catedesc" class="form-control" rows="3" cols="3" placeholder="Mô tả danh mục"></textarea>
+        <p class="error-message catedesc-error"><?php if (isset($error['catedesc'])) {echo $error['catedesc'];}?></p>
     </div>
     <div class="col-12">
         <div class="d-grid">

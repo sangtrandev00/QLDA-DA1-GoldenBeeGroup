@@ -5,7 +5,7 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
-
+var_dump($_SESSION);
 if (isset($_SESSION['emailreset'])) {
 
     ?>
@@ -75,6 +75,10 @@ if (isset($_SESSION['emailreset'])) {
     .error-message {
         color: red;
     }
+
+    label.error {
+        color: red;
+    }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -104,7 +108,8 @@ include "./auth-header.php";
                                     <p class="card-text mb-5">Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn.
                                         Vui lòng nhập của bạn
                                         mật khẩu mới!</p>
-                                    <form action="./reset-pass.php" class="form-body" method="POST">
+                                    <form id="reset-pass-client-form" action="./reset-pass.php" class="form-body"
+                                        method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputNewPassword" class="form-label">Mật khẩu mới</label>
@@ -113,7 +118,7 @@ include "./auth-header.php";
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" name="newpass"
+                                                    <input type="password" id="newpass" name="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
                                                         placeholder="Nhập mật khẩu mới">
                                                     <p class="error-message">
@@ -168,8 +173,18 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/jquery.min.js"></script>
     <script src="../../admin/assets/js/pace.min.js"></script>
 
+    <!-- Jquery validation here -->
+    <script src="../../site/assets/js/jquery.validate.min.js">
 
+    </script>
 
+    <script src="../../site/assets/js/additional-methods.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/validate.js">
+
+    </script>
 </body>
 
 </html>

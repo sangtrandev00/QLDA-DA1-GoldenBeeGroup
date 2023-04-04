@@ -174,7 +174,9 @@ include "../models/user.php";
 </body>
 
 </html>
+
 <?php
+
 $error = array();
 if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 

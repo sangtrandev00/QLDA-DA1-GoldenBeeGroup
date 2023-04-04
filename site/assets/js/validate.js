@@ -1,16 +1,113 @@
-("#loginForm").validate({
-    rules: {
-        email: {
-            required: true,
-        }
-
-    },
-    messages: {
-        "email": {
-            required: "Không để trống email!!!"
-        }
-    }
+// Authentication at client 
+// Login Client Form
+$("#login-client-form").validate({
+  rules: {
+      email: {
+          required: true,
+          email: true,
+      },
+      password: {
+          required: true,
+          // minlength: 8,
+          // validatePassword: true
+      }
+  },
+  messages: {
+      "email": {
+          required: "Email không được để trống!",
+          email: "Định dạng email không chính xác!"
+      },
+      "password": {
+          required: "Password không được để trống!",
+          minlength: "Tối thiểu 8 ký tự"
+      }
+      
+  }
 })
+
+
+$("#signup-client-form").validate({
+  rules: {
+      fullname: {
+          required: true,
+      },
+      email: {
+          required: true,
+          email: true
+      },
+      password: {
+          required: true,
+          minlength: 8,
+          validatePassword: true
+      },
+      reenterpass: {
+          required: true,
+          equalTo: "#password"
+      }
+  },
+  messages: {
+      "fullname": {
+          required: "Họ tên không được để trống!"
+      },
+      "email": {
+          required: "Emai không được để trống!",
+          email: "Nhập đúng định dạng email"
+      },
+      "password": {
+          required: "Password không được để trống!"
+      },
+      "reenterpass": {
+          required: "Nhập lại mật khẩu, không được để trống!",
+          equalTo: "Nhập lại mật khẩu không chính xác!"
+      }
+  }
+})
+
+// Forgot pass section
+
+$("#forgot-pass-client-form").validate({
+  rules: {
+    email: {
+      required: true,
+      email: true
+    }
+  },
+  messages: {
+    email: {
+      required: "Email Không được để trống",
+      email: "Đúng định dạng email"
+    }
+  }
+})
+
+// Reset pass client validation
+
+$("#reset-pass-client-form").validate({
+  rules: {
+    newpass: {
+      required: true,
+      validatePassword: true
+    },
+    renewpass: {
+      required: true,
+      equalTo: "#newpass"
+    }
+  },
+  messages: {
+    newpass: {
+      required: "Không để trống mật khẩu mới!"
+    },
+    renewpass: {
+      required: "Không để trống nhập lại mật khẩu!",
+      equalTo: "Nhập lại mật khẩu không chính xác!"
+    }
+  }
+})
+$.validator.addMethod("validatePassword", function(value, element) {
+  return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+  // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số");   
+}, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số")
+
 
 
 // addproductForm form

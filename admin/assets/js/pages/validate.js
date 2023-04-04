@@ -1,71 +1,3 @@
-// Authentication at client 
-
-$("#loginForm").validate({
-    rules: {
-        email: {
-            required: true,
-            email: true,
-        },
-        password: {
-            required: true,
-            minlength: 8,
-            validatePassword: true
-        }
-    },
-    messages: {
-        "email": {
-            required: "Email không được để trống!",
-            email: "Định dạng email không chính xác!"
-        },
-        "password": {
-            required: "Password không được để trống!",
-            minlength: "Tối thiểu 8 ký tự"
-        }
-        
-    }
-})
-
-$.validator.addMethod("validatePassword", function(value, element) {
-    return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
-    // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số");   
-}, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một chữ số")
-
-$("#signupForm").validate({
-    rules: {
-        fullname: {
-            required: true,
-        },
-        email: {
-            required: true,
-            email: true
-        },
-        password: {
-            required: true,
-            minlength: 8,
-            validatePassword: true
-        },
-        reenterpass: {
-            required: true,
-            equalTo: "#password"
-        }
-    },
-    messages: {
-        "fullname": {
-            required: "Họ tên không được để trống!"
-        },
-        "email": {
-            required: "Emai không được để trống!",
-            email: "Nhập đúng định dạng email"
-        },
-        "password": {
-            required: "Password không được để trống!"
-        },
-        "reenterpass": {
-            required: "Nhập lại mật khẩu, không được để trống!",
-            equalTo: "Nhập lại mật khẩu không chính xác!"
-        }
-    }
-})
 
 
 // addproductForm form
@@ -80,6 +12,11 @@ $( "#add-product-form" ).validate({
       thong_tin: {
         required: true,
       },
+      images: {
+        required: function() {
+          console.log(this)
+        },
+      },
       don_gia: {
         required: true,
         // equalTo: "#newpass"
@@ -93,14 +30,15 @@ $( "#add-product-form" ).validate({
         max: 100
         // equalTo: "#newpass"
       },
+      so_luong: {
+        required: true,
+        number: true,
+        min: 0,
+      },
       ma_danhmuc: {
         required: true,
         // equalTo: "#newpass"
         number: true
-      },
-      images: {
-        required: true,
-        // equalTo: "#newpass"
       }
      
     },
@@ -119,19 +57,23 @@ $( "#add-product-form" ).validate({
             min: "Giá trị nhỏ nhất là 0",
             max: "Giấ trị lớn nhất là 100"
         },
+        so_luong: {
+          required: "Không để trống số lượng",
+          min: "Số lượng phải lớn hơn 0",
+        },
         "ma_danhmuc": {
             required: "Bắt buộc nhập lại mã danh mục",
             number: "Bắt buộc phải nhập mã danh mục"
         },
         "images": {
-            required: "Bắt buộc nhập lại hình ảnh chính sản phẩm",
+            required: "Bắt buộc nhập lại hình ảnh sản phẩm",
             // equalTo: "Bắt buộc nhập giống mật khẩu"
         }
     }
   });
 
   // editproduct form
-$( "#editproductForm" ).validate({
+$( "#product-form" ).validate({
   rules: {
     tensp: {
       required: true,
@@ -149,15 +91,20 @@ $( "#editproductForm" ).validate({
       max: 100
       // equalTo: "#newpass"
     },
+    so_luong: {
+      required: true,
+      min: 0,
+    },
     ma_danhmuc: {
       required: true,
       // equalTo: "#newpass"
       number: true
     },
-    hinhanh1: {
+    images: {
       required: true,
       // equalTo: "#newpass"
-    }
+    },
+
    
   },
   messages: {
@@ -175,6 +122,10 @@ $( "#editproductForm" ).validate({
           min: "Giá trị nhỏ nhất là 0",
           max: "Giấ trị lớn nhất là 100"
       },
+      "so_luong": {
+        required: "Không để trống số lượng sản phẩm",
+        min: "Số lượng sản phẩm phải lớn hơn 0"
+      },
       "ma_danhmuc": {
           required: "Bắt buộc nhập lại mã danh mục",
           number: "Bắt buộc phải nhập mã danh mục"
@@ -187,16 +138,34 @@ $( "#editproductForm" ).validate({
 });
 
   // editcate form
-  $( "#addcateForm" ).validate({
+  $( "#cate-form" ).validate({
     rules: {
       catename: {
-        required: true,
+        required: true
+        // {
+        //   depends: function() {
+        //     $(this).val($.trim($(this).val()))
+        //     return true;
+        //   }
+        // }
+      },
+      cateimage: {
+        required: true
+      },
+      catedesc: {
+        required: true
       }
      
     },
     messages: {
         "catename": {
             required: "Bắt buộc nhập tên danh mục đầy đủ",
+        },
+        cateimage: {
+          required: "Hình ảnh sản phẩm không được rỗng"
+        },
+        catedesc: {
+          required: "Mô tả sản phẩm không được rỗng"
         }
     }
   });
@@ -331,3 +300,15 @@ $( "#editproductForm" ).validate({
         }
     }
   });
+
+  (function ($) {
+
+    $.each($.validator.methods, function (key, value) {
+        $.validator.methods[key] = function () {           
+            if(arguments.length > 0) {
+                arguments[0] = $.trim(arguments[0]);
+            }
+            return value.apply(this, arguments);
+        };
+    });
+} (jQuery));
