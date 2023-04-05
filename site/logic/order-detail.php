@@ -210,7 +210,7 @@ if (isset($_SESSION['iduser'])) {
         <td class="">' . $cart_item['soluong'] . '</td>
         <td class="">' . $cart_item['dongia'] . '</td>
         <td class=""><a href="./index.php?act=detailproduct&id=' . $cart_item['idsanpham'] . '">' . $cart_item['tensp'] . '</a></td>
-        <td class=""><img width=100 height=100 src="../uploads/' . $cart_item['hinhanh'] . '" alt=""></td>
+        <td class=""><img width=100 height=100 style="object-fit: cover;" src="../uploads/' . $cart_item['hinhanh'] . '" alt=""></td>
        ' . $row_review . '
         </tr>
     ';

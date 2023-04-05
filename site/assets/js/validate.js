@@ -108,7 +108,115 @@ $.validator.addMethod("validatePassword", function(value, element) {
   // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số");   
 }, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số")
 
+// $.validator.addMethod("validatePhoneVN", function(value, element)
+// {
+//     // if (preg_match('/^[0-9]{10}+$/', $phone)) {
+//     //     return true;
+//     // } else {
+//     //     return false;
+//     // }
+//     return this.optional(element) || /^[0-9]{10}+$/i.test(value);
+// }, "Hãy nhập đúng định dạng số điện thoại ở Việt Nam")
 
+// Validate form at client
+
+$("#setting-account-form").validate({
+  rules: {
+    ho_ten: {
+      required: true,
+    },
+    hinh_anh: {
+      required: true,
+    },
+    sodienthoai: {
+      required: true,
+      // validatePhoneVN: true
+    },
+    companyname: {
+      required: true,
+    },
+    diachi: {
+      required: true
+    }
+  },
+  messages: {
+    ho_ten: {
+      required: "Họ tên không được để trống",
+    },
+    hinh_anh: {
+      required: "Hình ảnh không được để trống",
+    },
+    sodienthoai: {
+      required: "Số điện thoại không được để trống",
+    },
+    companyname: {
+      required: "Công ty không được để trống",
+    },
+    diachi: {
+      required: "Địa chỉ không được để trống"
+    }
+  }
+})
+
+("#shipping-address-form").validate({
+  rules: {
+    province_id: {
+      required: true,
+    },
+    district_id: {
+      required: true,
+    },
+    ward_id: {
+      required: true,
+      // validatePhoneVN: true
+    },
+    detail_address: {
+      required: true,
+    }
+  },
+  messages: {
+    province_id: {
+      required: "Tỉnh/Thành phố không được để trống",
+    },
+    district_id: {
+      required: "Quận/Huyện không được để trống",
+    },
+    ward_id: {
+      required: "Phường/Xã không được để trống",
+    },
+    detail_address: {
+      required: "Địa chỉ chi tiết không được để trống"
+    }
+  }
+})
+
+$("$change-pass-form").validate({
+  rules: {
+    oldpass: {
+      required: true,
+    },
+    newpass: {
+      required: true,
+    },
+    renewpass: {
+      required: true,
+      // validatePhoneVN: true
+      equalTo: "#newpass"
+    }
+  },
+  messages: {
+    oldpass: {
+      required: "Mật khẩu cũ không được để trống",
+    },
+    newpass: {
+      required: "Mật khẩu mới không được để trống",
+    },
+    renewpass: {
+      required: "Xác nhận mật khẩu không được để trống",
+      equalTo: "Mật khẩu nhập lại không chính xác!"
+    }
+  }
+})
 
 // addproductForm form
 $( "#addproductForm" ).validate({

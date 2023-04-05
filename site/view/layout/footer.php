@@ -523,9 +523,21 @@
 <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="assets/js/table-datatable.js"></script>
 
+<!-- Jquery validation -->
+<script src="assets/js/jquery.validate.min.js">
+
+</script>
+
+<script src="assets/js/additional-methods.min.js">
+
+</script>
+
+<script src="assets/js/validate.js">
+
+</script>
+
 <!-- Custom config javascript -->
 <script src="assets/js/config.js"></script>
-<script src="assets/js/validate.js"></script>
 <script src="assets/js/pages/account.js"></script>
 <script src="assets/js/pages/checkout.js"></script>
 <script>
