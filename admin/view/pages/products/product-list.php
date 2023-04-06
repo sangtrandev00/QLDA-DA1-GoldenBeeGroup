@@ -72,6 +72,8 @@ $total_records = $pagination['total_records'];
 foreach ($product_list as $product_item) {
 
     $image_list = explode(",", $product_item['images']);
+
+    $price_item = $product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100);
     $thumbnail = getthumbnail($image_list);
     # code...
     echo '

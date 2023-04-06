@@ -48,6 +48,24 @@ function count_all_orders()
     return pdo_query_value($sql);
 }
 
+function count_all_orders_failed()
+{
+    $sql = 'SELECT count(*) from tbl_order where trangthai = 5';
+    return pdo_query_value($sql);
+}
+
+function count_all_orders_success()
+{
+    $sql = 'SELECT count(*) from tbl_order where trangthai = 4';
+    return pdo_query_value($sql);
+}
+
+function count_all_orders_being_destroyed()
+{
+    $sql = 'SELECT count(*) from tbl_order where trangthai = 6';
+    return pdo_query_value($sql);
+}
+
 function count_all_comments()
 {
     $sql = 'SELECT count(*) from tbl_binhluan';

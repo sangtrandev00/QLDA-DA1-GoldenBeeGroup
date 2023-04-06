@@ -988,7 +988,11 @@ if (isset($_GET['act'])) {
             break;
 
         case 'my-account':
-            include "./view/auth/my-account.php";
+            if (isset($_SESSION['iduser'])) {
+                include "./view/auth/my-account.php";
+            } else {
+                header('location: ./auth/login.php');
+            }
             break;
         case 'csbanhang':
             include "./view/pages/policy/sales-policy.php";

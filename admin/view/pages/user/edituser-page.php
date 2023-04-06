@@ -5,7 +5,7 @@
 if (isset($_GET['id']) && $_GET['id'] > 0) {
     $user = user_select_by_id($_GET['id']);
     // var_dump($user);
-    $hinhpath = "../uploads/" . $user['hinh_anh'];
+    $hinhpath = "..đuploads/" . $user['hinh_anh'];
     if (is_file($hinhpath)) {
         $hinh = "<img src='" . $hinhpath . "' height='40'>";
     } else {

@@ -345,130 +345,136 @@ var options = {
 
 // chart 5
 
-$.ajax({
-	type: "POST",
-	url: "./logic/revenue.php?act=allmonth",
-	data: {
-		year: 2023
-	},
-	// dataType: "dataType",
-	success: function (response) {
-		const {result} = JSON.parse(response);
-		const revenueList = result
+function drawReportSaleByMonths() {
 
-		console.log('rev: ', revenueList);
-		
-		for(const [key,value] in revenueList) {
-
-		}
-		
-		var options = {
+	$.ajax({
+		type: "POST",
+		url: "./logic/revenue.php?act=allmonth",
+		data: {
+			year: 2023
+		},
+		// dataType: "dataType",
+		success: function (response) {
+			const {result} = JSON.parse(response);
+			const revenueList = result
 	
-			series: [{
-				name: "Revenue",	
-				data: [revenueList['jan'], revenueList['feb'], revenueList['mar'], revenueList['apr'], revenueList['may'], revenueList['jun'], revenueList['july'], revenueList['aug'], revenueList['sep'], revenueList['oct'],revenueList['nov'],revenueList['dec']]
-			}],
-			chart: {
-				 type: "area",
-			   // width: 130,
-				stacked: true,
-				height: 280,
-				toolbar: {
-					show: !1
-				},
-				zoom: {
-					enabled: !1
-				},
-				dropShadow: {
-					enabled: 0,
-					top: 3,
-					left: 14,
-					blur: 4,
-					opacity: .12,
-					color: "#3461ff"
-				},
-				sparkline: {
-					enabled: !1
-				}
-			},
-			markers: {
-				size: 0,
-				colors: ["#3461ff"],
-				strokeColors: "#fff",
-				strokeWidth: 2,
-				hover: {
-					size: 7
-				}
-			},
-			grid: {
-				row: {
-					colors: ["transparent", "transparent"],
-					opacity: .2
-				},
-				borderColor: "#f1f1f1"
-			},
-			plotOptions: {
-				bar: {
-					horizontal: !1,
-					columnWidth: "25%",
-					//endingShape: "rounded"
-				}
-			},
-			dataLabels: {
-				enabled: !1
-			},
-			stroke: {
-				show: !0,
-				width: [2.5],
-				//colors: ["#3461ff"],
-				curve: "smooth"
-			},
-			fill: {
-				type: 'gradient',
-				gradient: {
-				  shade: 'light',
-				  type: 'vertical',
-				  shadeIntensity: 0.5,
-				  gradientToColors: ['#3461ff'],
-				  inverseColors: false,
-				  opacityFrom: 0.5,
-				  opacityTo: 0.1,
-				 // stops: [0, 100]
-				}
-			},
-			colors: ["#3461ff"],
-			xaxis: {
-				categories: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
-			},
-			grid:{
-				show: true,
-				borderColor: 'rgba(66, 59, 116, 0.15)',
-			},
-			responsive: [
-				{
-				  breakpoint: 1000,
-				  options: {
-					chart: {
-						type: "area",
-					   // width: 130,
-						stacked: true,
-					}
-				  }
-				}
-			  ],
-			legend: {
-				show: false
-			  },
-			tooltip: {
-				theme: "dark"        
+			console.log('rev: ', revenueList);
+			
+			for(const [key,value] in revenueList) {
+	
 			}
-		  };
+			
+			var options = {
 		
-		  var chart = new ApexCharts(document.querySelector("#reportSaleByMonths"), options);
-		  chart.render();
-		
-	}
-});
+				series: [{
+					name: "Revenue",	
+					data: [revenueList['jan'], revenueList['feb'], revenueList['mar'], revenueList['apr'], revenueList['may'], revenueList['jun'], revenueList['july'], revenueList['aug'], revenueList['sep'], revenueList['oct'],revenueList['nov'],revenueList['dec']]
+				}],
+				chart: {
+					 type: "area",
+				   // width: 130,
+					stacked: true,
+					height: 280,
+					toolbar: {
+						show: !1
+					},
+					zoom: {
+						enabled: !1
+					},
+					dropShadow: {
+						enabled: 0,
+						top: 3,
+						left: 14,
+						blur: 4,
+						opacity: .12,
+						color: "#3461ff"
+					},
+					sparkline: {
+						enabled: !1
+					}
+				},
+				markers: {
+					size: 0,
+					colors: ["#3461ff"],
+					strokeColors: "#fff",
+					strokeWidth: 2,
+					hover: {
+						size: 7
+					}
+				},
+				grid: {
+					row: {
+						colors: ["transparent", "transparent"],
+						opacity: .2
+					},
+					borderColor: "#f1f1f1"
+				},
+				plotOptions: {
+					bar: {
+						horizontal: !1,
+						columnWidth: "25%",
+						//endingShape: "rounded"
+					}
+				},
+				dataLabels: {
+					enabled: !1
+				},
+				stroke: {
+					show: !0,
+					width: [2.5],
+					//colors: ["#3461ff"],
+					curve: "smooth"
+				},
+				fill: {
+					type: 'gradient',
+					gradient: {
+					  shade: 'light',
+					  type: 'vertical',
+					  shadeIntensity: 0.5,
+					  gradientToColors: ['#3461ff'],
+					  inverseColors: false,
+					  opacityFrom: 0.5,
+					  opacityTo: 0.1,
+					 // stops: [0, 100]
+					}
+				},
+				colors: ["#3461ff"],
+				xaxis: {
+					categories: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
+				},
+				grid:{
+					show: true,
+					borderColor: 'rgba(66, 59, 116, 0.15)',
+				},
+				responsive: [
+					{
+					  breakpoint: 1000,
+					  options: {
+						chart: {
+							type: "area",
+						   // width: 130,
+							stacked: true,
+						}
+					  }
+					}
+				  ],
+				legend: {
+					show: false
+				  },
+				tooltip: {
+					theme: "dark"        
+				}
+			  };
+			
+			  var chart = new ApexCharts(document.querySelector("#reportSaleByMonths"), options);
+			  chart.render();
+			
+		}
+	});
+}
+
+drawReportSaleByMonths();
+
 
 
 
