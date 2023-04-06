@@ -22,7 +22,9 @@ if (!isset($_SESSION['toastAlert'])) {
 if (!isset($_SESSION['alert'])) {
     $_SESSION['alert'] = "";
 }
+
 var_dump($_SESSION);
+
 ?>
 
 <?php
@@ -30,31 +32,31 @@ var_dump($_SESSION);
 
 if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
     $error = array();
-    $fullname = $_POST['fullname'];
+    $fullname = $_SESSION['fullname'];
     // $homeaddress = $_POST['address'];
     // $phonenumber = $_POST['phonenumber'];
-    $email = $_POST['email'];
-    // $password = $_POST['password'];
-    // $reenterpass = $_POST['reenterpass'];
+    $email = $_SESSION['emailsignup'];
+    $password = $_POST['password'];
+    $reenterpass = $_POST['reenterpass'];
 
     // Validate at server
 
     // echo $fullname, $password, $email, $reenterpass;
 
-    if (strlen($fullname) == 0) {
-        $error['hoten'] = "Không để trống họ tên!";
-    } else if (strlen($fullname) > 30) {
-        $error['hoten'] = "Họ tên không vượt quá 30 ký tự!";
-    }
+    // if (strlen($fullname) == 0) {
+    //     $error['hoten'] = "Không để trống họ tên!";
+    // } else if (strlen($fullname) > 30) {
+    //     $error['hoten'] = "Họ tên không vượt quá 30 ký tự!";
+    // }
 
-    if (empty($email)) {
-        $error['email'] = "không để trống email";
-    } else if (!is_email($email)) {
-        $error['email'] = "Email không đúng định dạng!";
-    } else if (email_exist($email)) {
-        $error['email'] = "Email của bạn đã tồn tại!";
-        // echo "Email của bạn đã tồn tại!";
-    }
+    // if (empty($email)) {
+    //     $error['email'] = "không để trống email";
+    // } else if (!is_email($email)) {
+    //     $error['email'] = "Email không đúng định dạng!";
+    // } else if (email_exist($email)) {
+    //     $error['email'] = "Email của bạn đã tồn tại!";
+    //     // echo "Email của bạn đã tồn tại!";
+    // }
 
     // if (strlen($phonenumber) == 0) {
     //     $error['phonenumber'] = "Không để trống số điện thoại!";
@@ -62,40 +64,32 @@ if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
     //     $rror['phonenumber'] = "Định dạng số điện thoại không chính xác!";
     // }
 
-    // if (empty($password)) {
-    //     $error['password'] = "không để trống password!";
-    // }
+    if (empty($password)) {
+        $error['password'] = "không để trống password!";
+    }
 
-    // if (empty($reenterpass)) {
-    //     $error['repassword'] = "không để trống repassword!";
-    // } else if ($password != $reenterpass) {
-    //     $error['repassword'] = "Nhập lại mật khẩu không chính xác!";
-    // }
+    if (empty($reenterpass)) {
+        $error['repassword'] = "không để trống repassword!";
+    } else if ($password != $reenterpass) {
+        $error['repassword'] = "Nhập lại mật khẩu không chính xác!";
+    }
 
     if (!$error) {
-        // $password = md5($_POST['password']);
-        // $is_inserted = user_register($fullname, $email, $password);
+        $password = md5($_POST['password']);
+        $is_inserted = user_register($fullname, $email, $password);
 
-        // // echo 'Register successfully!';
-        // // if ($is_inserted) {
-        // //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
-        // // }
+        // echo 'Register successfully!';
         // if ($is_inserted) {
-        //     echo '<div class="alert alert-success">Sign up successfully</div>';
-        //     // header('location: ./login.php');
-        //     $_SESSION['alert'] = "Đăng ký thành công!, Bạn có muốn chuyển đến trang đăng nhập ?";
+        //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
         // }
-
+        if ($is_inserted) {
+            echo '<div class="alert alert-success">Sign up successfully</div>';
+            // header('location: ./login.php');
+            unset($_SESSION['fullname']);
+            unset($_SESSION['emailsignup']);
+            $_SESSION['alert'] = "Đăng ký thành công!, Bạn có muốn chuyển đến trang đăng nhập ?";
+        }
         // Send email to success account
-
-        $title = "OTP code to confirm Email";
-
-        $messageCode = random_int(100000, 999999);
-        $_SESSION['emailsignup'] = $email;
-        $_SESSION['verifyOTP'] = $messageCode;
-        $_SESSION['fullname'] = $fullname;
-        sendmail($email, $title, $messageCode);
-        header("location: ./otp-code.php");
     }
 
 }
@@ -182,45 +176,50 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng ký</h5>
                                     <p class="card-text mb-4">Đăng ký tài khoản để trở thành khách hàng tại shop!</p>
-                                    <form id="signup-client-form" action="./signup.php" class="form-body" method="POST">
+                                    <form id="signup-client-form" action="./signup-password.php" class="form-body"
+                                        method="POST">
 
                                         <div class="row g-3">
-                                            <div class="col-12 ">
-                                                <label for="inputName" class="form-label">Họ tên của bạn</label>
+                                            <div class="col-12">
+                                                <label for="inputChoosePassword" class="form-label">Nhập mật
+                                                    khẩu</label>
                                                 <div class="ms-auto position-relative">
                                                     <div
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
-                                                        <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="text" name="fullname"
-                                                        class="form-control radius-30 ps-5" id="inputName"
-                                                        placeholder="Nhập họ tên của bạn">
+                                                    <input type="password" id="password" name="password"
+                                                        class="form-control radius-30 ps-5" id="inputChoosePassword"
+                                                        placeholder="Mật khẩu">
                                                     <p class="error-message">
                                                         <?php
-if (isset($error['hoten'])) {
-    echo $error['hoten'];
+if (isset($error['password'])) {
+    echo $error['password'];
+
 }
+
 ?>
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <label for="inputEmailAddress" class="form-label">Địa chỉ email</label>
+                                                <label for="inputChooseRePassword" class="form-label">Nhập lại mật
+                                                    khẩu</label>
                                                 <div class="ms-auto position-relative">
                                                     <div
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
-                                                        <i class="bi bi-envelope-fill"></i>
+                                                        <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="Email" name="email">
+                                                    <input type="password" name="reenterpass"
+                                                        class="form-control radius-30 ps-5" id="inputChooseRePassword"
+                                                        placeholder="Nhập lại mật khẩu">
                                                     <p class="error-message">
                                                         <?php
-if (isset($error['email'])) {
-    echo $error['email'];
+if (isset($error['repassword'])) {
+    echo $error['repassword'];
 }
 ?>
                                                 </div>
                                             </div>
-
                                             <div class="col-12">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox"

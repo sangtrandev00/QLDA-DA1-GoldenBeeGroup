@@ -345,14 +345,15 @@ if (isset($_SESSION['iduser'])) {
                                                     <h6 class="widget-title border-left mb-20">Hóa đơn chi tiết</h6>
 
                                                     <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['hoten'])) {echo $error['hoten'];}?>
+                                                        </p>
                                                         <label for="" class="form-label col-md-3">Họ tên: </label>
                                                         <div class="col-md-9">
                                                             <input class="" type="text" name="name"
                                                                 value="<?php echo $curr_user['ho_ten']; ?>"
                                                                 placeholder="Tên của bạn ...">
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['hoten'])) {echo $error['hoten'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -369,15 +370,15 @@ if (isset($_SESSION['iduser'])) {
                                                     </div>
                                                     <div class="form-group row">
 
-
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['phone'])) {echo $error['phone'];}?>
+                                                        </p>
                                                         <label for="" class="form-label col-md-3">Số điện thoại</label>
                                                         <div class="col-md-9">
                                                             <input class="" type="text" name="phone"
                                                                 value="<?php echo $curr_user['sodienthoai']; ?>"
                                                                 placeholder="Số điện thoại...">
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['phone'])) {echo $error['phone'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -392,81 +393,98 @@ if (isset($_SESSION['iduser'])) {
                                                     </div>
 
                                                     <div class="form-group row">
-
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['province_name'])) {echo $error['province_name'];}?>
+                                                        </p>
                                                         <label for="province-select" class="form-label col-md-3">Chọn
                                                             tỉnh thành
                                                             phố:</label>
                                                         <div class="col-md-9">
                                                             <select name="province_id" onchange="selectProvince(this)"
-                                                                value="<?php echo $shipping['province_id'] ?>"
-                                                                id="province-select" class="custom-select">
-                                                                <option value="default">Tỉnh - Thành</option>
+                                                                value="<?php if (isset($shipping) && $shipping) {
+    echo $shipping['province_id'];
+}
+?>" id="province-select" class="custom-select">
+                                                                <option value="">Tỉnh - Thành</option>
                                                             </select>
                                                             <input type="hidden" name="province_name" value="">
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['province_id'])) {echo $error['province_id'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['district_name'])) {echo $error['district_name'];}?>
+                                                        </p>
                                                         <label for="district-select" class="form-label col-md-3">Quận
                                                             huyện</label>
                                                         <div class="col-md-9">
                                                             <select name="district_id" onchange="selectDistrict(this)"
-                                                                value="<?php echo $shipping['district_id'] ?>"
-                                                                id="district-select" class="custom-select">
-                                                                <option value="default">Quận Huyện</option>
+                                                                value="<?php if (isset($shipping) && $shipping) {
+    echo $shipping['district_id'];
+}
+?>" id="district-select" class="custom-select">
+                                                                <option value="">Quận Huyện</option>
                                                                 <input type="hidden" name="district_name" value="">
                                                             </select>
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['district_id'])) {echo $error['district_id'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
 
+                                                    <!-- <p class="error-message text-danger mb-0">
+                                                        <?php if (isset($error['detail_address'])) {echo $error['detail_address'];}?>
+                                                    </p> -->
                                                     <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['ward_name'])) {echo $error['ward_name'];}?>
+                                                        </p>
                                                         <label for="ward-select" value=""
                                                             class="ward-select col-md-3">Phường
                                                             xã</label>
                                                         <div class="col-md-9">
                                                             <select onchange="selectWard(this)" name="ward_id"
-                                                                id="ward-select"
-                                                                value="<?php echo $shipping['ward_id'] ?>"
-                                                                class="custom-select">
+                                                                id="ward-select" value="<?php if (isset($shipping) && $shipping) {
+    echo $shipping['ward_id'];
+}
+?>" class="custom-select">
                                                                 <option value="default">Phường Xã</option>
                                                                 <input type="hidden" name="ward_name" value="">
+
                                                             </select>
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['ward_id'])) {echo $error['ward_id'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['detail_address'])) {echo $error['detail_address'];}?>
+                                                        </p>
                                                         <label for="" class="form-label col-md-3">Địa chỉ chi
                                                             tiết</label>
                                                         <div class="col-md-9">
                                                             <textarea name="detail_address" class="custom-textarea"
-                                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php echo $shipping['detail_address'] ?></textarea>
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['detail_address'])) {echo $error['detail_address'];}?>
-                                                            </p>
+                                                                placeholder="VD: Khu phố, Ấp, Số nhà"><?php if (isset($shipping) && $shipping) {
+    echo $shipping['detail_address'];
+}
+?></textarea>
+
                                                         </div>
 
                                                     </div>
 
                                                     <div class="form-group row">
+                                                        <p class="error-message text-danger mb-0">
+                                                            <?php if (isset($error['ghichu'])) {echo $error['ghichu'];}?>
+                                                        </p>
                                                         <label for="" class="form-label col-md-3">Ghi chú</label>
 
                                                         <div class="col-md-9">
+
                                                             <textarea name="ghichu" class="custom-textarea mt-3"
                                                                 value=""
                                                                 placeholder="Ghi chú cho người bán..."></textarea>
                                                             <p class="error-message text-danger mb-0"></p>
-                                                            <p class="error-message text-danger mb-0">
-                                                                <?php if (isset($error['note'])) {echo $error['note'];}?>
-                                                            </p>
+
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -747,6 +765,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     initAddress(<?php echo $shipping['province_id']; ?>, <?php echo $shipping['district_id']; ?>,
         <?php echo $shipping['ward_id']; ?>);
     calcShippingFee(districtId, 53320, 2, wardId, 2, 10, 1000, 10, insuranceValue, null);
+
+    // calcAllTotal(shippingFee, vatFee, totalFee);
 })
 
 function initAddress(provinceId, districtId, wardId) {
@@ -778,7 +798,7 @@ function initAddress(provinceId, districtId, wardId) {
                 );
             })
 
-            $("#province-select").html(provinceHtmlList);
+            $("#province-select").append(provinceHtmlList);
 
             // Handle add province, district, ward name to input hidden value
             console.log('checkoutForm', checkoutForm.elements);
@@ -821,7 +841,7 @@ function initAddress(provinceId, districtId, wardId) {
                 );
             })
 
-            $("#district-select").html(districtHtmlList);
+            $("#district-select").append(districtHtmlList);
             // console.log('district', checkoutForm.elements['district-select'].options[checkoutForm.elements[
             //         'district-select'].selectedIndex]
             //     .text);

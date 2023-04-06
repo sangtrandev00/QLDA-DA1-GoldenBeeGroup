@@ -391,10 +391,27 @@ if (isset($_GET['act'])) {
                     $shippingfee = $_POST['shippingfee'];
                     $tongdonhang = $_POST['tongdonhang'];
                     $hoten = $_POST['name'];
+                    if (empty($_POST['detail_address'])) {
+                        $error['detail_address'] = "Không để trống địa chỉ chi tiết";
+                    }
+                    // if (empty($_POST['ward_name'])) {
+                    //     $error['ward_name'] = "Không để trống phường/xã";
+                    // }
+                    if (empty($_POST['district_name'])) {
+                        $error['district_name'] = "Không để trống quận/huyện";
+                    }
+                    if (empty($_POST['province_name'])) {
+                        $error['province_name'] = "Không để trống tỉnh/thành phó";
+                    }
+
                     $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
                     $email = $_POST['email'];
                     $sodienthoai = $_POST['phone'];
                     $ghichu = $_POST['ghichu'];
+
+                    if (empty($ghichu)) {
+                        $error['ghichu'] = "Không để trống ghi chú!";
+                    }
                     $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
                     // Sinh ra mã đơn hàng
                     $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
@@ -754,10 +771,7 @@ if (isset($_GET['act'])) {
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
 
-                $congty = $_POST['companyname'];
-                $email = $_POST['email'];
-                // $password = $_POST[''];
-                $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
+                $target_file = basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
                 move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
 
@@ -765,14 +779,18 @@ if (isset($_GET['act'])) {
                 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
                 // Allow certain file formats
                 if ($_FILES['hinh_anh']['name'] == "") {
-                    $error['image'] = "Hình ảnh không được để trống";
+                    // $error['image'] = "Hình ảnh không được để trống";
                 } else if ($_FILES['hinh_anh']['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif") {
                     $error['image'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
                 }
 
                 if (empty($_FILES["hinh_anh"]["name"])) {
-                    $error['hinh_anh'] = "Không để trống hình ảnh";
+                    // $error['hinh_anh'] = "Không để trống hình ảnh";
+                    // GET image from database
+                    $user = user_select_by_id($_SESSION['iduser']);
+                    $target_file = $user['hinh_anh'];
+
                 } else if ($_FILES["hinh_anh"]['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif") {
                     $error['hinh_anh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";

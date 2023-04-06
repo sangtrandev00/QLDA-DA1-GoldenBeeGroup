@@ -5,41 +5,44 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
-var_dump($_SESSION);
-if (isset($_SESSION['emailreset'])) {
 
-    ?>
+var_dump($_SESSION);
+// if (isset($_SESSION['emailreset'])) {
+
+?>
 <?php
 
-    if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
 
-        $error = array();
-        $newpass = $_POST['newpass'];
-        $renewpass = $_POST['renewpass'];
+    $error = array();
+    $newpass = $_POST['newpass'];
+    $renewpass = $_POST['renewpass'];
 
-        if (empty($newpass)) {
-            $error['newpass'] = "không để trống mật khẩu mới";
-        }
+    if (empty($newpass)) {
+        $error['newpass'] = "không để trống mật khẩu mới";
+    }
 
-        if (empty($renewpass)) {
-            $error['renewpass'] = "Không để trống nhập lại mật khẩu mới!";
-        } else if ($newpass != $renewpass) {
-            echo '<div class="alert alert-danger text-center">Mật khẩu xác nhận không chính xác, hãy nhập lại!</div>';
-            $error['renewpass'] = "Mật khẩu xác nhận không chính xác";
-        }
+    if (empty($renewpass)) {
+        $error['renewpass'] = "Không để trống nhập lại mật khẩu mới!";
+    } else if ($newpass != $renewpass) {
+        echo '<div class="alert alert-danger text-center">Mật khẩu xác nhận không chính xác, hãy nhập lại!</div>';
+        $error['renewpass'] = "Mật khẩu xác nhận không chính xác";
+    }
 
-        if (!$error) {
-            user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
-            unset($_SESSION['emailreset']);
-            unset($_SESSION['verifycode']);
-            header('location: ./login.php');
-            echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
-        } else {
-
-        }
+    if (!$error) {
+        header('refresh:3;url=login.php');
+        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
+        unset($_SESSION['emailreset']);
+        unset($_SESSION['verifycode']);
+        // echo '<div class="alert alert-success">Thay đổi mật khẩu thành công!</div>';
+        // echo 'You\'ll be redirected in about 5 secs. ';
+        // echo 'If not, click <a href="wherever.php">here</a>.';
+    } else {
 
     }
-    ?>
+
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -92,7 +95,7 @@ if (isset($_SESSION['emailreset'])) {
         <main class="authentication-content">
             <?php
 include "./auth-header.php";
-    ?>
+?>
 
             <div class="container">
 
@@ -112,6 +115,11 @@ include "./auth-header.php";
                                         method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
+                                                <?php
+if (isset($error) && !$error) {
+    echo '<div class="alert alert-success">Tạo mật khẩu mới thành công, chuyển trang sau 3s</div>';
+}
+?>
                                                 <label for="inputNewPassword" class="form-label">Mật khẩu mới</label>
                                                 <div class="ms-auto position-relative">
                                                     <div
@@ -164,7 +172,7 @@ include "./auth-header.php";
         <!--end page main-->
         <?php
 include "./auth-footer.php";
-    ?>
+?>
     </div>
     <!--end wrapper-->
 
@@ -191,7 +199,7 @@ include "./auth-footer.php";
 
 <?php
 
-} else {
-    echo '<div>Trang không tồn tại!</div>';
-}
+// } else {
+//     echo '<div>Trang không tồn tại!</div>';
+// }
 ?>

@@ -411,11 +411,13 @@ if (isset($_SESSION['iduser'])) {
                     if (!$error) {
                         subcate_delete($subcateid);
                     }
+
                     header("location: ./index.php?act=subcatelist&cateid=" . $cateid);
                     // echo "successfully!";
                     // include "./vaiew/pages/categories/subcate-list.php";
                     // header('location: ./index.php?act=subcatelist&id=')
                 }
+
                 break;
             case 'catelist':
                 include "./view/pages/categories/cate-list.php";
@@ -633,13 +635,13 @@ if (isset($_SESSION['iduser'])) {
                     //     $error['img'] = "Không để trống hình ảnh";
                     // }
                     // Validate at server
-                    
+
                     if (strlen($name) == 0) {
                         $error['name'] = "Không để trống họ tên!";
                     } else if (strlen($name) > 30) {
                         $error['name'] = "Họ tên không vượt quá 30 ký tự!";
                     }
-                    
+
                     if (empty($address)) {
                         $error['address'] = "Không để trống địa chỉ!";
                     }

@@ -125,9 +125,6 @@ $("#setting-account-form").validate({
     ho_ten: {
       required: true,
     },
-    hinh_anh: {
-      required: true,
-    },
     sodienthoai: {
       required: true,
       // validatePhoneVN: true
@@ -142,9 +139,6 @@ $("#setting-account-form").validate({
   messages: {
     ho_ten: {
       required: "Họ tên không được để trống",
-    },
-    hinh_anh: {
-      required: "Hình ảnh không được để trống",
     },
     sodienthoai: {
       required: "Số điện thoại không được để trống",
@@ -162,12 +156,15 @@ $("#setting-account-form").validate({
   rules: {
     province_id: {
       required: true,
+      min: 1
     },
     district_id: {
       required: true,
+      min: 1
     },
     ward_id: {
       required: true,
+      min: 1
       // validatePhoneVN: true
     },
     detail_address: {

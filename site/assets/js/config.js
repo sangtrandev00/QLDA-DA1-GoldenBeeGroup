@@ -649,9 +649,76 @@ function selectDistrict(currentDistrict) {
                 // Calculate shipping fee here again when change
         }
     });
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    // const districtId = checkoutForm.elements['district_id'].value;
+    const wardCode = checkoutForm.elements['ward_id'].value;
+    const subTotal = checkoutForm.elements['tongphu'].value;
+    calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
 }
 
+function selectWard(currentWard) {
+    console.log('ward change ', currentWard.value);
 
+    const checkoutForm = document.getElementById('checkout-form');
+
+    const districtId = checkoutForm.elements['district_id'].value;
+    const wardCode = currentWard.value;
+    const subTotal = checkoutForm.elements['tongphu'].value;
+    calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+}
+
+function calcShippingFee(districtId, serviceId = 53320, serviceTypeId = 2, wardCode, height = 2, length = 10, weight =
+    1000, width = 10, insuranceValue, coupon = null) {
+
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+        data: {
+            "from_district_id": districtId,
+            "service_id": serviceId,
+            "service_type_id": serviceTypeId,
+            "to_district_id": districtId,
+            "to_ward_code": wardCode,
+            "height": height,
+            "length": length,
+            "weight": weight,
+            "width": width,
+            "insurance_value": insuranceValue,
+            "coupon": null
+        },
+        // dataType: "dataType",
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "ShopId": 123689,
+            "Content-type": "application/json"
+        },
+        success: function(response) {
+            console.log(response);
+            const {
+                data: {
+                    total: shippingFee,
+                    insurance_fee
+                }
+            } = response;
+
+            console.log(shippingFee, insuranceValue);
+            const totalFeeNoVat = shippingFee + +insuranceValue;
+            const vatFee = totalFeeNoVat * 0.1;
+            const totalFee = totalFeeNoVat + vatFee;
+            console.log('shipping fee hidden', $("#shipping-fee-hidden"));
+            document.getElementById("shipping-fee-hidden").value = shippingFee;
+            $("#shipping-fee").html(`${shippingFee.toLocaleString("en-US")} VND`);
+            $("#total-order-fee").html(`${totalFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee").html(`${vatFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee-hidden").val(vatFee);
+            $("#total-order-hidden").val(totalFee);
+
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     $.ajax({
