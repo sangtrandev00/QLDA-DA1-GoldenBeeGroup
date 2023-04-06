@@ -25,10 +25,12 @@ if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
                             <div class="col-12">
                                 <label class="form-label">Tên danh mục</label>
                                 <input type="text" class="form-control" name="blogcatename" placeholder="Tên danh mục">
+                                <p class="error-message"><?php if (isset($error['blogcatename'])) {echo $error['blogcatename'];}?></p>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Hình ảnh</label>
                                 <input type="file" class="form-control" name="hinh" placeholder="Hình ảnh">
+                                <p class="error-message"><?php if (isset($error['hinh'])) {echo $error['hinh'];}?></p>
                             </div>
                             <div class="col-12">
                                 <div class="d-grid">

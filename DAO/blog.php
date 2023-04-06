@@ -7,7 +7,7 @@ function blog_select_by_id($blog_id)
 }
 
 function blog_select_all(){
-    $sql = "SELECT * FROM tbl_blog ";
+    $sql = "SELECT * FROM tbl_blog ORDER BY create_time DESC";
     return pdo_query($sql);
 }
 function blog_cate_select_all(){

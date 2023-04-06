@@ -137,21 +137,21 @@ $( "#product-form" ).validate({
   }
 });
 
-  $("#add-blog").validate({
-    rules: {
-      title: {
-        required: true
-      },
-      noidung: {
-        required: true
-      }
-    },
-    messages: {
-      title: {
-        required: "Không de trong tieu de"
-      }
-    }
-  })
+  // $("#add-blog").validate({
+  //   rules: {
+  //     title: {
+  //       required: true
+  //     },
+  //     noidung: {
+  //       required: true
+  //     }
+  //   },
+  //   messages: {
+  //     title: {
+  //       required: "Không de trong tieu de"
+  //     }
+  //   }
+  // })
 
   // editcate form
   $( "#cate-form" ).validate({

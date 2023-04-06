@@ -1009,35 +1009,27 @@ if (isset($_GET['act'])) {
             include "./view/pages/policy/inspection-policy.php";
             break;
         case 'commentblog':
-            // if(isset($_POST['sencomment'])):
-            //     // comment_blog($content,$idblog,$userid, $date)
-            //     $content = $_POST['content'];
-            //     $idblog = $_GET['id'];
-            //     $date = $_POST['date'];
-
-            //         if(isset($_SESSION['user'])){
-            //             // print_r($_SESSION['user']);
-            //             comment_blog($content,$idblog,$_SESSION['iduser'],$date);
-            //             // header('location: ./view/blog/blog-detail.php?id='.$idblog.'');
-
-            //         }
-            //         // else{
-            //         //     $_SESSION['error'] = 'Đăng Nhập Để Bình Luận';
-            //         //     header('location: index.php?act=blogdetail&id='.$idblog.'');
-            //         // }
-            //     endif;
-
             if (isset($_POST['sencomment']) && ($_POST['sencomment'])) {
-                // $name = $_POST['name'];
+                $error = array();
                 $idblog = $_GET['id'];
                 $content = $_POST['content'];
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $date = date('Y-m-d H:m:s');
-                echo $date;
                 // exit;
                 $makh = $_SESSION['iduser'];
                 if (isset($_SESSION['iduser'])) {
-                    comment_blog($makh, $content, $idblog, $date);
+                    if (strlen($content) == 0) {
+                        $error['content'] = "Bạn Chưa Nhập Bình Luận";
+                    }
+                    if (!$error) {
+                        $is_inserted = comment_blog($makh, $content, $idblog, $date);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Bài Viết Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Bài Viết Thất Bại";
+                    }
+                    
                     // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";

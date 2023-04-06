@@ -876,23 +876,42 @@ if (isset($_SESSION['iduser'])) {
                 unset($_SESSION['iduser']);
                 unset($_SESSION['img']);
                 header('location: ./auth/login.php');
-
                 break;
 
             case 'addblog':
-                if (isset($_POST['addblog']) && ($_POST['addblog'])) {
+                if (isset($_POST['addblog']) && $_POST['addblog']) {
+                    $error = array();
                     $idcate = $_POST['idcate'];
                     $title = $_POST['title'];
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
                     $date = date('Y-m-d H:i:s');
+                    $conten = $_POST['noidung'];
                     $hinh = $_FILES['hinh']['name'];
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
 
+                    if ($hinh == "") {
+                        $error['hinh'] = "Không để trống hình ảnh";
                     }
-                    $conten = $_POST['noidung'];
-                    add_blog($title, $hinh, $conten, $date, $idcate);
-                    $thongbao = "Đã Đăng Bài Viết Thành Công";
+                    $imageFileType = strtolower(pathinfo($hinh, PATHINFO_EXTENSION));
+                    if($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                        $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                    }
+                    if (strlen($title) == 0) {
+                        $error['title'] = "Không để trống tiêu đề!";
+                    }
+                    if (strlen($conten) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }                 
+                    if (!$error) {
+                        $is_inserted = add_blog($title, $hinh, $conten, $date, $idcate);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Bài Viết Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Bài Viết Thất Bại";
+                    }
                 }
 
                 $list_blogcate = loadall_cateblog();
@@ -935,16 +954,32 @@ if (isset($_SESSION['iduser'])) {
                 include "./view/pages/blogs/blog-cate.php";
                 break;
             case 'addcateblog':
-                if (isset($_POST['addcateblog']) && ($_POST['addcateblog'])) {
+                if (isset($_POST['addcateblog']) && $_POST['addcateblog']) {
+                    $error = array();
                     $blogcatename = $_POST['blogcatename'];
                     $hinhcateblog = $_FILES['hinh']['name'];
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                    }
-                    add_cateblog($blogcatename, $hinhcateblog);
-                    $thongbao = "Đã Thêm Danh Mục Bài Viết Thành Công";
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
 
+                    if ($hinhcateblog == "") {
+                        $error['hinh'] = "Không để trống hình ảnh";
+                    }
+                    $imageFileType = strtolower(pathinfo($hinhcateblog, PATHINFO_EXTENSION));
+                    if($hinhcateblog != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                        $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                    }
+                    if (strlen($blogcatename) == 0) {
+                        $error['blogcatename'] = "Không để trống tên danh mục!";
+                    }                
+                    if (!$error) {
+                        $is_inserted = add_cateblog($blogcatename, $hinhcateblog);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Danh Mục Bài Viết Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Danh Mục Bài Viết Thất Bại";
+                    }
                 }
                 include './view/pages/blogs/blog-cate.php';
                 break;
