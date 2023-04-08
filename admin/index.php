@@ -27,7 +27,7 @@ include "./view/components/sidebar/sidebar.php";
 include "./view/layout/breadcrumb.php";
 
 $GLOBALS['inventory_cart'] = "Vượt quá số lượng tồn kho";
-if (isset($_SESSION['iduser'])) {
+if (isset($_SESSION['idadmin'])) {
     // var_dump($_SESSION);
     if (isset($_GET['act'])) {
         switch ($_GET['act']) {
@@ -555,6 +555,7 @@ if (isset($_SESSION['iduser'])) {
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["image"]["name"]);
                     // echo $target_file;
+
                     move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
 
                     // validation using php at server
@@ -592,12 +593,14 @@ if (isset($_SESSION['iduser'])) {
                     if (empty($password)) {
                         $error['password'] = "không để trống password!";
                     }
+                    // var_dump($_POST);
 
+                    // exit;
                     if (!$error) {
                         $password = md5($password);
 
                         // echo $role;
-                        $is_updated = user_update_2($iduser, $username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                        $is_updated = user_update_2($iduser, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
                         // header('location: ./view/user/userlist-page.php');
                         // if ($is_updated) {
                         //     echo '
@@ -607,7 +610,6 @@ if (isset($_SESSION['iduser'])) {
                         // ';
                         // }
                         header('Location: index.php?act=userlist');
-
                     }
 
                 }
@@ -684,6 +686,20 @@ if (isset($_SESSION['iduser'])) {
                 }
 
                 include "./view/pages/user/editadmin-page.php";
+                break;
+            case 'update-profile':
+                if (isset($_GET['id'])) {
+                    if (isset($_POST['savebtn']) && $_POST['savebtn']) {
+                        $id_admin = $_GET['id'];
+                        var_dump($_POST);
+
+                        // update_profile_admin($id_admin, $_POST['hoten'], $_POST['address'], $_POST['avatar'], $_POST['email'], $_POST['congty'], $_POST['about_me']);
+                        $_SESSION['alert'] = "Cập nhật profile thành công!";
+                    }
+
+                    include "./view/pages/user/user-profile.php";
+                }
+
                 break;
             case 'deleteuser':
                 if (isset($_GET['id'])) {
@@ -883,7 +899,7 @@ if (isset($_SESSION['iduser'])) {
             case 'logout':
                 unset($_SESSION['role']);
                 unset($_SESSION['username']);
-                unset($_SESSION['iduser']);
+                unset($_SESSION['idadmin']);
                 unset($_SESSION['img']);
                 header('location: ./auth/login.php');
                 break;

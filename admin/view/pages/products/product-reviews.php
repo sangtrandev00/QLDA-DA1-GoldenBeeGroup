@@ -37,14 +37,14 @@ foreach ($reviews_list as $review) {
     }
     $product = product_select_by_id($review['idsanpham']);
     // echo $id_reply;
-    $row_reply = !$is_replied ? ' <a onclick="replyReview(' . $review['id_review'] . ', ' . $_SESSION['iduser'] . ')" href="#">Reply</a>' : '<a class="text-warning" href="#" onclick="updateReplyReview(' . $review['id_review'] . ', ' . $_SESSION['iduser'] . ', ' . $id_reply . ')">Edit Reply</a>';
+    $row_reply = !$is_replied ? ' <a onclick="replyReview(' . $review['id_review'] . ', ' . $_SESSION['idadmin'] . ')" href="#">Reply</a>' : '<a class="text-warning" href="#" onclick="updateReplyReview(' . $review['id_review'] . ', ' . $_SESSION['idadmin'] . ', ' . $id_reply . ')">Edit Reply</a>';
     echo '
                     <tr>
                         <td>#' . $review['id_review'] . '</td>
                         <td>
                             <div class="d-flex align-items-center gap-3 cursor-pointer">
                                 <div class="">
-                                    <p class="mb-0">' . $review['iduser'] . '</p>
+                                    <p class="mb-0">' . $review['idadmin'] . '</p>
                                 </div>
                             </div>
                         </td>

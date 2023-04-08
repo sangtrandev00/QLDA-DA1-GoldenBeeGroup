@@ -73,7 +73,7 @@
 
     </li>
     <?php
-if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
+if (isset($_SESSION['idadmin']) && $_SESSION['role'] == 1) {
     echo '
             <li>
             <a href="javascript:;" class="has-arrow">

@@ -498,8 +498,10 @@ jQuery('#geographic-map').vectorMap(
 	// 	history.pushState({}, "", url);
 	// }
 
-	const currentMonth = url.searchParams.get("month");
-	const currentYear = url.searchParams.get("year");
+	const currentMonth = url.searchParams.get("month") || 3;
+	const currentYear = url.searchParams.get("year") || 2023;
+
+	console.log('log: ', currentMonth, currentYear);
 	drawReportSaleByMonths(currentYear);
 	drawReportWeekOfYears(currentYear);
 	drawReportDayOfMonthOfYear(currentMonth, currentYear);
