@@ -108,10 +108,14 @@ switch ($_GET['act']) {
         return;
     case 'allweeks':
 
+        if (isset($_POST['year'])) {
+            $year = $_POST['year'];
+        }
+
         $result = [];
         for ($i = 1; $i <= 52; $i++) {
             # code...
-            $result[] = revenue_of_week($i);
+            $result[] = revenue_of_week($i, $year);
         }
         echo json_encode(
             array(
@@ -123,13 +127,19 @@ switch ($_GET['act']) {
         if (isset($_POST['month'])) {
             $month = $_POST['month'];
         }
-        $days_in_month = cal_days_in_month(CAL_GREGORIAN, 3, 2023);
+
+        if (isset($_POST['year'])) {
+            $year = $_POST['year'];
+
+        }
+
+        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         $result = [];
         $days = [];
         for ($i = 1; $i <= $days_in_month; $i++) {
             # code...
             $days[] = $i;
-            $result[] = revenue_of_day_by_month($month, $i);
+            $result[] = revenue_of_day_by_month_year($year, $month, $i);
         }
         echo json_encode(
             array(

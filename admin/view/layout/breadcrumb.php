@@ -20,6 +20,9 @@ if (isset($_GET['act'])) {
         case 'orderlist':
             $breadcrumbs = "Danh sách đặt hàng";
             break;
+        case 'userorders':
+            $breadcrumbs = "Danh sách đặt hàng theo người dùng";
+            break;
         case 'orderdetail':
             $breadcrumbs = "Đơn hàng chi tiết";
             break;
@@ -68,6 +71,9 @@ if (isset($_GET['act'])) {
             break;
         case 'commentlist':
             $breadcrumbs = "Danh sách bình luận";
+            break;
+        case 'reviews-product':
+            $breadcrumbs = "Danh sách đánh giá sản phẩm";
             break;
         default:
             $breadcrumbs = "Tổng quan/ thống kê";

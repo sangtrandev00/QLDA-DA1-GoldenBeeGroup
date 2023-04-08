@@ -320,3 +320,98 @@ function onSelectCate(currentSelect) {
         }
     });
 }
+
+
+function replyReview(idReview, idUser) {
+    event.preventDefault();
+    console.log('id', idReview, idUser);
+    console.log(event.currentTarget);
+    const currentRow = getParent(event.currentTarget, "tr");
+    const reviewContent = currentRow.cells[3].textContent;
+    $("#cartModalBtn").trigger("click");
+    $("#cartModalLabel").text(`Trả lời Review #${idReview}`);
+    $("#cartModal .modal-body").html(`<form id="reply-review-form" onsubmit="addReplyReview()" action=""><div className="form-group"><label htmlFor="">Nội dung bình luận</label><textarea  class="form-control" readonly>${reviewContent}</textarea></div> <div class="form-group mt-5"><label htmlFor="">Trả lời bình luận</label><textarea class="form-control" id="replyContent" placeholder="Bình luận ở đây!"></textarea></div></form>`);
+    $("#cartModal .action-btn").removeClass('d-none');
+    $("#cartModal .action-btn").click(function(e) {
+        e.preventDefault();
+        console.log('submited');
+        $.ajax({
+            type: "POST",
+            url: "./logic/product.php?act=addreplyreviews",
+            data: {
+                idUser,
+                idReview,
+                content: $("#replyContent").val()
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                const {status, content} = JSON.parse(response);
+
+                if(status == 1) {
+                    showToast("Trả lời reviews", content);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000)
+                }
+            }
+        });
+    })
+
+}
+
+function updateReplyReview(idReview, idUser, idReply) {
+    event.preventDefault();
+    const currentRow = getParent(event.currentTarget, "tr");
+    const reviewContent = currentRow.cells[3].textContent;
+
+    $.ajax({
+        type: "GET",
+        url: "./logic/product.php?act=getreplyreview",
+        data: {
+            idReply
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            const {status, content: {
+                content,
+                date_modified,
+                id_reply,
+                id_review,
+                id_user
+            }} = JSON.parse(response);
+            
+        $("#cartModalBtn").trigger("click");
+        $("#cartModalLabel").text(`Trả lời Review #${idReview}`);
+        $("#cartModal .modal-body").html(`<form id="reply-review-form" onsubmit="updateReplyReview()" action=""><div className="form-group"><label htmlFor="">Nội dung bình luận</label><textarea  class="form-control" readonly>${reviewContent}</textarea></div> <div class="form-group mt-5"><label htmlFor="">Trả lời bình luận</label><textarea class="form-control" id="replyContent" placeholder="Bình luận ở đây!">${content}</textarea></div></form>`);
+        $("#cartModal .action-btn").removeClass('d-none');
+
+        $("#cartModal .action-btn").click(function(e) {
+            e.preventDefault();
+            console.log('submited');
+            $.ajax({
+                type: "POST",
+                url: "./logic/product.php?act=updateReplyReviews",
+                data: {
+                    idUser,
+                    idReview,
+                    content: $("#replyContent").val(),
+                    idReply
+                },
+                // dataType: "dataType",
+                success: function (response) {
+
+                    const {status, content} = JSON.parse(response);
+
+                    if(status == 1) {
+                        showToast("Cập nhật reviews", content);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000)
+                    }
+                }
+            });
+        })
+        }
+    });
+
+}

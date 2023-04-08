@@ -851,6 +851,12 @@ a {
 .best-product {
 	position: relative;
 	height: 420px;
+	overflow-y: auto!important;
+}
+
+.best-user {
+	max-height:500px;
+	overflow-y: auto!important;
 }
 
 .by-device-container {

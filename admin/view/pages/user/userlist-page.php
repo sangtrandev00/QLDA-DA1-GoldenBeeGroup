@@ -1,5 +1,6 @@
   <!--start content-->
   <main class="page-content">
+
       <div class="card">
           <div class="card-body">
               <div class="d-flex align-items-center">
@@ -78,12 +79,6 @@ foreach ($userList as $user) {
                   </table>
               </div>
           </div>
-      </div>
-
-      </tbody>
-      </table>
-      </div>
-      </div>
       </div>
 
   </main>
