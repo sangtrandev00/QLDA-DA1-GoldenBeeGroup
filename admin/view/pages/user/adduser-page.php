@@ -7,39 +7,39 @@
                 <div class="border p-3 rounded">
                 <h6 class="mb-0 text-uppercase">Thêm người dùng</h6>
                 <hr/>
-                <form class="row g-3" action="./index.php?act=adduser" method="post" enctype="multipart/form-data">
+                <form class="row g-3" action="./index.php?act=adduser" id="form-adduser" method="post" enctype="multipart/form-data">
                   <div class="col-12">
                     <label class="form-label">Họ và Tên:</label>
-                    <input type="text" class="form-control" name="fullname" value="" required>
+                    <input type="text" class="form-control" name="fullname" value="" >
                     <p class="error-message"><?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Địa chỉ:</label>
-                    <input type="text" class="form-control" name="address" value="" required>
+                    <input type="text" class="form-control" name="address" value="" >
                     <p class="error-message"><?php echo isset($error['address']) ? $error['address'] : ''; ?></p>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Email:</label>
-                    <input type="email" class="form-control" name="email" value="" required>
+                    <input type="email" class="form-control" name="email" value="" >
                     <p class="error-message"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Phone:</label>
-                    <input type="text" class="form-control" name="phone" value="" required>
+                    <input type="text" class="form-control" name="phone" value="" >
                     <p class="error-message"><?php echo isset($error['phone']) ? $error['phone'] : ''; ?></p>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Kích hoạt:</label>
-                    <input type="number" class="form-control" min=0 max=1 name="kichhoat" value="1" required>
+                    <input type="number" class="form-control" min=0 max=1 name="kichhoat" value="1" >
                   </div>
                   <div class="col-12">
                     <label class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" value="" required>
+                    <input type="text" class="form-control" name="username" value="" >
                     <p class="error-message"><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
                   </div>
                   <div class="col-12">
                     <label class="form-label">Password:</label>
-                    <input type="password" class="form-control" name="password" value="" required>
+                    <input type="password" class="form-control" name="password" value="" >
                     <p class="error-message"><?php echo isset($error['password']) ? $error['password'] : ''; ?></p>
                   </div>
                   <div class="col-12">
@@ -71,3 +71,13 @@
   <!--end page main-->
 
 <!-- Toggle Modal here -->
+<!-- Bootstrap bundle JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+   <!--plugins-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>src="assets/js/additional-methods.min.js"</script>
+
+<script src="assets/js/pages/validate.js">
+
+</script>

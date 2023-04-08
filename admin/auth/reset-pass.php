@@ -100,7 +100,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                     <p class="card-text mb-5">Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn.
                                         Vui lòng nhập của bạn
                                         mật khẩu mới!</p>
-                                    <form action="./reset-pass.php" class="form-body" method="POST">
+                                    <form action="./reset-pass.php" id="resetpass-admin" class="form-body" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputNewPassword" class="form-label">Mật khẩu mới</label>
@@ -111,7 +111,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                     </div>
                                                     <input type="password" name="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
-                                                        placeholder="Nhập mật khẩu mới" required>
+                                                        placeholder="Nhập mật khẩu mới">
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['newpass']) ? $error['newpass'] : ''; ?></p>
                                             </div>
@@ -125,7 +125,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                     </div>
                                                     <input type="password" name="renewpass"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
-                                                        placeholder="Xác nhận mật khẩu" required>
+                                                        placeholder="Xác nhận mật khẩu">
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['renewpass']) ? $error['renewpass'] : ''; ?></p>
                                             </div>
@@ -152,10 +152,16 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
     <!--end wrapper-->
 
 
-    <!--plugins-->
-    <script src="../../admin/assets/js/jquery.min.js"></script>
-    <script src="../../admin/assets/js/pace.min.js"></script>
+    <!-- Bootstrap bundle JS -->
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+   <!--plugins-->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script>src="../assets/js/additional-methods.min.js"</script>
 
+<script src="../js/pages/validate.js">
+
+</script>
 
 
 </body>

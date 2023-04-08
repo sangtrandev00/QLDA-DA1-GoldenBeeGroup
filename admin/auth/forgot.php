@@ -3,18 +3,26 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
-include "../../pdo-library.php";
-include "../../DAO/user.php";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+include "$ROOT_URL/global.php";
+include "$ROOT_URL/pdo-library.php";
+include "$ROOT_URL/DAO/user.php";
+if (!isset($_SESSION['error'])) {
+    $_SESSION['error'] = [];
+}
 ?>
 <?php
-$error = array();
+
 if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
+    $error = array();
     $email = $_POST['email'];
 
     // Validate
 
     if (empty($email)) {
-        $error['email'] = "Không để trống email";
+        $error['email'] = "Không để trống email!";
     }
 
     if (!$error) {
@@ -95,12 +103,12 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Quên mật khẩu</h5>
                                     <p class="card-text mb-5">Hãy nhập địa chỉ email của bạn để lấy lại mật khẩu</p>
-                                    <form class="form-body" action="./forgot.php" method="post">
+                                    <form class="form-body" id="forgot-auth-admin" action="./forgot.php" method="post">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Email</label>
                                                 <input type="email" class="form-control radius-30" id="inputEmailid"
-                                                    placeholde r="Email" name="email" required>
+                                                    placeholde r="Email" name="email">
                                                     <p class="error-message-forgot"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
@@ -126,10 +134,16 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
     <!--end wrapper-->
 
 
-    <!--plugins-->
-    <script src="../../admin/assets/js/jquery.min.js"></script>
-    <script src="../../admin/assets/js/pace.min.js"></script>
+   <!-- Bootstrap bundle JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+   <!--plugins-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>src="assets/js/additional-methods.min.js"</script>
 
+<script src="assets/js/pages/validate.js">
+
+</script>
 
 </body>
 

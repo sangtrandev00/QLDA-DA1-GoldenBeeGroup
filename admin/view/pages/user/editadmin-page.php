@@ -25,7 +25,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                
                 <h6 class="mb-0 text-uppercase">Cập nhật quản trị viên</h6>
                 <hr/>
-                <form class="row g-3"  action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>"
+                <form class="row g-3" id="form-edit-admin"  action="<?php echo "index.php?act=editadmin&id=" . $_GET['id'] ?>"
                                             method="post" enctype="multipart/form-data">
                   <div class="col-12">
                     <label class="form-label">Họ và Tên:</label>
@@ -94,3 +94,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 <!--end page main-->
 
 <!-- Toggle Modal here -->
+<!-- Bootstrap bundle JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+   <!--plugins-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script>src="assets/js/additional-methods.min.js"</script>
+
+<script src="assets/js/pages/validate.js">
+
+</script>
