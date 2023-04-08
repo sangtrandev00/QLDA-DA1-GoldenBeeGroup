@@ -31,11 +31,11 @@
                         <label class="form-label">Kích hoạt:</label>
                         <input type="number" class="form-control" min=0 max=1 name="kichhoat" value="1" required>
                     </div>
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <label class="form-label">Username</label>
                         <input type="text" class="form-control" name="username" value="" required>
                         <p class="error-message"><?php echo isset($error['username']) ? $error['username'] : ''; ?></p>
-                    </div>
+                    </div> -->
                     <div class="col-12">
                         <label class="form-label">Password:</label>
                         <input type="password" class="form-control" name="password" value="" required>

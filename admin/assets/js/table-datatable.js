@@ -2,7 +2,7 @@ $(function() {
 	"use strict";
 
     $(document).ready(function() {
-
+        const url = new URL(location.href);
         $.ajax({
             type: "POST",
             url: ADMIN_URL+ "/view/pages/products/table-product-database.php",
@@ -47,10 +47,14 @@ $(function() {
             }
         });
 
+        
+
         $.ajax({
             type: "POST",
             url: ADMIN_URL+ "/view/pages/orders/table-recent-order-database.php",
-            // data: "data",
+            // data: {
+            //     iduser: id
+            // },
             // dataType: "dataType",
             success: function (response) {
                 // console.log('res: ', response);
@@ -64,6 +68,35 @@ $(function() {
                     });
                     tableRecentOrder.buttons().container()
                     .appendTo( '#table-recent-order_wrapper .col-md-6:eq(0)' );
+                    tableRecentOrder.column('0:visible').order('desc').draw();
+            }
+        });
+        let iduser = "";
+        if(url.searchParams.get('userorders') && url.searchParams.get('id')) {
+            iduser = url.searchParams.get('id');
+        }
+
+        console.log('id', url.searchParams.get('id'));
+
+        $.ajax({
+            type: "POST",
+            url: ADMIN_URL+ "/view/pages/orders/table-order-by-iduser-database.php",
+            data: {
+                iduser: url.searchParams.get('id') || ""
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                // console.log('res: ', response);
+                    const {order_list} = JSON.parse(response);
+                    // console.log('list: ', order_list);
+                    var tableRecentOrder  = $('#table-user-orders').DataTable({
+                        data: order_list,
+                        retrieve: true,
+                        "pageLength": 10,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                    });
+                    tableRecentOrder.buttons().container()
+                    .appendTo( '#table-user-orders_wrapper .col-md-6:eq(0)' );
                     tableRecentOrder.column('0:visible').order('desc').draw();
             }
         });

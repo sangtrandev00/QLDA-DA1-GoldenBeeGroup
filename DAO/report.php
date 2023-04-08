@@ -38,31 +38,31 @@ function report_comments()
 
 function sum_all_sales()
 {
-    $sql = 'SELECT sum(tongdonhang) as sum_all_sales from tbl_order where trangthai = 4';
+    $sql = 'SELECT DISTINCT sum(tongdonhang) OVER () as sum_all_sales from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 4 group by de.iddonhang;';
     return pdo_query_value($sql);
 }
 
 function count_all_orders()
 {
-    $sql = 'SELECT count(*) from tbl_order';
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang group by de.iddonhang';
     return pdo_query_value($sql);
 }
 
 function count_all_orders_failed()
 {
-    $sql = 'SELECT count(*) from tbl_order where trangthai = 5';
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 5 group by de.iddonhang';
     return pdo_query_value($sql);
 }
 
 function count_all_orders_success()
 {
-    $sql = 'SELECT count(*) from tbl_order where trangthai = 4';
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 4 group by de.iddonhang';
     return pdo_query_value($sql);
 }
 
 function count_all_orders_being_destroyed()
 {
-    $sql = 'SELECT count(*) from tbl_order where trangthai = 6';
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 6 group by de.iddonhang';
     return pdo_query_value($sql);
 }
 
@@ -111,4 +111,16 @@ function count_all_user()
 function count_total_sales_by_product($id)
 {
 
+}
+
+function report_products_by_cates()
+{
+    $sql = "SELECT dm.ma_danhmuc as madm, dm.ten_danhmuc as tendm, count(sp.masanpham) as `so_luong`, avg(sp.don_gia) as `avg`, min(sp.don_gia) as `min`, max(sp.don_gia) as `max`, hinh_anh from tbl_sanpham sp inner join tbl_danhmuc dm on sp.ma_danhmuc = dm.ma_danhmuc group by dm.ma_danhmuc";
+    return pdo_query($sql);
+}
+
+function top_users_bought_products()
+{
+    $sql = "SELECT *, sum(tongdonhang) as tongtienmuahang, count(*) as sodonhang from tbl_order od inner join tbl_nguoidung ng on od.iduser = ng.id where trangthai = 4 group by iduser order by tongtienmuahang desc;";
+    return pdo_query($sql);
 }

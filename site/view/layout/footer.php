@@ -468,7 +468,9 @@
                                     <form action="#">
                                         <input type="text" name="name" placeholder="Tên của bạn ...">
                                         <input type="text" name="email" placeholder="Email của bạn ...">
-                                        <textarea class="height-80" name="message"
+                                        <input type="text" name="phone" placeholder="Điện của bạn ...">
+                                        <input type="text" name="title" placeholder="Chủ đề">
+                                        <textarea name="content" class="height-80" name="message"
                                             placeholder="Để lại lời nhắn ở đây..."></textarea>
                                         <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi tin
                                             nhắn</button>

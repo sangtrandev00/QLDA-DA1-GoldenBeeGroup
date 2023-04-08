@@ -43,6 +43,7 @@ foreach ($cate_list as $cate_item) {
                 <thead>
                     <th>Id</th>
                     <th>Hình ảnh/ Tên sản phẩm </th>
+                    <th>SL bán </th>
                     <th>Giá tiền </th>
                     <th>Tồn kho </th>
                     <th>Ngày nhập </th>
@@ -75,6 +76,7 @@ foreach ($product_list as $product_item) {
 
     $price_item = $product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100);
     $thumbnail = getthumbnail($image_list);
+    $is_danger_class = $product_item['ton_kho'] <= 10 ? 'bg-danger' : "bg-success";
     # code...
     echo '
                             <tr>
@@ -91,8 +93,9 @@ foreach ($product_list as $product_item) {
                                         </div>
                                     </a>
                                 </td>
+                                <td>2</td>
                                 <td><span>' . $product_item['don_gia'] . ' VND</span></td>
-                                <td><span class="badge rounded-pill bg-success">' . $product_item['ton_kho'] . '</span></td>
+                                <td><span class="badge rounded-pill ' . $is_danger_class . '">' . $product_item['ton_kho'] . '</span></td>
                                 <td><span>' . $product_item['ngay_nhap'] . '</span></td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">

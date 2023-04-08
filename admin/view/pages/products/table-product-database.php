@@ -6,6 +6,7 @@ include $ROOT_URL . "/admin/models/connectdb.php";
 include $ROOT_URL . "/admin/models/product.php";
 include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
+include $ROOT_URL . "/DAO/order.php";
 include "$ROOT_URL/global.php";
 ?>
 
@@ -31,7 +32,8 @@ foreach ($product_list as $product_item) {
     $image_list = explode(",", $product_item['images']);
     $thumbnail = getthumbnail($image_list);
     $price_item = $product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100);
-
+    $sl_ban = count_sold_product_by_id($product_item['masanpham']);
+    $is_danger_class = $product_item['ton_kho'] <= 10 ? 'bg-danger' : "bg-success";
     # code...
     $row = array();
     $row[0] = $product_item['masanpham'];
@@ -45,11 +47,11 @@ foreach ($product_list as $product_item) {
                     </div>
                 </a>
     ';
-
-    $row[2] = '<span>' . number_format($product_item['don_gia']) . ' VND</span>';
-    $row[3] = '<span class="badge rounded-pill bg-success">' . $product_item['ton_kho'] . '</span>';
-    $row[4] = '<span>' . $product_item['ngay_nhap'] . '</span>';
-    $row[5] = '
+    $row[2] = $sl_ban;
+    $row[3] = '<span>' . number_format($product_item['don_gia']) . ' VND</span>';
+    $row[4] = '<span class="badge rounded-pill ' . $is_danger_class . '">' . $product_item['ton_kho'] . '</span>';
+    $row[5] = '<span>' . $product_item['ngay_nhap'] . '</span>';
+    $row[6] = '
                 <div class="d-flex align-items-center gap-3 fs-6">
                     <a href="javascript:viewDetail(' . $product_item['masanpham'] . ')" class="text-primary"
                         title=""

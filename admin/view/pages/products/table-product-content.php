@@ -13,6 +13,7 @@ include "$ROOT_URL/global.php";
     <thead>
         <th>Id</th>
         <th>Hình ảnh/ Tên sản phẩm </th>
+        <th>SL bán</th>
         <th>Giá tiền </th>
         <th>Tồn kho </th>
         <th>Ngày nhập </th>
