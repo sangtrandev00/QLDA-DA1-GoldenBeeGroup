@@ -17,6 +17,7 @@ include "../DAO/comment.php";
 include "../DAO/report.php";
 include "../DAO/blog.php";
 include "../DAO/order.php";
+include "../DAO/banner_slider.php";
 
 // HEADER SECTION
 include "./view/layout/header.php";
@@ -1063,6 +1064,205 @@ if (isset($_SESSION['iduser'])) {
 
                 }
                 include './view/pages/blogs/comment-blog.php';
+                break;
+            case 'addslider':
+                if (isset($_POST['addslider']) && $_POST['addslider']) {
+                    $error = array();
+                    $title = $_POST['title'];
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $date = date('Y-m-d H:i:s');
+                    $conten = $_POST['noidung'];
+                    $hinh = $_FILES['hinh']['name'];
+                    $target_dir = "../uploads/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
+
+                    if ($hinh == "") {
+                        $error['hinh'] = "Không để trống hình ảnh";
+                    }
+                    $imageFileType = strtolower(pathinfo($hinh, PATHINFO_EXTENSION));
+                    if($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                        $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                    }
+                    if (strlen($title) == 0) {
+                        $error['title'] = "Không để trống tiêu đề!";
+                    }
+                    if (strlen($conten) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }                 
+                    if (!$error) {
+                        $is_inserted = addslider($title,$hinh,$conten,$date);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Slider Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Slider Thất Bại";
+                    }
+                }
+                include "./view/pages/banner_slider/addslider.php";
+                break;
+            case 'updateslider':
+                $error = array();
+                if (isset($_POST['updateslider']) && ($_POST['updateslider'])) {
+                    $id = $_POST['id'];
+                    $title = $_POST['title'];
+                    $noidung = $_POST['noidung'];
+                    $hinh = $_FILES['hinh']['name'];
+                    $target_dir = "../uploads/";
+                    $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
+                    if (strlen($title) == 0) {
+                        $error['title'] = "Không để trống tiêu đề!";
+                    }
+                    if (strlen($noidung) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }  
+                    // print_r($error) ;             
+                    if (!$error) {
+                        $is_inserted = updateslider($id,$title,$hinh,$noidung);
+                        $thongbaoupdate = "Cập Nhật Slider Thành Công";
+                        // if ($is_inserted) {
+                        //     $thongbaoupdate = "Thêm Bài Viết Thành Công";
+                        //     // header('location: index.php?act=bloglist');
+                        // }
+                        include './view/pages/banner_slider/sliderlist.php';
+                        break;
+                    }
+                    else {
+                        $thongbaoupdate = "Cập Nhật Slider Thất Bại";
+                        // header('location: index.php?act=updateblog&id='.$id.'');
+                        
+                    }
+
+                }
+                include './view/pages/banner_slider/editslider.php';
+                break;
+            case 'deleteslider':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $slider = delete_slider($_GET['id']);
+                    $thongbao = "Đã Xóa Slider" . $_GET['id'] . " Thành Công";
+                }
+                include './view/pages/banner_slider/sliderlist.php';
+                break;
+            case 'sliderlist':
+                include "./view/pages/banner_slider/sliderlist.php";
+                break;
+            case 'addbanner':
+                if(isset($_POST['addbanner']) && $_POST['addbanner']){
+                    $error = array();
+                    $namebanner = $_POST['namebanner'];
+                    $image_files = $_FILES['images'];
+                    $image_list = implode(',', $image_files['name']);
+                    if ($_FILES["images"]["name"][0] == "") {
+                        $error['images'] = "Không để trống hình ảnh";
+                    }
+
+                    $i = 0;
+                    foreach ($image_files['name'] as $image_name) {
+                        $imageFileType = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+
+                        if ($_FILES['images']['name'][0] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                            && $imageFileType != "gif") {
+                            $error['images'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                            break;
+                        }
+
+                        move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                        $i++;
+                    }
+                    $idsp = $_POST['idsp'];
+                    $noidung = $_POST['noidung'];
+                    $thongtin = $_POST['thongtin'];
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    echo $date = date('Y-m-d H:i:s');
+
+                    if (strlen($namebanner) == 0) {
+                        $error['namebanner'] = "Không để trống tên!";
+                    }
+                    if (strlen($thongtin) == 0) {
+                        $error['thongtin'] = "Không để trống thông tin!";
+                    }
+                    if (strlen($noidung) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }
+                    if (!$error) {
+                        $is_inserted = addbanner($namebanner,$image_list,$idsp,$noidung,$thongtin,$date);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Banner Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Banner Thất Bại";
+                    }
+                }
+                $listsp = load_all_sp();
+                include "./view/pages/banner_slider/addbanner.php";
+                break;
+            case 'bannerlist':
+                include "./view/pages/banner_slider/bannerlist.php";
+                break;
+            case 'deletebanner':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $slider = delete_banner($_GET['id']);
+                    $thongbao = "Đã Xóa Banner " . $_GET['id'] . " Thành Công";
+                }
+                include "./view/pages/banner_slider/bannerlist.php";
+                break;
+            case 'updatebanner':
+                $error = array();
+                if(isset($_POST['updatebanner']) && $_POST['updatebanner']){ 
+                    $id = $_POST['id'];
+                    $namebanner = $_POST['namebanner'];
+                    $image_files = $_FILES['images'];
+                    $image_list = implode(',', $image_files['name']);
+                    $i = 0;
+                    foreach ($image_files['name'] as $image_name) {
+                        $imageFileType = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+
+                        if ($_FILES['images']['name'][0] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                            && $imageFileType != "gif") {
+                            $error['images'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                            break;
+                        }
+
+                        move_uploaded_file($image_files["tmp_name"][$i], "../uploads/" . $image_name);
+                        $i++;
+                    }
+                    // $hinh = $_FILES['images']['name'];
+                    // $target_dir = "../uploads/";
+                    // $target_file = $target_dir . basename($_FILES["images"]["name"]);
+                    // move_uploaded_file($_FILES["images"]["tmp_name"], $target_file);
+                    $idsp = $_POST['idsp'];
+                    $noidung = $_POST['noidung'];
+                    $thongtin = $_POST['thongtin'];
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $date = date('Y-m-d H:i:s');    
+
+                    if (strlen($namebanner) == 0) {
+                        $error['namebanner'] = "Không để trống tên!";
+                    }
+                    if (strlen($thongtin) == 0) {
+                        $error['thongtin'] = "Không để trống thông tin!";
+                    }
+                    if (strlen($noidung) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }
+                    if (!$error) {
+                        $is_inserted = updatebanner($id,$namebanner,$image_list,$idsp,$noidung,$thongtin,$date);
+                            $thongbaoupdate = "Cập Nhật Banner Thành Công";
+                    } else {
+                        $thongbaoupdate = "Cập Nhật Banner Thất Bại";
+                    }
+                }
+                // $listsp = load_all_sp();
+                include "./view/pages/banner_slider/editbanner.php";
+                break;
+            case 'deletecateblog':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $blog = delete_cateblog($_GET['id']);
+                    $thongbaodelete = "Đã Xóa Danh Mục Bài Viết #" . $_GET['id'] . " Thành Công";
+
+                }
+                include './view/pages/blogs/blog-cate.php';
                 break;
             default:
                 // if (isset($_SESSION['iduser'])) {

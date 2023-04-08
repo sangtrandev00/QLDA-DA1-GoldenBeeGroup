@@ -57,6 +57,7 @@ include "./models/sanpham.php";
 include "./models/user.php";
 include "./models/donhang.php";
 include "./models/blog-cate.php";
+include "./models/banner_slider.php";
 include "./models/config_vnpay.php";
 
 // Header
