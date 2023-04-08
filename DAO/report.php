@@ -90,6 +90,12 @@ function count_all_comments_posts()
     return pdo_query_value($sql);
 }
 
+function count_all_reviews_products()
+{
+    $sql = 'SELECT count(*) from tbl_danhgiasp ';
+    return pdo_query_value($sql);
+}
+
 function count_all_customer()
 {
     // $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
@@ -121,6 +127,12 @@ function report_products_by_cates()
 
 function top_users_bought_products()
 {
-    $sql = "SELECT *, sum(tongdonhang) as tongtienmuahang, count(*) as sodonhang from tbl_order od inner join tbl_nguoidung ng on od.iduser = ng.id where trangthai = 4 group by iduser order by tongtienmuahang desc;";
+    $sql = "SELECT *, sum(tongdonhang) as tongtienmuahang, count(*) as sodonhang from tbl_order od inner join tbl_nguoidung ng on od.iduser = ng.id where trangthai = 4 group by iduser order by tongtienmuahang desc";
+    return pdo_query($sql);
+}
+
+function top_bom_users_bought_products()
+{
+    $sql = "SELECT *, count(*) as so_lan_bom_hang from tbl_order od inner join tbl_nguoidung ng on od.iduser = ng.id where trangthai = 5 group by iduser order by so_lan_bom_hang desc;";
     return pdo_query($sql);
 }

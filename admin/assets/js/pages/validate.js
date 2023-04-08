@@ -1,4 +1,15 @@
-
+$("#login-admin-form").validate({
+  rules: {
+    email: {
+      required: true
+    }
+  },
+  messages: {
+    email: {
+      required: "Bắt buộc điền email!"
+    }
+  }
+})
 
 // addproductForm form
 $( "#add-product-form" ).validate({

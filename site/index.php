@@ -386,6 +386,7 @@ if (isset($_GET['act'])) {
                     // echo "HELLO WORLD checkout";
                     // var_dump($_POST);
                     // 1. Lấy dữ liệu
+
                     $iduser = $_SESSION['iduser'];
                     $tongphu = $_POST['tongphu'];
                     $shippingfee = $_POST['shippingfee'];
@@ -394,13 +395,13 @@ if (isset($_GET['act'])) {
                     if (empty($_POST['detail_address'])) {
                         $error['detail_address'] = "Không để trống địa chỉ chi tiết";
                     }
-                    // if (empty($_POST['ward_name'])) {
-                    //     $error['ward_name'] = "Không để trống phường/xã";
-                    // }
-                    if (empty($_POST['district_name'])) {
+                    if (empty($_POST['ward_id'])) {
+                        $error['ward_name'] = "Không để trống phường/xã";
+                    }
+                    if (empty($_POST['province_id'])) {
                         $error['district_name'] = "Không để trống quận/huyện";
                     }
-                    if (empty($_POST['province_name'])) {
+                    if (empty($_POST['province_id'])) {
                         $error['province_name'] = "Không để trống tỉnh/thành phó";
                     }
 

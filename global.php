@@ -434,7 +434,7 @@ function showStatus($num)
             break;
         case 5:
             $trangthai = 'Giao hàng thất bại';
-            $statusMess = 'Đơn hàng đã giao hàng thất bại! Do thời tiết hoặc lỗi do hàng tồn';
+            $statusMess = 'Đơn hàng đã giao hàng thất bại! Do thời tiết hoặc lỗi do khách hàng không nhận hàng';
             break;
         case 6:
             $trangthai = 'Đơn hàng đã bị hủy';

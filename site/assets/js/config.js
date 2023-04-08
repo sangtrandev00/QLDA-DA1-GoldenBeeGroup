@@ -616,6 +616,13 @@ function selectProvince(currentProvince) {
     
         }
     });
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    const provinceName = checkoutForm.elements['province-select'].options[checkoutForm.elements[
+        'province-select'].selectedIndex].text;
+    checkoutForm.elements['province_name'].value = provinceName;
+
 }
 
 function selectDistrict(currentDistrict) {
@@ -645,7 +652,7 @@ function selectDistrict(currentDistrict) {
 
                 $("#ward-select").html(wardHtmlList);
                 
-
+                $("input[name='province_name']").val()
                 // Calculate shipping fee here again when change
         }
     });
@@ -656,6 +663,11 @@ function selectDistrict(currentDistrict) {
     const wardCode = checkoutForm.elements['ward_id'].value;
     const subTotal = checkoutForm.elements['tongphu'].value;
     calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+
+
+    const districtName = checkoutForm.elements['district-select'].options[checkoutForm.elements[
+        'district-select'].selectedIndex].text;
+    checkoutForm.elements['district_name'].value = districtName;
 }
 
 function selectWard(currentWard) {
@@ -667,6 +679,10 @@ function selectWard(currentWard) {
     const wardCode = currentWard.value;
     const subTotal = checkoutForm.elements['tongphu'].value;
     calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+
+    const wardName = checkoutForm.elements['ward-select'].options[checkoutForm.elements[
+        'ward-select'].selectedIndex].text;
+    checkoutForm.elements['ward_name'].value = wardName;
 }
 
 function calcShippingFee(districtId, serviceId = 53320, serviceTypeId = 2, wardCode, height = 2, length = 10, weight =
