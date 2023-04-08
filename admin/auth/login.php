@@ -39,7 +39,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
             if ($role == 1 || $role == 2) {
                 $_SESSION['role'] = $role;
                 $_SESSION['username'] = $kq[0]['ho_ten'];
-                $_SESSION['iduser'] = $kq[0]['id'];
+                $_SESSION['idadmin'] = $kq[0]['id'];
                 $_SESSION['img'] = $kq[0]['hinh_anh'];
                 header('Location: ../index.php');
             } else {
@@ -101,6 +101,10 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
     .images img {
         width: 70%;
     }
+
+    label.error {
+        color: red;
+    }
     </style>
 
     <title>Bootstrap 5 Admin Template</title>
@@ -125,7 +129,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng nhập</h5>
                                     <p class="card-text mb-5">Đăng nhập để vào trang quản trị admin</p>
-                                    <form class="form-body" action="./login.php" method="post">
+                                    <form id="login-admin-form" class="form-body" action="./login.php" method="post">
                                         <!-- <div class="d-grid">
                                             <a class="btn btn-white radius-30" href="javascript:;"><span
                                                     class="d-flex justify-content-center align-items-center">
@@ -218,10 +222,21 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/pace.min.js"></script>
     <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
+ -->
 
+    <script src="../assets/js/jquery.validate.min.js">
 
+    </script>
+
+    <script src="../assets/js/additional-methods.min.js">
+
+    </script>
+
+    <script src="../assets/js/pages/validate.js">
+
+    </script>
 
 </body>
 
@@ -259,7 +274,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
             if ($role == 1 || $role == 2) {
                 $_SESSION['role'] = $role;
                 $_SESSION['username'] = $kq[0]['ho_ten'];
-                $_SESSION['iduser'] = $kq[0]['id'];
+                $_SESSION['idadmin'] = $kq[0]['id'];
                 $_SESSION['img'] = $kq[0]['hinh_anh'];
                 header('Location: ../index.php');
             } else {

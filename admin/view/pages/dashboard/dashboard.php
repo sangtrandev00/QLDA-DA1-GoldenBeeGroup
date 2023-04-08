@@ -170,7 +170,7 @@
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
                             <p>Lượt đánh giá sp</p>
-                            <h4 class="">0</h4>
+                            <h4 class=""><?php echo count_all_reviews_products() ?></h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
@@ -421,7 +421,7 @@ foreach ($top_views_products as $product) {
                                         <tr class="">
                                             <td scope="row">
                                                 <div class="user-box border">
-                                                    <img style="width: 100px; height: 100px;"
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
                                                         src="../uploads/<?php echo $member['hinh_anh'] ?>"
                                                         alt="<?php echo $member['name'] ?>">
                                                     <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?>
@@ -508,19 +508,19 @@ foreach ($top_views_products as $product) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $vip_members = top_users_bought_products();?>
-                                        <?php foreach ($vip_members as $member): ?>
+                                        <?php $bom_members = top_bom_users_bought_products();?>
+                                        <?php foreach ($bom_members as $member): ?>
                                         <tr class="">
                                             <td scope="row">
                                                 <div class="user-box border">
-                                                    <img style="width: 100px; height: 100px;"
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
                                                         src="../uploads/<?php echo $member['hinh_anh'] ?>"
                                                         alt="<?php echo $member['name'] ?>">
                                                     <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?>
                                                     </p>
                                                 </div>
                                             </td>
-                                            <td><?php echo $member['tongtienmuahang'] ?></td>
+                                            <td><?php echo $member['so_lan_bom_hang'] ?></td>
                                         </tr>
 
                                         <?php endforeach;?>
