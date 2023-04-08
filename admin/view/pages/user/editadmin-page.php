@@ -59,14 +59,14 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 <input type="number" class="form-control" min=0 max=1 name="kichhoat"
                                     value="<?php echo $user['kich_hoat'] ?>" required>
                             </div>
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <label class="form-label">Username</label>
                                 <input type="text" class="form-control" name="username"
                                     value="<?php echo $user['tai_khoan'] ?>" required>
                                 <p class="error-message">
                                     <?php echo isset($error['username']) ? $error['username'] : ''; ?>
                                 </p>
-                            </div>
+                            </div> -->
                             <div class="col-12">
                                 <label class="form-label">Password:</label>
                                 <input type="text" class="form-control" name="password"

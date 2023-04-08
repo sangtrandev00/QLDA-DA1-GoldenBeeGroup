@@ -364,14 +364,32 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
         } else {
             $images_reviews_html = "";
         }
+        $reply_review = reply_review_select_by_idreview($review['id_review']);
+        if ($reply_review) {
+            $section_reply_review = '<div class="reply-review ml-50 d-flex mt-5">
+            <div class="avatar-reply-user">
+                <img src="../uploads/' . $reply_review['hinh_anh'] . '" alt="" style="width: 40px; height: 40px;">
 
+            </div>
+
+            <div class="right-reply-content ms-3">
+                <p class="name-reply-user">' . $reply_review['ho_ten'] . '</p>
+                <p class="time-reply">' . $reply_review['date_modified'] . '</p>
+                <p class="content-reply">' . $reply_review['content'] . '</p>
+            </div>
+
+        </div>';
+        } else {
+            $section_reply_review = "";
+        }
+        // var_dump($reply_review);
         // var_dump($image_reviews_html);
         # code...
         echo '
         <div class="media mt-30">
             <div class="media-left">
                 <!-- ảnh người đánh giá -->
-                <a href="#"><img style="width: 40px; height: 40px;" class="media-object" src="' . $review['hinh_anh'] . '" alt="#"></a>
+                <a href="#"><img style="width: 40px; height: 40px;" class="media-object" src="../uploads/' . $review['hinh_anh'] . '" alt="#"></a>
             </div>
             <div class="media-body">
                 <div class="clearfix">
@@ -394,6 +412,7 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
             </div>
         </div>
         ';
+        echo $section_reply_review;
     }
     ?>
                                                 <!-- <div class="media mt-30">

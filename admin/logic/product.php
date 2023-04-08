@@ -142,6 +142,66 @@ switch ($_GET['act']) {
         }
         break;
 
+    case 'addreplyreviews':
+        if (isset($_POST['idReview'])) {
+            $id_review = $_POST['idReview'];
+            $id_user = $_POST['idUser'];
+            $content = $_POST['content'];
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_create = date("Y-m-d H:i:s");
+
+            $is_inserted = insert_reply_review($id_user, $id_review, $content, $date_create);
+            if ($is_inserted) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => "Trả lời bình luận thành công!",
+                    )
+                );
+            }
+        }
+        break;
+    case 'getreplyreview':
+        if (isset($_GET['idReply'])) {
+            $id_reply = $_GET['idReply'];
+
+            $reply_review = select_reply_review_by_id($id_reply);
+
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => $reply_review,
+                )
+            );
+        }
+        break;
+    case 'updateReplyReviews':
+        if (isset($_POST['idReply'])) {
+            $id_review = $_POST['idReview'];
+            $id_user = $_POST['idUser'];
+            $id_reply = $_POST['idReply'];
+            $content = $_POST['content'];
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_modified = date('Y-m-d H:i:s');
+            $is_updated = update_reply_review($id_reply, $id_user, $id_review, $content, $date_modified);
+
+            if ($is_updated) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => "Cập nhật trả lời bình luận thành công!",
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Cập nhật trả lời bình luận thất bại!",
+                    )
+                );
+            }
+        }
+        break;
     default:
         # code...
         break;
