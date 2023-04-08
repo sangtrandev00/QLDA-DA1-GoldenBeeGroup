@@ -48,8 +48,9 @@ if (isset($_SESSION['iduser'])) {
                                 <div class="card-body p-5">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            <form onsubmit="updateInfo()" action="./index.php?act=updateaccount"
-                                                method="POST" enctype="multipart/form-data">
+                                            <form id="setting-account-form" onsubmit="updateInfo()"
+                                                action="./index.php?act=updateaccount" method="POST"
+                                                enctype="multipart/form-data">
                                                 <input type="hidden" name="iduser"
                                                     value="<?php echo $_SESSION['iduser'] ?>">
                                                 <div class="new-customers">
@@ -79,8 +80,8 @@ if (isset($_SESSION['iduser'])) {
                                                                         class="form-label pl-20 w-25">Avatar:
                                                                     </label>
                                                                     <input class="form-control form-control-lg"
-                                                                        type="file" name="hinh_anh"
-                                                                        id="formFileMultiple">
+                                                                        type="file" accept="image/png, image/jpeg"
+                                                                        name="hinh_anh" id="formFileMultiple">
                                                                 </div>
                                                             </div>
 
@@ -177,7 +178,8 @@ $shipping = shipping_select_by_iduser($iduser);
 // var_dump($shipping);
 
 ?>
-                                <form onsubmit="updateShippingAddress(<?php echo $iduser ?>);"
+                                <form id="shipping-address-form"
+                                    onsubmit="updateShippingAddress(<?php echo $iduser ?>);"
                                     action="./index.php?act=updateshippingaddress" method="POST">
                                     <input type="hidden" name="iduser" value="<?php echo $iduser ?>">
                                     <div class="new-customers p-30">
@@ -248,7 +250,7 @@ $shipping = shipping_select_by_iduser($iduser);
                         <div id="changePass" class="collapse" aria-labelledby="headingThree"
                             data-bs-parent="#accordion">
                             <div class="card-body">
-                                <form onsubmit="changePassword(<?php echo $iduser ?>)" action="#">
+                                <form id="change-pass-form" onsubmit="changePassword(<?php echo $iduser ?>)" action="#">
                                     <div class="p-30">
                                         <div class="form-group">
                                             <p class="error-message oldpass-error"></p>
@@ -256,7 +258,8 @@ $shipping = shipping_select_by_iduser($iduser);
                                         </div>
                                         <div class="form-group">
                                             <p class="error-message newpass-error"></p>
-                                            <input name="newpass" type="password" placeholder="Mật khẩu mới...">
+                                            <input id="newpass" name="newpass" type="password"
+                                                placeholder="Mật khẩu mới...">
                                         </div>
                                         <div class="form-group">
                                             <p class="error-message renewpass-error"></p>

@@ -35,6 +35,11 @@ function select_orderdetail_by_orderid($iddh)
     return pdo_query($sql);
     // return true;
 }
+function select_orders_by_iduser($iduser)
+{
+    $sql = "SELECT od.id, madonhang, tongdonhang, pttt, iduser, name, dienThoai, address, ghichu, timeorder, trangthai, thanhtoan, sum(soluong) as tongsoluong FROM tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where iduser = '$iduser' group by iddonhang order by timeorder desc";
+    return pdo_query($sql);
+}
 
 // select * from tbl_order od inner join tbl_order_detail detail on od.id = detail.iddonhang inner join tbl_sanpham sp on sp.masanpham = detail.idsanpham having trangthai = 4;
 
@@ -52,13 +57,13 @@ function count_all_sold_products()
 
 function revenue_of_month($year, $month)
 {
-    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month' and year(timeorder) = '$year'";
+    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month' and year(timeorder) = '$year' and trangthai = 4";
     return pdo_query_value($sql);
 }
 
-function revenue_of_week($week)
+function revenue_of_week($week, $year)
 {
-    $sql = "SELECT sum(tongdonhang) from tbl_order where week(timeorder) = '$week' and trangthai = 4 group by week(timeorder)";
+    $sql = "SELECT sum(tongdonhang) from tbl_order where week(timeorder) = '$week' and year(timeorder) = '$year' and trangthai = 4 group by week(timeorder)";
     return pdo_query_value($sql);
 }
 
@@ -68,9 +73,9 @@ function revenue_of_weeks()
     return pdo_query($sql);
 }
 
-function revenue_of_day_by_month($month, $day)
+function revenue_of_day_by_month_year($year, $month, $day)
 {
-    $sql = "SELECT sum(tongdonhang) from tbl_order where trangthai = 4 and month(timeorder) = '$month' and day(timeorder) = '$day' group by day(timeorder)";
+    $sql = "SELECT sum(tongdonhang) from tbl_order where trangthai = 4 and year(timeorder) = '$year' and month(timeorder) = '$month' and day(timeorder) = '$day' group by day(timeorder)";
     return pdo_query_value($sql);
 }
 

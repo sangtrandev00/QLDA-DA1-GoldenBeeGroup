@@ -3,15 +3,10 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
-$FOLDER_VAR = "/PRO1014_DA1/main-project";
-$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
-
-include "$ROOT_URL/global.php";
-include "$ROOT_URL/pdo-library.php";
-include "$ROOT_URL/DAO/user.php";
-if (!isset($_SESSION['error'])) {
-    $_SESSION['error'] = [];
-}
+include "../../pdo-library.php";
+include "../../global.php";
+include "../../DAO/user.php";
+// var_dump($_SESSION);
 ?>
 <?php
 
@@ -79,6 +74,10 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
             margin-top: 5px;
             margin-left: 5px;
         }
+        label.error{
+            color: red;
+            font-weight: 550;
+        }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -108,7 +107,7 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
                                             <div class="col-12">
                                                 <label for="inputEmailid" class="form-label">Email</label>
                                                 <input type="email" class="form-control radius-30" id="inputEmailid"
-                                                    placeholde r="Email" name="email">
+                                                    placeholder="Email" name="email">
                                                     <p class="error-message-forgot"><?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
@@ -135,13 +134,13 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
 
 
    <!-- Bootstrap bundle JS -->
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
    <!--plugins-->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script>src="assets/js/additional-methods.min.js"</script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script>src="../assets/js/additional-methods.min.js"</script>
 
-<script src="assets/js/pages/validate.js">
+<script src="../assets/js/pages/validate.js">
 
 </script>
 

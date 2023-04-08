@@ -60,7 +60,7 @@ function applyCoupon(iduser) {
                 const shippingFee = +$("#shipping-fee-hidden").val();
                 const vatFee = +$("#vat-fee-hidden").val();
                 const totalFee =subTotal + shippingFee  +vatFee - discountMoney;
-                console.log(shippingFee, vatFee, totalFee);
+                console.log("show:", shippingFee, vatFee, totalFee);
                 calcAllTotal(shippingFee,vatFee, totalFee);
                 // $(".coupon-discount").attr("hidden", true);
 

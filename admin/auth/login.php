@@ -5,17 +5,58 @@ include "../models/connectdb.php";
 include "../models/user.php";
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
-
 include "$ROOT_URL/global.php";
 include "$ROOT_URL/pdo-library.php";
 include "$ROOT_URL/DAO/user.php";
+?>
+<?php
 
-var_dump($_SESSION);
-
-
-
- ?>
-
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    $error = array();
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    // Đối chiếu password
+    //Validate form
+    if (empty($email)) {
+        $error['email'] = "Không để trống email";
+    }
+    if (empty($password)) {
+        $error['password'] = "Không để trống password";
+    }
+    // echo $email;
+    // echo $password;
+    if (!$error) {
+        $password = md5($password);
+        // echo $password;
+        $islogined = checkuser2($email, $password);
+        // echo $islogined;
+        if ($islogined === -1) {
+            echo '
+                <script>
+                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                </script>
+                ';
+        } else {
+            $kq = getuserinfo2($email, $password);
+            $role = $kq[0]['vai_tro'];
+            // echo $role;
+            if ($role == 1 || $role == 2) {
+                $_SESSION['role'] = $role;
+                $_SESSION['username'] = $kq[0]['ho_ten'];
+                $_SESSION['idadmin'] = $kq[0]['id'];
+                $_SESSION['img'] = $kq[0]['hinh_anh'];
+                header('Location: ../index.php');
+            } else {
+                echo '
+                    <script>
+                        window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                    </script>
+                    ';
+            }
+        }
+    }
+}
+?>
 
 
 <!doctype html>
@@ -64,6 +105,10 @@ var_dump($_SESSION);
             font-weight: 500;
             margin-top: 5px;
             margin-left: 5px;
+        }
+        label.error{
+            color: red;
+            font-weight: 550;
         }
     </style>
 
@@ -220,13 +265,6 @@ var_dump($_SESSION);
 <script>src="../assets/js/additional-methods.min.js"</script>
 
 <script src="../assets/js/pages/validate.js"></script>
-
-
-
-
-
-<!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
-<!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
 
 
 

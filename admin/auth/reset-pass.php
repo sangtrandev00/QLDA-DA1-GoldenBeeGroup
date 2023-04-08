@@ -7,8 +7,9 @@ include "../../pdo-library.php";
 include "../../DAO/user.php";
 ?>
 <?php
- $error = array();
+ 
 if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+    $error = array();
     $newpass = $_POST['newpass'];
     $renewpass = $_POST['renewpass'];
     //Validate reset-pass
@@ -73,6 +74,10 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
             margin-top: 5px;
             margin-left: 5px;
         }
+        label.error{
+            color: red;
+            font-weight: 550;
+        }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -109,9 +114,9 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                         class="position-absolute top-50 translate-middle-y search-icon px-3">
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
-                                                    <input type="password" name="newpass"
+                                                    <input type="password" name="newpass" id="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
-                                                        placeholder="Nhập mật khẩu mới">
+                                                        placeholder="Nhập mật khẩu mới" required>
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['newpass']) ? $error['newpass'] : ''; ?></p>
                                             </div>
@@ -125,7 +130,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                     </div>
                                                     <input type="password" name="renewpass"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
-                                                        placeholder="Xác nhận mật khẩu">
+                                                        placeholder="Xác nhận mật khẩu" required>
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['renewpass']) ? $error['renewpass'] : ''; ?></p>
                                             </div>
@@ -159,7 +164,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
 <script src="../assets/js/jquery.validate.min.js"></script>
 <script>src="../assets/js/additional-methods.min.js"</script>
 
-<script src="../js/pages/validate.js">
+<script src="../assets/js/pages/validate.js">
 
 </script>
 

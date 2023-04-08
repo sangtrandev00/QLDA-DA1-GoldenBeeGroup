@@ -22,7 +22,7 @@ if (isset($thongbao) && ($thongbao != "")) {
                 </div>
                 <div class="card-body">
                     <div class="border p-3 rounded">
-                        <form class="row g-3" action="index.php?act=addblog" method="post"
+                        <form id="add-blog" class="row g-3" action="index.php?act=addblog" method="post"
                             enctype="multipart/form-data">
                             <div class="col-12">
                                 <label class="form-label">Tiêu Đề Bài Viết</label>

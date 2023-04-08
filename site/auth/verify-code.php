@@ -15,14 +15,15 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
     $code = $_POST['code'];
 
     if (empty($code)) {
-        $error['code'] = "Không để trống mã code";
+        $error['code'] = "Mã code của bạn không chính xác";
     }
 
     if (isset($_SESSION['verifycode'])) {
         $verifycode = $_SESSION['verifycode'];
         if ($code != $verifycode) {
-            $error['code'] = "mã code của bạn không chính xác";
+            $error['code'] = "Mã code của bạn không chính xác";
             // header('location: index.php?act=forgotpass');
+
         } else {
 
         }
@@ -30,8 +31,9 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
 
     if (!$error) {
         header('location: ./reset-pass.php');
+        unset($_SESSION['verifycode']);
     } else {
-        echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác</div>';
+        // echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác</div>';
 
     }
 
@@ -65,6 +67,11 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
     .bg-guii:hover {
         background-color: #ff7f00;
     }
+
+    .error-message,
+    label.error {
+        color: red;
+    }
     </style>
 
     <title>GoldenBeeGroup Authentication</title>
@@ -95,6 +102,7 @@ include "./auth-header.php";
                                     <form class="form-body" action="./verify-code.php" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
+                                                <!-- <?php if (isset($error) && !$error > 0) {echo '<div class="alert alert-success">Nhập mã code chính xác, chuyển trang sau 3s</div>';}?> -->
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code">

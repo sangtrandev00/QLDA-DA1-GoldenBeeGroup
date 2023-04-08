@@ -65,7 +65,7 @@ foreach ($userList as $user) {
      <td>' . $role . '</td>
      <td>
        <div class="table-actions d-flex align-items-center gap-3 fs-6">
-         <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Views"><i class="bi bi-eye-fill"></i></a>
+         <a href="./index.php?act=userorders&id=' . $user['id'] . '" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Xem lịch sử đặt hàng"><i class="bi bi-eye-fill"></i></a>
          <a href="./index.php?act=edituser&id=' . $user['id'] . '" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit"><i class="bi bi-pencil-fill"></i></a>
          <a href="./index.php?act=deleteuser&id=' . $user['id'] . '" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"><i class="bi bi-trash-fill"></i></a>
        </div>

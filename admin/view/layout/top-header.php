@@ -445,7 +445,7 @@ if (isset($_SESSION['img'])) {
 ?>
                     <div class="d-none d-sm-block">
                         <?php
-if (isset($_SESSION['iduser'])) {
+if (isset($_SESSION['idadmin'])) {
     $role = '';
     switch ($_SESSION['role']) {
         case '1':

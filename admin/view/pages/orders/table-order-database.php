@@ -55,7 +55,7 @@ foreach ($order_list as $order) {
     # code...
     $row = array();
     $row[0] = "#" . $order['id'];
-    $row[1] = $order['name'];
+    $row[1] = '<a href="index.php?act=userorders&id=' . $order['iduser'] . '">' . $order['name'] . '</a>';
     $row[2] = $order['tongdonhang'];
     $row[3] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
     // $row[4] = $thanhtoan;

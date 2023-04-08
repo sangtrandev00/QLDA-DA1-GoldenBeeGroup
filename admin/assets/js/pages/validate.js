@@ -137,6 +137,22 @@ $( "#product-form" ).validate({
   }
 });
 
+  $("#add-blog").validate({
+    rules: {
+      title: {
+        required: true
+      },
+      noidung: {
+        required: true
+      }
+    },
+    messages: {
+      title: {
+        required: "Không de trong tieu de"
+      }
+    }
+  })
+
   // editcate form
   $( "#cate-form" ).validate({
     rules: {
@@ -184,124 +200,63 @@ $( "#product-form" ).validate({
     }
   });
 
-   // adduser form
-   $( "#adduserForm" ).validate({
-    rules: {
-      fullname: {
-        required: true,
-      },
-      address: {
-        required: true,
-      },
-      email: {
-        required: true,
-      },
-      phone: {
-        required: true,
-      },
-      username: {
-        required: true,
-      },
-      password: {
-        required: true,
-      },
-      imageurl: {
-        required: true,
-      },
-      role: {
-        required: true,
-        number: true
-      }
-     
-    },
-    messages: {
-        "fullname": {
-            required: "Bắt buộc nhập tên sản phẩm đầy đủ",
-        },
-        "address": {
-            required: "Bắt buộc nhập địa chỉ đầy đủ",
-        },
-        "email": {
-            required: "Bắt buộc nhập địa chỉ email đầy đủ",
-        },
-        "phone": {
-            required: "Bắt buộc nhập số điện thoại",
-        },
-        "username": {
-            required: "Bắt buộc nhập username",
-        },
-        "password": {
-            required: "Bắt buộc nhập password",
-        },
-        "imageurl": {
-            required: "Bắt buộc nhập hình ảnh",
-        },
-        "role": {
-            required: "Bắt buộc nhập vai trò",
-            number: "Bắt buộc nhập vai trò"
-        }
-    }
-  });
+   
 
-   // edituser form
-   $( "#edituserForm" ).validate({
+  $("#add-coupon-form").validate({
     rules: {
-      fullname: {
+      coupon_name: {
         required: true,
+        validateCouponCode: true
       },
-      address: {
+      coupon_discount: {
         required: true,
+        min: 0,
+        max: 100
       },
-      email: {
+      min_value: {
         required: true,
+        min: 1000000
       },
-      phone: {
+      maximum_use: {
         required: true,
+        min: 1,
+        max: 1000,
       },
-      username: {
-        required: true,
+      date_start: {
+        required: true
       },
-      password: {
+      date_end: {
         required: true,
-      },
-      imageurl: {
-        required: true,
-      },
-      role: {
-        required: true,
-        number: true
+        greaterThanDate: "#date_start"
       }
     },
+
     messages: {
-        "fullname": {
-            required: "Bắt buộc nhập tên sản phẩm đầy đủ",
-        },
-        "address": {
-            required: "Bắt buộc nhập địa chỉ đầy đủ",
-        },
-        "email": {
-            required: "Bắt buộc nhập địa chỉ email đầy đủ",
-        },
-        "phone": {
-            required: "Bắt buộc nhập số điện thoại",
-        },
-        "username": {
-            required: "Bắt buộc nhập username",
-        },
-        "password": {
-            required: "Bắt buộc nhập password",
-        },
-        "imageurl": {
-            required: "Bắt buộc nhập hình ảnh",
-        },
-        "role": {
-            required: "Bắt buộc nhập vai trò",
-            number: "Bắt buộc nhập vai trò"
-        }
+      coupon_name: {
+        required: "Không để trống mã giảm giá!",
+      },
+      coupon_discount: {
+        required: "Không để trống phần trăm giảm giá!",
+        min: "Phằm trăm tối thiểu là 0",
+        max: "Phần trăm tối đa là 100"
+      },
+      min_value: {
+        required: "Không để trống đơn hàng tối thiểu!",
+        min: "Đơn hàng tối thiểu phải ít nhất là 1000000 VND"
+      },
+      maximum_use: {
+        required: "Không để trống số lượt sử dụng!",
+        min: "Số lượt sử dụng tối thiểu là 1",
+        max: "Số lượt sử dụng tối đa là 1000"
+      },
+      date_start: {
+        required: "Không để trống thời gian bắt đầu!"
+      },
+      date_end: {
+        required: "Không để trống thời gian kết thúc!"
+      }
     }
   });
-
-  (function ($) {
 
     $.each($.validator.methods, function (key, value) {
         $.validator.methods[key] = function () {           
@@ -310,8 +265,7 @@ $( "#product-form" ).validate({
             }
             return value.apply(this, arguments);
         };
-    });
-} (jQuery));
+    }); ((jQuery));
 
 // auth admin
 $( "#form-login-admin" ).validate({
@@ -326,29 +280,29 @@ $( "#form-login-admin" ).validate({
    
   },
   messages: {
-      "email": {
+      email: {
           required: "Email không được để trống",
           email : "Định dạng email không đúng"
       },
-      "password": {
+      password: {
         required : "Password không được để trống"
       }
   }
 });
 
 $("#forgot-auth-admin").validate({
-  rules :{
-    email: {
-      required: true,
-      email: true
+    rules: {
+      email :{
+        required: true,
+        email: true
+      }
     },
-  messages: {
-    "email":{
-      required: "Email không được để trống",
-      email : "Định dạng email không đúng",
+    messages: {
+      email:{
+        required: "Email không được để trống",
+        email: "Email không đúng định dạng"
+      }
     }
-  }
-  }
 });
 
 $("#resetpass-admin").validate({
@@ -392,9 +346,6 @@ $("#form-adduser").validate({
     kichhoat:{
       required: true
     },
-    username:{
-      required: true
-    },
     password:{
       required: true
     },
@@ -407,33 +358,30 @@ $("#form-adduser").validate({
   },
 
   messages:{
-    "fullname": {
+    fullname: {
       required: "Tên của bạn không được bỏ trống"
     },
-    "address": {
+    address: {
       required: "Địa chỉ của bạn không được bỏ trống"
     },
-    "email": {
+    email: {
       required: "Email không được để trống",
       email : "Định dạng email không đúng"
     },
-    "phone":{
+    phone: {
       required: "Số điện thoại của bạn không được để trống",
       number: "Số điện thoại không đúng định dạng. Bạn hãy nhập bằng số"
     },
-    "kichhoat": {
+    kichhoat: {
       required: "Kích hoạt không được bỏ trống"
     },
-    "username": {
-      required: "Username của  bạn không được bỏ trống"
-    },
-    "password":{
+    password:{
       required: "Password của bạn không được bỏ trống"
     },
-    "image": {
+    image: {
       required: "Hình ảnh của bạn không được để trống"
     },
-    "role": {
+    role: {
       required: "Vai trò của bạn không được để trống"
     }
   }
@@ -458,9 +406,6 @@ $("#form-edit-user").validate({
     kichhoat:{
       required: true
     },
-    username:{
-      required: true
-    },
     password:{
       required: true
     },
@@ -470,30 +415,27 @@ $("#form-edit-user").validate({
   },
 
   messages:{
-    "fullname": {
+    fullname: {
       required: "Tên của bạn không được bỏ trống"
     },
-    "address": {
+    address: {
       required: "Địa chỉ của bạn không được bỏ trống"
     },
-    "email": {
+    email: {
       required: "Email không được để trống",
       email : "Định dạng email không đúng"
     },
-    "phone":{
+    phone:{
       required: "Số điện thoại của bạn không được để trống",
       number: "Số điện thoại không đúng định dạng. Bạn hãy nhập bằng số"
     },
-    "kichhoat": {
+    kichhoat: {
       required: "Kích hoạt không được bỏ trống"
     },
-    "username": {
-      required: "Username của  bạn không được bỏ trống"
-    },
-    "password":{
+    password:{
       required: "Password của bạn không được bỏ trống"
     },
-    "role": {
+    role: {
       required: "Vai trò của bạn không được để trống"
     }
   }
@@ -558,3 +500,36 @@ $("#form-edit-admin").validate({
     }
   }
 });
+      
+
+//   (function ($) {
+
+//     $.each($.validator.methods, function (key, value) {
+//         $.validator.methods[key] = function () {           
+//             if(arguments.length > 0) {
+//                 arguments[0] = $.trim(arguments[0]);
+//             }
+//             return value.apply(this, arguments);
+//         };
+//     });
+// } (jQuery));
+
+
+// $.validator.addMethod("validateCouponCode", function(value, element) {
+//   return this.optional(element) || /^[a-zA-Z0-9_]*$/i.test(value);
+//   // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số");   
+// }, "Mã coupon phải là chữ cái a - z, hoặc chữ hoa A - Z, hoặc ký tự số 0 - 9")
+
+
+// jQuery.validator.addMethod("greaterThanDate", 
+// function(value, element, params) {
+
+//     if (!/Invalid|NaN/.test(new Date(value))) {
+//         return new Date(value) > new Date($(params).val());
+//     }
+
+//     return isNaN(value) && isNaN($(params).val()) 
+//         || (Number(value) > Number($(params).val())); 
+// },'Phải lớn hơn hoặc bằng {0}.');
+
+// $("#date_end").rules('add', { greaterThanDate: "#date_start" });

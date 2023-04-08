@@ -20,8 +20,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Đơn hàng đặt thành công</p>
-                            <h4 class=""><?php echo count_all_orders() ?></h4>
+                            <p>Đơn hàng đã giao</p>
+                            <h4 class=""><?php echo count_all_orders_success() ?></h4>
                         </div>
                     </div>
                 </div>
@@ -31,9 +31,21 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
-                            <p>Đơn hàng đặt thất bại</p>
-                            <h4 class=""><?php echo count_all_orders() ?></h4>
+                        <div class="w-100">
+                            <p>Đơn hàng đã bị hủy</p>
+                            <h4 class=""><?php echo count_all_orders_being_destroyed() ?></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-100">
+                            <p>Đơn hàng giao thất bại</p>
+                            <h4 class=""><?php echo count_all_orders_failed() ?></h4>
                         </div>
                     </div>
                 </div>
@@ -44,8 +56,8 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
-                            <p>Số lượt xem</p>
+                        <div class="w-100">
+                            <p>Số lượt xem sp</p>
                             <h4 class=""><?php echo count_all_views() ?></h4>
                         </div>
                         <!-- <div class="w-50">
@@ -152,29 +164,33 @@
                 </div>
             </div>
         </div>
-        <!-- Total phản hồi -->
-        <!-- <div class="col">
+        <div class="col">
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Số người dùng</p>
-                            <h4 class="">25.8K</h4>
+                            <p>Lượt đánh giá sp</p>
+                            <h4 class=""><?php echo count_all_reviews_products() ?></h4>
                         </div>
+                        <!-- <div class="w-50">
+                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
+                            <div id="chart4"></div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
+        <!-- Total phản hồi -->
     </div>
     <div class="row">
         <div class="col-12 col-lg-6 d-flex">
             <div class="card rounded-4 w-100">
                 <div class="card-header bg-transparent border-0">
                     <div class="row g-3 align-items-center">
-                        <div class="col">
+                        <div class="col-10">
                             <h6 class="mb-0">Top Sold (Sản phẩm bán chạy )</h6>
                         </div>
-                        <div class="col">
+                        <div class="col-2">
                             <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
@@ -227,8 +243,14 @@ foreach ($top_sold_products as $product) {
     ';
 }
 ?>
-
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; height: 420px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 315px;"></div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -236,10 +258,10 @@ foreach ($top_sold_products as $product) {
             <div class="card rounded-4 w-100">
                 <div class="card-header bg-transparent border-0">
                     <div class="row g-3 align-items-center">
-                        <div class="col">
+                        <div class="col-10">
                             <h6 class="mb-0">Top Views (Sản phẩm được xem nhiều nhất )</h6>
                         </div>
-                        <div class="col">
+                        <div class="col-2">
                             <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
@@ -263,7 +285,7 @@ foreach ($top_sold_products as $product) {
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <div class="best-product p-2 mb-3 ps ps-active-y">
+                    <div class="best-product p-2 mb-3 ps ps--active-y">
                         <?php
 $top_views_products = select_top_view_products();
 
@@ -356,10 +378,10 @@ foreach ($top_views_products as $product) {
                 <div class="card rounded-4 w-100">
                     <div class="card-header bg-transparent border-0">
                         <div class="row g-3 align-items-center">
-                            <div class="col">
-                                <h6 class="mb-0">Top Views (Sản phẩm được xem nhiều nhất )</h6>
+                            <div class="col-10">
+                                <h6 class="mb-0">VIP members (Mua hàng nhiều nhất )</h6>
                             </div>
-                            <div class="col">
+                            <div class="col-2">
                                 <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
@@ -383,7 +405,146 @@ foreach ($top_views_products as $product) {
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <div class="best-product p-2 mb-3 ps ps-active-y">
+                        <div class="best-users p-2 mb-3 ps ps-active-y">
+                            <div class="table-responsive">
+                                <table class="table table-primary">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Tên/Hình ảnh</th>
+                                            <th scope="col">Tổng tiền đã mua</th>
+                                            <th scope="col">Tổng đơn hàng đã mua</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $vip_members = top_users_bought_products();?>
+                                        <?php foreach ($vip_members as $member): ?>
+                                        <tr class="">
+                                            <td scope="row">
+                                                <div class="user-box border">
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
+                                                        src="../uploads/<?php echo $member['hinh_anh'] ?>"
+                                                        alt="<?php echo $member['name'] ?>">
+                                                    <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td><?php echo $member['tongtienmuahang'] ?></td>
+                                            <td><?php echo $member['sodonhang'] ?></td>
+                                        </tr>
+
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- <div class="best-user-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="user-box border">
+                                        <img style="width: 100px; height: 100px;"
+                                            src="../uploads/<?php echo $member['hinh_anh'] ?>"
+                                            alt="<?php echo $member['name'] ?>">
+                                        <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?></p>
+                                    </div>
+                                    <div class="user-info flex-grow-1">
+                                        <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['tongtienmuahang'] ?>
+                                            <span class="float-end"><?php echo $member['sodonhang'] ?></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; height: 420px; right: 0px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 253px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-lg-6 d-flex">
+                <div class="card rounded-4 w-100">
+                    <div class="card-header bg-transparent border-0">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-10">
+                                <h6 class="mb-0">BOM members (BOM hàng nhiều nhất)</h6>
+                            </div>
+                            <div class="col-2">
+                                <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
+                                            data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                class="bx bx-dots-horizontal-rounded font-22 text-option"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="javascript:;">Action</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:;">Another action</a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="javascript:;">Something else here</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="best-users p-2 mb-3 ps ps-active-y">
+                            <div class="table-responsive">
+                                <table class="table table-danger">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Tên/Hình ảnh</th>
+                                            <th scope="col">Giao hàng thất bại</th>
+                                            <!-- <th scope="col">Tổng đơn hàng đã mua</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $bom_members = top_bom_users_bought_products();?>
+                                        <?php foreach ($bom_members as $member): ?>
+                                        <tr class="">
+                                            <td scope="row">
+                                                <div class="user-box border">
+                                                    <img style="width: 100px; height: 100px; object-fit: cover;"
+                                                        src="../uploads/<?php echo $member['hinh_anh'] ?>"
+                                                        alt="<?php echo $member['name'] ?>">
+                                                    <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td><?php echo $member['so_lan_bom_hang'] ?></td>
+                                        </tr>
+
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- <div class="best-user-item">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="user-box border">
+                                        <img style="width: 100px; height: 100px;"
+                                            src="../uploads/<?php echo $member['hinh_anh'] ?>"
+                                            alt="<?php echo $member['name'] ?>">
+                                        <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['name'] ?></p>
+                                    </div>
+                                    <div class="user-info flex-grow-1">
+                                        <p class="user-name mb-0 mt-2 fs-6"><?php echo $member['tongtienmuahang'] ?>
+                                            <span class="float-end"><?php echo $member['sodonhang'] ?></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
 
                         </div>
                         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -405,17 +566,21 @@ foreach ($top_views_products as $product) {
                 <div class="card radius-10 w-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <h6 class="mb-0">Doanh thu theo tháng (Năm 2023 )</h6>
+                            <h6 class="mb-0">Doanh thu theo tháng (Năm <span class="report-year-selected">2023</span> )
+                            </h6>
                             <div class="fs-5 ms-auto dropdown">
                                 <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
                                     data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item change-year-sale-report" data-year="2022"
+                                            href="javascript:changeYearSaleReport()">Năm
+                                            2022</a></li>
+                                    <li><a class="dropdown-item change-year-sale-report" data-year="2023"
+                                            href="javascript:changeYearSaleReport()">Năm
+                                            2023</a></li>
+                                    <li><a class="dropdown-item change-year-sale-report" data-year="2024"
+                                            href="javascript:changeYearSaleReport()">Năm
+                                            2024</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -426,18 +591,69 @@ foreach ($top_views_products as $product) {
         </div>
         <!--end row-->
 
-        <h6 class="mb-0 text-uppercase">Doanh thu theo tuần (Năm 2023 )</h6>
-        <hr />
+        <!-- <h6 class="mb-0 text-uppercase">Doanh thu theo tuần (Năm 2023 )</h6>
+        <hr /> -->
         <div class="card">
             <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h6 class="mb-0">Doanh thu theo tuần (Năm <span class="report-year-selected">2023</span> )
+                    </h6>
+                    <div class="fs-5 ms-auto dropdown">
+                        <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item change-year-sale-report" data-year="2022" href="#">Năm
+                                    2022</a></li>
+                            <li><a class="dropdown-item change-year-sale-report" data-year="2023" href="#">Năm
+                                    2023</a></li>
+                            <li><a class="dropdown-item change-year-sale-report" data-year="2024" href="#">Năm
+                                    2024</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="totalOrderByWeeks"></div>
             </div>
         </div>
 
-        <h6 class="mb-0 text-uppercase">Doanh thu theo ngày (Tháng 3/ Năm 2023 )</h6>
-        <hr />
+        <!-- <h6 class="mb-0 text-uppercase">Doanh thu theo ngày (Tháng 3/ Năm 2023 )</h6>
+        <hr /> -->
         <div class="card">
             <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <h6 class="mb-0">Doanh thu theo ngày (Tháng <span class="report-month-selected">3</span>/Năm <span
+                            class="report-year-selected">2023</span> )
+                    </h6>
+                    <div class="fs-5 ms-auto dropdown">
+                        <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots"></i></div>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="1" href="#">Tháng
+                                    1</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="2" href="#">Tháng
+                                    2</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="3" href="#">Tháng
+                                    3</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="4" href="#">Tháng
+                                    4</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="5" href="#">Tháng
+                                    5</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="6" href="#">Tháng
+                                    6</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="7" href="#">Tháng
+                                    7</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="8" href="#">Tháng
+                                    8</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="9" href="#">Tháng
+                                    9</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="10" href="#">Tháng
+                                    10</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="11" href="#">Tháng
+                                    11</a></li>
+                            <li><a class="dropdown-item change-month-sale-selected" data-month="12" href="#">Tháng
+                                    12</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <div id="totalOrderByDays"></div>
             </div>
         </div>
@@ -450,172 +666,67 @@ foreach ($top_views_products as $product) {
             </div>
         </div>
 
-        <!-- <div class="row">
-        <div class="col-12 col-lg-6 col-xl-4 d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Traffic Source</h6>
-                        <div class="fs-5 ms-auto dropdown">
-                            <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="chart7" class=""></div>
-                    <div class="traffic-widget">
-                        <div class="progress-wrapper mb-3">
-                            <p class="mb-1">Social <span class="float-end">8,475</span></p>
-                            <div class="progress rounded-0" style="height: 8px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-wrapper mb-3">
-                            <p class="mb-1">Direct <span class="float-end">7,989</span></p>
-                            <div class="progress rounded-0" style="height: 8px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 65%;"></div>
-                            </div>
-                        </div>
-                        <div class="progress-wrapper mb-0">
-                            <p class="mb-1">Search <span class="float-end">6,359</span></p>
-                            <div class="progress rounded-0" style="height: 8px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 50%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6 col-xl-4 d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="card radius-10 border shadow-none mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="">
-                                    <p class="mb-1">Messages</p>
-                                    <h4 class="mb-0 text-primary">289</h4>
-                                </div>
-                                <div class="dropdown ms-auto">
-                                    <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                        data-bs-toggle="dropdown"><i class="bi bi-three-dots fs-4"></i>
-                                    </div>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="chart8"></div>
-                        </div>
-                    </div>
-                    <div class="card radius-10 border shadow-none mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="">
-                                    <p class="mb-1">Total Posts</p>
-                                    <h4 class="mb-0 text-primary">489</h4>
-                                </div>
-                                <div class="dropdown ms-auto">
-                                    <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                        data-bs-toggle="dropdown"><i class="bi bi-three-dots fs-4"></i>
-                                    </div>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="chart9"></div>
-                        </div>
-                    </div>
-                    <div class="card radius-10 border shadow-none mb-0">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="">
-                                    <p class="mb-1">New Tasks</p>
-                                    <h4 class="mb-0 text-primary">149</h4>
-                                </div>
-                                <div class="dropdown ms-auto">
-                                    <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                        data-bs-toggle="dropdown"><i class="bi bi-three-dots fs-4"></i>
-                                    </div>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div id="chart10"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-12 col-xl-4 d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Visitors</h6>
-                        <div class="fs-5 ms-auto dropdown">
-                            <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="chart11" class=""></div>
-                    <div class="d-flex align-items-center gap-5 justify-content-center mt-3 p-2 radius-10 border">
-                        <div class="text-center">
-                            <h3 class="mb-2 text-primary">8,546</h3>
-                            <p class="mb-0">New Visitors</p>
-                        </div>
-                        <div class="border-end sepration"></div>
-                        <div class="text-center">
-                            <h3 class="mb-2 text-primary-2">3,723</h3>
-                            <p class="mb-0">Old Visitors</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
         <!--end row-->
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="table-responsive mt-2">
+                            <table class="table align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Danh mục</th>
+                                        <th>SL sản phẩm</th>
+                                        <th>Giá cao nhất</th>
+                                        <th>Giá thấp nhất</th>
+                                        <th>Giá trung bình</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+$sum_sl = 0;
+$report_products_by_cates = report_products_by_cates();
+?>
+                                    <?php foreach ($report_products_by_cates as $item): ?>
+                                    <?php $sum_sl += $item['so_luong']?>
+                                    <tr>
+                                        <td>#<?php echo $item['madm'] ?></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="product-box border">
+                                                    <img src="../uploads/<?php echo $item['hinh_anh'] ?>"
+                                                        alt="<?php echo $item['tendm'] ?>">
+                                                </div>
+                                                <div class="product-info">
+                                                    <a href=""
+                                                        class="product-name mb-1"><?php echo $item['tendm'] ?></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $item['so_luong'] ?></td>
+                                        <td><?php echo $item['max'] ?></td>
+                                        <td><?php echo $item['min'] ?></td>
+                                        <td><?php echo $item['avg'] ?></td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-3 fs-6">
+                                                <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title=""
+                                                    data-bs-original-title="View detail" aria-label="Views"><i
+                                                        class="bi bi-eye-fill"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                    <tr>Tổng số lượng sp: <?php echo $sum_sl ?></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-12 col-lg-12 col-xl-12 d-flex">
@@ -887,8 +998,6 @@ foreach ($top_views_products as $product) {
         </div> -->
         </div>
         <!--end row-->
-
-
 
 </main>
 <!--end page main-->

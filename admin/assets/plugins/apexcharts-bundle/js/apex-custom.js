@@ -1,3 +1,4 @@
+
 $(function () {
 	"use strict";
 	// chart 1
@@ -136,9 +137,9 @@ $(function () {
 			offsetY: -20
 		}
 	}
-var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
+
+	var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 	chartLine.render();
-	
 	
 	// chart 3
 	var options = {
@@ -252,7 +253,8 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 
 	// chart totalOrderByWeeks
 
-	const arrayNumberWeeksOfYear = [];
+	function drawReportWeekOfYears(year) {
+		const arrayNumberWeeksOfYear = [];
 
 	for (let i = 1; i <= 52; i++) {
 		// const element = array[i];
@@ -261,12 +263,17 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 	}
 
 	// console.log('arrayNumberWeeksOfYear', arrayNumberWeeksOfYear);
+
 	const arrayNumberDaysOfMonth = [];
 
 	$.ajax({
 		type: "POST",
 		url: "./logic/revenue.php?act=allweeks",
-		data: "data",
+		
+		data: {
+			year: year
+		},
+
 		// dataType: "dataType",
 		success: function (response) {
 				const {result} = JSON.parse(response);
@@ -275,18 +282,10 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 				// Render total orders by weeks here
 				var options = {
 					series: [
-					// 	{
-					// 	name: 'Net Profit',
-					// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-					// }, 
 					{
 						name: 'Revenue',
 						data: result
 					},
-					//  {
-					// 	name: 'Free Cash Flow',
-					// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-					// }
 				],
 					chart: {
 						foreColor: '#9ba7b2',
@@ -337,90 +336,91 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 				};
 				var chart = new ApexCharts(document.querySelector("#totalOrderByWeeks"), options);
 				chart.render();
-				
 		}	
 	});
+	}
 
-
-	$.ajax({
-		type: "POST",
-		url: "./logic/revenue.php?act=alldaysofmonth",
-		data: {
-			month: 3
-		},
-		// dataType: "dataType",
-		success: function (response) {
-				const {days, result} = JSON.parse(response);
-				
-				var options = {
-					series: [
-					// 	{
-					// 	name: 'Net Profit',
-					// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-					// }, 
-					{
-						name: 'Revenue',
-						data: result
-					},
-					//  {
-					// 	name: 'Free Cash Flow',
-					// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-					// }
-					],
-					chart: {
-						foreColor: '#9ba7b2',
-						type: 'bar',
-						height: 360
-					},
-					plotOptions: {
-						bar: {
-							horizontal: false,
-							columnWidth: '30%',
-							endingShape: 'rounded'
+	function drawReportDayOfMonthOfYear(month, year) {
+		$.ajax({
+			type: "POST",
+			url: "./logic/revenue.php?act=alldaysofmonth",
+			data: {
+				month: month,
+				year: year
+			},
+			success: function (response) {
+					const {days, result} = JSON.parse(response);
+					
+					var options = {
+						series: [
+						// 	{
+						// 	name: 'Net Profit',
+						// 	data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+						// }, 
+						{
+							name: 'Revenue',
+							data: result
 						},
-					},
-					dataLabels: {
-						enabled: false
-					},
-					stroke: {
-						show: true,
-						width: 1,
-						colors: ['transparent']
-					},
-					title: {
-						text: 'Column Chart',
-						align: 'left',
-						style: {
-							fontSize: '10'
-						}
-					},
-					colors: ["#6184ff", '#3461ff', '#c4d1ff'],
-					xaxis: {
-						categories: days,
-					},
-					yaxis: {
+						//  {
+						// 	name: 'Free Cash Flow',
+						// 	data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+						// }
+						],
+						chart: {
+							foreColor: '#9ba7b2',
+							type: 'bar',
+							height: 360
+						},
+						plotOptions: {
+							bar: {
+								horizontal: false,
+								columnWidth: '30%',
+								endingShape: 'rounded'
+							},
+						},
+						dataLabels: {
+							enabled: false
+						},
+						stroke: {
+							show: true,
+							width: 1,
+							colors: ['transparent']
+						},
 						title: {
-							text: '(VND)'
-						}
-					},
-					fill: {
-						opacity: 1
-					},
-					tooltip: {
-						y: {
-							formatter: function (val) {
-								return val + " VND"
+							text: 'Column Chart',
+							align: 'left',
+							style: {
+								fontSize: '10'
+							}
+						},
+						colors: ["#6184ff", '#3461ff', '#c4d1ff'],
+						xaxis: {
+							categories: days,
+						},
+						yaxis: {
+							title: {
+								text: '(VND)'
+							}
+						},
+						fill: {
+							opacity: 1
+						},
+						tooltip: {
+							y: {
+								formatter: function (val) {
+									return val + " VND"
+								}
 							}
 						}
-					}
-				};
-					// chart totalOrderByDays
-				var chart = new ApexCharts(document.querySelector("#totalOrderByDays"), options);
-				chart.render();
-		}
-	});
-
-	
+					};
+						// chart totalOrderByDays
+					var chart = new ApexCharts(document.querySelector("#totalOrderByDays"), options);
+					chart.render();
+			}
+		});
+	}
+	// drawReportWeekOfYears(2023);
+	// drawReportDayOfMonthOfYear(3, 2023);
 	
 	// chart 5
 	var options = {
@@ -622,11 +622,10 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 		// dataType: "dataType",
 		success: function (response) {
 			const reportProduct = JSON.parse(response);
-			console.log('report: ', reportProduct);
+			// console.log('report: ', reportProduct);
 			const cateNames = reportProduct.map((report) => report['ten_danhmuc']);
 			const numberProductsOfCate = reportProduct.map((report) => +report['sl_sp']);
-
-			console.log('list', cateNames, numberProductsOfCate);
+			// console.log('list', cateNames, numberProductsOfCate);
 			var options = {
 				series: numberProductsOfCate,
 				chart: {
@@ -654,200 +653,6 @@ var chartLine = new ApexCharts(document.querySelector('#chart2'), optionsLine);
 	});
 	
 	
-	
-	// chart 9
-	var options = {
-		series: [44, 55, 41, 17, 15],
-		chart: {
-			foreColor: '#9ba7b2',
-			height: 380,
-			type: 'donut',
-		},
-		colors: ["#0d6efd", "#212529", "#17a00e", "#f41127", "#ffc107"],
-		responsive: [{
-			breakpoint: 480,
-			options: {
-				chart: {
-					height: 320
-				},
-				legend: {
-					position: 'bottom'
-				}
-			}
-		}]
-	};
-	var chart = new ApexCharts(document.querySelector("#chart9"), options);
-	chart.render();
-	
-	
-	// chart 10
-	var options = {
-		series: [{
-			name: 'Series 1',
-			data: [80, 50, 30, 40, 100, 20],
-		}, {
-			name: 'Series 2',
-			data: [20, 30, 40, 80, 20, 80],
-		}, {
-			name: 'Series 3',
-			data: [44, 76, 78, 13, 43, 10],
-		}],
-		chart: {
-			foreColor: '#9ba7b2',
-			height: 350,
-			type: 'radar',
-			dropShadow: {
-				enabled: true,
-				blur: 1,
-				left: 1,
-				top: 1
-			}
-		},
-		colors: ["#0d6efd", "#212529", "#17a00e"],
-		title: {
-			text: 'Radar Chart - Multi Series'
-		},
-		stroke: {
-			width: 2
-		},
-		fill: {
-			opacity: 0.1
-		},
-		markers: {
-			size: 0
-		},
-		xaxis: {
-			categories: ['2011', '2012', '2013', '2014', '2015', '2016']
-		}
-	};
-	var chart = new ApexCharts(document.querySelector("#chart10"), options);
-	chart.render();
-	
-	
-	// chart 11
-	var options = {
-		series: [{
-			name: 'Series 1',
-			data: [20, 100, 40, 30, 50, 80, 33],
-		}],
-		chart: {
-			foreColor: '#9ba7b2',
-			height: 350,
-			type: 'radar',
-		},
-		dataLabels: {
-			enabled: true
-		},
-		plotOptions: {
-			radar: {
-				size: 140,
-				polygons: {
-					strokeColors: '#e9e9e9',
-					fill: {
-						colors: ['#f8f8f8', '#fff']
-					}
-				}
-			}
-		},
-		title: {
-			text: 'Radar with Polygon Fill'
-		},
-		colors: ["#0d6efd"],
-		markers: {
-			size: 4,
-			colors: ['#fff'],
-			strokeColor: '#FF4560',
-			strokeWidth: 2,
-		},
-		tooltip: {
-			y: {
-				formatter: function (val) {
-					return val
-				}
-			}
-		},
-		xaxis: {
-			categories: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-		},
-		yaxis: {
-			tickAmount: 7,
-			labels: {
-				formatter: function (val, i) {
-					if (i % 2 === 0) {
-						return val
-					} else {
-						return ''
-					}
-				}
-			}
-		}
-	};
-	var chart = new ApexCharts(document.querySelector("#chart11"), options);
-	chart.render();
-	
-	
-	
-	// chart 12
-	
-	var options = {
-          series: [70],
-          chart: {
-			  foreColor: '#9ba7b2',
-          height: 350,
-          type: 'radialBar',
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '70%',
-            }
-          },
-        },
-        labels: ['Cricket'],
-        };
 
-        var chart = new ApexCharts(document.querySelector("#chart12"), options);
-        chart.render();
-		
-		
-		
-	// chart 13
-	
-	var options = {
-          series: [44, 55, 67, 83],
-          chart: {
-			  foreColor: '#9ba7b2',
-          height: 350,
-          type: 'radialBar',
-        },
-        plotOptions: {
-          radialBar: {
-            dataLabels: {
-              name: {
-                fontSize: '22px',
-              },
-              value: {
-                fontSize: '16px',
-              },
-              total: {
-                show: true,
-                label: 'Total',
-                formatter: function (w) {
-                  // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                  return 249
-                }
-              }
-            }
-          }
-        },
-		colors: ["#0d6efd", "#17a00e", "#f41127", "#ffc107"],
-        labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
-        };
-
-        var chart = new ApexCharts(document.querySelector("#chart13"), options);
-        chart.render();
-		
-		
-	
 	
 });

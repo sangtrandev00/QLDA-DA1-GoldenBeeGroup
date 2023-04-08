@@ -5,11 +5,13 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
+var_dump($_SESSION);
 ?>
 <?php
 
-$error = array();
+
 if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
+    $error = array();
     $code = $_POST['code'];
 
     if (empty($code)) {
@@ -55,7 +57,7 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
         .bg-guii:hover{
             background-color: #ff7f00;
         }
-        .error-message-veryfi{
+        .error-message-verify{
             color: red;
             font-weight: 500;
             margin-top: 5px;
@@ -92,7 +94,7 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code" required>
-                                                    <p class="error-message-veryfi"><?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
+                                                    <p class="error-message-verify"><?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">

@@ -115,11 +115,12 @@
     opacity: 1;
 }
 
-.fanpage-facebook{
+.fanpage-facebook {
     margin-top: 15px;
 }
-.footer-brief{
-    margin-bottom: 10px;   
+
+.footer-brief {
+    margin-bottom: 10px;
 }
 </style>
 
@@ -370,7 +371,6 @@
                                     <p>Số điện thoại: 0937988510 </p>
                                 </div>
 
-                                
                                 <ul class="footer-social">
                                     <li>
                                         <a class="facebook"
@@ -388,7 +388,11 @@
                                         <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                     </li>
                                 </ul>
-                                <iframe class="fanpage-facebook" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100091145059135&tabs&width=300px&height=200px&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=603944711072413" width="300px" height="200px" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                <iframe class="fanpage-facebook"
+                                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100091145059135&tabs&width=300px&height=200px&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=603944711072413"
+                                    width="300px" height="200px" style="border:none;overflow:hidden" scrolling="no"
+                                    frameborder="0" allowfullscreen="true"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
                         </div>
                         <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">
@@ -427,7 +431,7 @@
                                 <h4 class="footer-title border-left">Tài khoản</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="./index.php?act=myaccount"><i class="zmdi zmdi-circle"></i><span>Tài
+                                        <a href="./index.php?act=my-account"><i class="zmdi zmdi-circle"></i><span>Tài
                                                 khoản của
                                                 tôi</span></a>
                                     </li>
@@ -463,7 +467,9 @@
                                     <form action="#">
                                         <input type="text" name="name" placeholder="Tên của bạn ...">
                                         <input type="text" name="email" placeholder="Email của bạn ...">
-                                        <textarea class="height-80" name="message"
+                                        <input type="text" name="phone" placeholder="Điện của bạn ...">
+                                        <input type="text" name="title" placeholder="Chủ đề">
+                                        <textarea name="content" class="height-80" name="message"
                                             placeholder="Để lại lời nhắn ở đây..."></textarea>
                                         <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi tin
                                             nhắn</button>
@@ -533,9 +539,21 @@
 <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="assets/js/table-datatable.js"></script>
 
+<!-- Jquery validation -->
+<script src="assets/js/jquery.validate.min.js">
+
+</script>
+
+<script src="assets/js/additional-methods.min.js"></script>
+
+</script>
+
+<script src="assets/js/validate.js">
+
+</script>
+
 <!-- Custom config javascript -->
 <script src="assets/js/config.js"></script>
-<script src="assets/js/validate.js"></script>
 <script src="assets/js/pages/account.js"></script>
 <script src="assets/js/pages/checkout.js"></script>
 <script>

@@ -86,6 +86,51 @@ function product_select_by_name($tensp)
 
 }
 
+function select_all_reviews_product()
+{
+    $sql = "SELECT * FROM tbl_danhgiasp";
+    return pdo_query($sql);
+}
+
+function is_replied_review($id_review)
+{
+    $sql = "SELECT count(*) from tbl_reply_reviews where id_review = ?";
+    return pdo_query_value($sql, $id_review);
+}
+
+function select_id_replied_review($id_review)
+{
+    $sql = "select id_reply from tbl_reply_reviews where id_review = ?";
+    return pdo_query_one($sql, $id_review);
+}
+
+function insert_reply_review($id_user, $id_review, $content, $date_modified)
+{
+    $sql = "INSERT INTO tbl_reply_reviews (id_user, id_review, content, date_modified) values(?,?,?,?)";
+    pdo_execute($sql, $id_user, $id_review, $content, $date_modified);
+    return true;
+}
+
+function select_reply_review_by_id($id_reply)
+{
+
+    $sql = "SELECT * from tbl_reply_reviews where id_reply = ?";
+    return pdo_query_one($sql, $id_reply);
+}
+
+function update_reply_review($id_reply, $id_user, $id_review, $content, $date_modified)
+{
+    $sql = "UPDATE tbl_reply_reviews SET id_user = ?, id_review = ?, content = ?, date_modified = ? where id_reply = ?";
+    pdo_execute($sql, $id_user, $id_review, $content, $date_modified, $id_reply);
+    return true;
+}
+
+function reply_review_select_by_idreview($id_review)
+{
+    $sql = "SELECT * from tbl_reply_reviews rep inner join tbl_nguoidung ng where rep.id_user = ng.id and id_review = ?";
+    return pdo_query_one($sql, $id_review);
+}
+
 // function product_select_by_date($date_value)
 // {
 //     $sql = "SELECT *, CAST(ngay_nhap AS DATE) from tbl_sanpham where CAST(ngay_nhap AS DATE) = '?'";

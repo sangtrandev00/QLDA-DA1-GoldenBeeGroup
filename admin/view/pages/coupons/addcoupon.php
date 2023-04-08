@@ -7,7 +7,7 @@
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
         <a href="#" class="btn btn-primary">Go somewhere</a> -->
 
-        <form action="./index.php?act=addcoupon" method="post">
+        <form id="add-coupon-form" action="./index.php?act=addcoupon" method="post">
             <div class="mb-3 row">
                 <label for="" class="form-label col-4">Tên mã giảm giá</label>
                 <div class="col-8">
@@ -43,27 +43,26 @@
             <div class="mb-3 row">
                 <label for="" class="form-label col-4">Thời gian bắt đầu</label>
                 <div class="col-8">
-                    <input type="datetime-local" class="form-control" name="date_start" id="" aria-describedby="helpId"
-                        placeholder="">
+                    <input type="datetime-local" class="form-control" name="date_start" id="date_start"
+                        aria-describedby="helpId" placeholder="">
                     <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="" class="form-label col-4">Thời gian Kết thúc</label>
                 <div class="col-8">
-                    <input type="datetime-local" class="form-control" name="date_end" id="" aria-describedby="helpId"
-                        placeholder="">
+                    <input type="datetime-local" class="form-control" name="date_end" id="date_end"
+                        aria-describedby="helpId" placeholder="">
                     <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                 </div>
             </div>
-            <div class="mb-3 row">
+            <!-- <div class="mb-3 row">
                 <label for="" class="form-label col-4">Ghi chú của bạn</label>
                 <div class="col-8">
                     <textarea placeholder="Ghi chú của bạn" rows="4" cols="" class="col-8 form-control">
                     </textarea>
                 </div>
-                <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
-            </div>
+            </div> -->
             <div class="mb-3">
                 <input class="btn btn-primary" name="create_coupon_btn" type="submit" value="Tạo mã giảm giá">
             </div>
