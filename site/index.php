@@ -1033,7 +1033,7 @@ if (isset($_GET['act'])) {
                     // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: index.php?act=blogdetail&id=' . $idblog . '');
+                    header('location: http://localhost/PRO1014_DA1/main-project/site/auth/login.php');
                 }
             }
             include "./view/pages/blog/blog-detail.php";

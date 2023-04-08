@@ -9,8 +9,8 @@ if (isset($thongbao) && ($thongbao != "")) {
 if (isset($thongbaodelete) && ($thongbaodelete != "")) {
     echo '<div class="alert alert-primary" role="alert">' . $thongbaodelete . '</div>';
 }
-if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
-    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdatecateblog . '</div>';
+if (isset($thongbaoupdate) && ($thongbaoupdate != "")) {
+    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdate . '</div>';
 }
 
 ?>
@@ -65,7 +65,7 @@ if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
 $cate_list = blog_cate_select_all();
 foreach ($cate_list as $cate_item) {
     $xoablog = "index.php?act=deletecateblog&id=" . $cate_item['id'];
-    $suablog = "index.php?act=editcateblog&id=" . $cate_item['id'];
+    $suablog = "index.php?act=updatecateblog&id=" . $cate_item['id'];
     $viewcateblog = "index.php?act=viewcateblog&id=" . $cate_item['id'];
     echo '
                                             <tr>

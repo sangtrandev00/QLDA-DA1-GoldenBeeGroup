@@ -927,13 +927,14 @@ if (isset($_SESSION['iduser'])) {
                 }
                 include './view/pages/blogs/blog-list.php';
                 break;
-            case 'editblog':
-                if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
-                    $blog = loadone_blog($_GET['id']);
-                }
-                include './view/pages/blogs/edit-blog.php';
-                break;
+            // case 'editblog':
+            //     if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
+            //         $blog = loadone_blog($_GET['id']);
+            //     }
+            //     include './view/pages/blogs/edit-blog.php';
+            //     break;
             case 'updateblog':
+                $error = array();
                 if (isset($_POST['update']) && ($_POST['update'])) {
                     $id = $_POST['id'];
                     $title = $_POST['title'];
@@ -941,14 +942,32 @@ if (isset($_SESSION['iduser'])) {
                     $hinh = $_FILES['hinh']['name'];
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
+                    if (strlen($title) == 0) {
+                        $error['title'] = "Không để trống tiêu đề!";
                     }
-                    updateblog($id, $title, $hinh, $noidung);
-
-                    $thongbaoupdate = "Đã Cập Nhật Bài Viết " . $id . " Thành Công";
+                    if (strlen($noidung) == 0) {
+                        $error['noidung'] = "Không để trống nội dung!";
+                    }  
+                    // print_r($error) ;             
+                    if (!$error) {
+                        $is_inserted = updateblog($id, $title, $hinh, $noidung);
+                        $thongbaoupdate = "Cập Nhật Bài Viết Thành Công";
+                        // if ($is_inserted) {
+                        //     $thongbaoupdate = "Thêm Bài Viết Thành Công";
+                        //     // header('location: index.php?act=bloglist');
+                        // }
+                        include './view/pages/blogs/blog-list.php';
+                        break;
+                    }
+                    else {
+                        $thongbaoupdate = "Cập Nhật Bài Viết Thất Bại";
+                        // header('location: index.php?act=updateblog&id='.$id.'');
+                        
+                    }
 
                 }
-                include './view/pages/blogs/blog-list.php';
+                include './view/pages/blogs/edit-blog.php';
                 break;
             case 'blogcate':
                 include "./view/pages/blogs/blog-cate.php";
@@ -991,27 +1010,49 @@ if (isset($_SESSION['iduser'])) {
                 }
                 include './view/pages/blogs/blog-cate.php';
                 break;
-            case 'editcateblog':
-                if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
-                    $cateblog = loadone_cateblog($_GET['id']);
-                }
-                include './view/pages/blogs/edit-cateblog.php';
-                break;
+            // case 'editcateblog':
+            //     if (isset($_GET['id']) && (isset($_GET['id']) > 0)) {
+            //         $cateblog = loadone_cateblog($_GET['id']);
+            //     }
+            //     include './view/pages/blogs/edit-cateblog.php';
+            //     break;
             case 'updatecateblog':
+                $error = array();
                 if (isset($_POST['updatecate']) && ($_POST['updatecate'])) {
                     $id = $_POST['id'];
                     $catename = $_POST['catename'];
                     $hinh = $_FILES['hinh']['name'];
                     $target_dir = "../uploads/";
                     $target_file = $target_dir . basename($_FILES["hinh"]["name"]);
-                    if (move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file)) {
-                    }
-                    update_cateblog($id, $catename, $hinh);
+                    move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file);
 
-                    $thongbaoupdatecateblog = "Đã Cập Nhật Danh Mục Bài Viết " . $id . " Thành Công";
+                    if (strlen($catename) == 0) {
+                        $error['catename'] = "Không để trống tiêu đề!";
+                    }
+                    // print_r($error);
+                    if (!$error) {
+                        
+                        $thongbaoupdate = "Cập Nhật Danh Mục Bài Viết Thành Công";
+                        $is_inserted = update_cateblog($id,$catename,$hinh);
+                        // if ($is_inserted) {
+                        //     $is_inserted = update_cateblog($id,$catename,$hinh);
+                        //     $thongbaoupdate = "Thêm Bài Viết Thành Công";
+                        //     // header('location: index.php?act=bloglist');
+                        // }
+                        include './view/pages/blogs/blog-cate.php';
+                        break;
+                    }
+                    else {
+                        $thongbaoupdate = "Cập Nhật Danh Mục Bài Viết Thất Bại";
+                        // header('location: index.php?act=updateblog&id='.$id.'');
+                        
+                    }
+                    // update_cateblog($id, $catename, $hinh);
+
+                    // $thongbaoupdatecateblog = "Đã Cập Nhật Danh Mục Bài Viết " . $id . " Thành Công";
 
                 }
-                include './view/pages/blogs/blog-cate.php';
+                include './view/pages/blogs/edit-cateblog.php';
                 break;
             case 'binhluanblog':
                 include './view/pages/blogs/comment-blog.php';
