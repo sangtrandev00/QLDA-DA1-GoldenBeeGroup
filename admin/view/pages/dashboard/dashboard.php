@@ -20,8 +20,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
-                            <p>Đơn hàng đặt thành công</p>
-                            <h4 class=""><?php echo count_all_orders() ?></h4>
+                            <p>Đơn hàng đã giao</p>
+                            <h4 class=""><?php echo count_all_orders_success() ?></h4>
                         </div>
                     </div>
                 </div>
@@ -31,9 +31,21 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
-                            <p>Đơn hàng đặt thất bại</p>
-                            <h4 class=""><?php echo count_all_orders() ?></h4>
+                        <div class="w-100">
+                            <p>Đơn hàng đã bị hủy</p>
+                            <h4 class=""><?php echo count_all_orders_being_destroyed() ?></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-100">
+                            <p>Đơn hàng giao thất bại</p>
+                            <h4 class=""><?php echo count_all_orders_failed() ?></h4>
                         </div>
                     </div>
                 </div>
@@ -236,10 +248,10 @@ foreach ($top_sold_products as $product) {
             <div class="card rounded-4 w-100">
                 <div class="card-header bg-transparent border-0">
                     <div class="row g-3 align-items-center">
-                        <div class="col">
+                        <div class="col-10">
                             <h6 class="mb-0">Top Views (Sản phẩm được xem nhiều nhất )</h6>
                         </div>
-                        <div class="col">
+                        <div class="col-2">
                             <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
@@ -356,10 +368,10 @@ foreach ($top_views_products as $product) {
                 <div class="card rounded-4 w-100">
                     <div class="card-header bg-transparent border-0">
                         <div class="row g-3 align-items-center">
-                            <div class="col">
-                                <h6 class="mb-0">Top Views (Sản phẩm được xem nhiều nhất )</h6>
+                            <div class="col-10">
+                                <h6 class="mb-0">VIP members (Mua hàng nhiều nhất )</h6>
                             </div>
-                            <div class="col">
+                            <div class="col-2">
                                 <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle dropdown-toggle-nocaret" href="#"
@@ -405,17 +417,17 @@ foreach ($top_views_products as $product) {
                 <div class="card radius-10 w-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
-                            <h6 class="mb-0">Doanh thu theo tháng (Năm 2023 )</h6>
+                            <h6 class="mb-0">Doanh thu theo tháng (Năm <span id="#reportsalebymonth-year"></span> )</h6>
                             <div class="fs-5 ms-auto dropdown">
                                 <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
                                     data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></div>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
+                                    <li><a class="dropdown-item" href="#">Năm 2022</a></li>
+                                    <li><a class="dropdown-item" href="#">Năm 2023</a></li>
+                                    <!-- <li>
                                         <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </li> -->
+                                    <li><a class="dropdown-item" href="#">Năm 2024</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -30,6 +30,8 @@ foreach ($product_list as $product_item) {
 
     $image_list = explode(",", $product_item['images']);
     $thumbnail = getthumbnail($image_list);
+    $price_item = $product_item['don_gia'] * (1 - $product_item['giam_gia'] / 100);
+
     # code...
     $row = array();
     $row[0] = $product_item['masanpham'];

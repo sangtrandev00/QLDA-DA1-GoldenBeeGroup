@@ -321,6 +321,63 @@ $( "#product-form" ).validate({
     }
   });
 
+  $("#add-coupon-form").validate({
+    rules: {
+      coupon_name: {
+        required: true,
+        validateCouponCode: true
+      },
+      coupon_discount: {
+        required: true,
+        min: 0,
+        max: 100
+      },
+      min_value: {
+        required: true,
+        min: 1000000
+      },
+      maximum_use: {
+        required: true,
+        min: 1,
+        max: 1000,
+      },
+      date_start: {
+        required: true
+
+      },
+      date_end: {
+        required: true,
+        greaterThanDate: "#date_start"
+      }
+    },
+
+    messages: {
+      coupon_name: {
+        required: "Không để trống mã giảm giá!",
+      },
+      coupon_discount: {
+        required: "Không để trống phần trăm giảm giá!",
+        min: "Phằm trăm tối thiểu là 0",
+        max: "Phần trăm tối đa là 100"
+      },
+      min_value: {
+        required: "Không để trống đơn hàng tối thiểu!",
+        min: "Đơn hàng tối thiểu phải ít nhất là 1000000 VND"
+      },
+      maximum_use: {
+        required: "Không để trống số lượt sử dụng!",
+        min: "Số lượt sử dụng tối thiểu là 1",
+        max: "Số lượt sử dụng tối đa là 1000"
+      },
+      date_start: {
+        required: "Không để trống thời gian bắt đầu!"
+      },
+      date_end: {
+        required: "Không để trống thời gian kết thúc!"
+      }
+    }
+  })
+
   (function ($) {
 
     $.each($.validator.methods, function (key, value) {
@@ -332,3 +389,23 @@ $( "#product-form" ).validate({
         };
     });
 } (jQuery));
+
+
+// $.validator.addMethod("validateCouponCode", function(value, element) {
+//   return this.optional(element) || /^[a-zA-Z0-9_]*$/i.test(value);
+//   // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số");   
+// }, "Mã coupon phải là chữ cái a - z, hoặc chữ hoa A - Z, hoặc ký tự số 0 - 9")
+
+
+// jQuery.validator.addMethod("greaterThanDate", 
+// function(value, element, params) {
+
+//     if (!/Invalid|NaN/.test(new Date(value))) {
+//         return new Date(value) > new Date($(params).val());
+//     }
+
+//     return isNaN(value) && isNaN($(params).val()) 
+//         || (Number(value) > Number($(params).val())); 
+// },'Phải lớn hơn hoặc bằng {0}.');
+
+// $("#date_end").rules('add', { greaterThanDate: "#date_start" });

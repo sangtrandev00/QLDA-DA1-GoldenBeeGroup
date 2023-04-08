@@ -432,7 +432,7 @@
                                 <h4 class="footer-title border-left">Tài khoản</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="./index.php?act=myaccount"><i class="zmdi zmdi-circle"></i><span>Tài
+                                        <a href="./index.php?act=my-account"><i class="zmdi zmdi-circle"></i><span>Tài
                                                 khoản của
                                                 tôi</span></a>
                                     </li>

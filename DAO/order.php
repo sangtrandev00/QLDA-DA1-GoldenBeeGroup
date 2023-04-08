@@ -52,7 +52,7 @@ function count_all_sold_products()
 
 function revenue_of_month($year, $month)
 {
-    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month' and year(timeorder) = '$year'";
+    $sql = "SELECT sum(tongdonhang) from tbl_order where month(timeorder) = '$month' and year(timeorder) = '$year' and trangthai = 4";
     return pdo_query_value($sql);
 }
 
