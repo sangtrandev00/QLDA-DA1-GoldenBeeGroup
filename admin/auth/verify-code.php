@@ -5,11 +5,13 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
+var_dump($_SESSION);
 ?>
 <?php
 
-$error = array();
+
 if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
+    $error = array();
     $code = $_POST['code'];
 
     if (empty($code)) {
@@ -48,7 +50,7 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-    HEAD .bg-guii {
+    .bg-guii {
         background-color: #ff7f00;
         border: none;
     }
@@ -56,27 +58,16 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
     .bg-guii:hover {
         background-color: #ff7f00;
     }
-    </style>
 
-    <title>GoldenBeeGroup Authentication</title>
-    =======
-    .bg-guii{
-    background-color: #ff7f00;
-    border: none;
-    }
-    .bg-guii:hover{
-    background-color: #ff7f00;
-    }
-    .error-message-veryfi{
-    color: red;
-    font-weight: 500;
-    margin-top: 5px;
-    margin-left: 5px;
+    .error-message-verify {
+        color: red;
+        font-weight: 500;
+        margin-top: 5px;
+        margin-left: 5px;
     }
     </style>
 
     <title>verify-code</title>
-    >>>>>>> 02af978 (Checklist form file auth)
 </head>
 
 <body class="bg-surface">
@@ -105,8 +96,7 @@ if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code" required>
-
-                                                <p class="error-message-veryfi">
+                                                <p class="error-message-verify">
                                                     <?php echo isset($error['code']) ? $error['code'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
