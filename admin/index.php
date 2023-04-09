@@ -693,8 +693,14 @@ if (isset($_SESSION['idadmin'])) {
                         $id_admin = $_GET['id'];
                         var_dump($_POST);
 
+                        $is_updated = "";
+
+                        if ($is_updated) {
+                            $_SESSION['alert'] = "Cập nhật profile thành công!";
+                        } else {
+                            $_SESSION['alert'] = "Cập nhật profile thất bại!";
+                        }
                         // update_profile_admin($id_admin, $_POST['hoten'], $_POST['address'], $_POST['avatar'], $_POST['email'], $_POST['congty'], $_POST['about_me']);
-                        $_SESSION['alert'] = "Cập nhật profile thành công!";
                     }
 
                     include "./view/pages/user/user-profile.php";
