@@ -3,12 +3,16 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
-
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+include "$ROOT_URL/global.php";
+include "$ROOT_URL/pdo-library.php";
+include "$ROOT_URL/DAO/user.php";
 ?>
 <?php
-$error = array();
-if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 
+if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+    $error = array();
     $email = $_POST['email'];
     $password = $_POST['password'];
     // Đối chiếu password
@@ -102,12 +106,20 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
         width: 70%;
     }
 
+    .error-message-login {
+        color: red;
+        font-weight: 500;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
     label.error {
         color: red;
+        font-weight: 550;
     }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>Admin Golden Bee Group</title>
 
 </head>
 
@@ -115,6 +127,52 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 
     <!--start wrapper-->
     <div class="wrapper">
+
+        <?php
+   
+    if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
+        $error = array();    
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        // Đối chiếu password
+        //Validate form
+        if (empty($email)) {
+            $error['email'] = "Không để trống email!";
+        } 
+        if (empty($password)) {
+            $error['password'] = "Không để trống password!";
+        }
+        // echo $email;
+        // echo $password;
+        if (!$error) {
+            $password = md5($password);
+            // echo $password;
+            $islogined = checkuser2($email, $password);
+            // echo $islogined;
+            if ($islogined === -1) {
+                echo '<div class="alert-warning alert text-center" style="">Email hoặc password không chính xác</div>';
+                // $_SESSION['toastAlert'] = "Email hoặc password không chính xác";
+            } else {
+                $kq = getuserinfo2($email, $password);
+                $role = $kq[0]['vai_tro'];
+                // echo $role;
+                if ($role == 1 || $role == 2) {
+                    $_SESSION['role'] = $role;
+                    $_SESSION['username'] = $kq[0]['ho_ten'];
+                    $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['img'] = $kq[0]['hinh_anh'];
+                    header('Location: ../index.php');
+                } else {
+                    echo '
+                    <script>
+                        window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
+                    </script>
+                    ';
+                }
+            }
+        }
+    }
+?>
 
         <!--start content-->
         <main class="authentication-content">
@@ -129,7 +187,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng nhập</h5>
                                     <p class="card-text mb-5">Đăng nhập để vào trang quản trị admin</p>
-                                    <form id="login-admin-form" class="form-body" action="./login.php" method="post">
+                                    <form class="form-body" id="form-login-admin" action="./login.php" method="post">
                                         <!-- <div class="d-grid">
                                             <a class="btn btn-white radius-30" href="javascript:;"><span
                                                     class="d-flex justify-content-center align-items-center">
@@ -153,10 +211,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                                                         <i class="bi bi-envelope-fill"></i>
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
-                                                        id="inputEmailAddress" placeholder="Email" name="email"
-                                                        required>
-                                                    <p class="error-message">
-                                                        <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
+                                                        id="inputEmailAddress" placeholder="Email" name="email">
                                                 </div>
                                                 <p class="error-message-login">
                                                     <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
@@ -171,11 +226,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                                                         <i class="bi bi-lock-fill"></i>
                                                     </div>
                                                     <input type="password" class="form-control radius-30 ps-5"
-                                                        id="inputChoosePassword" placeholder="Mật khẩu" name="password"
-                                                        required>
-                                                    <p class="error-message">
-                                                        <?php echo isset($error['password']) ? $error['password'] : ''; ?>
-                                                    </p>
+                                                        id="inputChoosePassword" placeholder="Mật khẩu" name="password">
                                                 </div>
                                                 <p class="error-message-login">
                                                     <?php echo isset($error['password']) ? $error['password'] : ''; ?>
@@ -216,75 +267,20 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
 
     </div>
     <!--end wrapper-->
-
-
+    <!-- Bootstrap bundle JS -->
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <!--plugins-->
     <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/pace.min.js"></script>
-    <!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
- -->
-
-    <script src="../assets/js/jquery.validate.min.js">
-
+    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script>
+    src = "../assets/js/additional-methods.min.js"
     </script>
 
-    <script src="../assets/js/additional-methods.min.js">
+    <script src="../assets/js/pages/validate.js"></script>
 
-    </script>
 
-    <script src="../assets/js/pages/validate.js">
 
-    </script>
 
 </body>
 
 </html>
-<?php
-$error = array();
-if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
-
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    // Đối chiếu password
-    //Validate form
-    if (empty($email)) {
-        $error['email'] = "Không để trống email";
-    }
-    if (empty($password)) {
-        $error['password'] = "Không để trống password";
-    }
-
-    if (!$error) {
-        $password = md5($password);
-        // echo $password;
-        $islogined = checkuser2($email, $password);
-        // echo $islogined;
-        if ($islogined === -1) {
-            echo '
-                <script>
-                    window.alert("Email hoặc mật khẩu của bạn không đúng. Xin vui lòng nhập lại!");
-                </script>
-                ';
-        } else {
-            $kq = getuserinfo2($email, $password);
-            $role = $kq[0]['vai_tro'];
-            // echo $role;
-            if ($role == 1 || $role == 2) {
-                $_SESSION['role'] = $role;
-                $_SESSION['username'] = $kq[0]['ho_ten'];
-                $_SESSION['idadmin'] = $kq[0]['id'];
-                $_SESSION['img'] = $kq[0]['hinh_anh'];
-                header('Location: ../index.php');
-            } else {
-                echo '
-                    <script>
-                        window.alert("Email hoặc của bạn không đúng. Xin vui lòng nhập lại!");
-                    </script>
-                    ';
-            }
-        }
-    }
-}
-?>
