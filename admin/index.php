@@ -514,10 +514,6 @@ if (isset($_SESSION['idadmin'])) {
                         $error['phone'] = "Định dạng số điện thoại không chính xác!";
                     }
 
-                    if (empty($username)) {
-                        $error['username'] = "Không để trống username!";
-                    }
-
                     if (empty($password)) {
                         $error['password'] = "Không để trống password!";
                     }
@@ -525,7 +521,7 @@ if (isset($_SESSION['idadmin'])) {
                     if (!$error) {
                         // Encrypt password
                         $password = md5($password);
-                        $is_inserted = user_insert($username, $password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
+                        $is_inserted = user_insert($password, $name, $address, $phone, $kichhoat, $filename, $email, $role);
                         header('Location: index.php?act=adduser');
                         // if ($is_inserted) {
                         //     echo '<div class="p-3 bg-light">Chúc mừng bạn đã thêm mời dùng mới thành công</div>';
@@ -697,14 +693,8 @@ if (isset($_SESSION['idadmin'])) {
                         $id_admin = $_GET['id'];
                         var_dump($_POST);
 
-                        $is_updated = "";
-
-                        if ($is_updated) {
-                            $_SESSION['alert'] = "Cập nhật profile thành công!";
-                        } else {
-                            $_SESSION['alert'] = "Cập nhật profile thất bại!";
-                        }
                         // update_profile_admin($id_admin, $_POST['hoten'], $_POST['address'], $_POST['avatar'], $_POST['email'], $_POST['congty'], $_POST['about_me']);
+                        $_SESSION['alert'] = "Cập nhật profile thành công!";
                     }
 
                     include "./view/pages/user/user-profile.php";
