@@ -44,7 +44,7 @@ foreach ($reviews_list as $review) {
                         <td>
                             <div class="d-flex align-items-center gap-3 cursor-pointer">
                                 <div class="">
-                                    <p class="mb-0">' . $review['idadmin'] . '</p>
+                                    <p class="mb-0">' . $review['iduser'] . '</p>
                                 </div>
                             </div>
                         </td>
