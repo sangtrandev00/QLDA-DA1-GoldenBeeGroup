@@ -114,14 +114,6 @@
 .rate:hover .face {
     opacity: 1;
 }
-
-.fanpage-facebook {
-    margin-top: 15px;
-}
-
-.footer-brief {
-    margin-bottom: 10px;
-}
 </style>
 
 
@@ -206,7 +198,7 @@
                     Nội dung ở đây!!!
                 </div>
                 <div class="modal-footer">
-                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                    <form action="./index.php?act=viewcart" method="post">
                         <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn main-bg-color main-border-color"
                             data-bs-dismiss="modal">Đóng</button>
@@ -306,8 +298,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
-                            <input type="file" multiple class="form-control" name="review_imgs[]" id="review-image"
-                                placeholder="" aria-describedby="fileHelpId">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control"
+                                name="review_imgs[]" id="review-image" placeholder="" aria-describedby="fileHelpId">
                             <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
                         </div>
                         <div class="mb-3">
@@ -370,7 +362,6 @@
                                     <p>Email: admin@thephonerstore.online </p>
                                     <p>Số điện thoại: 0937988510 </p>
                                 </div>
-
                                 <ul class="footer-social">
                                     <li>
                                         <a class="facebook"
@@ -388,11 +379,6 @@
                                         <a class="rss" href="" title="RSS"><i class="zmdi zmdi-rss"></i></a>
                                     </li>
                                 </ul>
-                                <iframe class="fanpage-facebook"
-                                    src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100091145059135&tabs&width=300px&height=200px&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=603944711072413"
-                                    width="300px" height="200px" style="border:none;overflow:hidden" scrolling="no"
-                                    frameborder="0" allowfullscreen="true"
-                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             </div>
                         </div>
                         <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">

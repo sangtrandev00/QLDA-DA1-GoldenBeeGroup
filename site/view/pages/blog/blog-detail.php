@@ -193,6 +193,13 @@
                                 
                                 <form action="index.php?act=commentblog&id=<?=$blog_id?>" method="POST">
                                     <h4 class="blog-section-title border-left mb-30">Để Lại Bình Luận Của bạn</h4>
+                                    <p class="error-message">
+                                    <?php
+                                        if (isset($error['content'])) {
+                                            echo $error['content'];
+                                        }
+                                    ?>
+                                </p>
                                     <?php
                                     if(!isset($_SESSION['iduser'])){ 
                                         $thongbao = "Đăng Nhập Để Bình Luận";                                       

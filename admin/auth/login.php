@@ -152,7 +152,7 @@ if (isset($_POST['loginbtn']) && $_POST['loginbtn']) {
                 if ($role == 1 || $role == 2) {
                     $_SESSION['role'] = $role;
                     $_SESSION['username'] = $kq[0]['ho_ten'];
-                    $_SESSION['iduser'] = $kq[0]['id'];
+                    $_SESSION['idadmin'] = $kq[0]['id'];
                     $_SESSION['img'] = $kq[0]['hinh_anh'];
                     header('Location: ../index.php');
                 } else {

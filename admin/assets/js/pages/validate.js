@@ -1,4 +1,15 @@
-
+$("#login-admin-form").validate({
+  rules: {
+    email: {
+      required: true
+    }
+  },
+  messages: {
+    email: {
+      required: "Bắt buộc điền email!"
+    }
+  }
+})
 
 // addproductForm form
 $( "#add-product-form" ).validate({
@@ -147,11 +158,15 @@ $( "#product-form" ).validate({
       }
     },
     messages: {
-      title: {
+      "title": {
         required: "Không de trong tieu de"
+      },
+      "noidung": {
+        required: "Không de trong noi dung"
       }
+
     }
-  })
+  });
 
   // editcate form
   $( "#cate-form" ).validate({
@@ -256,7 +271,9 @@ $( "#product-form" ).validate({
         required: "Không để trống thời gian kết thúc!"
       }
     }
-  });
+  })
+
+  (function ($) {
 
     $.each($.validator.methods, function (key, value) {
         $.validator.methods[key] = function () {           
@@ -265,254 +282,8 @@ $( "#product-form" ).validate({
             }
             return value.apply(this, arguments);
         };
-    }); ((jQuery));
-
-// auth admin
-$( "#form-login-admin" ).validate({
-  rules: {
-    email: {
-      required: true,
-      email: true
-    },
-    password:{
-      required: true
-    }
-   
-  },
-  messages: {
-      email: {
-          required: "Email không được để trống",
-          email : "Định dạng email không đúng"
-      },
-      password: {
-        required : "Password không được để trống"
-      }
-  }
-});
-
-$("#forgot-auth-admin").validate({
-    rules: {
-      email :{
-        required: true,
-        email: true
-      }
-    },
-    messages: {
-      email:{
-        required: "Email không được để trống",
-        email: "Email không đúng định dạng"
-      }
-    }
-});
-
-$("#resetpass-admin").validate({
-  rules: {
-    newpass: {
-      required: true,
-    },
-    renewpass: {
-      required: true,
-      equalTo: "#newpass"
-    }
-  },
-  messages: {
-    newpass: {
-      required: "Không để trống mật khẩu mới!"
-    },
-    renewpass: {
-      required: "Không để trống nhập lại mật khẩu!",
-      equalTo: "Nhập lại mật khẩu không chính xác!"
-    }
-  }
-});
-
-// form list user/ admin
-$("#form-adduser").validate({
-  rules: {
-    fullname:{
-      required: true
-    },
-    address:{
-      required: true
-    },
-    email:{
-      required: true,
-      email: true
-    },
-    phone:{
-      required: true,
-      number: true
-    },
-    kichhoat:{
-      required: true
-    },
-    password:{
-      required: true
-    },
-    image: {
-      required: true
-    },
-    role:{
-      required: true
-    }
-  },
-
-  messages:{
-    fullname: {
-      required: "Tên của bạn không được bỏ trống"
-    },
-    address: {
-      required: "Địa chỉ của bạn không được bỏ trống"
-    },
-    email: {
-      required: "Email không được để trống",
-      email : "Định dạng email không đúng"
-    },
-    phone: {
-      required: "Số điện thoại của bạn không được để trống",
-      number: "Số điện thoại không đúng định dạng. Bạn hãy nhập bằng số"
-    },
-    kichhoat: {
-      required: "Kích hoạt không được bỏ trống"
-    },
-    password:{
-      required: "Password của bạn không được bỏ trống"
-    },
-    image: {
-      required: "Hình ảnh của bạn không được để trống"
-    },
-    role: {
-      required: "Vai trò của bạn không được để trống"
-    }
-  }
-});
-
-$("#form-edit-user").validate({
-  rules: {
-    fullname:{
-      required: true
-    },
-    address:{
-      required: true
-    },
-    email:{
-      required: true,
-      email: true
-    },
-    phone:{
-      required: true,
-      number: true
-    },
-    kichhoat:{
-      required: true
-    },
-    password:{
-      required: true
-    },
-    role:{
-      required: true
-    }
-  },
-
-  messages:{
-    fullname: {
-      required: "Tên của bạn không được bỏ trống"
-    },
-    address: {
-      required: "Địa chỉ của bạn không được bỏ trống"
-    },
-    email: {
-      required: "Email không được để trống",
-      email : "Định dạng email không đúng"
-    },
-    phone:{
-      required: "Số điện thoại của bạn không được để trống",
-      number: "Số điện thoại không đúng định dạng. Bạn hãy nhập bằng số"
-    },
-    kichhoat: {
-      required: "Kích hoạt không được bỏ trống"
-    },
-    password:{
-      required: "Password của bạn không được bỏ trống"
-    },
-    role: {
-      required: "Vai trò của bạn không được để trống"
-    }
-  }
-});
-
-$("#form-edit-admin").validate({
-  rules: {
-    fullname:{
-      required: true
-    },
-    address:{
-      required: true
-    },
-    email:{
-      required: true,
-      email: true
-    },
-    phone:{
-      required: true,
-      number: true
-    },
-    kichhoat:{
-      required: true
-    },
-    username:{
-      required: true
-    },
-    password:{
-      required: true
-    },
-    role:{
-      required: true
-    }
-  },
-
-  messages:{
-    "fullname": {
-      required: "Tên của bạn không được bỏ trống"
-    },
-    "address": {
-      required: "Địa chỉ của bạn không được bỏ trống"
-    },
-    "email": {
-      required: "Email không được để trống",
-      email : "Định dạng email không đúng"
-    },
-    "phone":{
-      required: "Số điện thoại của bạn không được để trống",
-      number: "Số điện thoại không đúng định dạng. Bạn hãy nhập bằng số"
-    },
-    "kichhoat": {
-      required: "Kích hoạt không được bỏ trống"
-    },
-    "username": {
-      required: "Username của  bạn không được bỏ trống"
-    },
-    "password":{
-      required: "Password của bạn không được bỏ trống"
-    },
-    "role": {
-      required: "Vai trò của bạn không được để trống"
-    }
-  }
-});
-      
-
-//   (function ($) {
-
-//     $.each($.validator.methods, function (key, value) {
-//         $.validator.methods[key] = function () {           
-//             if(arguments.length > 0) {
-//                 arguments[0] = $.trim(arguments[0]);
-//             }
-//             return value.apply(this, arguments);
-//         };
-//     });
-// } (jQuery));
+    });
+} (jQuery));
 
 
 // $.validator.addMethod("validateCouponCode", function(value, element) {

@@ -23,7 +23,7 @@ if (!isset($_SESSION['alert'])) {
     $_SESSION['alert'] = "";
 }
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 ?>
 

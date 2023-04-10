@@ -1,6 +1,6 @@
 
 
-    <div class="row">
+<div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="card">
                 <?php
@@ -10,15 +10,15 @@ if (isset($thongbao) && ($thongbao != "")) {
 
 ?>
                 <div class="card-header py-3 bg-transparent">
-                    <h5 class="mb-0">Thêm mới bài viết</h5>
+                    <h5 class="mb-0">Thêm mới slider</h5>
                 </div>
                 <div class="card-body">
                     <div class="border p-3 rounded">
-                        <form id="add-blog" class="row g-3" action="index.php?act=addblog" method="post"
+                        <form id="add-slider" class="row g-3" action="index.php?act=addslider" method="post"
                             enctype="multipart/form-data">
                             <div class="col-12">
-                                <label class="form-label">Tiêu Đề Bài Viết</label>
-                                <input type="text" name="title" class="form-control" placeholder="Blog title">
+                                <label class="form-label">Tiêu đề</label>
+                                <input type="text" name="title" class="form-control" placeholder="Slider title">
                                 <p class="error-message">
                                     <?php
                                         if (isset($error['title'])) {
@@ -38,20 +38,8 @@ if (isset($thongbao) && ($thongbao != "")) {
                                 ?>
                                 </p>
                             </div>
-                            <div class="col-12 col-md-12">
-                                <label class="form-label">Danh mục chính</label>
-                                <select class="form-select" name="idcate">
-                                    <?php
-foreach ($list_blogcate as $blogcate) {
-    extract($blogcate);
-    echo '<option value="' . $id . '">' . $blog_catename . '</option>';
-}
-?>
-
-                                </select>
-                            </div>
                             <div class="col-12">
-                                <label class="form-label">Nội Dung Bài Viết</label>
+                                <label class="form-label">Nội Dung</label>
                                 <textarea class="blognoidung" name="noidung" id="" cols="30" rows="10"></textarea>
                                 <p class="error-message">
                                     <?php
@@ -62,8 +50,8 @@ foreach ($list_blogcate as $blogcate) {
                                 </p>
                             </div>
                             <div class="col-12">
-                                <input type="submit" name="addblog" class="btn btn-primary px-4"
-                                    value="Đăng Bài Viết" />
+                                <input type="submit" name="addslider" class="btn btn-primary px-4"
+                                    value="Đăng" />
                                 <button type="reset" class="btn btn-primary px-4">Xóa thông tin</button>
                             </div>
                         </form>

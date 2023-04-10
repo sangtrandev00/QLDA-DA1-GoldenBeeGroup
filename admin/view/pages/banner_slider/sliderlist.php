@@ -4,14 +4,6 @@
       <div class="card-header py-3">
           <div class="row align-items-center m-0">
               <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                  <select class="form-select">
-                      <?php
-$cate_list = blog_cate_select_all();
-foreach ($cate_list as $list) {
-    echo '<option>' . $list['blog_catename'] . '</option>';
-}
-?>
-                  </select>
               </div>
               <div class="col-md-2 col-6">
                   <input type="date" class="form-control">
@@ -41,54 +33,57 @@ if (isset($thongbaoupdate) && ($thongbaoupdate != "")) {
               <table class="table align-middle table-striped">
                   <thead>
                       <th>Id</th>
-                      <th>Hình Ảnh/Tiêu Đề</th>
+                      <th>Hình Ảnh</th>
+                      <th>Tiêu Đề </th>
                       <th>Nội Dung</th>
                       <th>Ngày Viết </th>
-                      <th>Tag </th>
                       <th>Hành Động</th>
                   </thead>
                   <tbody>
                       <!-- Row Item -->
                       <!-- Show list product here -->
                       <?php
-$blog_list = blog_select_all();
+$slider_list = slider_select_all();
 // var_dump($blog_list);
 
-foreach ($blog_list as $blog_item) {
+foreach ($slider_list as $slider) {
 
-    $image_list = explode(",", $blog_item['images']);
+    $image_list = explode(",", $slider['img_slider']);
     $thumbnail = getthumbnail($image_list);
-    $xoablog = "index.php?act=deleteblog&id=" . $blog_item['blog_id'];
-    $suablog = "index.php?act=updateblog&id=" . $blog_item['blog_id'];
-    $conten = mb_substr($blog_item['noi_dung'], 0, 40);
-    $blog_title = mb_substr($blog_item['blog_title'], 0, 20);
+    // echo $thumbnail;
+    $xoaslider = "index.php?act=deleteslider&id=" . $slider['id_slider'];
+    $suaslider = "index.php?act=updateslider&id=" . $slider['id_slider'];
+    $conten = mb_substr($slider['content_slider'], 0, 40);
+    $blog_title = mb_substr($slider['title_slider'], 0, 20);
     # code...
     echo '
                             <tr>
                                 <td>
-                                    ' . $blog_item['blog_id'] . '
+                                    ' . $slider['id_slider'] . '
                                 </td>
-                                <td class="productlist">
-                                    <a class="d-flex align-items-center gap-2" href="#">
-                                    <div class="product-box"><img src="' . $thumbnail . '" alt="' . $thumbnail . '"></div>
-                                        <div>
-                                            <h6 class="mb-0 product-title">' . $blog_title . '...</h6>
-                                        </div>
-                                    </a>
+                                <td>
+                                    <div class="product-box">
+                                        <img src="' . $thumbnail . '" alt="' . $thumbnail . '">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <h6 class="mb-0 product-title">' . $blog_title . '...</h6>
+                                    </div>
                                 </td>
                                 <td><span>' . $conten . '...</span></td>
-                                <td><span>' . $blog_item['create_time'] . '</span></td>
-                                <td><span>' . $blog_item['tags'] . '</span></td>
+                                <td><span>' . $slider['date_slider'] . '</span></td>
+                                
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">
                                         <a href="" class="text-primary"
                                             title=""
                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                        <a href="' . $suablog . '" class="text-warning" data-bs-toggle="tooltip"
+                                        <a href="' . $suaslider . '" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
 
-                                        <a href="' . $xoablog . '"><i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i></a>
+                                        <a href="' . $xoaslider . '"><i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i></a>
                                     </div>
                                 </td>
                             </tr>

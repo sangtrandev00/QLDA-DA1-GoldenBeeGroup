@@ -9,7 +9,7 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include "$ROOT_URL/global.php";
 include "$ROOT_URL/pdo-library.php";
 include "$ROOT_URL/DAO/user.php";
-var_dump($_SESSION);
+// var_dump($_SESSION);
 if (!isset($_SESSION['error'])) {
     $_SESSION['error'] = [];
 }

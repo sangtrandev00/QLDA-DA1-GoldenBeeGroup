@@ -4,19 +4,22 @@
         <div class="slider-content">
             <div class="active-slider-1 slick-arrow-1 slick-dots-1">
                 <!-- layer-1 Start -->
-                <div class="col-lg-12">
+                <?php
+$lis_slider_new = get_new_slider_home();
+foreach ($lis_slider_new as $slider) {
+    extract($slider);
+    $hinh = "../uploads/" . $img_slider;
+    echo '<div class="col-lg-12">
                     <div class="layer-1">
                         <div class="slider-img">
-                            <img src="../uploads/promotion-dummpy-image.png" alt="promotion-dummpy-image.png">
+                            <img src="' . $hinh . '" alt="promotion-dummpy-image.png">
                         </div>
                         <div class="slider-info gray-bg">
                             <div class="slider-info-inner">
-                                <h1 class="slider-title-1 text-uppercase text-black-1">Smartphone giá tốt tại cửa hàng
+                                <h1 class="slider-title-1 text-uppercase text-black-1">' . $title_slider . '
                                 </h1>
                                 <div class="slider-brief text-black-2">
-                                    <p>The Phoner Store với nhiều dòng điện thoại khác nhau, từ các thương hiệu nổi
-                                        tiếng, với các phân khúc giá phù hợp cho nhiều đổi tượng khách hàng, ghé thăm
-                                        cửa hàng của chúng tôi để nhận nhiều ưu đãi hấp dẫn! </p>
+                                    <p>' . $content_slider . '</p>
                                 </div>
                                 <a href="./index.php?act=shop" class="button extra-small button-black">
                                     <span class="text-uppercase">Shop ngay</span>
@@ -24,89 +27,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- layer-1 end -->
-                <!-- layer-2 Start -->
-                <div class="col-lg-12">
-                    <div class="layer-1">
-                        <div class="slider-img">
-                            <img src="../uploads/banner-slider-02.jpg" alt="banner-slider-02.jpg">
-                        </div>
-                        <div class="slider-info gray-bg">
-                            <div class="slider-info-inner">
-                                <h1 class="slider-title-1 text-uppercase text-black-1">WaterProof smartphone
-                                </h1>
-                                <div class="slider-brief text-black-2">
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the
-                                        majority
-                                        have suffered alteration in some forma, by injected humour, or randomised
-                                        words
-                                        which don't look even slightly believable. If you are going to use a
-                                        passage of
-                                        Lorem Ipsum,</p>
-                                </div>
-                                <a href="./index.php?act=shop" class="button extra-small button-black">
-                                    <span class="text-uppercase">Shop ngay</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- layer-2 end -->
-                <!-- layer-3 Start -->
-                <div class="col-lg-12">
-                    <div class="layer-1">
-                        <div class="slider-img">
-                            <img src="../uploads/banner-slider-02.jpg" alt="">
-                        </div>
-                        <div class="slider-info gray-bg">
-                            <div class="slider-info-inner">
-                                <h1 class="slider-title-1 text-uppercase text-black-1">WaterProof smartphone
-                                </h1>
-                                <div class="slider-brief text-black-2">
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the
-                                        majority
-                                        have suffered alteration in some form, by injected humour, or randomised
-                                        words
-                                        which don't look even slightly believable. If you are going to use a
-                                        passage of
-                                        Lorem Ipsum,</p>
-                                </div>
-                                <a href="./index.php?act=shop" class="button extra-small button-black">
-                                    <span class="text-uppercase">Shop ngay</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- layer-3 end -->
-                <!-- layer-4 Start -->
-                <div class="col-lg-12">
-                    <div class="layer-1">
-                        <div class="slider-img">
-                            <img src="../uploads/banner-slider-02.jpg" alt="">
-                        </div>
-                        <div class="slider-info gray-bg">
-                            <div class="slider-info-inner">
-                                <h1 class="slider-title-1 text-uppercase text-black-1">WaterProof smartphone
-                                </h1>
-                                <div class="slider-brief text-black-2">
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the
-                                        majority
-                                        have suffered alteration in some form, by injected humour, or randomised
-                                        words
-                                        which don't look even slightly believable. If you are going to use a
-                                        passage of
-                                        Lorem Ipsum,</p>
-                                </div>
-                                <a href="./index.php?act=shop" class="button extra-small button-black">
-                                    <span class="text-uppercase">Shop ngay</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- layer-4 end -->
+                </div>';
+}
+?>
+
             </div>
         </div>
     </div>
@@ -267,50 +191,50 @@ foreach ($featured_products as $item) {
         <div class="container">
             <div class="row">
                 <!-- up-comming-pro -->
+                <?php
+$get_new_banner_home = get_new_banner_home();
+foreach ($get_new_banner_home as $banner) {
+    extract($banner);
+    // var_dump($banner);
+    $image_list = explode(',', $banner['images']);
+    foreach ($image_list as $image_item) {
+
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            $alt = $image_item;
+            break;
+        }
+
+    }
+}
+?>
                 <div class="col-lg-8">
                     <div class="up-comming-pro gray-bg clearfix">
                         <div class="up-comming-pro-img f-left">
-                            <a href="#">
-                                <img src="../uploads/I phone Promotion.png" alt="I phone Promotion.png">
+                            <a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>">
+                                <img src="<?=$thumbnail?>" alt="<?=$alt?>">
                             </a>
                         </div>
                         <div class="up-comming-pro-info f-left">
-                            <h3><a href="#">I phone 14 Pro Max</a></h3>
-                            <p>Sản phẩm khuyến mãi trong tháng 3, giá mềm ưu đãi cho các khách hàng mới nhất. Nhấn vào
-                                hình ảnh và đặt mua ngay! </p>
+                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>"><?=$banner['name']?></a>
+                            </h3>
+                            <p><?=$banner['noi_dung']?> </p>
                             <div class="up-comming-time">
-                                <div data-countdown="2022/02/02"></div>
+                                <div data-countdown="2023/05/05"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 d-block d-md-none d-lg-block">
                     <div class="banner-item banner-1">
-                        <div class="ribbon-price">
-                            <span> 896.00 VND</span>
-                        </div>
                         <div class="banner-img">
-                            <a href="#"><img src="../uploads/I phone Promotion 2.png" alt="I phone Promotion 2.png"></a>
+                            <a href="#"><img src="../uploads/<?=$image_list[0]?>" alt="I phone Promotion 2.png"></a>
                         </div>
                         <div class="banner-info">
-                            <h3><a href="#">I phone 14 Pro Max</a></h3>
-                            <ul class="banner-featured-list">
-                                <li>
-                                    <i class="zmdi zmdi-check"></i><span>Lorem ipsum dolor</span>
-                                </li>
-                                <li>
-                                    <i class="zmdi zmdi-check"></i><span>amet, consectetur</span>
-                                </li>
-                                <li>
-                                    <i class="zmdi zmdi-check"></i><span>adipisicing elitest,</span>
-                                </li>
-                                <li>
-                                    <i class="zmdi zmdi-check"></i><span>eiusmod tempor</span>
-                                </li>
-                                <li>
-                                    <i class="zmdi zmdi-check"></i><span>labore et dolore.</span>
-                                </li>
-                            </ul>
+                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>">I phone 14 Pro Max</a>
+                            </h3>
+                            <span><?=$banner['info']?></span>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 // if (isset($_SESSION['emailreset'])) {
 
 ?>

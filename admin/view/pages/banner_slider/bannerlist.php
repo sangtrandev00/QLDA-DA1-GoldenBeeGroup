@@ -4,14 +4,6 @@
       <div class="card-header py-3">
           <div class="row align-items-center m-0">
               <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                  <select class="form-select">
-                      <?php
-$cate_list = blog_cate_select_all();
-foreach ($cate_list as $list) {
-    echo '<option>' . $list['blog_catename'] . '</option>';
-}
-?>
-                  </select>
               </div>
               <div class="col-md-2 col-6">
                   <input type="date" class="form-control">
@@ -41,54 +33,65 @@ if (isset($thongbaoupdate) && ($thongbaoupdate != "")) {
               <table class="table align-middle table-striped">
                   <thead>
                       <th>Id</th>
-                      <th>Hình Ảnh/Tiêu Đề</th>
+                      <th>Tên</th>
+                      <th>id Sản Phẩm</th>
+                      <th>Hình Ảnh</th>
                       <th>Nội Dung</th>
                       <th>Ngày Viết </th>
-                      <th>Tag </th>
+                      <th>Thông Tin</th>
                       <th>Hành Động</th>
                   </thead>
                   <tbody>
                       <!-- Row Item -->
                       <!-- Show list product here -->
                       <?php
-$blog_list = blog_select_all();
+$banner_list = banner_select_all();
 // var_dump($blog_list);
 
-foreach ($blog_list as $blog_item) {
+foreach ($banner_list as $banner) {
 
-    $image_list = explode(",", $blog_item['images']);
+    $image_list = explode(",", $banner['images']);
     $thumbnail = getthumbnail($image_list);
-    $xoablog = "index.php?act=deleteblog&id=" . $blog_item['blog_id'];
-    $suablog = "index.php?act=updateblog&id=" . $blog_item['blog_id'];
-    $conten = mb_substr($blog_item['noi_dung'], 0, 40);
-    $blog_title = mb_substr($blog_item['blog_title'], 0, 20);
+    // echo $thumbnail;
+    $xoabanner = "index.php?act=deletebanner&id=" . $banner['id'];
+    $suabanner = "index.php?act=updatebanner&id=" . $banner['id'];
+    $conten = mb_substr($banner['noi_dung'], 0, 40);
+    $thongtin = mb_substr($banner['info'], 0, 20);
     # code...
     echo '
                             <tr>
                                 <td>
-                                    ' . $blog_item['blog_id'] . '
+                                    ' . $banner['id'] . '
                                 </td>
-                                <td class="productlist">
-                                    <a class="d-flex align-items-center gap-2" href="#">
-                                    <div class="product-box"><img src="' . $thumbnail . '" alt="' . $thumbnail . '"></div>
-                                        <div>
-                                            <h6 class="mb-0 product-title">' . $blog_title . '...</h6>
-                                        </div>
-                                    </a>
+                                <td>
+                                    ' . $banner['name'] . '
                                 </td>
-                                <td><span>' . $conten . '...</span></td>
-                                <td><span>' . $blog_item['create_time'] . '</span></td>
-                                <td><span>' . $blog_item['tags'] . '</span></td>
+                                <td>
+                                    ' . $banner['idsp'] . '
+                                </td>
+                                <td>
+                                    <div class="product-box">
+                                        <img src="' . $thumbnail . '" alt="' . $thumbnail . '">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <h6 class="mb-0 product-title">' . $conten . '...</h6>
+                                    </div>
+                                </td>
+                                <td>' . $banner['date_create'] . '</td>
+                                <td>' . $thongtin . '</td>
+                                
                                 <td>
                                     <div class="d-flex align-items-center gap-3 fs-6">
                                         <a href="" class="text-primary"
                                             title=""
                                             aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                                        <a href="' . $suablog . '" class="text-warning" data-bs-toggle="tooltip"
+                                        <a href="' . $suabanner . '" class="text-warning" data-bs-toggle="tooltip"
                                             data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
                                             aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
 
-                                        <a href="' . $xoablog . '"><i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i></a>
+                                        <a href="' . $xoabanner . '"><i style="color:#e72e2e;" class="bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#exampleModal""></i></a>
                                     </div>
                                 </td>
                             </tr>

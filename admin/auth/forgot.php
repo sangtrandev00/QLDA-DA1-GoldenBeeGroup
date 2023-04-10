@@ -95,8 +95,8 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6 d-flex align-items-center justify-content-center border-end images">
-                                <img src="../../admin/assets/images/error/forgot-password-img.png"
-                                    class="img-fluid" alt="">
+                                <img src="../../admin/assets/images/error/forgot-password-img.png" class="img-fluid"
+                                    alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
@@ -112,7 +112,7 @@ if (isset($_POST['forgotbtn']) && $_POST['forgotbtn']) {
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
-                                                <input type="submit" name="forgotbtn"
+                                                    <input type="submit" name="forgotbtn"
                                                         class="btn btn-primary radius-30 bg-guii" value="Gửi" />
                                                     <a href="./login.php" class="btn btn-light radius-30">Trở lại
                                                         đăng nhập</a>

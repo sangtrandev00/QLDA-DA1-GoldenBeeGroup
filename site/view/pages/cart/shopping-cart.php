@@ -70,7 +70,7 @@ $cart_list = $_SESSION['giohang'];
 if (count($cart_list) > 0) {
     ?>
                             <div class="shopping-cart-content">
-                                <form action="#">
+                                <form id="shopping-cart-form" action="#">
 
                                     <div id="table-content-wrapper" class="table-content table-responsive mb-50">
 
@@ -127,7 +127,7 @@ if (count($cart_list) > 0) {
                                                                 <td class="product-price">' . $price_item . ' VND</td>
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
-                                                                            <input onkeyup="' . $update_cart_func_keyup . '" type="number" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                            <input readonly onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                                 class="cart-plus-minus-box" >
                                                                     </div>
                                                                 </td>
@@ -186,7 +186,8 @@ if (count($cart_list) > 0) {
                                         </div>
                                     </div>
 
-                                    <a href="./index.php?act=checkout" class="btn btn-dark mb-5 ml-auto d-block">Thanh
+                                    <a onclick="handleCheckInventory()" href="./index.php?act=checkout"
+                                        class="btn btn-dark mb-5 ml-auto d-block">Thanh
                                         toán</a>
                                     <!-- Module extra --- Làm thêm -->
                                     <!-- <div class="row">

@@ -9,7 +9,7 @@
             </form>
         </div>
         <div class=" mt-3">
-            <table style="" class="table align-middle">
+            <table  class="table align-middle">
                 <thead class="table-secondary">
                     <tr>
                         <th>#ID Review</th>

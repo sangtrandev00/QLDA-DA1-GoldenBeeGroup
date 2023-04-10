@@ -37,14 +37,17 @@ function changeStatus(orderId) {
     const currentStatus = document.getElementById('select-status').value;
 
     console.log('currentStatus', currentStatus);
-
+    if(currentStatus < 1) {
+        
+        return;
+    }
 
     $.ajax({
         type: "POST",
         url: "./logic/order.php?act=updatestatus",
         data: {
             orderid: orderId,
-            status: currentStatus >= 1 ? currentStatus : 0
+            status: currentStatus
         },
         // dataType: "dataType",
         success: function (response) {

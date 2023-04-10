@@ -2,7 +2,7 @@
 
 function user_insert($mat_khau, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro)
 {
-    $sql = "INSERT INTO tbl_nguoidung(mat_khau, ho_ten, diachi, sodienthoai, email, hinh_anh, kich_hoat, vai_tro) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO tbl_nguoidung(mat_khau, ho_ten, diachi, sodienthoai, email, hinh_anh, kich_hoat, vai_tro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     pdo_execute($sql, $mat_khau, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat, $vai_tro);
     return true;
 }

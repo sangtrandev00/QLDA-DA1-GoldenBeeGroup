@@ -116,7 +116,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                     </div>
                                                     <input type="password" name="newpass" id="newpass"
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
-                                                        placeholder="Nhập mật khẩu mới" required>
+                                                        placeholder="Nhập mật khẩu mới">
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['newpass']) ? $error['newpass'] : ''; ?></p>
                                             </div>
@@ -130,7 +130,7 @@ if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
                                                     </div>
                                                     <input type="password" name="renewpass"
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
-                                                        placeholder="Xác nhận mật khẩu" required>
+                                                        placeholder="Xác nhận mật khẩu">
                                                 </div>
                                                 <p class="error-message-reset"><?php echo isset($error['renewpass']) ? $error['renewpass'] : ''; ?></p>
                                             </div>
