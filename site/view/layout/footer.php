@@ -198,7 +198,7 @@
                     Nội dung ở đây!!!
                 </div>
                 <div class="modal-footer">
-                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                    <form action="./index.php?act=viewcart" method="post">
                         <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn main-bg-color main-border-color"
                             data-bs-dismiss="modal">Đóng</button>
@@ -298,8 +298,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
-                            <input type="file" multiple class="form-control" name="review_imgs[]" id="review-image"
-                                placeholder="" aria-describedby="fileHelpId">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control"
+                                name="review_imgs[]" id="review-image" placeholder="" aria-describedby="fileHelpId">
                             <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
                         </div>
                         <div class="mb-3">

@@ -35,6 +35,19 @@ function product_update_quantity($masanpham, $ton_kho)
     return true;
 }
 
+function product_update_remaining_qty($masanpham, $sl)
+{
+    $sql = "UPDATE tbl_sanpham SET  ton_kho = ton_kho + ? WHERE masanpham=?";
+    pdo_execute($sql, $sl, $masanpham);
+    return true;
+}
+
+function select_products_from_order_id($order_id)
+{
+    $sql = "SELECT idsanpham, soluong from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where od.id = $order_id";
+    return pdo_query($sql);
+}
+
 function product_select_all()
 {
     $sql = "SELECT * FROM tbl_sanpham";

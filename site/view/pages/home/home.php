@@ -5,21 +5,21 @@
             <div class="active-slider-1 slick-arrow-1 slick-dots-1">
                 <!-- layer-1 Start -->
                 <?php
-                $lis_slider_new = get_new_slider_home();
-                foreach ($lis_slider_new as $slider) {
-                    extract($slider);
-                    $hinh = "../uploads/".$img_slider;
-                    echo '<div class="col-lg-12">
+$lis_slider_new = get_new_slider_home();
+foreach ($lis_slider_new as $slider) {
+    extract($slider);
+    $hinh = "../uploads/" . $img_slider;
+    echo '<div class="col-lg-12">
                     <div class="layer-1">
                         <div class="slider-img">
-                            <img src="'.$hinh.'" alt="promotion-dummpy-image.png">
+                            <img src="' . $hinh . '" alt="promotion-dummpy-image.png">
                         </div>
                         <div class="slider-info gray-bg">
                             <div class="slider-info-inner">
-                                <h1 class="slider-title-1 text-uppercase text-black-1">'.$title_slider.'
+                                <h1 class="slider-title-1 text-uppercase text-black-1">' . $title_slider . '
                                 </h1>
                                 <div class="slider-brief text-black-2">
-                                    <p>'.$content_slider.'</p>
+                                    <p>' . $content_slider . '</p>
                                 </div>
                                 <a href="./index.php?act=shop" class="button extra-small button-black">
                                     <span class="text-uppercase">Shop ngay</span>
@@ -28,9 +28,9 @@
                         </div>
                     </div>
                 </div>';
-                }
-                ?>
-               
+}
+?>
+
             </div>
         </div>
     </div>
@@ -192,23 +192,23 @@ foreach ($featured_products as $item) {
             <div class="row">
                 <!-- up-comming-pro -->
                 <?php
-                $get_new_banner_home = get_new_banner_home();
-                foreach ($get_new_banner_home as $banner) {
-                    extract($banner);
-                    // var_dump($banner);
-                    $image_list = explode(',', $banner['images']);
-                    foreach ($image_list as $image_item) {
+$get_new_banner_home = get_new_banner_home();
+foreach ($get_new_banner_home as $banner) {
+    extract($banner);
+    // var_dump($banner);
+    $image_list = explode(',', $banner['images']);
+    foreach ($image_list as $image_item) {
 
-                        if (substr($image_item, 0, 6) == "thumb-") {
-                            // echo $image_item;
-                            $thumbnail = "../uploads/" . $image_item;
-                            $alt = $image_item;
-                            break;
-                        }
-                
-                    }
-                }
-                ?>
+        if (substr($image_item, 0, 6) == "thumb-") {
+            // echo $image_item;
+            $thumbnail = "../uploads/" . $image_item;
+            $alt = $image_item;
+            break;
+        }
+
+    }
+}
+?>
                 <div class="col-lg-8">
                     <div class="up-comming-pro gray-bg clearfix">
                         <div class="up-comming-pro-img f-left">
@@ -217,7 +217,8 @@ foreach ($featured_products as $item) {
                             </a>
                         </div>
                         <div class="up-comming-pro-info f-left">
-                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>"><?=$banner['name']?></a></h3>
+                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>"><?=$banner['name']?></a>
+                            </h3>
                             <p><?=$banner['noi_dung']?> </p>
                             <div class="up-comming-time">
                                 <div data-countdown="2023/05/05"></div>
@@ -231,7 +232,8 @@ foreach ($featured_products as $item) {
                             <a href="#"><img src="../uploads/<?=$image_list[0]?>" alt="I phone Promotion 2.png"></a>
                         </div>
                         <div class="banner-info">
-                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>">I phone 14 Pro Max</a></h3>
+                            <h3><a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>">I phone 14 Pro Max</a>
+                            </h3>
                             <span><?=$banner['info']?></span>
                         </div>
                     </div>

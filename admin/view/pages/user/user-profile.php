@@ -7,8 +7,8 @@ if (isset($_SESSION['idadmin'])) {
 ?>
 <div class="row">
     <div class="col-12 col-lg-8">
-        <form action="./index.php?act=update-profile&id=<?php echo $user['id'] ?>" class="row g-3" method="POST"
-            enctype="multipart/form-data">
+        <form id="user-profile-form" action="./index.php?act=update-profile&id=<?php echo $user['id'] ?>"
+            class="row g-3" method="POST" enctype="multipart/form-data">
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <h5 class="mb-0">Tài khoản của tôi</h5>
@@ -27,15 +27,22 @@ if (isset($_SESSION['idadmin'])) {
                                     <label class="form-label">Địa chỉ email</label>
                                     <input name="email" type="text" class="form-control"
                                         value="<?php echo $user['email']; ?>">
+                                    <p class="error-message">
+                                        <?php if (isset($error['email'])) {echo $error['email'];}?>
+                                    </p>
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label">Họ và tên</label>
                                     <input name="hoten" type="text" class="form-control"
                                         value="<?php echo $user['ho_ten']; ?>">
+                                    <p class="error-message">
+                                        <?php if (isset($error['hoten'])) {echo $error['hoten'];}?>
+                                    </p>
                                 </div>
                                 <div class="col-12">
                                     <label for="" class="form-label">Avatar</label>
-                                    <input name="avatar" type="file" accept="JPEG/PNG" name="avatar" id="">
+                                    <input accept="image/png, image/gif, image/jpeg" name="avatar" type="file"
+                                        accept="JPEG/PNG" name="avatar" id="">
                                 </div>
                             </div>
                         </div>
@@ -51,6 +58,9 @@ if (isset($_SESSION['idadmin'])) {
                                 <input type="phone" class="form-control" name="phone" id="" aria-describedby="helpId"
                                     placeholder="" value="<?php echo $user['sodienthoai'] ?>">
                                 <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                                <p class="error-message">
+                                    <?php if (isset($error['phone'])) {echo $error['phone'];}?>
+                                </p>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Công ty</label>
@@ -58,21 +68,29 @@ if (isset($_SESSION['idadmin'])) {
                                     value="<?php echo $user['congty'] ?>" id="" aria-describedby="helpId"
                                     placeholder="">
                                 <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                                <p class="error-message">
+                                    <?php if (isset($error['congty'])) {echo $error['congty'];}?>
+                                </p>
                             </div>
                             <div class="col-12">
                                 <label for="" class="form-label">Địa chỉ chi tiết</label>
                                 <textarea name="address" class="form-control" rows="4" cols="4"
                                     placeholder="Địa chỉ chi tiết"><?php echo $user['diachi'] ?></textarea>
+                                <p class="error-message">
+                                    <?php if (isset($error['address'])) {echo $error['address'];}?>
+                                </p>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Về bản thân</label>
                                 <textarea class="form-control" rows="4" cols="4" placeholder="Mô tả về bản thân"
                                     name="about_me"><?php echo $user['about_me'] ?></textarea>
+                                <p class="error-message">
+                                    <?php if (isset($error['about_me'])) {echo $error['about_me'];}?>
+                                </p>
                             </div>
                             <div class="text-start">
                                 <input type="submit" name="savebtn" class="btn btn-primary px-4 mt-4"
                                     value="Lưu thông tin" />
-
                             </div>
                         </div>
                     </div>
@@ -84,8 +102,8 @@ if (isset($_SESSION['idadmin'])) {
     <div class="card shadow-sm border-0 overflow-hidden">
         <div class="card-body">
             <div class="profile-avatar text-center">
-                <img src="<?php echo $user['hinh_anh'] ?>" class="rounded-circle shadow" width="120" height="120"
-                    alt="">
+                <img src="../uploads/<?php echo $user['hinh_anh'] ?>" class="rounded-circle shadow" width="120"
+                    height="120" style="object-fit: cover;" alt="">
             </div>
             <!-- <div class="d-flex align-items-center justify-content-around mt-5 gap-3">
                     <div class="text-center">

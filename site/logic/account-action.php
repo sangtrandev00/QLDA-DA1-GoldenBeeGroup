@@ -237,7 +237,16 @@ switch ($_GET['act']) {
 
     case 'destroyorder':
         if (isset($_POST['orderid'])) {
+            // Cập nhật lại số lượng tồn kho của sản phẩm trong đơn hàng (Tăng lên)
+            $products = select_products_from_order_id($_POST['orderid']);
+
+            foreach ($products as $product) {
+                # code...
+                product_update_remaining_qty($product['idsanpham'], $product['soluong']);
+            }
+            // Cập nhật trạng thái
             $is_updated = updateorderstatus($_POST['orderid'], 6);
+
             if ($is_updated) {
                 echo json_encode(
                     array(

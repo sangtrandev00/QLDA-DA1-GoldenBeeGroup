@@ -676,3 +676,51 @@ $("#form-edit-admin").validate({
     }
   }
 });
+
+
+$("#user-profile-form").validate({
+  rules: {
+    email:{
+      required: true,
+      email: true
+    },
+    hoten:{
+      required: true
+    },
+    phone: {
+      required: true,
+      phone: true
+    },
+    congty: {
+      required: true,
+    },
+    address: {
+      required: true
+    },
+    about_me: {
+      required: true
+    }
+  },
+  messages:{
+    email:{
+      required: "Không để trống email",
+      email: "Email không đúng định dạng"
+    },
+    hoten:{
+      required: "Họ và tên không để trống"
+    },
+    phone: {
+      required: "Số điện thoại không để trống",
+      phone: "Số điện thoại không chính xác"
+    },
+    congty: {
+      required: "Công ty không để trống",
+    },
+    address: {
+      required: "Địa chỉ không để trống"
+    },
+    about_me: {
+      required: "Giới thiệu không để trống"
+    }
+  }
+})

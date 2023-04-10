@@ -37,20 +37,20 @@ function user_update_2($iduser, $mat_khau, $ho_ten, $diachi, $sodienthoai, $kich
 function update_profile_admin($idadmin, $ho_ten, $diachi, $sodienthoai, $hinh_anh, $email, $congty, $about_me)
 {
     if ($hinh_anh != "") {
-        $sql = "UPDATE tbl_nguoidung SET mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?, congty = ?, about_me = ? WHERE id=?";
+        $sql = "UPDATE tbl_nguoidung SET ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?, congty = ?, about_me = ? WHERE id=?";
         pdo_execute($sql, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $congty, $about_me, $idadmin);
         return true;
     } else {
-        $sql = "UPDATE tbl_nguoidung SET mat_khau=?, ho_ten=?, diachi=?, sodienthoai=?, email=?, congty = ?, about_me = ? WHERE id=?";
+        $sql = "UPDATE tbl_nguoidung SET ho_ten=?, diachi=?, sodienthoai=?, email=?, congty = ?, about_me = ? WHERE id=?";
         pdo_execute($sql, $ho_ten, $diachi, $sodienthoai, $email, $congty, $about_me, $idadmin);
         return true;
     }
 }
 
-function user_update_info($iduser, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $email, $vai_tro = 1, $congty)
+function user_update_info($iduser, $ho_ten, $diachi, $sodienthoai, $kich_hoat = 1, $hinh_anh, $congty)
 {
-    $sql = "UPDATE tbl_nguoidung SET ho_ten=?, diachi=?, sodienthoai=?, email=?,hinh_anh=?,kich_hoat=?,vai_tro=?,congty=? WHERE id=?";
-    pdo_execute($sql, $ho_ten, $diachi, $sodienthoai, $email, $hinh_anh, $kich_hoat == 1, $vai_tro == 1, $congty, $iduser);
+    $sql = "UPDATE tbl_nguoidung SET ho_ten=?, diachi=?, sodienthoai=?, hinh_anh=?,kich_hoat=?,congty=? WHERE id=?";
+    pdo_execute($sql, $ho_ten, $diachi, $sodienthoai, $hinh_anh, $kich_hoat == 1, $congty, $iduser);
     return true;
 }
 
