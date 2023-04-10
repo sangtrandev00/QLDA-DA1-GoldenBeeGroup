@@ -762,7 +762,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // initAddress();
     // console.log('<?php var_dump($_SESSION)?>')
-
     
 })
 

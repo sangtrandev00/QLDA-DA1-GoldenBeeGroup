@@ -9,7 +9,7 @@ function updateCart(typeEvent) {
 
     if(typeEvent == "onkeyup") {
         console.log('key up update cart');
-
+        return;
       
     }else if(typeEvent == "onclick") {
         console.log('clicked');
@@ -91,4 +91,28 @@ function updateCart(typeEvent) {
         
 }
 
+function handleCheckInventory(actionLocation) {
+    event.preventDefault();
 
+    $.ajax({
+        type: "POST",
+        url: "./logic/cart.php?act=checkinventory",
+        data: "data",
+        // dataType: "dataType",
+        success: function (response) {
+                const {status, content} = JSON.parse(response);
+                if(status == 0) {
+                     // Add some message for customer
+                     $("#cartModalBtn").trigger("click");
+                     $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                     $("#cartModal .modal-body").text(`${content}, load lại trang để xem số lượng`);   
+                     $("#cartModal .continue-btn").val("Load lại giỏ hàng");  
+                     $("#cartModal .continue-btn").addClass("main-bg-color main-border-color");  
+                     $("#cartModal .close-modal-btn").addClass("d-none");  
+                }else if(status == 1) {
+                    location.assign("./index.php?act=checkout");
+                }
+        }
+    });
+
+}

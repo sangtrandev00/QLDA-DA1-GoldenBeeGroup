@@ -68,7 +68,7 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
                                                                     <div class="dec qtybutton" onclick="' . $update_cart_func_click . '">-</div>
-                                                                        <input onkeyup="' . $update_cart_func_keyup . '" type="number" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                        <input readonly onkeyup="' . $update_cart_func_keyup . '" type="text"  min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
                                                                             <div class="inc qtybutton" onclick="' . $update_cart_func_click . '">+</div>
                                                                     </div>
@@ -93,13 +93,13 @@ foreach ($cart_list as $cart_item) {
 
         <div class="row">
             <div class="col-md-6">
-                <div class="coupon-discount box-shadow p-30 mb-50">
+                <!-- <div class="coupon-discount box-shadow p-30 mb-50">
                     <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
                     <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
                     <input type="text" name="name" placeholder="Nhập mã của bạn ở đây...">
                     <button class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập mã
                         giảm giá</button>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6">
                 <div id="paymentDetails" class="payment-details box-shadow p-30 mb-50">
@@ -110,14 +110,14 @@ foreach ($cart_list as $cart_item) {
                             <td class="td-title-2"><?php echo number_format($subtotal) ?>
                                 VND</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="td-title-1">Chi phí vận chuyển</td>
                             <td class="td-title-2">00.00 VND</td>
                         </tr>
                         <tr>
                             <td class="td-title-1">Vat</td>
                             <td class="td-title-2">00.00 VND</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="order-total">Tổng đơn hàng</td>
                             <td class="order-total-price">

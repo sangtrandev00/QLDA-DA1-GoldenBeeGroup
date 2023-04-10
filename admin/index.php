@@ -689,12 +689,46 @@ if (isset($_SESSION['idadmin'])) {
                 break;
             case 'update-profile':
                 if (isset($_GET['id'])) {
+                    $error = array();
                     if (isset($_POST['savebtn']) && $_POST['savebtn']) {
                         $id_admin = $_GET['id'];
-                        var_dump($_POST);
+                        // var_dump($_POST);
+                        if (empty($_POST['hoten'])) {
+                            $error['hoten'] = "Khồng để trống họ tên";
+                        }
+                        if (empty($_POST['address'])) {
+                            $error['address'] = "Khồng để trống địa chỉ";
+                        }
+                        if (empty($_POST['phone'])) {
+                            $error['phone'] = "Khồng để trống số điện thoại";
+                        } else if (!validating($_POST['phone'])) {
+                            $error['phone'] = "Số điện thoại không đúng định dạng";
+                        }
+                        if (empty($_POST['email'])) {
+                            $error['email'] = "Khồng để trống email";
+                        } else if (!is_email($_POST['email'])) {
+                            $error['email'] = "Email không đúng định dạng";
+                        }
 
-                        // update_profile_admin($id_admin, $_POST['hoten'], $_POST['address'], $_POST['avatar'], $_POST['email'], $_POST['congty'], $_POST['about_me']);
-                        $_SESSION['alert'] = "Cập nhật profile thành công!";
+                        if (empty($_POST['congty'])) {
+                            $error['congty'] = "Khồng để trống congty";
+                        }
+                        if (empty($_POST['about_me'])) {
+                            $error['about_me'] = "Khồng để trống giới thiệu";
+                        }
+
+                        $avatar_url = $_FILES['avatar']['name'];
+                        move_uploaded_file($_FILES["avatar"]["tmp_name"], "../uploads/$avatar_url");
+                        if (!$error) {
+                            $is_updated = update_profile_admin($id_admin, $_POST['hoten'], $_POST['address'], $_POST['phone'], $avatar_url, $_POST['email'], $_POST['congty'], $_POST['about_me']);
+
+                            if ($is_updated) {
+                                $_SESSION['alert'] = "Cập nhật profile thành công!";
+                            } else {
+                                $_SESSION['alert'] = "Cập nhật profile thất bại";
+                            }
+                        }
+
                     }
 
                     include "./view/pages/user/user-profile.php";
@@ -921,7 +955,7 @@ if (isset($_SESSION['idadmin'])) {
                         $error['hinh'] = "Không để trống hình ảnh";
                     }
                     $imageFileType = strtolower(pathinfo($hinh, PATHINFO_EXTENSION));
-                    if($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                    if ($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                         $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
                     }
                     if (strlen($title) == 0) {
@@ -929,7 +963,7 @@ if (isset($_SESSION['idadmin'])) {
                     }
                     if (strlen($conten) == 0) {
                         $error['noidung'] = "Không để trống nội dung!";
-                    }                 
+                    }
                     if (!$error) {
                         $is_inserted = add_blog($title, $hinh, $conten, $date, $idcate);
                         if ($is_inserted) {
@@ -974,8 +1008,8 @@ if (isset($_SESSION['idadmin'])) {
                     }
                     if (strlen($noidung) == 0) {
                         $error['noidung'] = "Không để trống nội dung!";
-                    }  
-                    // print_r($error) ;             
+                    }
+                    // print_r($error) ;
                     if (!$error) {
                         $is_inserted = updateblog($id, $title, $hinh, $noidung);
                         $thongbaoupdate = "Cập Nhật Bài Viết Thành Công";
@@ -985,11 +1019,10 @@ if (isset($_SESSION['idadmin'])) {
                         // }
                         include './view/pages/blogs/blog-list.php';
                         break;
-                    }
-                    else {
+                    } else {
                         $thongbaoupdate = "Cập Nhật Bài Viết Thất Bại";
                         // header('location: index.php?act=updateblog&id='.$id.'');
-                        
+
                     }
 
                 }
@@ -1011,12 +1044,12 @@ if (isset($_SESSION['idadmin'])) {
                         $error['hinh'] = "Không để trống hình ảnh";
                     }
                     $imageFileType = strtolower(pathinfo($hinhcateblog, PATHINFO_EXTENSION));
-                    if($hinhcateblog != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                    if ($hinhcateblog != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                         $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
                     }
                     if (strlen($blogcatename) == 0) {
                         $error['blogcatename'] = "Không để trống tên danh mục!";
-                    }                
+                    }
                     if (!$error) {
                         $is_inserted = add_cateblog($blogcatename, $hinhcateblog);
                         if ($is_inserted) {
@@ -1057,9 +1090,9 @@ if (isset($_SESSION['idadmin'])) {
                     }
                     // print_r($error);
                     if (!$error) {
-                        
+
                         $thongbaoupdate = "Cập Nhật Danh Mục Bài Viết Thành Công";
-                        $is_inserted = update_cateblog($id,$catename,$hinh);
+                        $is_inserted = update_cateblog($id, $catename, $hinh);
                         // if ($is_inserted) {
                         //     $is_inserted = update_cateblog($id,$catename,$hinh);
                         //     $thongbaoupdate = "Thêm Bài Viết Thành Công";
@@ -1067,11 +1100,10 @@ if (isset($_SESSION['idadmin'])) {
                         // }
                         include './view/pages/blogs/blog-cate.php';
                         break;
-                    }
-                    else {
+                    } else {
                         $thongbaoupdate = "Cập Nhật Danh Mục Bài Viết Thất Bại";
                         // header('location: index.php?act=updateblog&id='.$id.'');
-                        
+
                     }
                     // update_cateblog($id, $catename, $hinh);
 
@@ -1115,7 +1147,7 @@ if (isset($_SESSION['idadmin'])) {
                         $error['hinh'] = "Không để trống hình ảnh";
                     }
                     $imageFileType = strtolower(pathinfo($hinh, PATHINFO_EXTENSION));
-                    if($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif"){
+                    if ($hinh != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
                         $error['hinh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
                     }
                     if (strlen($title) == 0) {
@@ -1123,9 +1155,9 @@ if (isset($_SESSION['idadmin'])) {
                     }
                     if (strlen($conten) == 0) {
                         $error['noidung'] = "Không để trống nội dung!";
-                    }                 
+                    }
                     if (!$error) {
-                        $is_inserted = addslider($title,$hinh,$conten,$date);
+                        $is_inserted = addslider($title, $hinh, $conten, $date);
                         if ($is_inserted) {
                             $thongbao = "Thêm Slider Thành Công";
                         }
@@ -1150,10 +1182,10 @@ if (isset($_SESSION['idadmin'])) {
                     }
                     if (strlen($noidung) == 0) {
                         $error['noidung'] = "Không để trống nội dung!";
-                    }  
-                    // print_r($error) ;             
+                    }
+                    // print_r($error) ;
                     if (!$error) {
-                        $is_inserted = updateslider($id,$title,$hinh,$noidung);
+                        $is_inserted = updateslider($id, $title, $hinh, $noidung);
                         $thongbaoupdate = "Cập Nhật Slider Thành Công";
                         // if ($is_inserted) {
                         //     $thongbaoupdate = "Thêm Bài Viết Thành Công";
@@ -1161,11 +1193,10 @@ if (isset($_SESSION['idadmin'])) {
                         // }
                         include './view/pages/banner_slider/sliderlist.php';
                         break;
-                    }
-                    else {
+                    } else {
                         $thongbaoupdate = "Cập Nhật Slider Thất Bại";
                         // header('location: index.php?act=updateblog&id='.$id.'');
-                        
+
                     }
 
                 }
@@ -1182,7 +1213,7 @@ if (isset($_SESSION['idadmin'])) {
                 include "./view/pages/banner_slider/sliderlist.php";
                 break;
             case 'addbanner':
-                if(isset($_POST['addbanner']) && $_POST['addbanner']){
+                if (isset($_POST['addbanner']) && $_POST['addbanner']) {
                     $error = array();
                     $namebanner = $_POST['namebanner'];
                     $image_files = $_FILES['images'];
@@ -1220,7 +1251,7 @@ if (isset($_SESSION['idadmin'])) {
                         $error['noidung'] = "Không để trống nội dung!";
                     }
                     if (!$error) {
-                        $is_inserted = addbanner($namebanner,$image_list,$idsp,$noidung,$thongtin,$date);
+                        $is_inserted = addbanner($namebanner, $image_list, $idsp, $noidung, $thongtin, $date);
                         if ($is_inserted) {
                             $thongbao = "Thêm Banner Thành Công";
                         }
@@ -1243,7 +1274,7 @@ if (isset($_SESSION['idadmin'])) {
                 break;
             case 'updatebanner':
                 $error = array();
-                if(isset($_POST['updatebanner']) && $_POST['updatebanner']){ 
+                if (isset($_POST['updatebanner']) && $_POST['updatebanner']) {
                     $id = $_POST['id'];
                     $namebanner = $_POST['namebanner'];
                     $image_files = $_FILES['images'];
@@ -1269,7 +1300,7 @@ if (isset($_SESSION['idadmin'])) {
                     $noidung = $_POST['noidung'];
                     $thongtin = $_POST['thongtin'];
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
-                    $date = date('Y-m-d H:i:s');    
+                    $date = date('Y-m-d H:i:s');
 
                     if (strlen($namebanner) == 0) {
                         $error['namebanner'] = "Không để trống tên!";
@@ -1281,8 +1312,8 @@ if (isset($_SESSION['idadmin'])) {
                         $error['noidung'] = "Không để trống nội dung!";
                     }
                     if (!$error) {
-                        $is_inserted = updatebanner($id,$namebanner,$image_list,$idsp,$noidung,$thongtin,$date);
-                            $thongbaoupdate = "Cập Nhật Banner Thành Công";
+                        $is_inserted = updatebanner($id, $namebanner, $image_list, $idsp, $noidung, $thongtin, $date);
+                        $thongbaoupdate = "Cập Nhật Banner Thành Công";
                     } else {
                         $thongbaoupdate = "Cập Nhật Banner Thất Bại";
                     }
