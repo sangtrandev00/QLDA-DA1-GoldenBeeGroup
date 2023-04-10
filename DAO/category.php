@@ -2,7 +2,7 @@
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "../pdo-library.php";
+include $ROOT_URL . "/pdo-library.php";
 
 function cate_insert($ten_loai, $hinh_anh, $mo_ta)
 {

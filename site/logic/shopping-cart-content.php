@@ -131,7 +131,7 @@ foreach ($cart_list as $cart_item) {
         <a href="./index.php?act=checkout" class="btn btn-dark mb-5 ml-auto d-block">Thanh
             toán</a>
         <!-- Module extra --- Làm thêm -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <div class="culculate-shipping box-shadow p-30">
                     <h6 class="widget-title border-left mb-20">culculate shipping</h6>
@@ -153,6 +153,6 @@ foreach ($cart_list as $cart_item) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>
