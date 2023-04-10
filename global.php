@@ -10,6 +10,7 @@
 
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
 $ADMIN_URL = $ROOT_URL . "/admin";
 $SITE_URL = $ROOT_URL . "/site";
 $PDO_LIB = $ROOT_URL . "/pdo-library.php";

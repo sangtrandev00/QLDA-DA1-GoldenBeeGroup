@@ -3,11 +3,12 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
-$FOLDER_VAR = "/PRO1014_DA1/main-project";
-$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
-include "$ROOT_URL/global.php";
+// $FOLDER_VAR = "/PRO1014_DA1/main-project";
+// $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+include "../../global.php";
 include "$ROOT_URL/pdo-library.php";
 include "$ROOT_URL/DAO/user.php";
+
 ?>
 <?php
 
