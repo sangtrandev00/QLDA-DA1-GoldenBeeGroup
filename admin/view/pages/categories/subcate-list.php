@@ -14,10 +14,13 @@ if (isset($_GET['cateid'])) {
             <div class="col-12 col-lg-4 d-flex">
                 <div class="card border shadow-none w-100">
                     <div class="card-body">
-                        <form class="row g-3" action="./index.php?act=addsubcate" method="POST">
+                        <form onsubmit="addSubCate(this)" class="row g-3" action="./index.php?act=addsubcate"
+                            method="POST">
                             <div class="col-12">
                                 <label class="form-label">Tên danh mục phụ</label>
                                 <input name="subcatename" type="text" class="form-control" placeholder="Tên danh mục">
+                                <p class="error-message subcatename-error">
+                                    <?php if (isset($error['subcatename'])) {echo $error['subcatename'];}?></p>
                             </div>
                             <!-- <div class="col-12">
                                 <label class="form-label">Hình ảnh</label>

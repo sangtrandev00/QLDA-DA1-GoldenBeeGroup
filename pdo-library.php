@@ -102,7 +102,9 @@ function sendmail($recipient_mail, $title, $message)
     require 'PHPMailer/src/Exception.php';
     require 'PHPMailer/src/PHPMailer.php';
     require 'PHPMailer/src/SMTP.php';
+
 // Instantiation and passing `true` enables exceptions
+
     $mail = new PHPMailer(true);
 
     try {
@@ -118,10 +120,10 @@ function sendmail($recipient_mail, $title, $message)
         //Recipients
         $mail->setFrom('sangtnps20227@fpt.edu.vn', 'Mailer');
         $mail->addAddress($recipient_mail, 'Customer'); // Add a recipient
-        $mail->addAddress('ellen@example.com'); // Name is optional
-        $mail->addReplyTo('info@example.com', 'Information');
-        $mail->addCC('cc@example.com');
-        $mail->addBCC('bcc@example.com');
+        // $mail->addAddress('ellen@example.com'); // Name is optional
+        // $mail->addReplyTo('info@example.com', 'Information');
+        // $mail->addCC('cc@example.com');
+        // $mail->addBCC('bcc@example.com');
 
         // Attachments
         // $mail->addAttachment('/var/tmp/file.tar.gz'); // Add attachments
@@ -136,5 +138,6 @@ function sendmail($recipient_mail, $title, $message)
         echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        exit;
     }
 }

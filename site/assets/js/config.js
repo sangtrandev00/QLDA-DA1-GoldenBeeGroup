@@ -52,23 +52,6 @@ toastTrigger.addEventListener('click', () => {
 // const toast = new bootstrap.Toast(toastLiveExample)
 //   toast.show()
 
-// const handleAddCart = (cartBtnSelector, formAction) => {
-//     const handleCartBtns = document.querySelectorAll(cartBtnSelector);
-//     [...handleCartBtns].forEach((btn) => {
-//         btn.addEventListener('click', (e) => {
-//             e.preventDefault();
-
-//             // console.log('event target: ', e.currentTarget);
-//             const submitBtn = e.currentTarget.nextElementSibling;
-//             // console.log('submit Btn: ', submitBtn);
-//             const formElement = getParent(e.currentTarget, 'form');
-//             // console.log('form: ', formElement);
-//             formElement.action = "index.php?act=" + formAction;
-//             submitBtn.click();
-//         })
-//     })
-// }
-
 function handleAddCart (actionForm, logicType){
     event.preventDefault();
 
@@ -210,7 +193,9 @@ function handleDeleteCart(idcart) {
             data: {id: idcart},
             // dataType: 'json',
             success: function (response, statusText) {
+                
                     console.log('res: ', response);
+
                     // $("#cartModalBtn").trigger("click");
                     // $("#cartModal .modal-header").text(`Bạn đã xóa sản phẩm thành công`)
                     // $("#table-content-wrapper").html(response);
@@ -352,7 +337,7 @@ const zoomProductDetail = () => {
             modalProductnameElement.textContent = tensp;
             modalProductpriceElement.textContent = new_price.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductQtyElement.value = sl;
-            modalProductDescElement.textContent = mo_ta;
+            modalProductDescElement.innerHTML = mo_ta;
             modalProductoldpriceElement.textContent = don_gia.toLocaleString("vi-VN", {style:"currency", currency:"VND"});
             modalProductSeeAllElement.setAttribute('href', "./index.php?act=detailproduct&id="+productId);
             // modalProductDescElement.textContent = 
@@ -376,26 +361,7 @@ const zoomProductDetail = () => {
     })
 }
 
-// jquery ajax here
-
-// $('.del-icon a').click(function(event) {
-//     event.preventDefault();
-
-//     console.log('clicked here!!!');
-
-//     // $.ajax({
-//     //     url: "./index.php?act=deletecart",
-//     //     type: 'GET',
-//     //     success: function(response) {
-//     //         console.log('res: ', response);
-//     //     }h
-//     // });
-
-//     $.get('./logic/cart.php?idcart=0', function(res) {
-//         console.log('res: ', res);
-//     })
-// })
-
+// Table data at my - account
 $.ajax({
             type: "POST",
             url: SITE_URL+ "/view/pages/account/table-order-database.php",
@@ -449,18 +415,106 @@ function showOrder() {
 
 // Call GHN API
 // GET all Province
-$.ajax({
-    type: "GET",
-    url: "url",
-    data: "data",
-    dataType: "dataType",
-    success: function (response) {
-        
-    }
-});
+
 // [GET] all district
 // [GET] all 
 
+
+function renderStarRatings(number) {
+    const html = `
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    `
+    let result = "";
+    switch(number) {
+        case '1':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '1.5':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '2':
+            result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '2.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '3':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '3.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+        `
+            break;
+        case '4':
+              result = `
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+            `
+            break;
+        case '4.5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+        `
+            break;
+        case '5':
+            result = `
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+            <a href="#" tabindex="0"><i class="zmdi zmdi-star-"></i></a>
+        `
+            break;
+        default:
+    }
+    return result;
+}
 
 (() => {
     zoomProductDetail();
@@ -468,7 +522,7 @@ $.ajax({
     // handleAddCart('.add-to-wishlist', 'addtowishlist');
 
     const url = new URL(location.href);
-
+    console.log(url);
     // console.log('url', url.searchParams.get('act'));
     // console.log('url', url.searchParams.get('view'));
     if(url.searchParams.get('act') == 'settingaccount') {
@@ -502,6 +556,36 @@ $.ajax({
                 break;
         }
     }
+
+    if(!url.searchParams.get('act')) {
+
+        switch (url.searchParams.get('view')) {
+            case 'best-seller':
+                // console.log("homepage best-seller");
+                // $("#best-seller-tab-btn").trigger("click");
+                document.getElementById("best-seller-tab-btn").click();
+                // window.scrollY = 1800;
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'special-offer':
+                document.getElementById("special-offer-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'popular-product':
+                document.getElementById("popular-product-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            case 'new-arrival':
+                document.getElementById("new-arrival-tab-btn").click();
+                $("html, body").animate({ scrollTop: 1800 }, "slow");
+                break;
+            default:
+                break;
+        }
+
+        
+    }
+   
    
 })();
 
@@ -534,6 +618,13 @@ function selectProvince(currentProvince) {
     
         }
     });
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    const provinceName = checkoutForm.elements['province-select'].options[checkoutForm.elements[
+        'province-select'].selectedIndex].text;
+    checkoutForm.elements['province_name'].value = provinceName;
+
 }
 
 function selectDistrict(currentDistrict) {
@@ -563,41 +654,116 @@ function selectDistrict(currentDistrict) {
 
                 $("#ward-select").html(wardHtmlList);
                 
-
+                $("input[name='province_name']").val()
                 // Calculate shipping fee here again when change
+        }
+    });
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    // const districtId = checkoutForm.elements['district_id'].value;
+    const wardCode = checkoutForm.elements['ward_id'].value;
+    const subTotal = checkoutForm.elements['tongphu'].value;
+    calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+
+
+    const districtName = checkoutForm.elements['district-select'].options[checkoutForm.elements[
+        'district-select'].selectedIndex].text;
+    checkoutForm.elements['district_name'].value = districtName;
+}
+
+function selectWard(currentWard) {
+    console.log('ward change ', currentWard.value);
+
+    const checkoutForm = document.getElementById('checkout-form');
+
+    const districtId = checkoutForm.elements['district_id'].value;
+    const wardCode = currentWard.value;
+    const subTotal = checkoutForm.elements['tongphu'].value;
+    calcShippingFee(districtId, 53320, 2, wardCode, 2, 10, 1000, 10, subTotal, null);
+
+    const wardName = checkoutForm.elements['ward-select'].options[checkoutForm.elements[
+        'ward-select'].selectedIndex].text;
+    checkoutForm.elements['ward_name'].value = wardName;
+}
+
+function calcShippingFee(districtId, serviceId = 53320, serviceTypeId = 2, wardCode, height = 2, length = 10, weight =
+    1000, width = 10, insuranceValue, coupon = null) {
+
+
+    $.ajax({
+        type: "GET",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+        data: {
+            "from_district_id": districtId,
+            "service_id": serviceId,
+            "service_type_id": serviceTypeId,
+            "to_district_id": districtId,
+            "to_ward_code": wardCode,
+            "height": height,
+            "length": length,
+            "weight": weight,
+            "width": width,
+            "insurance_value": insuranceValue,
+            "coupon": null
+        },
+        // dataType: "dataType",
+        headers: {
+            "Token": "66961f68-cc3c-11ed-943b-f6b926345ef9",
+            "ShopId": 123689,
+            "Content-type": "application/json"
+        },
+        success: function(response) {
+            console.log(response);
+            const {
+                data: {
+                    total: shippingFee,
+                    insurance_fee
+                }
+            } = response;
+
+            console.log(shippingFee, insuranceValue);
+            const totalFeeNoVat = shippingFee + +insuranceValue;
+            const vatFee = totalFeeNoVat * 0.1;
+            const totalFee = totalFeeNoVat + vatFee;
+            console.log('shipping fee hidden', $("#shipping-fee-hidden"));
+            document.getElementById("shipping-fee-hidden").value = shippingFee;
+            $("#shipping-fee").html(`${shippingFee.toLocaleString("en-US")} VND`);
+            $("#total-order-fee").html(`${totalFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee").html(`${vatFee.toLocaleString("en-US")} VND`);
+            $("#vat-fee-hidden").val(vatFee);
+            $("#total-order-hidden").val(totalFee);
+
         }
     });
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
-    // $.ajax({
-    //     type: "POST",
-    //     url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
-    //     data: "data",
-    //     // dataType: "dataType",
-    //     // contentType: application/json
-    //     headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
-    //     success: function (response) {
-    //         console.log('res', response);
+    $.ajax({
+        type: "POST",
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        data: "data",
+        // dataType: "dataType",
+        // contentType: application/json
+        headers: {"Token": "66961f68-cc3c-11ed-943b-f6b926345ef9"},
+        success: function (response) {
+            console.log('res', response);
     
-    //         const {code, message, data} = response;
+            const {code, message, data} = response;
 
-    //             const provinceHtmlList = data.map((province) => {
-    //                 return (
-    //                     `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
-    //                 );
-    //             } )
+                const provinceHtmlList = data.map((province) => {
+                    return (
+                        `<option value="${province.ProvinceID}">${province.ProvinceName}</option>`
+                    );
+                } )
 
-    //             $("#province-select").append(provinceHtmlList);
+                $("#province-select").append(provinceHtmlList);
     
-    //     }
-    // });
+        }
+    });
 
     // initAddress();
     // console.log('<?php var_dump($_SESSION)?>')
-
     
 })
 

@@ -21,17 +21,13 @@
                                 <input type="file" class="form-control" name="cateimage" accept="image/png, image/jpeg"
                                     placeholder="Hình ảnh">
                                 <p class="error-message">
-                                    <?php if (isset($error['catedesc'])) {echo $error['catedesc'];}?></p>
+                                    <?php if (isset($error['image'])) {echo $error['image'];}?></p>
 
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Danh mục cha</label>
                                 <select class="form-select" name="cateparent">
                                     <option value="">Không có</option>
-                                    <!-- <option value="">Fashion</option>
-                                         <option value="">Electronics</option>
-                                         <option value="">Furniture</option>
-                                         <option value="">Sports</option> -->
                                     <?php
 $cate_list = cate_select_all();
 foreach ($cate_list as $cate_item) {
@@ -75,7 +71,7 @@ foreach ($cate_list as $cate_item) {
                                         <th>Tên</th>
                                         <th>Hình ảnh</th>
                                         <th>Mô tả</th>
-                                        <th>Số sản phẩm</th>
+                                        <th>Số dm phụ</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
@@ -91,7 +87,7 @@ foreach ($cate_list as $cate_item) {
                                                 <td>' . $cate_item['ten_danhmuc'] . '</td>
                                                 <td><img width="80" height="100" src="../uploads/' . $cate_item['hinh_anh'] . '"/></td>
                                                 <td>' . $cate_item['mo_ta'] . '</td>
-                                                <td>' . count_products_by_cate($cate_item['ma_danhmuc']) . '</td>
+                                                <td>' . count_subcate_by_cateid($cate_item['ma_danhmuc']) . '</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
                                                         <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&cateid=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"
@@ -102,7 +98,7 @@ foreach ($cate_list as $cate_item) {
                                                             data-bs-toggle="tooltip" data-bs-placement="bottom"  title=""
                                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                                 class="bi bi-pencil-fill"></i></a>
-                                                        <a onclick="deleteCate(' . $cate_item['ma_danhmuc'] . ')" href="./index.php?act=deletecate&id=' . $cate_item['ma_danhmuc'] . '" class="text-danger" data-bs-toggle="tooltip"
+                                                        <a href="javascript:deleteCate(' . $cate_item['ma_danhmuc'] . ')" class="text-danger" data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom" title=""
                                                             data-bs-original-title="Delete" aria-label="Delete"><i
                                                                 class="bi bi-trash-fill"></i></a>

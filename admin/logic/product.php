@@ -1,12 +1,12 @@
 <?php
 ob_start();
 session_start();
-$FOLDER_VAR = "/PRO1014_DA1/main-project/";
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "admin/models/category.php";
-include $ROOT_URL . "DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
+include $ROOT_URL . "/admin/models/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
 switch ($_GET['act']) {
     case 'addproduct':
         # code...
@@ -48,52 +48,57 @@ switch ($_GET['act']) {
         $promote = 1;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date_create = date('Y-m-d H:i:s');
-
         // Validate at server
 
-        // if (strlen($tensp) == 0) {
-        //     $error['proname'] = "Không để trống tên sản phẩm!";
-        // }
+        // Validate server here !!!
+        if (strlen($tensp) == 0) {
+            $error['product-name'] = "Không để trống tên sản phẩm!";
+        }
+        if (!is_numeric($ma_danhmuc)) {
+            $error['cate'] = "Không để trống mã danh mục!";
+        }
 
-        // if (!is_numeric($ma_danhmuc)) {
-        //     $error['ma_danhmuc'] = "Không để trống mã danh mục!";
-        // }
+        if (!is_numeric($id_dmphu)) {
+            $error['subcate'] = "Không để trống mã danh mục phụ";
+        }
 
-        // if (empty($don_gia)) {
-        //     $error['don_gia'] = "không để trống đơn giá";
-        // } else if ($don_gia < 0) {
-        //     $error['don_gia'] = "Đơn giá phải lớn hơn 0!";
-        // }
+        if (empty($mo_ta)) {
+            $error['desc'] = "Không để trống mô tả sản phẩm";
+        }
 
-        // if (empty($giam_gia)) {
-        //     $error['giam_gia'] = "Không để trống giảm giá";
-        // } else if ($giam_gia < 0 || $giam_gia > 100) {
-        //     $error['giam_gia'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
-        // }
+        if (empty($thong_tin)) {
+            $error['info'] = "Không để trống thông tin sản phẩm";
+        }
 
-        // if (empty($_FILES["hinhanh1"]["name"])) {
-        //     $error['hinhanh1'] = "Không để trống hình ảnh chính, hình ảnh 1";
-        // }
+        if (empty($don_gia)) {
+            $error['price'] = "không để trống đơn giá";
+        } else if ($don_gia < 0) {
+            $error['price'] = "Đơn giá phải lớn hơn 0!";
+        }
 
-        // if (!$error) {
-        $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
-        if ($is_updated) {
-            // echo '<script>
-            //             document.getElementById("liveToastBtn").click();
-            //             // $("#cartModal #cartModalLabel).text("Cập nhật sản phẩm thành công!");
-            //     </script>';
+        if (empty($giam_gia)) {
+            $error['discount'] = "Không để trống giảm giá";
+        } else if ($giam_gia < 0 || $giam_gia > 100) {
+            $error['discount'] = "Giảm giá phải lớn hơn hoặc bằng 0 và nhỏ hơn bằng 100";
+        }
+
+        if (!$error) {
+            $is_updated = product_update($idproduct, $tensp, $don_gia, $so_luong, $image_list, $giam_gia, $dac_biet, $date_create, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote);
+            if ($is_updated) {
+                $result = array(
+                    "status" => 1,
+                    "content" => "Cập nhật sản phẩm thành công!",
+                );
+                echo json_encode($result);
+            }
+        } else {
             $result = array(
-                "status" => 1,
-                "message" => "Cập nhật sản phẩm thành công!",
+                "status" => 0,
+                "content" => "Cập nhật sản phẩm thất bại",
+                "error" => $error,
             );
             echo json_encode($result);
-        } else {
-
         }
-    // } else {
-
-    // }
-    // }
 
     case 'getproduct':
         if (isset($_GET['id'])) {
@@ -137,6 +142,66 @@ switch ($_GET['act']) {
         }
         break;
 
+    case 'addreplyreviews':
+        if (isset($_POST['idReview'])) {
+            $id_review = $_POST['idReview'];
+            $id_user = $_POST['idUser'];
+            $content = $_POST['content'];
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_create = date("Y-m-d H:i:s");
+
+            $is_inserted = insert_reply_review($id_user, $id_review, $content, $date_create);
+            if ($is_inserted) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => "Trả lời bình luận thành công!",
+                    )
+                );
+            }
+        }
+        break;
+    case 'getreplyreview':
+        if (isset($_GET['idReply'])) {
+            $id_reply = $_GET['idReply'];
+
+            $reply_review = select_reply_review_by_id($id_reply);
+
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => $reply_review,
+                )
+            );
+        }
+        break;
+    case 'updateReplyReviews':
+        if (isset($_POST['idReply'])) {
+            $id_review = $_POST['idReview'];
+            $id_user = $_POST['idUser'];
+            $id_reply = $_POST['idReply'];
+            $content = $_POST['content'];
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date_modified = date('Y-m-d H:i:s');
+            $is_updated = update_reply_review($id_reply, $id_user, $id_review, $content, $date_modified);
+
+            if ($is_updated) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => "Cập nhật trả lời bình luận thành công!",
+                    )
+                );
+            } else {
+                echo json_encode(
+                    array(
+                        "status" => 0,
+                        "content" => "Cập nhật trả lời bình luận thất bại!",
+                    )
+                );
+            }
+        }
+        break;
     default:
         # code...
         break;

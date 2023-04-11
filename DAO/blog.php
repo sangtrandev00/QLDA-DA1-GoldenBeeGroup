@@ -7,7 +7,7 @@ function blog_select_by_id($blog_id)
 }
 
 function blog_select_all(){
-    $sql = "SELECT * FROM tbl_blog ";
+    $sql = "SELECT * FROM tbl_blog ORDER BY create_time DESC";
     return pdo_query($sql);
 }
 function blog_cate_select_all(){
@@ -57,12 +57,16 @@ function add_cateblog($catename,$hinh){
     }
     pdo_execute($sql);
 }
+// function update_cateblog($id,$catename,$hinh){
+//     if($hinh != ""){
+//         $sql = "update tbl_blog_cate set blog_catename='".$catename."', hinh_anh='".$hinh."' where id=".$id;
+//     }else{
+//         $sql = "update tbl_blog_cate set blog_catename='".$catename."' where id=".$id;
+//     }
+//     pdo_execute($sql);
+// }
 function update_cateblog($id,$catename,$hinh){
-    if($hinh != ""){
         $sql = "update tbl_blog_cate set blog_catename='".$catename."', hinh_anh='".$hinh."' where id=".$id;
-    }else{
-        $sql = "update tbl_blog_cate set blog_catename='".$catename."' where id=".$id;
-    }
     pdo_execute($sql);
 }
 function viewcateblog($id){

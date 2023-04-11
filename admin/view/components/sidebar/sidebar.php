@@ -71,7 +71,7 @@
 
     </li>
     <?php
-if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
+if (isset($_SESSION['idadmin']) && $_SESSION['role'] == 1) {
     echo '
             <li>
             <a href="javascript:;" class="has-arrow">
@@ -136,9 +136,9 @@ if (isset($_SESSION['iduser']) && $_SESSION['role'] == 1) {
         <ul class="">
             <li class=""> <a href="index.php?act=feedbacklist"><i class="bi bi-circle"></i>Danh sách phàn hồi</a>
             </li>
-            <!-- <li> <a href="index.php?act=adminlist"><i class="bi bi-circle"></i>Danh sách quản trị viên</a>
+            <li> <a href="index.php?act=reviews-product"><i class="bi bi-circle"></i>Danh sách đánh giá sp</a>
             </li>
-            <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
+            <!-- <li> <a href="index.php?act=adduser"><i class="bi bi-circle"></i>Thêm người dùng</a>
             </li> -->
         </ul>
     </li>

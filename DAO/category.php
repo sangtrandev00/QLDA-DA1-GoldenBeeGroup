@@ -2,13 +2,19 @@
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "../pdo-library.php";
+include $ROOT_URL . "/pdo-library.php";
 
 function cate_insert($ten_loai, $hinh_anh, $mo_ta)
 {
     $sql = "INSERT INTO tbl_danhmuc(ten_danhmuc, hinh_anh, mo_ta) VALUES(?,?,?)";
     pdo_execute($sql, $ten_loai, $hinh_anh, $mo_ta);
     return true;
+}
+
+function count_subcate_by_cateid($cateid)
+{
+    $sql = "SELECT count(*) from tbl_danhmucphu where iddm = '$cateid'";
+    return pdo_query_value($sql);
 }
 
 function subcate_insert($iddm, $ten_danhmucphu, $mo_ta)
@@ -97,6 +103,12 @@ function subcate_select_by_id($ma_loai)
 
 }
 
+function select_subcates_by_cateid($cateid)
+{
+    $sql = "SELECT * FROM tbl_danhmucphu WHERE iddm=?";
+    return pdo_query($sql, $cateid);
+}
+
 function catename_select_by_id($ma_loai)
 {
     $sql = "SELECT ten_danhmuc FROM tbl_danhmuc WHERE ma_danhmuc=?";
@@ -117,10 +129,22 @@ function cate_exist($ma_loai)
     return pdo_query_value($sql, $ma_loai) > 0;
 
 }
+
+function subcate_exist_in_cate($ma_loai)
+{
+    $sql = "SELECT count(*) from tbl_danhmucphu where iddm = ?";
+    return pdo_query_value($sql, $ma_loai) > 0;
+}
 function cate_exist_by_name($ten_danhmuc)
 {
     $sql = "SELECT count(*) FROM tbl_danhmuc WHERE ten_danhmuc=?";
     return pdo_query_value($sql, $ten_danhmuc) > 0;
+
+}
+function subcate_exist_by_name($ten_danhmucphu)
+{
+    $sql = "SELECT count(*) FROM tbl_danhmucphu WHERE ten_danhmucphu=?";
+    return pdo_query_value($sql, $ten_danhmucphu) > 0;
 
 }
 

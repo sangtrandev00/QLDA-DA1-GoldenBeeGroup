@@ -9,8 +9,8 @@ if (isset($thongbao) && ($thongbao != "")) {
 if (isset($thongbaodelete) && ($thongbaodelete != "")) {
     echo '<div class="alert alert-primary" role="alert">' . $thongbaodelete . '</div>';
 }
-if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
-    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdatecateblog . '</div>';
+if (isset($thongbaoupdate) && ($thongbaoupdate != "")) {
+    echo '<div class="alert alert-primary" role="alert">' . $thongbaoupdate . '</div>';
 }
 
 ?>
@@ -25,10 +25,12 @@ if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
                             <div class="col-12">
                                 <label class="form-label">Tên danh mục</label>
                                 <input type="text" class="form-control" name="blogcatename" placeholder="Tên danh mục">
+                                <p class="error-message"><?php if (isset($error['blogcatename'])) {echo $error['blogcatename'];}?></p>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Hình ảnh</label>
                                 <input type="file" class="form-control" name="hinh" placeholder="Hình ảnh">
+                                <p class="error-message"><?php if (isset($error['hinh'])) {echo $error['hinh'];}?></p>
                             </div>
                             <div class="col-12">
                                 <div class="d-grid">
@@ -63,7 +65,7 @@ if (isset($thongbaoupdatecateblog) && ($thongbaoupdatecateblog != "")) {
 $cate_list = blog_cate_select_all();
 foreach ($cate_list as $cate_item) {
     $xoablog = "index.php?act=deletecateblog&id=" . $cate_item['id'];
-    $suablog = "index.php?act=editcateblog&id=" . $cate_item['id'];
+    $suablog = "index.php?act=updatecateblog&id=" . $cate_item['id'];
     $viewcateblog = "index.php?act=viewcateblog&id=" . $cate_item['id'];
     echo '
                                             <tr>

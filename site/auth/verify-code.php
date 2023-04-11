@@ -5,6 +5,39 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
+
+?>
+
+<?php
+
+if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
+    $error = array();
+    $code = $_POST['code'];
+
+    if (empty($code)) {
+        $error['code'] = "Mã code của bạn không chính xác";
+    }
+
+    if (isset($_SESSION['verifycode'])) {
+        $verifycode = $_SESSION['verifycode'];
+        if ($code != $verifycode) {
+            $error['code'] = "Mã code của bạn không chính xác";
+            // header('location: index.php?act=forgotpass');
+
+        } else {
+
+        }
+    }
+
+    if (!$error) {
+        header('location: ./reset-pass.php');
+        unset($_SESSION['verifycode']);
+    } else {
+        // echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác</div>';
+
+    }
+
+}
 ?>
 
 <!doctype html>
@@ -26,16 +59,22 @@ include "../../DAO/user.php";
     <!-- loader-->
     <link href="../../admin/assets/css/pace.min.css" rel="stylesheet" />
     <style>
-        .bg-guii{
-            background-color: #ff7f00;
-            border: none;
-        }
-        .bg-guii:hover{
-            background-color: #ff7f00;
-        }
+    .bg-guii {
+        background-color: #ff7f00;
+        border: none;
+    }
+
+    .bg-guii:hover {
+        background-color: #ff7f00;
+    }
+
+    .error-message,
+    label.error {
+        color: red;
+    }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body class="bg-surface">
@@ -52,8 +91,8 @@ include "./auth-header.php";
                     <div class="card shadow rounded-0 overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6 d-flex align-items-center justify-content-center border-end">
-                                <img src="../../admin/assets/images/error/reset-pass-img-1.png"
-                                    class="img-fluid" alt="">
+                                <img src="../../admin/assets/images/error/reset-pass-img-1.png" class="img-fluid"
+                                    alt="">
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
@@ -63,9 +102,12 @@ include "./auth-header.php";
                                     <form class="form-body" action="./verify-code.php" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
+                                                <!-- <?php if (isset($error) && !$error > 0) {echo '<div class="alert alert-success">Nhập mã code chính xác, chuyển trang sau 3s</div>';}?> -->
                                                 <label for="inputEmailid" class="form-label">Mã code: </label>
                                                 <input type="password" name="code" class="form-control radius-30"
                                                     id="inputEmailid" placeholder="Code">
+                                                <p class="error-message">
+                                                    <?php if (isset($error['code'])) {echo $error['code'];}?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
@@ -98,30 +140,14 @@ include "./auth-footer.php";
     <script src="../../admin/assets/js/pace.min.js"></script>
 
 
+    <?php
+// if (isset($error) && $error) {
+//     unset($_SESSION['verifycode']);
+//     // sleep(3);
+//     header('location: ./forgot.php');
+// }
+?>
+
 </body>
 
 </html>
-
-<?php
-
-$error = array();
-if (isset($_POST['verifycodebtn']) && $_POST['verifycodebtn']) {
-    $code = $_POST['code'];
-
-    if (empty($code)) {
-        $error['code'] = "Không để trống mã code";
-    }
-
-    if (isset($_SESSION['verifycode'])) {
-        $verifycode = $_SESSION['verifycode'];
-        if ($code != $verifycode) {
-            echo '<div class="alert alert-danger" >Mã code xác nhận không chính xác, mời nhập lại username và email</div>';
-            unset($_SESSION['verifycode']);
-            // header('location: index.php?act=forgotpass');
-        } else {
-            header('location: ./reset-pass.php');
-        }
-    }
-
-}
-?>

@@ -6,6 +6,37 @@ include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
 ?>
+<?php
+ $error = array();
+if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
+    $newpass = $_POST['newpass'];
+    $renewpass = $_POST['renewpass'];
+    //Validate reset-pass
+    if (empty($newpass)) {
+        $error['newpass'] = "Không để trống mật khẩu";
+    }
+    if (empty($renewpass)) {
+        $error['renewpass'] = "Không để trống nhập lại mật khẩu";
+    }
+    if ($newpass != $renewpass) {
+        echo '
+            <script>
+                window.alert("Bạn nhập mật khẩu không đúng, xin mời bạn nhập lại!");
+            </script>
+            ';
+    } else {
+        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
+        unset($_SESSION['emailreset']);
+        unset($_SESSION['verifycode']);
+        header('location: ./login.php');
+        echo '
+            <script>
+                window.alert("Bạn đã thay đổi thành công, xin mời bạn đăng nhập!");
+            </script>
+            ';
+    }
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -36,9 +67,15 @@ include "../../DAO/user.php";
         .images img{
             width: 70%;
         }
+        .error-message-reset{
+            color: red;
+            font-weight: 500;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body>
@@ -63,7 +100,7 @@ include "../../DAO/user.php";
                                     <p class="card-text mb-5">Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn.
                                         Vui lòng nhập của bạn
                                         mật khẩu mới!</p>
-                                    <form action="./reset-pass.php" class="form-body" method="POST">
+                                    <form action="./reset-pass.php" id="resetpass-admin" class="form-body" method="POST">
                                         <div class="row g-3">
                                             <div class="col-12">
                                                 <label for="inputNewPassword" class="form-label">Mật khẩu mới</label>
@@ -76,6 +113,7 @@ include "../../DAO/user.php";
                                                         class="form-control radius-30 ps-5" id="inputNewPassword"
                                                         placeholder="Nhập mật khẩu mới">
                                                 </div>
+                                                <p class="error-message-reset"><?php echo isset($error['newpass']) ? $error['newpass'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <label for="inputConfirmPassword" class="form-label">Xác nhận mật
@@ -89,6 +127,7 @@ include "../../DAO/user.php";
                                                         class="form-control radius-30 ps-5" id="inputConfirmPassword"
                                                         placeholder="Xác nhận mật khẩu">
                                                 </div>
+                                                <p class="error-message-reset"><?php echo isset($error['renewpass']) ? $error['renewpass'] : ''; ?></p>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-3">
@@ -113,37 +152,18 @@ include "../../DAO/user.php";
     <!--end wrapper-->
 
 
-    <!--plugins-->
-    <script src="../../admin/assets/js/jquery.min.js"></script>
-    <script src="../../admin/assets/js/pace.min.js"></script>
+    <!-- Bootstrap bundle JS -->
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+   <!--plugins-->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+<script>src="../assets/js/additional-methods.min.js"</script>
 
-    
+<script src="../js/pages/validate.js">
+
+</script>
+
 
 </body>
 
 </html>
-<?php
-$error = array();
-if (isset($_POST['updatepassbtn']) && $_POST['updatepassbtn']) {
-    $newpass = $_POST['newpass'];
-    $renewpass = $_POST['renewpass'];
-
-    if ($newpass != $renewpass) {
-        echo '
-            <script>
-                window.alert("Bạn nhập mật khẩu không đúng, xin mời bạn nhập lại!");
-            </script>
-            ';
-    } else {
-        user_change_pass_by_email($_SESSION['emailreset'], md5($newpass));
-        unset($_SESSION['emailreset']);
-        unset($_SESSION['verifycode']);
-        header('location: ./login.php');
-        echo '
-            <script>
-                window.alert("Bạn đã thay đổi thành công, xin mời bạn đăng nhập!");
-            </script>
-            ';
-    }
-}
-?>

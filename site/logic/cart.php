@@ -195,13 +195,14 @@ switch ($_GET['act']) {
             // $id = json_encode($_POST);
             $cart_list = $_SESSION['giohang'];
             $idcart = $_POST['id'];
+
             function filter_cart($item)
         {
                 return $item['id'] != $_POST['id'];
             }
 
             $cartResult = array_filter($cart_list, "filter_cart");
-            // var_dump($result);
+            var_dump($cartResult);
 
             // UPDATE Giohang;
             $_SESSION['giohang'] = $cartResult;
@@ -393,7 +394,42 @@ switch ($_GET['act']) {
         var_dump($_POST);
 
         break;
+    case 'checkinventory':
 
+        // var_dump($_SESSION['giohang']);
+        $flag = 0;
+        $i = 0;
+        foreach ($_SESSION['giohang'] as $cart_item) {
+            # code...
+            // if($cart_item['sl'])
+            $product_item = product_select_by_id($cart_item['id']);
+            if ($cart_item['sl'] > $product_item['ton_kho']) {
+                $flag = 1;
+                $index = $cart_item['id'];
+                $_SESSION['giohang'][$i]['sl'] = $product_item['ton_kho'];
+            }
+            $i++;
+        }
+
+        if ($flag == 1) {
+            echo json_encode(
+                array(
+                    "status" => 0,
+                    "content" => "Giỏ hàng vượt quá số lượng tồn kho. Mời reload lại trang giỏ hàng!",
+                    "cart" => $_SESSION['giohang'],
+                )
+            );
+        } else {
+            echo json_encode(
+                array(
+                    "status" => 1,
+                    "content" => "OK",
+                    "cart" => $_SESSION['giohang'],
+                )
+            );
+        }
+
+        break;
     case 'ordercompleted':
         include "./view/pages/cart/order-completed.php";
         break;

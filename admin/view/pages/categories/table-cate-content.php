@@ -2,9 +2,9 @@
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
-include $ROOT_URL . "./admin/models/category.php";
-include $ROOT_URL . "./DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
+include $ROOT_URL . "/admin/models/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
 // if (isset($_POST['id'])) {
 //     $id = $_POST['id'];
 //     $product_item = product_select_by_id($id);
@@ -42,7 +42,7 @@ foreach ($cate_list as $cate_item) {
                                                 <td>' . $cate_item['ten_danhmuc'] . '</td>
                                                 <td><img width="80" height="100" src="../uploads/' . $cate_item['hinh_anh'] . '"/></td>
                                                 <td>' . $cate_item['mo_ta'] . '</td>
-                                                <td>0</td>
+                                                <td>' . count_subcate_by_cateid($cate_item['ma_danhmuc']) . '</td>
                                                 <td>
                                                     <div class="d-flex align-items-center gap-3 fs-6">
                                                         <a onclick="viewDetail(' . $cate_item['ma_danhmuc'] . ')"  href="./index.php?act=subcatelist&cateid=' . $cate_item['ma_danhmuc'] . '" class=" text-primary"

@@ -28,20 +28,13 @@ if (isset($_POST['subid'])) {
         <label class="form-label">Tên danh mục phụ</label>
         <input name="subcatename" type="text" class="form-control" placeholder="Tên danh mục"
             value="<?php echo $subcate_item['ten_danhmucphu']; ?>">
+        <p class="error-message subcatename-error"></p>
     </div>
-    <!-- <div class="col-12">
-                                <label class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" placeholder="Hình ảnh">
-                            </div> -->
     <div class="col-12">
         <label class="form-label">Danh mục cha</label>
         <input type="hidden" name="cateparent" value="<?php echo $_POST['cateid']; ?>">
         <select class="form-select" name="" disabled>
             <option value="">Không có</option>
-            <!-- <option value="">Fashion</option>
-                                         <option value="">Electronics</option>
-                                         <option value="">Furniture</option>
-                                         <option value="">Sports</option> -->
             <?php
 $cate_list = cate_select_all();
 foreach ($cate_list as $cate_item) {

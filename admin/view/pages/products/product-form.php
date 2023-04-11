@@ -5,6 +5,7 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 include $ROOT_URL . "/admin/models/category.php";
 include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
+
 // var_dump($_GET);
 // var_dump($_POST);
 // if (isset($_POST['id'])) {
@@ -12,6 +13,7 @@ include $ROOT_URL . "/DAO/category.php";
 //     $product_item = product_select_by_id($id);
 //     $image_list = explode(',', $product_item['images']);
 // }
+
 ?>
 
 <form id="product-form" action="./index.php?act=addproduct" class="row g-3" method="POST" enctype="multipart/form-data">
@@ -19,18 +21,38 @@ include $ROOT_URL . "/DAO/category.php";
     <div class="col-12">
         <label class="form-label">Tên sản phẩm</label>
         <input type="text" name="tensp" class="form-control" placeholder="Product title">
+        <p class="error-message product-name-error">
+            <?php if (isset($error['product-name'])) {
+    echo $error['product-name'];
+}
+?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Mô tả sản phẩm</label>
-        <textarea name="mo_ta" class="form-control" placeholder="Full description" rows="4" cols="4"></textarea>
+        <textarea name="mo_ta" id="descriptionProductEditor" class="form-control" placeholder="Full description"
+            rows="4" cols="4"></textarea>
+        <p class="error-message desc-error">
+            <?php if (isset($error['desc'])) {
+    echo $error['desc'];
+}
+?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Thông tin sản phẩm</label>
-        <textarea name="thong_tin" class="form-control" placeholder="Full description" rows="4" cols="4"></textarea>
+        <textarea name="thong_tin" id="infoProductEditor" class="form-control" placeholder="Full description" rows="4"
+            cols="4"></textarea>
+        <p class="error-message info-error">
+            <?php if (isset($error['info'])) {
+    echo $error['info'];
+}
+?>
     </div>
     <div id="image-input-group" class="col-12">
         <label class="form-label">Thêm hình ảnh</label>
         <input class="form-control" name="images[]" multiple accept="image/png, image/jpeg" type="file">
+        <p class="error-message images-error">
+
+        </p>
     </div>
 
     <div id="imageList" class="col-12">
@@ -58,13 +80,23 @@ include $ROOT_URL . "/DAO/category.php";
 
     <div class="col-12">
         <label class="form-label">Đơn giá</label>
-        <input type="text" name="don_gia" class="form-control" placeholder="Enter tags">
+        <input type="number" name="don_gia" class="form-control" placeholder="Đơn giá">
+        <p class="error-message price-error">
+            <?php if (isset($error['price'])) {
+    echo $error['price'];
+}
+?></p>
     </div>
     <div class="col-12">
         <label class="form-label">Giảm giá</label>
         <div class="row g-3">
             <div class="col-lg-12">
-                <input type="text" name="giam_gia" class="form-control" placeholder="Price">
+                <input type="number" name="giam_gia" class="form-control" placeholder="Giảm giá">
+                <p class="error-message discount-error">
+                    <?php if (isset($error['discount'])) {
+    echo $error['discount'];
+}
+?></p>
             </div>
             <!-- <div class="col-lg-3">
                 <div class="input-group">
@@ -80,11 +112,16 @@ include $ROOT_URL . "/DAO/category.php";
     <div class="col-12">
         <label for="" class="form-label">Số lượng</label>
         <input type="number" min="1" max="200" name="so_luong" id="" value="1">
+        <p class="error-message quantity-error">
+            <?php if (isset($error['quantity'])) {
+    echo $error['quantity'];
+}
+?></p>
     </div>
 
     <div class="col-12 col-md-6">
         <label class="form-label">Danh mục chính</label>
-        <select name="ma_danhmuc" class="form-select">
+        <select onchange="onSelectCate(this)" name="ma_danhmuc" class="form-select">
             <?php
 
 ?>
@@ -98,6 +135,12 @@ foreach ($cate_list as $cate_item) {
 }
 ?>
         </select>
+
+        <p class="error-message cate-error">
+            <?php if (isset($error['cate'])) {
+    echo $error['cate'];
+}
+?></p>
     </div>
     <div class="col-12 col-md-6">
         <label class="form-label">Danh mục phụ</label>

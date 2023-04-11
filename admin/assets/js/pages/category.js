@@ -1,5 +1,11 @@
+function alertModal(title, message) {
+    $("#cartModalBtn").trigger("click");
+    $("#cartModal #cartModalLabel").text(`${title}`);
+    $("#cartModal .modal-body").text(`${message}`);
+}
+
 function deleteCate(cateId) {
-    event.preventDefault();
+    // event.preventDefault();
     console.log('delete: ', cateId);
   
     $("#cartModal .action-btn").removeClass("d-none");
@@ -8,7 +14,6 @@ function deleteCate(cateId) {
         e.preventDefault();
         location.assign("index.php?act=deletecate&id="+cateId);
 
-     
     })
 
 }
@@ -20,24 +25,27 @@ function deleteSubcate(subCateId, cateId) {
     alertModal("Bạn có muốn xóa danh mục này ?", "Chọn tiếp tục để xóa, chọn đóng để trở lại");
     $("#cartModal .action-btn").click(function(e) {
         e.preventDefault();
-        location.assign("index.php?act=deletesubcate&subid="+subCateId +"&cateid="+cateId);
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: "./logic/category.php?act=deletesubcate",
-        //     data: {
-        //         subid: subCateId,
-        //         cateid: cateId
-        //     },
-        //     dataType: "dataType",
-        //     success: function (response) {
-        //         console.log('res', response);
-        //         const {status, message } = JSON.parse(response);
-        //         if(status == 1) {
-        //             showToast(message, `Danh mục phụ #${subCateId} ,${message}`);
-        //         }
-        //     }
-        // });
+        $.ajax({
+            type: "POST",
+            url: "./logic/category.php?act=deletesubcate",
+            data: {
+                subid: subCateId,
+                cateid: cateId
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                console.log('res', response);
+                const {status, content, error } = JSON.parse(response);
+                if(status == 1) {
+                    showToast(content, `Danh mục phụ #${subCateId} ,${content}`);
+                    location.reload();
+                }else if(status == 0) {
+                    showToast("Xóa danh mục sản phẩm con", `Danh mục phụ #${subCateId} ,${content}, ${error['existproducts'] || ""}`);
+                    
+                }
+            }
+        });
     })
 
 }
@@ -75,10 +83,20 @@ function editSubcate(subCateId, cateId) {
                     // dataType: "dataType",
                     processData: false,
                     success: function (response) {
-                        showToast("Cập nhật danh mục phụ", "Chúc mừng cập nhật danh mục phụ thành công!");
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2000);
+
+                        const {status, content, error}= JSON.parse(response);
+                        
+                        if(status == 1) {
+
+                            showToast("Cập nhật danh mục phụ", "Chúc mừng cập nhật danh mục phụ thành công!");
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }else if(status == 0) {
+                            showToast("Cập nhật danh mục phụ", content);
+                            $(".subcatename-error").text(error['subcatename'] || "");
+                        }
+
                     }
                 });
             })
@@ -89,11 +107,6 @@ function editSubcate(subCateId, cateId) {
 }
 
 
-function alertModal(title, message) {
-    $("#cartModalBtn").trigger("click");
-    $("#cartModal #cartModalLabel").text(`${title}`);
-    $("#cartModal .modal-body").text(`${message}`);
-}
 
 const editCate = (cateId) => {
     // const editCateBtns = document.querySelectorAll('.cate-edit-link');
@@ -148,7 +161,7 @@ const editCate = (cateId) => {
                             })
             
                             console.log('res: ', JSON.parse(response));
-                            const {status, message} = JSON.parse(response);
+                            const {status, message, error} = JSON.parse(response);
                             if(status== 1) {
                                 $("#liveToastBtn").trigger("click");
                                 $("#cartModal .close-modal-btn").trigger("click");
@@ -159,7 +172,8 @@ const editCate = (cateId) => {
                                 // $("#cartModal .close-modal-btn").trigger("click");
                                 $("#toast-content-header").text(message);
                                 $("#liveToast .toast-body").text("Mời nhập lại do " + message);
-
+                                $(".catename-error").text(error['catename'] || "");
+                                $(".imagecate-error").text(error['image'] || "");
                             }
                         }
                     });
@@ -179,6 +193,36 @@ const editCate = (cateId) => {
 }
 
 function addCate() {
+
+}
+
+function addSubCate(currentForm) {
+    event.preventDefault();
+
+    console.log('clicked');
+    
+    $.ajax({
+        type: "POST",
+        url: "./logic/category.php?act=addsubcate",
+        data: $(currentForm).serializeArray(),
+        // dataType: "dataType",
+        success: function (response) {
+            const {status, content, error} = JSON.parse(response);
+            console.log(JSON.parse(response));
+            if(status == 1) {
+                showToast("Thêm sản phẩm", content);
+                setTimeout(() => {
+                    location.reload();
+                }, 2000)
+            }
+            if(status == 0) {
+                showToast("Thêm sản phẩm", content);
+                $(".subcatename-error").text(error['subcatename']);
+            }
+            // location.reload();
+          
+        }
+    });
 
 }
 

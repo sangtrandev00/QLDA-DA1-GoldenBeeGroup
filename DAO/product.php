@@ -21,10 +21,10 @@ function product_delete($ma_sanpham)
 
 }
 
-function product_update($masanpham, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
+function product_update($masanpham, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $date_modified, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
 {
-    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, images=?,giam_gia=?, dac_biet=?, ngay_nhap=?, mo_ta=?, information=?, ma_danhmuc=?, id_dmphu=?, promote=? WHERE masanpham=?";
-    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote, $masanpham);
+    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, images=?,giam_gia=?, dac_biet=?, date_modified=?, mo_ta=?, information=?, ma_danhmuc=?, id_dmphu=?, promote=? WHERE masanpham=?";
+    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $date_modified, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote, $masanpham);
     return true;
 }
 
@@ -33,6 +33,19 @@ function product_update_quantity($masanpham, $ton_kho)
     $sql = "UPDATE tbl_sanpham SET  ton_kho = ? WHERE masanpham=?";
     pdo_execute($sql, $ton_kho, $masanpham);
     return true;
+}
+
+function product_update_remaining_qty($masanpham, $sl)
+{
+    $sql = "UPDATE tbl_sanpham SET  ton_kho = ton_kho + ? WHERE masanpham=?";
+    pdo_execute($sql, $sl, $masanpham);
+    return true;
+}
+
+function select_products_from_order_id($order_id)
+{
+    $sql = "SELECT idsanpham, soluong from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where od.id = $order_id";
+    return pdo_query($sql);
 }
 
 function product_select_all()
@@ -84,6 +97,51 @@ function product_select_by_name($tensp)
     $sql = "SELECT * FROM tbl_sanpham WHERE tensp like ?";
     return pdo_query($sql, $tensp);
 
+}
+
+function select_all_reviews_product()
+{
+    $sql = "SELECT * FROM tbl_danhgiasp";
+    return pdo_query($sql);
+}
+
+function is_replied_review($id_review)
+{
+    $sql = "SELECT count(*) from tbl_reply_reviews where id_review = ?";
+    return pdo_query_value($sql, $id_review);
+}
+
+function select_id_replied_review($id_review)
+{
+    $sql = "select id_reply from tbl_reply_reviews where id_review = ?";
+    return pdo_query_one($sql, $id_review);
+}
+
+function insert_reply_review($id_user, $id_review, $content, $date_modified)
+{
+    $sql = "INSERT INTO tbl_reply_reviews (id_user, id_review, content, date_modified) values(?,?,?,?)";
+    pdo_execute($sql, $id_user, $id_review, $content, $date_modified);
+    return true;
+}
+
+function select_reply_review_by_id($id_reply)
+{
+
+    $sql = "SELECT * from tbl_reply_reviews where id_reply = ?";
+    return pdo_query_one($sql, $id_reply);
+}
+
+function update_reply_review($id_reply, $id_user, $id_review, $content, $date_modified)
+{
+    $sql = "UPDATE tbl_reply_reviews SET id_user = ?, id_review = ?, content = ?, date_modified = ? where id_reply = ?";
+    pdo_execute($sql, $id_user, $id_review, $content, $date_modified, $id_reply);
+    return true;
+}
+
+function reply_review_select_by_idreview($id_review)
+{
+    $sql = "SELECT * from tbl_reply_reviews rep inner join tbl_nguoidung ng where rep.id_user = ng.id and id_review = ?";
+    return pdo_query_one($sql, $id_review);
 }
 
 // function product_select_by_date($date_value)

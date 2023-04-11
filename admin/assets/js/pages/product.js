@@ -31,7 +31,12 @@ function editProduct(productId) {
             productForm.elements['addproductbtn'].value = "Sửa sản phẩm";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
             productForm.elements['id'].value = productId;
+
+            CKEDITOR.replace( 'descriptionProductEditor' );
+            CKEDITOR.replace( 'infoProductEditor' );
+            
             $.ajax({
+
                 type: "POST",
                 url: ADMIN_URL+"/view/pages/products/product-images.php",
                 data: {id: productId},
@@ -45,9 +50,13 @@ function editProduct(productId) {
                 e.preventDefault();
                 // console.log('clicked ');
                
+                // console.log(CKEDITOR.instances.descriptionProductEditor.getData());
                 
+                // return;
                 const formData = new FormData($('#cartModal #product-form')[0]);
-                console.log('form: ', formData);
+                // console.log('form: ', formData);
+                formData.append("mo_ta",CKEDITOR.instances.descriptionProductEditor.getData());
+                formData.append("thong_tin",CKEDITOR.instances.infoProductEditor.getData())
                 // return;
                 $.ajax({
                     type: "POST",
@@ -56,6 +65,7 @@ function editProduct(productId) {
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        
                         // const productTableContentUrl = `${ADMIN_URL}/view/pages/products/table-product-content.php`;
                         // console.log('url: ', productTableContentUrl);
                         // $.get(productTableContentUrl, function(responseHtml) {
@@ -63,22 +73,31 @@ function editProduct(productId) {
                         // })
 
                         // console.log('res: ', JSON.parse(response));
-                        const {status, message} = JSON.parse(response);
+                        const {status, content, error} = JSON.parse(response);
                         if(status== 1) {
                             $("#liveToastBtn").trigger("click");
                             $("#cartModal .close-modal-btn").trigger("click");
-                            $("#toast-content-header").text(message);
-                            $("#liveToast .toast-body").text("Chúc mừng bạn đã " + message);
+                            $("#toast-content-header").text(content);
+                            $("#liveToast .toast-body").text("Chúc mừng bạn đã " + content);
 
                             setTimeout(() => {
                                 location.reload();
                             }, 2000)
-                        }
-                        // $('#table-product').load("#table-product");
+                        }else if(status == 0) {
+                            showToast("Cập nhật sản phẩm", content);
+                            
+                            // Fill error here!!!
+                            $(".product-name-error").text(error['product-name'] || "");
+                            $(".desc-error").text(error['desc'] || "");
+                            $(".info-error").text(error['info'] || "");
+                            $(".images-error").text(error['images'] || "");
+                            $(".price-error").text(error['price'] || "");
+                            $(".discount-error").text(error['discount'] || "");
+                            $(".quantity-error").text(error['quantity'] || "");
+                            $(".cate-error").text(error['cate'] || "");
+                            $(".subcate-error").text(error['subcate'] || "");
 
-                        // if(status == 1) {
-                           
-                        // }
+                        }
                     }
                 });
             })
@@ -87,6 +106,7 @@ function editProduct(productId) {
     }
 )
 }
+
 function viewDetail(productId) {
     $.get("./logic/product.php?act=getproduct&id="+productId, function(response) {
         $.get("./view/pages/products/product-form.php", function(reponseHtml) {
@@ -120,6 +140,9 @@ function viewDetail(productId) {
             productForm.elements['addproductbtn'].classList = "d-none";
             productForm.elements['resetbtn'].classList = "d-none";
             productForm.elements['addproductbtn'].setAttribute("name", "editproductbtn");
+            
+            CKEDITOR.replace( 'descriptionProductEditor' );
+            CKEDITOR.replace( 'infoProductEditor' );
             $("#image-input-group").addClass("d-none");
             for(const input of productForm) {
                 console.log("input: ", input);
@@ -138,7 +161,6 @@ function viewDetail(productId) {
         })
     });
 }
-
 
 function deleteProduct(btnElement,productId) {
     // event.preventDefault();
@@ -274,3 +296,122 @@ function alertModal(title, message) {
         }
     });
   }
+
+  
+function onSelectCate(currentSelect) {
+
+    $.ajax({
+        type: "POST",
+        url: "./logic/category.php?act=selectsubcate",
+        data: {
+            cateId: currentSelect.value
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            const {subcates} = JSON.parse(response);
+            console.log(subcates);
+            let optionsHtml = ""; 
+            [...subcates].forEach((subcate) => {
+                optionsHtml+= `<option value='${subcate['id']}'>${subcate['ten_danhmucphu']}</option>`;
+            })
+            console.log(optionsHtml);
+            $("#add-product-content select[name='id_dmphu']").html(optionsHtml);
+            
+        }
+    });
+}
+
+
+function replyReview(idReview, idUser) {
+    event.preventDefault();
+    console.log('id', idReview, idUser);
+    console.log(event.currentTarget);
+    const currentRow = getParent(event.currentTarget, "tr");
+    const reviewContent = currentRow.cells[3].textContent;
+    $("#cartModalBtn").trigger("click");
+    $("#cartModalLabel").text(`Trả lời Review #${idReview}`);
+    $("#cartModal .modal-body").html(`<form id="reply-review-form" onsubmit="addReplyReview()" action=""><div className="form-group"><label htmlFor="">Nội dung bình luận</label><textarea  class="form-control" readonly>${reviewContent}</textarea></div> <div class="form-group mt-5"><label htmlFor="">Trả lời bình luận</label><textarea class="form-control" id="replyContent" placeholder="Bình luận ở đây!"></textarea></div></form>`);
+    $("#cartModal .action-btn").removeClass('d-none');
+    $("#cartModal .action-btn").click(function(e) {
+        e.preventDefault();
+        console.log('submited');
+        $.ajax({
+            type: "POST",
+            url: "./logic/product.php?act=addreplyreviews",
+            data: {
+                idUser,
+                idReview,
+                content: $("#replyContent").val()
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                const {status, content} = JSON.parse(response);
+
+                if(status == 1) {
+                    showToast("Trả lời reviews", content);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000)
+                }
+            }
+        });
+    })
+
+}
+
+function updateReplyReview(idReview, idUser, idReply) {
+    event.preventDefault();
+    const currentRow = getParent(event.currentTarget, "tr");
+    const reviewContent = currentRow.cells[3].textContent;
+
+    $.ajax({
+        type: "GET",
+        url: "./logic/product.php?act=getreplyreview",
+        data: {
+            idReply
+        },
+        // dataType: "dataType",
+        success: function (response) {
+            const {status, content: {
+                content,
+                date_modified,
+                id_reply,
+                id_review,
+                id_user
+            }} = JSON.parse(response);
+            
+        $("#cartModalBtn").trigger("click");
+        $("#cartModalLabel").text(`Trả lời Review #${idReview}`);
+        $("#cartModal .modal-body").html(`<form id="reply-review-form" onsubmit="updateReplyReview()" action=""><div className="form-group"><label htmlFor="">Nội dung bình luận</label><textarea  class="form-control" readonly>${reviewContent}</textarea></div> <div class="form-group mt-5"><label htmlFor="">Trả lời bình luận</label><textarea class="form-control" id="replyContent" placeholder="Bình luận ở đây!">${content}</textarea></div></form>`);
+        $("#cartModal .action-btn").removeClass('d-none');
+
+        $("#cartModal .action-btn").click(function(e) {
+            e.preventDefault();
+            console.log('submited');
+            $.ajax({
+                type: "POST",
+                url: "./logic/product.php?act=updateReplyReviews",
+                data: {
+                    idUser,
+                    idReview,
+                    content: $("#replyContent").val(),
+                    idReply
+                },
+                // dataType: "dataType",
+                success: function (response) {
+
+                    const {status, content} = JSON.parse(response);
+
+                    if(status == 1) {
+                        showToast("Cập nhật reviews", content);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000)
+                    }
+                }
+            });
+        })
+        }
+    });
+
+}

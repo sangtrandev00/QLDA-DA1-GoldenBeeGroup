@@ -132,7 +132,7 @@ break;
                             </div>
                             <div class="info">
                                 <h6 class="mb-2">Thông tin gửi hàng</h6>
-                                <p class="mb-1"><strong>Shipping</strong> : Red Express</p>
+                                <p class="mb-1"><strong>Shipping</strong> : GHN</p>
                                 <p class="mb-1"><strong>Pttt</strong> : <?php echo $order_info['pttt'] ?></p>
                                 <p class="mb-1"><strong>Trạng thái</strong> : <?php echo $message ?></p>
                                 <p class="mb-1"><strong>Trạng thái thanh toán</strong> :
@@ -308,14 +308,14 @@ foreach ($order_detail_list as $order_detail) {
                                     class="btn alert-success radius-30 px-4"><?php echo $trangthai ?></button>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-3">
+                        <!-- <div class="d-flex align-items-center mb-3">
                             <div>
                                 <p class="mb-0">Giảm giá</p>
                             </div>
                             <div class="ms-auto">
                                 <h5 class="mb-0">0 VND</h5>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="d-flex align-items-center mb-3">
                             <div>
                                 <p class="mb-0">Chi phí ship</p>
@@ -351,23 +351,24 @@ foreach ($order_detail_list as $order_detail) {
                         </div>
                     </div>
                 </div>
-
+                <?php if ($order_info['pttt'] == "Thanh toán VNpay"): ?>
                 <div class="card border shadow-none bg-warning radius-10">
                     <div class="card-body">
-                        <h5>Payment info</h5>
+                        <h5>Thông tin thanh toán</h5>
                         <div class="d-flex align-items-center gap-3">
                             <div class="fs-1">
                                 <i class="bi bi-credit-card-2-back-fill"></i>
                             </div>
                             <div class="">
-                                <p class="mb-0 fs-6">Master Card **** **** 8956 </p>
+                                <p class="mb-0 fs-6">ATM Card 9704198526191432198 </p>
                             </div>
                         </div>
-                        <p>Business name: Template Market LLP <br>
-                            Phone: +91-9910XXXXXX
+                        <p>Tên chủ thẻ: Nguyen Van A <br>
+                            Ngân hàng: NCB
                         </p>
                     </div>
                 </div>
+                <?php endif;?>
 
 
             </div>

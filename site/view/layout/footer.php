@@ -198,7 +198,7 @@
                     Nội dung ở đây!!!
                 </div>
                 <div class="modal-footer">
-                    <form action="./index.php?act=deletecart&idcart=" method="post">
+                    <form action="./index.php?act=viewcart" method="post">
                         <input type="submit" name="actionbtn" class="btn btn-secondary continue-btn" value="Tiếp tục" />
                         <button type="button" class="btn btn-primary close-modal-btn main-bg-color main-border-color"
                             data-bs-dismiss="modal">Đóng</button>
@@ -298,8 +298,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Thêm hình ảnh nhận hàng</label>
-                            <input type="file" class="form-control" name="review_img" id="review-image" placeholder=""
-                                aria-describedby="fileHelpId">
+                            <input type="file" accept="image/png, image/gif, image/jpeg" multiple class="form-control"
+                                name="review_imgs[]" id="review-image" placeholder="" aria-describedby="fileHelpId">
                             <!-- <div id="fileHelpId" class="form-text">Help text</div> -->
                         </div>
                         <div class="mb-3">
@@ -319,7 +319,24 @@
     </div>
 
     <!-- Alert Modal -->
-
+    <!-- Modal -->
+    <div class="modal fade mt-100" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="alertModalLabel">Thông báo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php echo $_SESSION['alert']; ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="continue-btn btn btn-primary d-none">Tiếp tục</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 <!-- END QUICKVIEW PRODUCT -->
@@ -347,8 +364,9 @@
                                 </div>
                                 <ul class="footer-social">
                                     <li>
-                                        <a class="facebook" href="" title="Facebook"><i
-                                                class="zmdi zmdi-facebook"></i></a>
+                                        <a class="facebook"
+                                            href="https://www.facebook.com/profile.php?id=100091145059135"
+                                            title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
                                     </li>
                                     <li>
                                         <a class="google-plus" href="" title="Google Plus"><i
@@ -399,7 +417,7 @@
                                 <h4 class="footer-title border-left">Tài khoản</h4>
                                 <ul class="footer-menu">
                                     <li>
-                                        <a href="./index.php?act=myaccount"><i class="zmdi zmdi-circle"></i><span>Tài
+                                        <a href="./index.php?act=my-account"><i class="zmdi zmdi-circle"></i><span>Tài
                                                 khoản của
                                                 tôi</span></a>
                                     </li>
@@ -409,16 +427,16 @@
                                                 thích</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=shopcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
+                                        <a href="./index.php?act=viewcart"><i class="zmdi zmdi-circle"></i><span>Giỏ
                                                 hàng của
                                                 tôi</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=login"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/login.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 nhập</span></a>
                                     </li>
                                     <li>
-                                        <a href="./index.php?act=signup"><i class="zmdi zmdi-circle"></i><span>Đăng
+                                        <a href="./auth/signup.php"><i class="zmdi zmdi-circle"></i><span>Đăng
                                                 ký</span></a>
                                     </li>
                                     <li>
@@ -435,7 +453,9 @@
                                     <form action="#">
                                         <input type="text" name="name" placeholder="Tên của bạn ...">
                                         <input type="text" name="email" placeholder="Email của bạn ...">
-                                        <textarea class="height-80" name="message"
+                                        <input type="text" name="phone" placeholder="Điện của bạn ...">
+                                        <input type="text" name="title" placeholder="Chủ đề">
+                                        <textarea name="content" class="height-80" name="message"
                                             placeholder="Để lại lời nhắn ở đây..."></textarea>
                                         <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi tin
                                             nhắn</button>
@@ -505,9 +525,21 @@
 <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="assets/js/table-datatable.js"></script>
 
+<!-- Jquery validation -->
+<script src="assets/js/jquery.validate.min.js">
+
+</script>
+
+<script src="assets/js/additional-methods.min.js"></script>
+
+</script>
+
+<script src="assets/js/validate.js">
+
+</script>
+
 <!-- Custom config javascript -->
 <script src="assets/js/config.js"></script>
-<script src="assets/js/validate.js"></script>
 <script src="assets/js/pages/account.js"></script>
 <script src="assets/js/pages/checkout.js"></script>
 <script>
@@ -552,7 +584,21 @@ $(function() {
 
 });
 </script>
+
 <?php
+
+if ($_SESSION['alert'] != "") {
+    // echo $_SESSION['alert'];
+    echo "
+        <script>
+            var alertModalNotify = new bootstrap.Modal('#alertModal');
+            alertModalNotify.show();
+        </script>
+   ";
+}
+
+$_SESSION['alert'] = "";
+
 if (isset($_GET['act'])) {
     switch ($_GET['act']) {
         // case 'settingaccount':

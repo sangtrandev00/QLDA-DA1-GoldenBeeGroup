@@ -88,6 +88,19 @@ function buyNow () {
             });
 }
 
+function viewAllReviews() {
+
+    const url = new URL(location.href);
+    url.searchParams.set("view", "reviews");
+    history.pushState({},'', url);
+    scrollToReview();
+}
+
+function scrollToReview() {
+    document.getElementById('reviews-tab-btn').click();
+    $("html, body").animate({ scrollTop: 350 }, "slow");
+}
+
 (() => {
     const url = new URL(location.href);
 
@@ -98,8 +111,7 @@ function buyNow () {
         switch (url.searchParams.get('view')) {
             case 'reviews':
                 // console.log('Hello history order!!!');
-                  document.getElementById('reviews-tab-btn').click();
-                  $("html, body").animate({ scrollTop: 350 }, "slow");
+                scrollToReview();
                 break;
         
             default:
@@ -107,4 +119,6 @@ function buyNow () {
                 break;
         }
     }
+
+
 })()

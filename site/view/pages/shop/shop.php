@@ -197,6 +197,8 @@ foreach ($product_list as $item) {
 
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -210,7 +212,7 @@ foreach ($product_list as $item) {
     # code...
     echo '
                                <div class="col-lg-4 col-md-6">
-                                   ' . cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format) . '
+                                   ' . cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format, $result_stars) . '
                                </div>
                                 ';
 }
@@ -226,10 +228,13 @@ foreach ($product_list as $item) {
 
     #Thumbnail Image
     $image_list = explode(',', $item['images']);
-
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia']);
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+
+    $avg_stars = avg_star_reviews_of_product($item['masanpham']);
+    $result_stars = renderStarRatings(round($avg_stars, 0));
     foreach ($image_list as $image_item) {
 
         if (substr($image_item, 0, 6) == "thumb-") {
@@ -259,13 +264,9 @@ foreach ($product_list as $item) {
                                             <a  href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                         </h6>
                                         <div class="pro-rating">
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                            ' . $result_stars . '
                                         </div>
-                                        <h6 class="brand-name mb-30">' . $item['ma_danhmuc'] . '</h6>
+                                        <h6 class="brand-name mb-30">Brand: ' . $cate_name . '</h6>
                                         <h3 class="pro-price"> ' . $price_format . ' VND</h3>
                                         <p>
                                         ' . $item['mo_ta'] . '
@@ -357,10 +358,6 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                                         <li><a
                                                 href="./index.php?act=shop&subcateid=<?php echo $subcate_item['id']; ?>"><?php echo $subcate_item['ten_danhmucphu'] ?></a>
                                         </li>
-                                        <!-- <li><a href="#">Tab</a></li>
-                                                <li><a href="#">Watch</a></li>
-                                                <li><a href="#">Head Phone</a></li>
-                                                <li><a href="#">Memory</a></li> -->
                                     </ul>
                                     <?php
 
@@ -392,52 +389,6 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
                         </div>
 
                         <!-- widget-product -->
-                        <!-- <aside class="widget widget-product box-shadow mt-5">
-                            <h6 class="widget-title border-left mb-20">Sản phẩm gần đây</h6>
-
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="single-product.html">
-                                        <img class="product-img__image" src="../uploads/recent-product-1.jpg"
-                                            alt="recent-product-1.jpg" />
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <h6 class="product-title">
-                                        <a href="single-product.html">Product Name</a>
-                                    </h6>
-                                    <h3 class="pro-price">$ 869.00</h3>
-                                </div>
-                            </div>
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="single-product.html">
-                                        <img class="product-img__image" src="../uploads/recent-product-2.jpg"
-                                            alt="recent-product-2.jpg" />
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <h6 class="product-title">
-                                        <a href="single-product.html">Product Name</a>
-                                    </h6>
-                                    <h3 class="pro-price">$ 869.00</h3>
-                                </div>
-                            </div>
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <a href="single-product.html">
-                                        <img class="product-img__image" src="../uploads/recent-product-3.jpg"
-                                            alt="recent-product-3.jpg" />
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <h6 class="product-title">
-                                        <a href="single-product.html">Product Name</a>
-                                    </h6>
-                                    <h3 class="pro-price">$ 869.00</h3>
-                                </div>
-                            </div>
-                        </aside> -->
                     </div>
                 </div>
             </div>

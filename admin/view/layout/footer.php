@@ -166,9 +166,17 @@
 
 
 <!-- Bootstrap bundle JS -->
+
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <!--plugins-->
 <script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/additional-methods.min.js">
+
+</script>
+
+<!--  -->
+
 <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
 <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
 <script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
@@ -196,7 +204,9 @@
 <script src="assets/js/index.js"></script>
 <!-- <script src="assets/js/index4.js"></script> -->
 <script src="assets/js/pages/common.js"></script>
+<script src="assets/js/pages/validate.js">
 
+</script>
 <!-- Custom javasscript -->
 <script>
 new PerfectScrollbar(".best-product")
@@ -209,10 +219,11 @@ new PerfectScrollbar(".best-product")
 <?php
 
 if ($_SESSION['alert'] != "") {
+    // echo $_SESSION['alert'];
     echo "
         <script>
-            const alertModal = new bootstrap.Modal('#alertModal');
-            alertModal.show();
+            var alertModalNotify = new bootstrap.Modal('#alertModal');
+            alertModalNotify.show();
         </script>
    ";
 }
@@ -230,7 +241,7 @@ if (isset($_GET['act'])) {
         case 'updatesubcate':
         case 'deletecate':
             echo '
-              <script src="assets/js/pages/category.js"></script>
+            <script src="assets/js/pages/category.js"></script>
           ';
             break;
 
@@ -239,9 +250,11 @@ if (isset($_GET['act'])) {
         case 'updateproduct':
         case 'editproduct':
         case 'deleteproduct':
+        case 'reviews-product':
             echo '
             <script src="assets/js/pages/product.js"></script>
         ';
+
             break;
             break;
         case 'detailproduct':
@@ -288,8 +301,6 @@ if (isset($_GET['act'])) {
   ';
 }
 ?>
-
-
 
 
 </body>

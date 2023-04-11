@@ -15,8 +15,8 @@ $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
 // include $ROOT_URL . "./admin/models/category.php";
-include $ROOT_URL . "./DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
 ?>
 
 
@@ -68,21 +68,22 @@ foreach ($cart_list as $cart_item) {
                                                                 <td class="product-quantity">
                                                                     <div class="cart-plus-minus f-left">
                                                                     <div class="dec qtybutton" onclick="' . $update_cart_func_click . '">-</div>
-                                                                        <input onkeyup="' . $update_cart_func_keyup . '" type="text" min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
+                                                                        <input readonly onkeyup="' . $update_cart_func_keyup . '" type="text"  min="1" max="20" value="' . $cart_item['sl'] . '" name="qtybutton"
                                                                             class="cart-plus-minus-box">
                                                                             <div class="inc qtybutton" onclick="' . $update_cart_func_click . '">+</div>
                                                                     </div>
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
                                                                 <td onclick="' . $delcartfunc . '" class="product-remove">
-                                                                    <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
+                                                                <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
                                                             </tr>
                                                         ';
     $i++;
 }
 ?>
-
+                    <a class="btn btn-outline-warning mb-3" href="./index.php?act=shop">Tiếp
+                        tục mua hàng</a>
                 </tbody>
 
             </table>
@@ -93,13 +94,13 @@ foreach ($cart_list as $cart_item) {
 
         <div class="row">
             <div class="col-md-6">
-                <div class="coupon-discount box-shadow p-30 mb-50">
+                <!-- <div class="coupon-discount box-shadow p-30 mb-50">
                     <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
                     <p>Nhập mã phiếu giảm giá của bạn nếu bạn có!</p>
                     <input type="text" name="name" placeholder="Nhập mã của bạn ở đây...">
                     <button class="submit-btn-1 black-bg btn-hover-2" type="submit">Nhập mã
                         giảm giá</button>
-                </div>
+                </div> -->
             </div>
             <div class="col-md-6">
                 <div id="paymentDetails" class="payment-details box-shadow p-30 mb-50">
@@ -110,14 +111,14 @@ foreach ($cart_list as $cart_item) {
                             <td class="td-title-2"><?php echo number_format($subtotal) ?>
                                 VND</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="td-title-1">Chi phí vận chuyển</td>
                             <td class="td-title-2">00.00 VND</td>
                         </tr>
                         <tr>
                             <td class="td-title-1">Vat</td>
                             <td class="td-title-2">00.00 VND</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td class="order-total">Tổng đơn hàng</td>
                             <td class="order-total-price">
@@ -131,7 +132,7 @@ foreach ($cart_list as $cart_item) {
         <a href="./index.php?act=checkout" class="btn btn-dark mb-5 ml-auto d-block">Thanh
             toán</a>
         <!-- Module extra --- Làm thêm -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <div class="culculate-shipping box-shadow p-30">
                     <h6 class="widget-title border-left mb-20">culculate shipping</h6>
@@ -153,6 +154,6 @@ foreach ($cart_list as $cart_item) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </form>
 </div>

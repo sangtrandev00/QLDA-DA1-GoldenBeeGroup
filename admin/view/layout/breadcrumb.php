@@ -20,10 +20,14 @@ if (isset($_GET['act'])) {
         case 'orderlist':
             $breadcrumbs = "Danh sách đặt hàng";
             break;
+        case 'userorders':
+            $breadcrumbs = "Danh sách đặt hàng theo người dùng";
+            break;
         case 'orderdetail':
             $breadcrumbs = "Đơn hàng chi tiết";
             break;
         case 'my-profile':
+        case 'update-profile':
             $breadcrumbs = "Thông tin tài khoản";
             break;
         case 'couponlist':
@@ -68,6 +72,27 @@ if (isset($_GET['act'])) {
             break;
         case 'commentlist':
             $breadcrumbs = "Danh sách bình luận";
+            break;
+        case 'reviews-product':
+            $breadcrumbs = "Danh sách đánh giá sản phẩm";
+            break;
+        case 'bannerlist':
+            $breadcrumbs = "Danh sách quản lý banner";
+            break;
+        case 'sliderlist':
+            $breadcrumbs = "Danh sách quản lý slider";
+            break;
+        case 'updateslider':
+            $breadcrumbs = "Cập nhật slider";
+            break;
+        case 'updatebanner':
+            $breadcrumbs = "Cập nhật banner";
+            break;
+        case 'addbanner':
+            $breadcrumbs = "Thêm banner";
+            break;
+        case 'addslider':
+            $breadcrumbs = "Thêm slider";
             break;
         default:
             $breadcrumbs = "Tổng quan/ thống kê";

@@ -3,8 +3,102 @@ ob_start();
 session_start();
 include "../models/connectdb.php";
 include "../models/user.php";
-include "../../pdo-library.php";
-include "../../DAO/user.php";
+
+$FOLDER_VAR = "/PRO1014_DA1/main-project";
+$ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
+include "$ROOT_URL/global.php";
+include "$ROOT_URL/pdo-library.php";
+include "$ROOT_URL/DAO/user.php";
+
+if (!isset($_SESSION['error'])) {
+    $_SESSION['error'] = [];
+}
+
+if (!isset($_SESSION['toastAlert'])) {
+    $_SESSION['toastAlert'] = "";
+}
+
+if (!isset($_SESSION['alert'])) {
+    $_SESSION['alert'] = "";
+}
+// var_dump($_SESSION);
+?>
+
+<?php
+// session_start();
+
+if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
+    $error = array();
+    $fullname = $_POST['fullname'];
+    // $homeaddress = $_POST['address'];
+    // $phonenumber = $_POST['phonenumber'];
+    $email = $_POST['email'];
+    // $password = $_POST['password'];
+    // $reenterpass = $_POST['reenterpass'];
+
+    // Validate at server
+
+    // echo $fullname, $password, $email, $reenterpass;
+
+    if (strlen($fullname) == 0) {
+        $error['hoten'] = "Không để trống họ tên!";
+    } else if (strlen($fullname) > 30) {
+        $error['hoten'] = "Họ tên không vượt quá 30 ký tự!";
+    }
+
+    if (empty($email)) {
+        $error['email'] = "không để trống email";
+    } else if (!is_email($email)) {
+        $error['email'] = "Email không đúng định dạng!";
+    } else if (email_exist($email)) {
+        $error['email'] = "Email của bạn đã tồn tại!";
+        // echo "Email của bạn đã tồn tại!";
+    }
+
+    // if (strlen($phonenumber) == 0) {
+    //     $error['phonenumber'] = "Không để trống số điện thoại!";
+    // } else if (!validating($phonenumber)) {
+    //     $rror['phonenumber'] = "Định dạng số điện thoại không chính xác!";
+    // }
+
+    // if (empty($password)) {
+    //     $error['password'] = "không để trống password!";
+    // }
+
+    // if (empty($reenterpass)) {
+    //     $error['repassword'] = "không để trống repassword!";
+    // } else if ($password != $reenterpass) {
+    //     $error['repassword'] = "Nhập lại mật khẩu không chính xác!";
+    // }
+
+    if (!$error) {
+        // $password = md5($_POST['password']);
+        // $is_inserted = user_register($fullname, $email, $password);
+
+        // // echo 'Register successfully!';
+        // // if ($is_inserted) {
+        // //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
+        // // }
+        // if ($is_inserted) {
+        //     echo '<div class="alert alert-success">Sign up successfully</div>';
+        //     // header('location: ./login.php');
+        //     $_SESSION['alert'] = "Đăng ký thành công!, Bạn có muốn chuyển đến trang đăng nhập ?";
+        // }
+
+        // Send email to success account
+
+        $title = "OTP code to confirm Email";
+
+        $messageCode = random_int(100000, 999999);
+        $_SESSION['emailsignup'] = $email;
+        $_SESSION['verifyOTP'] = $messageCode;
+        $_SESSION['fullname'] = $fullname;
+        sendmail($email, $title, $messageCode);
+        header("location: ./otp-code.php");
+    }
+
+}
 ?>
 
 <!doctype html>
@@ -42,9 +136,27 @@ include "../../DAO/user.php";
     .images img {
         width: 50%;
     }
+
+    .error-message {
+        color: red;
+    }
+
+    .navigate-login-btn {
+        background-color: #ff7f00;
+        border-color: #ff7f00;
+    }
+
+    .navigate-login-btn:hover {
+        background-color: #ff7f00;
+        border-color: #ff7f00;
+    }
+
+    label.error {
+        color: red;
+    }
     </style>
 
-    <title>Bootstrap 5 Admin Template</title>
+    <title>GoldenBeeGroup Authentication</title>
 </head>
 
 <body class="bg-surface">
@@ -70,7 +182,7 @@ include "./auth-header.php";
                                 <div class="card-body p-4 p-sm-5">
                                     <h5 class="card-title">Đăng ký</h5>
                                     <p class="card-text mb-4">Đăng ký tài khoản để trở thành khách hàng tại shop!</p>
-                                    <form action="./signup.php" class="form-body" method="POST">
+                                    <form id="signup-client-form" action="./signup.php" class="form-body" method="POST">
 
                                         <div class="row g-3">
                                             <div class="col-12 ">
@@ -83,6 +195,12 @@ include "./auth-header.php";
                                                     <input type="text" name="fullname"
                                                         class="form-control radius-30 ps-5" id="inputName"
                                                         placeholder="Nhập họ tên của bạn">
+                                                    <p class="error-message">
+                                                        <?php
+if (isset($error['hoten'])) {
+    echo $error['hoten'];
+}
+?>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -94,34 +212,15 @@ include "./auth-header.php";
                                                     </div>
                                                     <input type="email" class="form-control radius-30 ps-5"
                                                         id="inputEmailAddress" placeholder="Email" name="email">
+                                                    <p class="error-message">
+                                                        <?php
+if (isset($error['email'])) {
+    echo $error['email'];
+}
+?>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <label for="inputChoosePassword" class="form-label">Nhập mật
-                                                    khẩu</label>
-                                                <div class="ms-auto position-relative">
-                                                    <div
-                                                        class="position-absolute top-50 translate-middle-y search-icon px-3">
-                                                        <i class="bi bi-lock-fill"></i>
-                                                    </div>
-                                                    <input type="password" name="password"
-                                                        class="form-control radius-30 ps-5" id="inputChoosePassword"
-                                                        placeholder="Mật khẩu">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <label for="inputChooseRePassword" class="form-label">Nhập lại mật
-                                                    khẩu</label>
-                                                <div class="ms-auto position-relative">
-                                                    <div
-                                                        class="position-absolute top-50 translate-middle-y search-icon px-3">
-                                                        <i class="bi bi-lock-fill"></i>
-                                                    </div>
-                                                    <input type="password" name="reenterpass"
-                                                        class="form-control radius-30 ps-5" id="inputChooseRePassword"
-                                                        placeholder="Nhập lại mật khẩu">
-                                                </div>
-                                            </div>
+
                                             <div class="col-12">
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox"
@@ -167,71 +266,64 @@ include "./auth-header.php";
     <script src="../../admin/assets/js/pace.min.js"></script>
 
 
+    <!-- Jquery validation library -->
+    <script src="../../site/assets/js/jquery.validate.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/additional-methods.min.js">
+
+    </script>
+
+    <script src="../../site/assets/js/validate.js">
+
+    </script>
+
+    </script>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="alertModalLabel">Thông báo đăng ký</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php if (isset($_SESSION['alert']) && $_SESSION['alert'] != "") {echo $_SESSION['alert'];}?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <a href="./login.php" class="btn btn-primary navigate-login-btn">Đồng ý</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    // var myModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    // myModal.show();
+    </script>
+
+    <?php
+if (isset($_SESSION['alert']) && $_SESSION['alert'] != "") {
+    echo '
+           <script>
+            var myModal = new bootstrap.Modal(document.getElementById("alertModal"));
+            myModal.show();
+           </script>
+            ';
+}
+
+$_SESSION['alert'] = "";
+?>
+
+
 </body>
 
 </html>
-
-<?php
-// session_start();
-
-$error = array();
-
-if (isset($_POST['signupbtn']) && $_POST['signupbtn']) {
-    $fullname = $_POST['fullname'];
-    // $homeaddress = $_POST['address'];
-    // $phonenumber = $_POST['phonenumber'];
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    $reenterpass = $_POST['reenterpass'];
-
-    // Validate at server
-
-    // echo $fullname, $password, $email, $reenterpass;
-
-    if (strlen($fullname) == 0) {
-        $error['fullname'] = "Không để trống họ tên!";
-    } else if (strlen($fullname) > 30) {
-        $error['fullname'] = "Họ tên không vượt quá 30 ký tự!";
-    }
-
-    if (empty($email)) {
-        $error['email'] = "không để trống email";
-    }
-    // else if (!is_email($email)) {
-    //     $error['email'] = "Email không đúng định dạng!";
-    // }
-    // else if (email_exist($email)) {
-    //     $error['email'] = "Email của bạn đã tồn tại!";
-    //     echo "Email của bạn đã tồn tại!";
-    // }
-
-    // if (strlen($phonenumber) == 0) {
-    //     $error['phonenumber'] = "Không để trống số điện thoại!";
-    // } else if (!validating($phonenumber)) {
-    //     $error['phonenumber'] = "Định dạng số điện thoại không chính xác!";
-    // }
-
-    if (empty($password)) {
-        $error['password'] = "không để trống password!";
-    }
-    if (empty($reenterpass)) {
-        $error['reenterpass'] = "không để trống repassword!";
-    }
-
-    if (!$error) {
-        $is_inserted = user_register($fullname, $email, $password);
-
-        // echo 'Register successfully!';
-        // if ($is_inserted) {
-        //     echo '<div class="register-account-success d-none" style="">HELLO</div>';
-        // }
-        if ($is_inserted) {
-            echo '<div class="alert alert-success">Sign up successfully</div>';
-
-            header('location: ./login.php');
-        }
-        // Send email to success account
-    }
-
-}
-?>

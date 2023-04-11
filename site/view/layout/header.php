@@ -21,6 +21,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- All CSS Files -->
+
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Data table -->
@@ -62,7 +63,7 @@
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div id="toast-content" class="toast-header text-bg-warning">
                         <!-- <img src="..." class="rounded me-2" alt="..."> -->
-                        <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
+                        <strong id="toast-content-header" class="me-auto">Thông báo</strong>
                         <small>1 seconds ago</small>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -249,10 +250,11 @@ foreach ($cate_list as $cate_item) {
                                             <button class="search-toggle">
                                                 <i class="zmdi zmdi-search"></i>
                                             </button>
-                                            <form action="#">
+                                            <form action="./index.php?act=shop" method="GET">
                                                 <div class="top-search-box">
-                                                    <input type="text" placeholder="Search here your product...">
-                                                    <button type="submit">
+                                                    <input type="hidden" name="act" value="shop">
+                                                    <input type="text" name="query" placeholder="Tìm kiếm sản phẩm...">
+                                                    <button name="" type="submit">
                                                         <i class="zmdi zmdi-search"></i>
                                                     </button>
                                                 </div>
@@ -376,73 +378,29 @@ foreach ($cart_list as $cart_item) {
                         <div class="mobile-menu">
                             <nav id="dropdown">
                                 <ul>
-                                    <li><a href="index.php">Home</a>
-                                        <ul>
-                                            <li>
-                                                <a href="index.php">Home Version 1</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-2.html">Home Version 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-3.html">Home Version 3</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-4.html">Home 4 Animated Text</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-5.html">Home 5 Animated Text Ovlerlay</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-6.html">Home 6 Background Video</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-7.html">Home 7 BG-Video Ovlerlay</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-8.html">Home 8 Boxed-1</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-9.html">Home 9 Gradient</a>
-                                            </li>
-                                            <li>
-                                                <a href="index-10.html">Home 10 Boxed-2</a>
-                                            </li>
-                                        </ul>
+                                    <li><a href="index.php">Trang chủ</a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=shop">Products</a>
+                                        <a href="index.php?act=shop">Cửa hàng</a>
                                     </li>
                                     <li><a href="index.php?act=blog">Bài viết</a>
                                         <ul>
                                             <li>
-                                                <a href="index.php?act=blog">Blog</a>
+                                                <a href="index.php?act=blog">Thủ thuật</a>
                                             </li>
                                             <li>
-                                                <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
+                                                <a href="index.php?act=blog">Tin tức điện thoại</a>
                                             </li>
                                             <li>
-                                                <a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-2.html">Blog style 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-2-left-sidebar.html">Blog 2 Left Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="blog-2-right-sidebar.html">Blog 2 Right Sidebar</a>
-                                            </li>
-                                            <li>
-                                                <a href="single-index.php?act=blog">Blog Details</a>
+                                                <a href="index.php?act=blog">Hướng dẫn</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=about-us">About Us</a>
+                                        <a href="index.php?act=about-us">Về chúng tôi</a>
                                     </li>
                                     <li>
-                                        <a href="index.php?act=contact">Contact</a>
+                                        <a href="index.php?act=contact">Liên hệ</a>
                                     </li>
                                 </ul>
                             </nav>

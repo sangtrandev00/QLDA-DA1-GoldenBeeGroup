@@ -1,33 +1,68 @@
 
 
 function handleCheckout(checkoutForm) {
-   
-    if($("#checkout-form #vnpayPayment").hasClass("show")) {
-        console.log('vnpay');
-        checkoutForm.action = "./index.php?act=checkoutbtn&type=vnpay";
-        console.log('form: ', checkoutForm);
-        // $.ajax({
-        //     type: "POST",
-        //     url: "./logic/cart.php?act=vnpay_payment",
-        //     data: {
-        //         tongdonhang: checkoutForm.elements['tongdonhang'].value
-        //     },
-        //     // dataType: "dataType",
-        //     success: function (response) {
+    event.preventDefault();
+    // Kiểm tra tồn kho ở đây!!! trước khi thanh toán
+    $.ajax({
+        type: "POST",
+        url: "./logic/cart.php?act=checkinventory",
+        data: "data",
+        // dataType: "dataType",
+        success: function (response) {
+                const {status, content} = JSON.parse(response);
+                if(status == 0) {
+                     // Add some message for customer
+                     $("#cartModalBtn").trigger("click");
+                     $("#cartModalLabel").text(`Vượt quá tồn kho`);
+                     $("#cartModal .modal-body").text(`${content}, load lại trang để xem số lượng`);   
+                     $("#cartModal .continue-btn").val("Load lại giỏ hàng");  
+                     $("#cartModal .continue-btn").addClass("main-bg-color main-border-color");  
+                     $("#cartModal .close-modal-btn").addClass("d-none");
+                     $("#cartModal .continue-btn").click(function(e) {
+                        e.preventDefault();
+                        location.reload();
+                     })
+                     return;
+                }else if(status == 1) {
+                    // Nếu đã thỏa mãn (đủ điều kiện ở dưới kho);
+                    if($("#checkout-form #vnpayPayment").hasClass("show")) {
+                        console.log('vnpay');
+                        checkoutForm.action = "./index.php?act=checkoutbtn&type=vnpay";
+                        console.log('form: ', checkoutForm);
+                        // $.ajax({
+                        //     type: "POST",
+                        //     url: "./logic/cart.php?act=vnpay_payment",
+                        //     data: {
+                        //         tongdonhang: checkoutForm.elements['tongdonhang'].value
+                        //     },
+                        //     // dataType: "dataType",
+                        //     success: function (response) {
+                                
+                        //     }
+                        // });
+                    }else if($("#checkout-form #codPayment").hasClass("show")) {
+                        console.log('cod');
+                        checkoutForm.action = "./index.php?act=checkoutbtn&type=cod";
+                        console.log('form: ', checkoutForm);
+                    }else if($("#checkout-form #momoPayment").hasClass("show")) {
+                        console.log('momo');
+                        checkoutForm.action = "./index.php?act=checkoutbtn&type=momo";
+                        console.log('form: ', checkoutForm);
+                    }
                 
-        //     }
-        // });
-    }else if($("#checkout-form #codPayment").hasClass("show")) {
-        console.log('cod');
-        checkoutForm.action = "./index.php?act=checkoutbtn&type=cod";
-        console.log('form: ', checkoutForm);
-    }else if($("#checkout-form #momoPayment").hasClass("show")) {
-        console.log('momo');
-        checkoutForm.action = "./index.php?act=checkoutbtn&type=momo";
-        console.log('form: ', checkoutForm);
-    }
-    // event.preventDefault();
-    // console.log('this', checkoutForm.elements['tongdonhang'].value);
+                    checkoutForm.submit();
+                    // event.preventDefault();
+                    // console.log('this', checkoutForm.elements['tongdonhang'].value);                
+                
+
+
+                }
+        }
+    });
+
+
+    
+    
    
 }
 
@@ -60,7 +95,7 @@ function applyCoupon(iduser) {
                 const shippingFee = +$("#shipping-fee-hidden").val();
                 const vatFee = +$("#vat-fee-hidden").val();
                 const totalFee =subTotal + shippingFee  +vatFee - discountMoney;
-                console.log(shippingFee, vatFee, totalFee);
+                console.log("show:", shippingFee, vatFee, totalFee);
                 calcAllTotal(shippingFee,vatFee, totalFee);
                 // $(".coupon-discount").attr("hidden", true);
 

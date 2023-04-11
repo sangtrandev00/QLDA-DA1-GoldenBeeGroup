@@ -11,21 +11,12 @@ if (!isset($_SESSION['alert'])) {
     $_SESSION['alert'] = "";
 }
 
-// var_dump($_SESSION['views']);
-
 if (!isset($_SESSION['giohang'])) {
-    // $_SESSION['giohang'] = [
-    //     [1, 1, "Điện thoại OPPO Reno8 T 5G 256GB", "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", 3, 10999000],
-    //     [2, 2, "Điện thoại OPPO Reno8 Pro 5G", "thumb-oppo_reno8_pro_1_.jpg", 3, 17590000],
-    //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
-    // ];
     $_SESSION['giohang'] = [
         // array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
         // array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
         // array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
-
-    // var_dump($_SESSION['giohang']);
 }
 
 if (!isset($_SESSION['wishlist'])) {
@@ -39,8 +30,6 @@ if (!isset($_SESSION['wishlist'])) {
         // array("stt" => 2, "id" => 2, "tensp" => "Điện thoại OPPO Reno8 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
         // array("stt" => 3, "id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
-
-    // var_dump($_SESSION['giohang']);
 }
 
 include "../global.php";
@@ -57,6 +46,7 @@ include "./models/sanpham.php";
 include "./models/user.php";
 include "./models/donhang.php";
 include "./models/blog-cate.php";
+include "./models/banner_slider.php";
 include "./models/config_vnpay.php";
 
 // Header
@@ -154,7 +144,10 @@ if (isset($_GET['act'])) {
 
             break;
         case 'checkout':
+
             if (isset($_SESSION['iduser'])) {
+                // Kiểm tra tồn kho ở đây!!!
+
                 if (isset($_POST['changecartcheckoutbtn']) && $_POST['changecartcheckoutbtn']) {
 
                     // $GLOBALS['changed_cart'] = $_POST['changecartcheckout'];
@@ -164,6 +157,7 @@ if (isset($_GET['act'])) {
                     include "./view/checkout-page.php";
                     // }
                 }
+
                 // Kiểm tra tồn kho ở đây
 
                 include "./view/pages/cart/checkout.php";
@@ -279,10 +273,11 @@ if (isset($_GET['act'])) {
             break;
 
         case 'checkoutbtn':
+            // Kiểm tra tồn kho ở đây luôn! - Phòng trường hợp đang ở giỏ hàng tiến tới đặt hàng đã có người đặt hàng từ trước.
 
             $error = array();
             // Khi nút thanh toán được tồn tại và nó được click !!!
-            // echo "HELLO WORLD";
+
             if ($_GET['type'] == 'vnpay') {
 
                 $iduser = $_SESSION['iduser'];
@@ -292,83 +287,107 @@ if (isset($_GET['act'])) {
                 $email = $_POST['email'];
                 $sodienthoai = $_POST['phone'];
                 $ghichu = $_POST['ghichu'];
-                // Array[0,1,2,3] (hiện tại đang mặc định)
-                $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $time_order = date('Y-m-d H:i:s', time());
-
-                $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
-                $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
-                $vnp_Locale = "vn"; //Ngôn ngữ chuyển hướng thanh toán
-                $vnp_BankCode = "NCB"; //Mã phương thức thanh toán
-                $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
-
-                $inputData = array(
-                    "vnp_Version" => "2.1.0",
-                    "vnp_TmnCode" => $vnp_TmnCode,
-                    "vnp_Amount" => $vnp_Amount * 100,
-                    "vnp_Command" => "pay",
-                    "vnp_CreateDate" => date('YmdHis'),
-                    "vnp_CurrCode" => "VND",
-                    "vnp_IpAddr" => $vnp_IpAddr,
-                    "vnp_Locale" => $vnp_Locale,
-                    "vnp_OrderType" => "billpayment",
-                    "vnp_ReturnUrl" => $vnp_Returnurl,
-                    "vnp_TxnRef" => $vnp_TxnRef,
-                    "vnp_ExpireDate" => $expire,
-                    "vnp_OrderInfo" => $ghichu,
-
-                    // "vnp_BankTranNo" => $ghichu,
-                    // "vnp_Inv_Customer" => $hoten,
-                    // "vnp_Bill_Address" => $diachi,
-                    // "vnp_Bill_Email" => $email,
-                    // "vnp_Inv_Type" => "Thanh toán qua vnpay",
-                    // "vnp_Bill_FirstName" => $hoten,
-
-                );
-
-                $_SESSION['bill']['hoten'] = $hoten;
-                $_SESSION['bill']['email'] = $email;
-                $_SESSION['bill']['tongdonhang'] = $tongdonhang;
-                $_SESSION['bill']['madonhang'] = $madonhang;
-                $_SESSION['bill']['sodienthoai'] = $sodienthoai;
-                $_SESSION['bill']['ghichu'] = $ghichu;
-                $_SESSION['bill']['diachi'] = $diachi;
-                $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
-                $_SESSION['bill']['time_order'] = $time_order;
-                $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
-                $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
-                $_SESSION['bill']['coupon_code'] = $_POST['coupon_code'];
-                // $_SESSION['bill'][''] = $time_order;
-                if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-                    $inputData['vnp_BankCode'] = $vnp_BankCode;
+                if (empty($ghichu)) {
+                    $error['ghichu'] = "Không để trống ghi chú!";
                 }
 
-                // var_dump($inputData);
-                // exit;
-                ksort($inputData);
-                $query = "";
-                $i = 0;
-                $hashdata = "";
-                foreach ($inputData as $key => $value) {
-                    if ($i == 1) {
-                        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-                    } else {
-                        $hashdata .= urlencode($key) . "=" . urlencode($value);
-                        $i = 1;
+                if (empty($hoten)) {
+                    $error['hoten'] = "Không để trống họ tên";
+                } else if (strlen($hoten) > 30) {
+                    $error['hoten'] = "Họ tên không được phép 30 ký tự";
+                }
+
+                if (empty($sodienthoai)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email";
+                }
+
+                if (!$error) {
+// Array[0,1,2,3] (hiện tại đang mặc định)
+                    $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
+
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $time_order = date('Y-m-d H:i:s', time());
+
+                    $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
+                    $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
+                    $vnp_Locale = "vn"; //Ngôn ngữ chuyển hướng thanh toán
+                    $vnp_BankCode = "NCB"; //Mã phương thức thanh toán
+                    $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
+
+                    $inputData = array(
+                        "vnp_Version" => "2.1.0",
+                        "vnp_TmnCode" => $vnp_TmnCode,
+                        "vnp_Amount" => $vnp_Amount * 100,
+                        "vnp_Command" => "pay",
+                        "vnp_CreateDate" => date('YmdHis'),
+                        "vnp_CurrCode" => "VND",
+                        "vnp_IpAddr" => $vnp_IpAddr,
+                        "vnp_Locale" => $vnp_Locale,
+                        "vnp_OrderType" => "billpayment",
+                        "vnp_ReturnUrl" => $vnp_Returnurl,
+                        "vnp_TxnRef" => $vnp_TxnRef,
+                        "vnp_ExpireDate" => $expire,
+                        "vnp_OrderInfo" => $ghichu,
+
+                        // "vnp_BankTranNo" => $ghichu,
+                        // "vnp_Inv_Customer" => $hoten,
+                        // "vnp_Bill_Address" => $diachi,
+                        // "vnp_Bill_Email" => $email,
+                        // "vnp_Inv_Type" => "Thanh toán qua vnpay",
+                        // "vnp_Bill_FirstName" => $hoten,
+
+                    );
+
+                    $_SESSION['bill']['hoten'] = $hoten;
+                    $_SESSION['bill']['email'] = $email;
+                    $_SESSION['bill']['tongdonhang'] = $tongdonhang;
+                    $_SESSION['bill']['madonhang'] = $madonhang;
+                    $_SESSION['bill']['sodienthoai'] = $sodienthoai;
+                    $_SESSION['bill']['ghichu'] = $ghichu;
+                    $_SESSION['bill']['diachi'] = $diachi;
+                    $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
+                    $_SESSION['bill']['time_order'] = $time_order;
+                    $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
+                    $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
+                    $_SESSION['bill']['coupon_code'] = $_POST['coupon_code'];
+// $_SESSION['bill'][''] = $time_order;
+                    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                        $inputData['vnp_BankCode'] = $vnp_BankCode;
                     }
-                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
-                }
 
-                $vnp_Url = $vnp_Url . "?" . $query;
-                if (isset($vnp_HashSecret)) {
-                    $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
-                    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-                }
+// var_dump($inputData);
+                    // exit;
+                    ksort($inputData);
+                    $query = "";
+                    $i = 0;
+                    $hashdata = "";
+                    foreach ($inputData as $key => $value) {
+                        if ($i == 1) {
+                            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                        } else {
+                            $hashdata .= urlencode($key) . "=" . urlencode($value);
+                            $i = 1;
+                        }
+                        $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                    }
 
-                header('Location: ' . $vnp_Url);
-                die();
+                    $vnp_Url = $vnp_Url . "?" . $query;
+                    if (isset($vnp_HashSecret)) {
+                        $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+                        $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                    }
+
+                    header('Location: ' . $vnp_Url);
+                    die();
+
+                } else {
+                    include "./view/pages/cart/checkout.php";
+                }
 
                 // $returnData = array('code' => '00'
                 //     , 'message' => 'success'
@@ -381,81 +400,99 @@ if (isset($_GET['act'])) {
                 // }
             } else if ($_GET['type'] == 'cod') {
 
-                if (isset($_POST['checkoutbtn']) && $_POST['checkoutbtn']) {
-                    // echo "HELLO WORLD checkout";
-                    // var_dump($_POST);
-                    // 1. Lấy dữ liệu
-                    $iduser = $_SESSION['iduser'];
-                    $tongphu = $_POST['tongphu'];
-                    $shippingfee = $_POST['shippingfee'];
-                    $tongdonhang = $_POST['tongdonhang'];
-                    $hoten = $_POST['name'];
-                    $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
-                    $email = $_POST['email'];
-                    $sodienthoai = $_POST['phone'];
-                    $ghichu = $_POST['ghichu'];
-                    $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
-                    // Sinh ra mã đơn hàng
-                    $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
-                    $vat_fee = $_POST['vat_fee'];
-                    $coupon_code = $_POST['coupon_code'];
-                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                // if (isset($_POST['checkoutbtn']) && $_POST['checkoutbtn']) {
+                // echo "HELLO WORLD checkout";
+                // var_dump($_POST);
+                // 1. Lấy dữ liệu
 
-                    $time_order = date('Y-m-d H:i:s', time());
-
-                    // 2.validate php server
-                    if (empty($hoten)) {
-                        $error['hoten'] = "Không để trống họ tên";
-                    } else if (strlen($hoten) > 30) {
-                        $error['hoten'] = "Họ tên không được phép 30 ký tự";
-                    }
-
-                    if (empty($sodienthoai)) {
-                        $error['phone'] = "Không để trống số điện thoại!";
-                    }
-
-                    if (empty($email)) {
-                        $error['email'] = "Không để trống email";
-                    }
-                    // if (empty($diachi)) {
-                    //     $error['address'] = "Không để trống địa chỉ";
-                    // }
-
-                    if (!$error) {
-                        // Trừ số lượng trong hàng tồn kho đi.
-                        $cart_list = $_SESSION['giohang'];
-                        foreach ($cart_list as $cart_item) {
-                            # code...
-                            $product = product_select_by_id($cart_item['id']);
-
-                            $productQtyRemain = $product['ton_kho'] - $cart_item['sl'];
-                            // echo "So luong con lai trong kho: " . $productQtyRemain;
-                            product_update_quantity($cart_item['id'], $productQtyRemain);
-                        }
-
-                        // 3. tạo đơn hàng và trả về một id đơn hàng
-                        $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
-                        $_SESSION['iddh'] = $iddh;
-                        if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
-                            foreach ($_SESSION['giohang'] as $item) {
-                                # code...
-                                addtocart($iddh, $item['id'], $item['tensp'], $item['hinh_anh'], $item['don_gia'], $item['sl']);
-                            }
-                            // Xóa đơn hàng sau khi add to cart (database)
-                            unset($_SESSION['giohang']);
-                            unset($_SESSION['iddh']);
-                        }
-                        // Cập nhật coupon vào đơn hàng ở đây!
-
-                        update_coupon_for_orderid($coupon_code, $iddh);
-                        if ($coupon_code != "") {
-                            update_quantity_of_coupon($coupon_code);
-                        }
-                        include "./view/pages/cart/order-completed.php";
-                    } else {
-                        include "./view/pages/cart/checkout.php";
-                    }
+                $iduser = $_SESSION['iduser'];
+                $tongphu = $_POST['tongphu'];
+                $shippingfee = $_POST['shippingfee'];
+                $tongdonhang = $_POST['tongdonhang'];
+                $hoten = $_POST['name'];
+                if (empty($_POST['detail_address'])) {
+                    $error['detail_address'] = "Không để trống địa chỉ chi tiết";
                 }
+                if (empty($_POST['ward_id'])) {
+                    $error['ward_name'] = "Không để trống phường/xã";
+                }
+                if (empty($_POST['province_id'])) {
+                    $error['district_name'] = "Không để trống quận/huyện";
+                }
+                if (empty($_POST['province_id'])) {
+                    $error['province_name'] = "Không để trống tỉnh/thành phó";
+                }
+
+                $diachi = $_POST['detail_address'] . ", " . $_POST['ward_name'] . ", " . $_POST['district_name'] . ", " . $_POST['province_name'];
+                $email = $_POST['email'];
+                $sodienthoai = $_POST['phone'];
+                $ghichu = $_POST['ghichu'];
+
+                if (empty($ghichu)) {
+                    $error['ghichu'] = "Không để trống ghi chú!";
+                }
+                $pttt = "Thanh toán khi nhận hàng"; // Array[0,1,2,3] (hiện tại đang mặc định)
+                // Sinh ra mã đơn hàng
+                $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
+                $vat_fee = $_POST['vat_fee'];
+                $coupon_code = $_POST['coupon_code'];
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+                $time_order = date('Y-m-d H:i:s', time());
+
+                // 2.validate php server
+                if (empty($hoten)) {
+                    $error['hoten'] = "Không để trống họ tên";
+                } else if (strlen($hoten) > 30) {
+                    $error['hoten'] = "Họ tên không được phép 30 ký tự";
+                }
+
+                if (empty($sodienthoai)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email";
+                }
+                // if (empty($diachi)) {
+                //     $error['address'] = "Không để trống địa chỉ";
+                // }
+
+                if (!$error) {
+                    // Trừ số lượng trong hàng tồn kho đi.
+                    $cart_list = $_SESSION['giohang'];
+                    foreach ($cart_list as $cart_item) {
+                        # code...
+                        $product = product_select_by_id($cart_item['id']);
+
+                        $productQtyRemain = $product['ton_kho'] - $cart_item['sl'];
+                        // echo "So luong con lai trong kho: " . $productQtyRemain;
+                        product_update_quantity($cart_item['id'], $productQtyRemain);
+                    }
+
+                    // 3. tạo đơn hàng và trả về một id đơn hàng
+                    $iddh = taodonhang($madonhang, $tongdonhang, $shippingfee, $vat_fee, $pttt, $hoten, $diachi, $email, $sodienthoai, $ghichu, $iduser, $time_order, 0);
+                    $_SESSION['iddh'] = $iddh;
+                    if (isset($_SESSION['giohang']) && (count($_SESSION['giohang']) > 0)) {
+                        foreach ($_SESSION['giohang'] as $item) {
+                            # code...
+                            addtocart($iddh, $item['id'], $item['tensp'], $item['hinh_anh'], $item['don_gia'], $item['sl']);
+                        }
+                        // Xóa đơn hàng sau khi add to cart (database)
+                        unset($_SESSION['giohang']);
+                        unset($_SESSION['iddh']);
+                    }
+                    // Cập nhật coupon vào đơn hàng ở đây!
+
+                    update_coupon_for_orderid($coupon_code, $iddh);
+                    if ($coupon_code != "") {
+                        update_quantity_of_coupon($coupon_code);
+                    }
+                    include "./view/pages/cart/order-completed.php";
+                } else {
+                    include "./view/pages/cart/checkout.php";
+                }
+                // }
             }
 
             break;
@@ -639,7 +676,7 @@ if (isset($_GET['act'])) {
                 $searchProductPattern = "%" . $_POST['searchproductname'] . "%";
                 $searchProductList = product_select_by_name($searchProductPattern);
             }
-            include "./view/shoppage.php";
+            include "./view/pages/shop/shop.php";
             break;
 
         case 'detailproduct':
@@ -752,25 +789,41 @@ if (isset($_GET['act'])) {
                 $ho_ten = $_POST['ho_ten'];
                 $diachi = $_POST['diachi'];
                 $sodienthoai = $_POST['sodienthoai'];
-                $email = $_POST['email'];
-                $company = $_POST['companyname'];
-                $target_file = "../uploads/" . basename($_FILES["hinh_anh"]["name"]);
+                $congty = $_POST['companyname'];
+                $target_file = basename($_FILES["hinh_anh"]["name"]);
                 // echo $target_file;
                 move_uploaded_file($_FILES["hinh_anh"]["tmp_name"], $target_file);
 
                 // validate at server
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                // Allow certain file formats
+                if ($_FILES['hinh_anh']['name'] == "") {
+                    // $error['image'] = "Hình ảnh không được để trống";
+                } else if ($_FILES['hinh_anh']['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif") {
+                    $error['image'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                }
 
-                // Validate php here
+                if (empty($_FILES["hinh_anh"]["name"])) {
+                    // $error['hinh_anh'] = "Không để trống hình ảnh";
+                    // GET image from database
+                    $user = user_select_by_id($_SESSION['iduser']);
+                    $target_file = $user['hinh_anh'];
 
-                // if (empty($_FILES["hinh_anh"]["name"])) {
-                //     $error['hinh_anh'] = "Không để trống hình ảnh";
-                // }
-                // // Validate at server
+                } else if ($_FILES["hinh_anh"]['name'] != "" && $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif") {
+                    $error['hinh_anh'] = "Chỉ file JPG, JPEG, PNG & GIF files được cho phép";
+                }
+                // Validate at server
 
-                // if (strlen($ho_ten) == 0) {
-                //     $error['ho_ten'] = "Không để trống họ tên!";
-                // } else if (strlen($ho_ten) > 30) {
-                //     $error['ho_ten'] = "Họ tên không vượt quá 30 ký tự!";
+                if (strlen($ho_ten) == 0) {
+                    $error['ho_ten'] = "Không để trống họ tên!";
+                } else if (strlen($ho_ten) > 50) {
+                    $error['ho_ten'] = "Họ tên không vượt quá 50 ký tự!";
+                }
+
+                // if (empty($congty)) {
+                //     $error['congty'] = "không để trống email";
                 // }
 
                 // if (empty($email)) {
@@ -779,38 +832,35 @@ if (isset($_GET['act'])) {
                 //     $error['email'] = "Email không đúng định dạng!";
                 // }
 
-                // if (strlen($sodienthoai) == 0) {
-                //     $error['sodienthoai'] = "Không để trống số điện thoại!";
-                // } else if (!validating($sodienthoai)) {
-                //     $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
-                // }
+                if (strlen($sodienthoai) == 0) {
+                    $error['sodienthoai'] = "Không để trống số điện thoại!";
+                } else if (!validating($sodienthoai)) {
+                    $error['sodienthoai'] = "Định dạng số điện thoại không chính xác!";
+                }
 
-                // if (empty($tai_khoan)) {
-                //     $error['tai_khoan'] = "Không để trống tài khoản!";
-                // }
+                if (empty($congty)) {
+                    $error['company'] = "Không để trống công ty!";
+                }
 
-                // if (!$error) {
-                // echo 'Success!';
-                $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $email, $role = 1, $company);
+                if (empty($diachi)) {
+                    $error['diachi'] = "Không để trống địa chỉ";
+                }
 
-                if ($is_updated) {
+                if (!$error) {
 
-                    echo '
-                        <script>
+                    // echo 'Success!';
+                    $is_updated = user_update_info($_POST['iduser'], $ho_ten, $diachi, $sodienthoai, $kichhoat = 1, $target_file, $congty);
 
-                        </script>
-                        ';
+                    if ($is_updated) {
+
+                        $_SESSION['alert'] = "Cập nhật thông tin tài khoản thành công!";
+
+                    }
+
                 } else {
+                    $_SESSION['alert'] = "Cập nhật thông tin tài khoản thất bại!";
 
                 }
-                // } else {
-                //     echo "Error: ";
-                //     echo '
-                //         <script>
-                //             $("#cartModal").trigger("click");
-                //         </script>
-                //     ';
-                // }
 
             } else {
 
@@ -959,7 +1009,11 @@ if (isset($_GET['act'])) {
             break;
 
         case 'my-account':
-            include "./view/auth/my-account.php";
+            if (isset($_SESSION['iduser'])) {
+                include "./view/auth/my-account.php";
+            } else {
+                header('location: ./auth/login.php');
+            }
             break;
         case 'csbanhang':
             include "./view/pages/policy/sales-policy.php";
@@ -980,39 +1034,31 @@ if (isset($_GET['act'])) {
             include "./view/pages/policy/inspection-policy.php";
             break;
         case 'commentblog':
-            // if(isset($_POST['sencomment'])):
-            //     // comment_blog($content,$idblog,$userid, $date)
-            //     $content = $_POST['content'];
-            //     $idblog = $_GET['id'];
-            //     $date = $_POST['date'];
-
-            //         if(isset($_SESSION['user'])){
-            //             // print_r($_SESSION['user']);
-            //             comment_blog($content,$idblog,$_SESSION['iduser'],$date);
-            //             // header('location: ./view/blog/blog-detail.php?id='.$idblog.'');
-
-            //         }
-            //         // else{
-            //         //     $_SESSION['error'] = 'Đăng Nhập Để Bình Luận';
-            //         //     header('location: index.php?act=blogdetail&id='.$idblog.'');
-            //         // }
-            //     endif;
-
             if (isset($_POST['sencomment']) && ($_POST['sencomment'])) {
-                // $name = $_POST['name'];
+                $error = array();
                 $idblog = $_GET['id'];
                 $content = $_POST['content'];
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $date = date('Y-m-d H:m:s');
-                echo $date;
                 // exit;
                 $makh = $_SESSION['iduser'];
                 if (isset($_SESSION['iduser'])) {
-                    comment_blog($makh, $content, $idblog, $date);
+                    if (strlen($content) == 0) {
+                        $error['content'] = "Bạn Chưa Nhập Bình Luận";
+                    }
+                    if (!$error) {
+                        $is_inserted = comment_blog($makh, $content, $idblog, $date);
+                        if ($is_inserted) {
+                            $thongbao = "Thêm Bài Viết Thành Công";
+                        }
+                    } else {
+                        $thongbao = "Thêm Bài Viết Thất Bại";
+                    }
+
                     // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: index.php?act=blogdetail&id=' . $idblog . '');
+                    header('location: http://localhost/PRO1014_DA1/main-project/site/auth/login.php');
                 }
             }
             include "./view/pages/blog/blog-detail.php";

@@ -59,7 +59,7 @@ foreach ($blog_list as $blog_item) {
     $image_list = explode(",", $blog_item['images']);
     $thumbnail = getthumbnail($image_list);
     $xoablog = "index.php?act=deleteblog&id=" . $blog_item['blog_id'];
-    $suablog = "index.php?act=editblog&id=" . $blog_item['blog_id'];
+    $suablog = "index.php?act=updateblog&id=" . $blog_item['blog_id'];
     $conten = mb_substr($blog_item['noi_dung'], 0, 40);
     $blog_title = mb_substr($blog_item['blog_title'], 0, 20);
     # code...

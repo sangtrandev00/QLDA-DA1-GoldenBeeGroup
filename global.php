@@ -10,6 +10,7 @@
 
 $FOLDER_VAR = "/PRO1014_DA1/main-project";
 $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
+
 $ADMIN_URL = $ROOT_URL . "/admin";
 $SITE_URL = $ROOT_URL . "/site";
 $PDO_LIB = $ROOT_URL . "/pdo-library.php";
@@ -162,7 +163,7 @@ function renderCardShoppage($productList)
     }
 }
 
-function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format)
+function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name, $price_format, $result_stars)
 {
     return '
                                         <form action="./index.php?act=addtocart" method="post">
@@ -182,11 +183,7 @@ function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name,
                                                         <a href="index.php?act=detailproduct&id=' . $item['masanpham'] . '">' . $item['tensp'] . '</a>
                                                     </h6>
                                                     <div class="pro-rating">
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
+                                                       ' . $result_stars . '
                                                     </div>
                                                     <h3 class="pro-price"> ' . $price_format . ' VND</h3>
 
@@ -220,6 +217,94 @@ function cardItem($item, $thumbnail, $addcartfunc, $addwishlistfunc, $cate_name,
                                             </div>
                                             </form>
     ';
+}
+
+function renderStarRatings($number)
+{
+    $result = '
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+    ';
+    switch ($number) {
+        case 1:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 1.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 2:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 2.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 3:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 3.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 4:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		                <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
+	';
+            break;
+        case 4.5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
+	';
+            break;
+        case 5:
+            $result = '<a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+		            <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
+	';
+            break;
+        default:
+
+    }
+    return $result;
 }
 
 function validating($phone)
@@ -350,7 +435,7 @@ function showStatus($num)
             break;
         case 5:
             $trangthai = 'Giao hàng thất bại';
-            $statusMess = 'Đơn hàng đã giao hàng thất bại! Do thời tiết hoặc lỗi do hàng tồn';
+            $statusMess = 'Đơn hàng đã giao hàng thất bại! Do thời tiết hoặc lỗi do khách hàng không nhận hàng';
             break;
         case 6:
             $trangthai = 'Đơn hàng đã bị hủy';
