@@ -664,33 +664,34 @@ if (isset($_GET['act'])) {
         case 'detailproduct':
             include "./view/pages/detailproduct/detail-product.php";
             break;
-        case 'detailproductpage':
+        // case 'detailproductpage':
 
-            if (isset($_POST['sendcommentbtn']) && $_POST['sendcommentbtn']) {
-                if (isset($_SESSION['iduser'])) {
-                    $iduser = $_SESSION['iduser'];
-                    $masanpham = $_POST['masanpham'];
-                    $commentMessage = $_POST['comment'];
-                    date_default_timezone_set('Asia/Ho_Chi_Minh');
-                    $ngay_binhluan = date("Y-m-d H:i:s");
-                    comment_insert($iduser, $masanpham, $commentMessage, $ngay_binhluan);
-                    include "./view/detailproduct-page.php";
-                    echo '<script>
-                    alert("Bình luận thành công");
-                    </script>';
-                } else {
-                    echo '<script>
-                    alert("Bạn chưa đăng nhập để bình luân, xin mời đăng nhập");
-                    </script>';
+        //     if (isset($_POST['sendcommentbtn']) && $_POST['sendcommentbtn']) {
+        //         if (isset($_SESSION['iduser'])) {
+        //             $iduser = $_SESSION['iduser'];
+        //             $masanpham = $_POST['masanpham'];
+        //             $commentMessage = $_POST['comment'];
+        //             date_default_timezone_set('Asia/Ho_Chi_Minh');
+        //             $ngay_binhluan = date("Y-m-d H:i:s");
+        //             comment_insert($iduser, $masanpham, $commentMessage, $ngay_binhluan);
+        //             include "./view/detailproduct-page.php";
+        //             echo '<script>
+        //             alert("Bình luận thành công");
+        //             </script>';
+        //         } else {
+        //             echo '<script>
+        //             alert("Bạn chưa đăng nhập để bình luân, xin mời đăng nhập");
+        //             </script>';
 
-                    include "./view/account/signin-page.php";
-                }
+        //             include "./view/account/signin-page.php";
+        //         }
 
-            } else {
-                include "./view/detailproduct-page.php";
-            }
+        //     } else {
+        //         include "./view/detailproduct-page.php";
+        //     }
 
-            break;
+        //     break;
+
         case 'signup':
 
             $error = array();
@@ -1038,8 +1039,7 @@ if (isset($_GET['act'])) {
                     // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: http://localhost/PRO1014_DA1/main-project/site/auth/login.php');
-                }
+                    header('location: ./auth/login.php');                }
             }
             include "./view/pages/blog/blog-detail.php";
             break;
@@ -1054,7 +1054,27 @@ if (isset($_GET['act'])) {
             // header("location ")
             // include ".";
             break;
-
+        case 'commentproduct':
+            if(isset($_POST['sentcommentproduct']) && ($_POST['sentcommentproduct'])){
+                $idproduct = $_GET['id'];
+                $noidung = $_POST['noidung'];
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date = date('Y-m-d H:m:s');
+                $makh = $_SESSION['iduser'];
+                // $makh = 1;
+                if(isset($_SESSION['iduser'])){
+                    $is_inserted = comment_product($makh,$noidung,$idproduct, $date);
+                }else{
+                    header('location: ./auth/login.php');
+                }
+            }
+            include './view/pages/detailproduct/detail-product.php';
+            break;
+        case 'deletecmtproduct':
+            $id = $_GET['idproduct'] ? $_GET['idproduct'] : '';
+            deletecmtproduct($id);
+            header('location: index.php?act=commentproduct&id='.$_GET['idprofile'].'');
+            break;
         default:
             include "./view/component/carousel.php";
             // include "./view/component/catalog.php";

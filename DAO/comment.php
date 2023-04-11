@@ -103,11 +103,31 @@ function comment_blog($makh,$content,$idblog, $date){
     $sql = "insert into tbl_blog_comment(ma_kh,id_blog,noi_dungbl,ngay_bl) values('$makh','$idblog','$content','$date')";
     pdo_execute($sql);
 }
+function comment_product($makh,$noidung,$idproduct, $date){
+    $sql = "insert into tbl_binhluan(noi_dung,ma_sanpham,ma_nguoidung,ngay_binhluan) values('$noidung','$idproduct','$makh','$date')";
+    pdo_execute($sql);
+}
 function showcomment($id){
     $sql = "SELECT * FROM tbl_blog_comment 
     JOIN tbl_blog ON tbl_blog_comment.id_blog = tbl_blog.blog_id 
     JOIN tbl_nguoidung ON tbl_blog_comment.ma_kh = tbl_nguoidung.id
     WHERE tbl_blog_comment.id_blog ='$id' ORDER BY ngay_bl DESC ";
+    $showcomment = pdo_query($sql);
+    return $showcomment;
+}
+function showcommentproduct($id){
+    $sql = "SELECT * FROM tbl_binhluan
+    JOIN tbl_sanpham ON tbl_binhluan.ma_sanpham = tbl_sanpham.masanpham
+    JOIN tbl_nguoidung ON tbl_binhluan.ma_nguoidung = tbl_nguoidung.id
+    WHERE tbl_binhluan.ma_sanpham ='$id' ORDER BY ngay_binhluan DESC ";
+    $showcomment = pdo_query($sql);
+    return $showcomment;
+}
+function showcommentproduct_admin(){
+    $sql = "SELECT * FROM tbl_binhluan
+    JOIN tbl_sanpham ON tbl_binhluan.ma_sanpham = tbl_sanpham.masanpham
+    JOIN tbl_nguoidung ON tbl_binhluan.ma_nguoidung = tbl_nguoidung.id
+    ORDER BY ngay_binhluan DESC ";
     $showcomment = pdo_query($sql);
     return $showcomment;
 }
@@ -123,6 +143,10 @@ function deletecomment_blog($id){
     $sql = "delete from tbl_blog_comment where id_bl='$id'";
     pdo_execute($sql);
 }
+function deletecomment_product($id){
+    $sql = "delete from tbl_binhluan where ma_binhluan='$id'";
+    pdo_execute($sql);
+}
 function getprofile($id){
     $sql = "SELECT * FROM tbl_nguoidung WHERE id='$id'";
     $showprofile = pdo_query($sql);
@@ -130,6 +154,10 @@ function getprofile($id){
 }
 function deletecmt($id){
     $sql = "DELETE FROM tbl_blog_comment WHERE id_bl='$id'";
+    pdo_execute($sql);
+}
+function deletecmtproduct($id){
+    $sql = "DELETE FROM tbl_binhluan WHERE ma_binhluan='$id'";
     pdo_execute($sql);
 }
 ?>

@@ -233,7 +233,7 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
                                         <div role="tabpanel" class="tab-pane active show" id="description">
                                             <?php echo $product['mo_ta'] ?>
                                             <br>
-                                            <div id="comment-wrapper" class="message-box-section mt--50 mb-80">
+                                            <!-- <div id="comment-wrapper" class="message-box-section mt--50 mb-80">
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col-lg-12">
@@ -329,7 +329,7 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div role="tabpanel" class="tab-pane" id="information">
                                             <?php echo $product['information'] ?>
@@ -427,6 +427,60 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
                             </div>
                             <!--  hr -->
                             <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-box-section mt--50 mb-80">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="message-box box-shadow white-bg">
+                                    <form action="index.php?act=commentproduct&id=<?=$product_id?>" method="post">
+                                        <h4 class="blog-section-title border-left mb-10">Bình Luận</h4>;
+                                        <?php
+                                            if(!isset($_SESSION['iduser'])){
+                                                $thongbao = "Đăng Nhập Để Bình Luận";                                       
+                                                echo '<div class="alert alert-primary" role="alert">'.$thongbao.'</div>'; 
+                                            }
+                                        ?>
+                                        <div>
+                                            <textarea class="custom-textarea" name="noidung" id="" cols="30" rows="10"></textarea>
+                                        </div>               
+                                        <div>
+                                            <input class="submit-btn-1 mt-30 btn-hover-1" type="submit" name="sentcommentproduct" value="Bình Luận">
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <?php
+                                            $showcomment = showcommentproduct($product_id);
+                                            if(!empty($showcomment)):
+                                                foreach ($showcomment as $comment):
+                                        ?>
+                                        <div class="col-lg-12 comment">
+                                            <div class="name-comment">
+                                                <h6 class="media-heading mt-20"><?=$comment['ho_ten']?></h6>
+                                                <p class="mb-10"><?=$comment['ngay_binhluan']?></p>
+                                            </div>
+                                            <div>
+                                                <p class="mb-10"><?=$comment['noi_dung']?></p>
+                                            </div>
+                                            <?php
+                                                $showprofile = getprofile($comment['id']);
+                                                if(!empty($showprofile)):
+                                                    foreach ($showprofile as $profile):
+                                                        if(isset($_SESSION['iduser'])){
+                                                            if($_SESSION['iduser'] == $profile['id']){
+                                                                echo '<a class="xoa_btn" href="index.php?act=deletecmtproduct&idproduct='.$comment['ma_binhluan'].'&idprofile='.$comment['ma_sanpham'].'"> Xóa</a>';                                                              
+                                                            }
+                                                        }
+                                            ?>
+                                            <?php endforeach;endif?>
+                                        </div>
+                                        <?php endforeach;endif?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1058,12 +1058,21 @@ if (isset($_SESSION['iduser'])) {
             case 'binhluanblog':
                 include './view/pages/blogs/comment-blog.php';
                 break;
+            case 'commentproductlist':
+                include './view/pages/products/commentproduct.php';
+                break;
             case 'deletecommentblog':
                 if (isset($_GET['id']) && ($_GET['id'] > 0)) {
                     $delete_comment = deletecomment_blog($_GET['id']);
 
                 }
                 include './view/pages/blogs/comment-blog.php';
+                break;
+            case 'deletecommentproduct':
+                if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                    $delete_comment = deletecomment_product($_GET['id']);
+                }
+                include './view/pages/products/commentproduct.php';
                 break;
             case 'addslider':
                 if (isset($_POST['addslider']) && $_POST['addslider']) {

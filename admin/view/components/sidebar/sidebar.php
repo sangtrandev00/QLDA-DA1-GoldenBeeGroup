@@ -37,6 +37,8 @@
                 </li>
                 <li> <a href="index.php?act=addproduct"><i class="bi bi-circle"></i>Thêm sản phẩm</a>
                 </li>
+                <li> <a href="index.php?act=commentproductlist"><i class="bi bi-circle"></i>Bình Luận Sản Phẩm</a>
+                </li>
         </li>
     </ul>
     </li>
