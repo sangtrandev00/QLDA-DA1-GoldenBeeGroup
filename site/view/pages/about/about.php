@@ -127,7 +127,7 @@
                                     <p class="mb-20">Phụ trách công việc thiết kế trang giao diện của The Phoner Store</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="#!" title="Facebook"><i
+                                            <a class="facebook" href="https://www.facebook.com/profile.php?id=100030973492985" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>
@@ -158,7 +158,7 @@
                                     <p class="mb-20">Là người phụ trách công việc thiết kế trang giao diện front-end</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="#!" title="Facebook"><i
+                                            <a class="facebook" href="https://www.facebook.com/dangthuyduyen2210/" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>
@@ -189,7 +189,7 @@
                                     <p class="mb-20">Là người chịu trách nhiệm về back-end, thiết kế database</p>
                                     <ul class="footer-social">
                                         <li>
-                                            <a class="facebook" href="#!" title="Facebook"><i
+                                            <a class="facebook" href="https://www.facebook.com/profile.php?id=100009139284228" title="Facebook"><i
                                                     class="zmdi zmdi-facebook"></i></a>
                                         </li>
                                         <li>

@@ -66,28 +66,29 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="message-box box-shadow white-bg">
-                        <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
+                        <form id="contact-form" action="index.php?act=lienhethanhcong" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 class="blog-section-title border-left mb-30">Liên Lạc</h4>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_name" placeholder="Tên của bạn">
+                                    <input type="text" name="ten" placeholder="Tên của bạn" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_email" placeholder="Email của bạn">
+                                    <input type="text" name="email" placeholder="Email của bạn" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_subject" placeholder="Chủ đề">
+                                    <input type="text" name="chude" placeholder="Chủ đề" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_phone" placeholder="Điện thoại của bạn">
+                                    <input type="text" name="sdt" placeholder="Điện thoại của bạn"required>
                                 </div>
                                 <div class="col-lg-12">
-                                    <textarea class="custom-textarea" name="con_message"
+                                    <textarea class="custom-textarea" name="tinnhan"
                                         placeholder="Tin nhắn của bạn"></textarea>
-                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">
-                                        gửi tin nhắn</button>
+                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit" value="gửi tin nhắn" name="guitinnhan" action="lienhethanhcong" method="post">
+                                    gửi tin nhắn</button>
+                                    <!-- <input type="submit" value="gửi tin nhắn" name="guitinnhan"> -->
                                 </div>
                             </div>
                             <p class="form-message"></p>

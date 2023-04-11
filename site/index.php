@@ -1028,6 +1028,31 @@ if (isset($_GET['act'])) {
             // header("location ")
             // include ".";
             break;
+        case 'lienhethanhcong':
+            include('../DAO/lienhe.php');
+            if(isset($_POST['guitinnhan'])&&($_POST['guitinnhan'])){
+                $ten = $_POST['ten'];
+                $email = $_POST['email'];
+                $chude = $_POST['chude'];
+                $sdt = $_POST['sdt'];
+                $tinnhan = $_POST['tinnhan'];
+                lienhe($ten,$email,$chude,$sdt,$tinnhan);
+                echo '<center>Cảm Ơn Bạn Đã Liên Hệ Với Chúng Tôi, Vui Lòng Chờ Phản Hồi Từ THE PHONER STORE Nhé! <br> <a href="index.php">Quay Lại Trang Chủ</a></center>';
+                // echo '<script language="javascript">';
+                // echo 'alert("Liên Hệ Thành Công !")';
+                // echo '</script>';
+                // header('location: index.php');
+                }
+                // include "dalienhe.php";
+                break;
+            case 'binhluansanpham':
+                include('../DAO/binhluansanpham.php');
+                if(isset($_POST['com_message'])){
+                    echo $_POST['idsp'];
+                    binhluan($_POST['idsp'],$_POST['com_message'],$_POST['ma_nguoidung']);
+                }
+                break;
+    
 
         default:
             include "./view/component/carousel.php";

@@ -229,14 +229,14 @@ if ($product['ton_kho'] > 0) {
                                                     <div class="row">
                                                         <div class="col-lg-12">
                                                             <div class="message-box box-shadow white-bg">
-                                                                <form id="contact-form" action="">
+                                                                <form id="contact-form" action="index.php?act=binhluansanpham" method="post">
                                                                     <div class="row">
                                                                         <div class="col-lg-12">
                                                                             <h4
                                                                                 class="blog-section-title border-left mb-30">
                                                                                 bình luận</h4>
                                                                         </div>
-                                                                        <div class="col-lg-6">
+                                                                        <!-- <div class="col-lg-6">
                                                                             <input type="text" name="com_name"
                                                                                 placeholder="Họ Và Tên">
                                                                         </div>
@@ -248,7 +248,15 @@ if ($product['ton_kho'] > 0) {
                                                                             <input type="text" name="com_phone"
                                                                                 placeholder="Số Điện Thoại">
                                                                         </div>
-                                                                        <div class="col-lg-12 mb-30">
+                                                                        <div class="col-lg-12 mb-30"> -->
+                                                                            <?php
+                                                                            
+                                                                            // echo $_GET['id'];
+
+                                                                            ?>
+                                                                            <input type="hidden" name="idsp" value="<?php echo $_GET[$_SESSION['id_user']] ?>">
+                                                                            <input type="hidden" name="ma_nguoidung" value="11"> 
+                                                                            <!-- đặt tạm:  -->
                                                                             <textarea class="custom-textarea"
                                                                                 name="com_message"
                                                                                 placeholder="Nội dung Bình Luận"></textarea>
