@@ -21,10 +21,10 @@ function product_delete($ma_sanpham)
 
 }
 
-function product_update($masanpham, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
+function product_update($masanpham, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet = 0, $date_modified, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote)
 {
-    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, images=?,giam_gia=?, dac_biet=?, ngay_nhap=?, mo_ta=?, information=?, ma_danhmuc=?, id_dmphu=?, promote=? WHERE masanpham=?";
-    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $ngay_nhap, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote, $masanpham);
+    $sql = "UPDATE tbl_sanpham SET  tensp=?, don_gia=?, ton_kho = ?, images=?,giam_gia=?, dac_biet=?, date_modified=?, mo_ta=?, information=?, ma_danhmuc=?, id_dmphu=?, promote=? WHERE masanpham=?";
+    pdo_execute($sql, $tensp, $don_gia, $ton_kho, $images, $giam_gia, $dac_biet, $date_modified, $mo_ta, $thong_tin, $ma_danhmuc, $id_dmphu, $promote, $masanpham);
     return true;
 }
 

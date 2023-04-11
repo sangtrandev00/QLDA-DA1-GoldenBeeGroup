@@ -21,6 +21,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- All CSS Files -->
+
     <!-- Bootstrap fremwork main css -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Data table -->
@@ -62,7 +63,7 @@
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div id="toast-content" class="toast-header text-bg-warning">
                         <!-- <img src="..." class="rounded me-2" alt="..."> -->
-                        <strong id="toast-content-header" class="me-auto">Bootstrap</strong>
+                        <strong id="toast-content-header" class="me-auto">Thông báo</strong>
                         <small>1 seconds ago</small>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>

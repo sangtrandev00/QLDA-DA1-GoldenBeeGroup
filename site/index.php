@@ -11,21 +11,12 @@ if (!isset($_SESSION['alert'])) {
     $_SESSION['alert'] = "";
 }
 
-// var_dump($_SESSION['views']);
-
 if (!isset($_SESSION['giohang'])) {
-    // $_SESSION['giohang'] = [
-    //     [1, 1, "Điện thoại OPPO Reno8 T 5G 256GB", "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", 3, 10999000],
-    //     [2, 2, "Điện thoại OPPO Reno8 Pro 5G", "thumb-oppo_reno8_pro_1_.jpg", 3, 17590000],
-    //     [3, 4, "Điện thoại OPPO Reno7 Pro 5G", "thumb-oppo reno 7 t_i_xu_ng_42__3.png", 2, 11990000],
-    // ];
     $_SESSION['giohang'] = [
         // array("id" => 1, "tensp" => "Điện thoại OPPO Reno8 T 5G 256GB", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo-reno8t-vang1-thumb-600x600.jpg", "sl" => 3, "don_gia" => 10999000),
         // array("id" => 2, "tensp" => "Điện thoại OPPO Reno8 Z 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
         // array("id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
-
-    // var_dump($_SESSION['giohang']);
 }
 
 if (!isset($_SESSION['wishlist'])) {
@@ -39,8 +30,6 @@ if (!isset($_SESSION['wishlist'])) {
         // array("stt" => 2, "id" => 2, "tensp" => "Điện thoại OPPO Reno8 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo_reno8_pro_1_.jpg", "sl" => 3, "don_gia" => 17590000),
         // array("stt" => 3, "id" => 4, "tensp" => "Điện thoại OPPO Reno7 Pro 5G", "danhmuc" => "Oppo", "hinh_anh" => "thumb-oppo reno 7 t_i_xu_ng_42__3.png", "sl" => 2, "don_gia" => 11990000),
     ];
-
-    // var_dump($_SESSION['giohang']);
 }
 
 include "../global.php";
@@ -298,83 +287,107 @@ if (isset($_GET['act'])) {
                 $email = $_POST['email'];
                 $sodienthoai = $_POST['phone'];
                 $ghichu = $_POST['ghichu'];
-                // Array[0,1,2,3] (hiện tại đang mặc định)
-                $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
 
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-                $time_order = date('Y-m-d H:i:s', time());
-
-                $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
-                $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
-                $vnp_Locale = "vn"; //Ngôn ngữ chuyển hướng thanh toán
-                $vnp_BankCode = "NCB"; //Mã phương thức thanh toán
-                $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
-
-                $inputData = array(
-                    "vnp_Version" => "2.1.0",
-                    "vnp_TmnCode" => $vnp_TmnCode,
-                    "vnp_Amount" => $vnp_Amount * 100,
-                    "vnp_Command" => "pay",
-                    "vnp_CreateDate" => date('YmdHis'),
-                    "vnp_CurrCode" => "VND",
-                    "vnp_IpAddr" => $vnp_IpAddr,
-                    "vnp_Locale" => $vnp_Locale,
-                    "vnp_OrderType" => "billpayment",
-                    "vnp_ReturnUrl" => $vnp_Returnurl,
-                    "vnp_TxnRef" => $vnp_TxnRef,
-                    "vnp_ExpireDate" => $expire,
-                    "vnp_OrderInfo" => $ghichu,
-
-                    // "vnp_BankTranNo" => $ghichu,
-                    // "vnp_Inv_Customer" => $hoten,
-                    // "vnp_Bill_Address" => $diachi,
-                    // "vnp_Bill_Email" => $email,
-                    // "vnp_Inv_Type" => "Thanh toán qua vnpay",
-                    // "vnp_Bill_FirstName" => $hoten,
-
-                );
-
-                $_SESSION['bill']['hoten'] = $hoten;
-                $_SESSION['bill']['email'] = $email;
-                $_SESSION['bill']['tongdonhang'] = $tongdonhang;
-                $_SESSION['bill']['madonhang'] = $madonhang;
-                $_SESSION['bill']['sodienthoai'] = $sodienthoai;
-                $_SESSION['bill']['ghichu'] = $ghichu;
-                $_SESSION['bill']['diachi'] = $diachi;
-                $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
-                $_SESSION['bill']['time_order'] = $time_order;
-                $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
-                $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
-                $_SESSION['bill']['coupon_code'] = $_POST['coupon_code'];
-                // $_SESSION['bill'][''] = $time_order;
-                if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-                    $inputData['vnp_BankCode'] = $vnp_BankCode;
+                if (empty($ghichu)) {
+                    $error['ghichu'] = "Không để trống ghi chú!";
                 }
 
-                // var_dump($inputData);
-                // exit;
-                ksort($inputData);
-                $query = "";
-                $i = 0;
-                $hashdata = "";
-                foreach ($inputData as $key => $value) {
-                    if ($i == 1) {
-                        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-                    } else {
-                        $hashdata .= urlencode($key) . "=" . urlencode($value);
-                        $i = 1;
+                if (empty($hoten)) {
+                    $error['hoten'] = "Không để trống họ tên";
+                } else if (strlen($hoten) > 30) {
+                    $error['hoten'] = "Họ tên không được phép 30 ký tự";
+                }
+
+                if (empty($sodienthoai)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email";
+                }
+
+                if (!$error) {
+// Array[0,1,2,3] (hiện tại đang mặc định)
+                    $madonhang = "THEPHONERSTORE" . random_int(2000, 9999999);
+
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    $time_order = date('Y-m-d H:i:s', time());
+
+                    $vnp_TxnRef = $madonhang; //Mã giao dịch thanh toán tham chiếu của merchant
+                    $vnp_Amount = $_POST['tongdonhang']; // Số tiền thanh toán
+                    $vnp_Locale = "vn"; //Ngôn ngữ chuyển hướng thanh toán
+                    $vnp_BankCode = "NCB"; //Mã phương thức thanh toán
+                    $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
+
+                    $inputData = array(
+                        "vnp_Version" => "2.1.0",
+                        "vnp_TmnCode" => $vnp_TmnCode,
+                        "vnp_Amount" => $vnp_Amount * 100,
+                        "vnp_Command" => "pay",
+                        "vnp_CreateDate" => date('YmdHis'),
+                        "vnp_CurrCode" => "VND",
+                        "vnp_IpAddr" => $vnp_IpAddr,
+                        "vnp_Locale" => $vnp_Locale,
+                        "vnp_OrderType" => "billpayment",
+                        "vnp_ReturnUrl" => $vnp_Returnurl,
+                        "vnp_TxnRef" => $vnp_TxnRef,
+                        "vnp_ExpireDate" => $expire,
+                        "vnp_OrderInfo" => $ghichu,
+
+                        // "vnp_BankTranNo" => $ghichu,
+                        // "vnp_Inv_Customer" => $hoten,
+                        // "vnp_Bill_Address" => $diachi,
+                        // "vnp_Bill_Email" => $email,
+                        // "vnp_Inv_Type" => "Thanh toán qua vnpay",
+                        // "vnp_Bill_FirstName" => $hoten,
+
+                    );
+
+                    $_SESSION['bill']['hoten'] = $hoten;
+                    $_SESSION['bill']['email'] = $email;
+                    $_SESSION['bill']['tongdonhang'] = $tongdonhang;
+                    $_SESSION['bill']['madonhang'] = $madonhang;
+                    $_SESSION['bill']['sodienthoai'] = $sodienthoai;
+                    $_SESSION['bill']['ghichu'] = $ghichu;
+                    $_SESSION['bill']['diachi'] = $diachi;
+                    $_SESSION['bill']['pttt'] = "Thanh toán VNpay";
+                    $_SESSION['bill']['time_order'] = $time_order;
+                    $_SESSION['bill']['shippingfee'] = $_POST['shippingfee'];
+                    $_SESSION['bill']['vat_fee'] = $_POST['vat_fee'];
+                    $_SESSION['bill']['coupon_code'] = $_POST['coupon_code'];
+// $_SESSION['bill'][''] = $time_order;
+                    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                        $inputData['vnp_BankCode'] = $vnp_BankCode;
                     }
-                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
-                }
 
-                $vnp_Url = $vnp_Url . "?" . $query;
-                if (isset($vnp_HashSecret)) {
-                    $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
-                    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-                }
+// var_dump($inputData);
+                    // exit;
+                    ksort($inputData);
+                    $query = "";
+                    $i = 0;
+                    $hashdata = "";
+                    foreach ($inputData as $key => $value) {
+                        if ($i == 1) {
+                            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                        } else {
+                            $hashdata .= urlencode($key) . "=" . urlencode($value);
+                            $i = 1;
+                        }
+                        $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                    }
 
-                header('Location: ' . $vnp_Url);
-                die();
+                    $vnp_Url = $vnp_Url . "?" . $query;
+                    if (isset($vnp_HashSecret)) {
+                        $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+                        $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                    }
+
+                    header('Location: ' . $vnp_Url);
+                    die();
+
+                } else {
+                    include "./view/pages/cart/checkout.php";
+                }
 
                 // $returnData = array('code' => '00'
                 //     , 'message' => 'success'

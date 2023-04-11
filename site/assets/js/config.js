@@ -193,7 +193,9 @@ function handleDeleteCart(idcart) {
             data: {id: idcart},
             // dataType: 'json',
             success: function (response, statusText) {
+                
                     console.log('res: ', response);
+
                     // $("#cartModalBtn").trigger("click");
                     // $("#cartModal .modal-header").text(`Bạn đã xóa sản phẩm thành công`)
                     // $("#table-content-wrapper").html(response);

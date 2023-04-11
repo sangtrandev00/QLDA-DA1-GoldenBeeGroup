@@ -97,12 +97,12 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <hr>
                                         <!-- single-pro-color-rating -->
                                         <div class="single-pro-color-rating clearfix">
-                                            <div class="sin-pro-color f-left">
+                                            <div class="sin-pro-color f-left d-flex">
                                                 <?php
 if ($product['ton_kho'] > 0) {
 
         ?>
-                                                <p class="remain-quatity-pro f-left">Tồn kho: <span
+                                                <p class="remain-quatity-pro">Tồn kho: <span
                                                         class="inventory-number fw-bold fs-3"><?php echo $product['ton_kho'] ?></span>
                                                 </p>
 
@@ -120,6 +120,45 @@ if ($product['ton_kho'] > 0) {
                                                     <li class="color-4"><a href="#"></a></li>
                                                 </ul>
                                             </div> -->
+
+                                                <div class="sin-pro-action ml-100">
+                                                    <ul class="action-button">
+                                                        <li class="text-center d-flex justify-content-center mb-3">
+                                                            <a onclick="handleAddCart('addtowishlist', 'addwishlist')"
+                                                                class="add-to-wishlist text-center mr-10" href="#"
+                                                                title="Wishlist" tabindex="0"><i
+                                                                    class="zmdi zmdi-favorite"></i></a>
+                                                            <input type="submit"
+                                                                class="add-to-wishlist__submit-input d-none"
+                                                                name="addtowishlistbtn"
+                                                                value="Thêm vào sản phẩm yêu thích">
+                                                            <label for="">Yêu thích</label>
+                                                        </li>
+                                                        <li class="text-center d-flex justify-content-center mb-3">
+                                                            <a onclick="handleAddCart('addtocart', 'addcart');"
+                                                                class="add-to-cart text-center mr-10" href="#"
+                                                                title="Add to cart" tabindex="0"><i
+                                                                    class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                            <input type="submit" class="d-none" name="addtocartbtn"
+                                                                value="add to cart">
+                                                            <label for="">Thêm vào giỏ hàng</label>
+                                                        </li>
+
+                                                        <input type="hidden" name="id"
+                                                            value="<?php echo $product['masanpham'] ?>" />
+                                                        <input type="hidden" name="tensp"
+                                                            value="<?php echo $product['tensp'] ?>" />
+                                                        <input type="hidden" name="hinh_anh"
+                                                            value="<?php echo $thumbnail ?>" />
+                                                        <input type="hidden" name="don_gia"
+                                                            value="<?php echo $product['don_gia'] ?>" />
+
+                                                        <input type="hidden" name="danhmuc"
+                                                            value="<?php echo $cate_name ?>" />
+                                                        <input type="hidden" name="iddm"
+                                                            value="<?php echo $product['ma_danhmuc'] ?>" />
+                                                    </ul>
+                                                </div>
                                             </div>
                                             <div onclick="viewAllReviews()" class="pro-rating sin-pro-rating f-right">
                                                 <!-- <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
@@ -171,43 +210,7 @@ $avg_stars = avg_star_reviews_of_product($_GET['id']);
                                                 <span class="text-uppercase"> Mua
                                                     ngay</span>
                                             </a>
-                                            <div class="sin-pro-action f-right mr-100">
-                                                <ul class="action-button">
-                                                    <li class="text-center d-flex justify-content-center mb-3">
-                                                        <a onclick="handleAddCart('addtowishlist', 'addwishlist')"
-                                                            class="add-to-wishlist text-center mr-10" href="#"
-                                                            title="Wishlist" tabindex="0"><i
-                                                                class="zmdi zmdi-favorite"></i></a>
-                                                        <input type="submit"
-                                                            class="add-to-wishlist__submit-input d-none"
-                                                            name="addtowishlistbtn" value="Thêm vào sản phẩm yêu thích">
-                                                        <label for="">Yêu thích</label>
-                                                    </li>
-                                                    <li class="text-center d-flex justify-content-center mb-3">
-                                                        <a onclick="handleAddCart('addtocart', 'addcart');"
-                                                            class="add-to-cart text-center mr-10" href="#"
-                                                            title="Add to cart" tabindex="0"><i
-                                                                class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                        <input type="submit" class="d-none" name="addtocartbtn"
-                                                            value="add to cart">
-                                                        <label for="">Thêm vào giỏ hàng</label>
-                                                    </li>
 
-                                                    <input type="hidden" name="id"
-                                                        value="<?php echo $product['masanpham'] ?>" />
-                                                    <input type="hidden" name="tensp"
-                                                        value="<?php echo $product['tensp'] ?>" />
-                                                    <input type="hidden" name="hinh_anh"
-                                                        value="<?php echo $thumbnail ?>" />
-                                                    <input type="hidden" name="don_gia"
-                                                        value="<?php echo $product['don_gia'] ?>" />
-
-                                                    <input type="hidden" name="danhmuc"
-                                                        value="<?php echo $cate_name ?>" />
-                                                    <input type="hidden" name="iddm"
-                                                        value="<?php echo $product['ma_danhmuc'] ?>" />
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
 

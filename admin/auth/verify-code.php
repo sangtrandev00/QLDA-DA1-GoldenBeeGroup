@@ -5,7 +5,8 @@ include "../models/connectdb.php";
 include "../models/user.php";
 include "../../pdo-library.php";
 include "../../DAO/user.php";
-var_dump($_SESSION);
+// var_dump($_SESSION);
+
 ?>
 <?php
 
