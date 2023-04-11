@@ -589,7 +589,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="panel">
+                                                        <!-- <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a class="collapsed" data-bs-toggle="collapse"
                                                                     href="#momoPayment">
@@ -603,7 +603,7 @@ if (isset($_SESSION['giohang']) && $_SESSION['giohang'] > 0) {
                                                                     <p>Thanh toán đơn giản, tiện lợi qua momo</p>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="panel">
                                                             <h4 class="payment-title box-shadow">
                                                                 <a data-bs-toggle="collapse" href="#vnpayPayment">

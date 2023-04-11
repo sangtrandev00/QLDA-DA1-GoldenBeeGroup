@@ -148,7 +148,6 @@ if (isset($_SESSION['idadmin'])) {
                            })
                     </script>';
                         // header("location: ./index.php?act=productlist");
-
                     }
                     // } else {
 

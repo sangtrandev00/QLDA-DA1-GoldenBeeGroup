@@ -75,14 +75,15 @@ foreach ($cart_list as $cart_item) {
                                                                 </td>
                                                                 <td class="product-subtotal">' . $total_item . ' VND</td>
                                                                 <td onclick="' . $delcartfunc . '" class="product-remove">
-                                                                    <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
+                                                                <a data-name="' . $cart_item['tensp'] . '" data-index="' . $i . '" href="#" data-bs-toggle="modal" data-bs-target="#cartModal"><i class="zmdi zmdi-close"></i></a>
                                                                 </td>
                                                             </tr>
                                                         ';
     $i++;
 }
 ?>
-
+                    <a class="btn btn-outline-warning mb-3" href="./index.php?act=shop">Tiếp
+                        tục mua hàng</a>
                 </tbody>
 
             </table>

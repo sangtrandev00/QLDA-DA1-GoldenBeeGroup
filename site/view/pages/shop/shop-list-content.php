@@ -4,8 +4,8 @@ $ROOT_URL = $_SERVER['DOCUMENT_ROOT'] . "$FOLDER_VAR";
 
 include "$ROOT_URL/site/models/connectdb.php";
 // include $ROOT_URL . "./admin/models/category.php";
-include $ROOT_URL . "./DAO/product.php";
-include $ROOT_URL . "./DAO/category.php";
+include $ROOT_URL . "/DAO/product.php";
+include $ROOT_URL . "/DAO/category.php";
 
 ?>
 

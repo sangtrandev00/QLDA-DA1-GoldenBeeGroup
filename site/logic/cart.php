@@ -195,13 +195,14 @@ switch ($_GET['act']) {
             // $id = json_encode($_POST);
             $cart_list = $_SESSION['giohang'];
             $idcart = $_POST['id'];
+
             function filter_cart($item)
         {
                 return $item['id'] != $_POST['id'];
             }
 
             $cartResult = array_filter($cart_list, "filter_cart");
-            // var_dump($result);
+            var_dump($cartResult);
 
             // UPDATE Giohang;
             $_SESSION['giohang'] = $cartResult;

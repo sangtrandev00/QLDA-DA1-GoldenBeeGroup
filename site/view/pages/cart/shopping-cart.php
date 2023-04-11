@@ -140,7 +140,8 @@ if (count($cart_list) > 0) {
         $i++;
     }
     ?>
-
+                                                <a class="btn btn-outline-warning mb-3" href="./index.php?act=shop">Tiếp
+                                                    tục mua hàng</a>
                                             </tbody>
 
                                         </table>
