@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-12 col-lg-12 d-flex">
         <div class="card w-100">
-            <div class="card-header py-3">
+            <!-- <div class="card-header py-3">
                 <div class="row align-items-center m-0">
                     <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
-                        <select onchange="filterByCate(this);" onfocus="this.selectedIndex = -1;" class="form-select">
+                        <select onchange="" onfocus="this.selectedIndex = -1;" class="form-select">
                             <option value="-1">Trạng thái đơn hàng</option>
                             <option value="1">Chưa xác nhận</option>
                             <option value="2">Đã xác nhận</option>
@@ -22,13 +22,10 @@
                             <option>Trạng thái thanh toán</option>
                             <option>Đã thanh toán</option>
                             <option>Chưa thanh toán</option>
-                            <!-- <option>Show all</option>
-                            <option>Show all</option>
-                            <option>Show all</option> -->
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="card-body">
                 <div id="table-order-content" class="table-responsive">
                     <table id="table-order" class="table align-middle">

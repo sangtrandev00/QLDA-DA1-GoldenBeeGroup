@@ -69,11 +69,10 @@
                                 </select>
                             </div>
                             <!-- showing -->
-                            <div class="showing f-right text-end">
-                                <span>Kết quả tìm được :
-                                    <?php ?>
-                                    sản
-                                    phẩm</span>
+                            <div class="showing f-right text-end">Kết quả tìm được :
+                                <span id="show-search-result">
+                                </span>sản
+                                phẩm
                             </div>
                         </div>
                         <!-- shop-option end -->
@@ -131,7 +130,7 @@ if (isset($_GET['minprice']) && $_GET['minprice'] != 0 && isset($_GET['maxprice'
     $min_price = $_GET['minprice'];
     $max_price = $_GET['maxprice'];
 
-    $sql .= " where don_gia between '$min_price' and '$max_price'";
+    $sql = "SELECT * FROM tbl_sanpham where don_gia between '$min_price' and '$max_price'";
     // echo $sql;
 }
 
@@ -140,6 +139,9 @@ $_limit = 12;
 // BƯỚC 2: TÌM TỔNG SỐ RECORDS
 
 $stmt = $conn->prepare($sql);
+
+// echo $sql;
+
 $stmt->execute();
 
 // set the resulting array to associative
@@ -184,8 +186,7 @@ $stmt->execute();
 $datalist = $stmt->fetchAll();
 
 $product_list = $datalist;
-$_SESSION['search_result'] = count($datalist);
-
+// echo count($product_list);
 // $product_list = product_select_all();
 // var_dump($product_list);
 foreach ($product_list as $item) {
@@ -395,5 +396,15 @@ $subcate_list = subcate_select_all_by_id($cate_item['ma_danhmuc']);
         </div>
         <!-- SHOP SECTION END -->
 
+        <input type="hidden" name="total_result" value="<?php echo $total_records ?>">
     </div>
     <!-- End page content -->
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function(e) {
+        const searchResult = $("input[name='total_result']").val();
+        $("#show-search-result").text(searchResult);
+
+        // console.log('Hello search result');
+    })
+    </script>

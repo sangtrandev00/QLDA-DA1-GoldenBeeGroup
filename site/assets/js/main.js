@@ -192,6 +192,15 @@
 	/* ********************************************
 		5. Countdown
 	******************************************** */
+    // $.ajax({
+    //     type: "POST",
+    //     url: "./logic/",
+    //     data: "data",
+    //     dataType: "dataType",
+    //     success: function (response) {
+            
+    //     }
+    // });
     $('[data-countdown]').countdown('2023/04/20', function(event) {
         $(this).html(
 			event.strftime(

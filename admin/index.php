@@ -1329,8 +1329,9 @@ if (isset($_SESSION['idadmin'])) {
                 include './view/pages/blogs/blog-cate.php';
                 break;
             default:
-                if (isset($_SESSION['iduser'])) {
-                    include "./auth/login.php";
+                if (isset($_SESSION['idadmin'])) {
+                    // include "./auth/login.php";
+                    include "./view/pages/dashboard/dashboard.php";
                 } else {
                     header('location: ./auth/login.php');
                 }

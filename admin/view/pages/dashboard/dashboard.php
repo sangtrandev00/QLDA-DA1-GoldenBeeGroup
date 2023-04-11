@@ -86,7 +86,7 @@
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
                             <p>Số khách hàng</p>
-                            <h4 class="">30</h4>
+                            <h4 class=""><?php echo count_all_customer() ?></h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
@@ -681,7 +681,7 @@ foreach ($top_views_products as $product) {
                                         <th>Giá cao nhất</th>
                                         <th>Giá thấp nhất</th>
                                         <th>Giá trung bình</th>
-                                        <th>Hành động</th>
+                                        <!-- <th>Hành động</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -709,14 +709,14 @@ $report_products_by_cates = report_products_by_cates();
                                         <td><?php echo $item['max'] ?></td>
                                         <td><?php echo $item['min'] ?></td>
                                         <td><?php echo $item['avg'] ?></td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="d-flex align-items-center gap-3 fs-6">
                                                 <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip"
                                                     data-bs-placement="bottom" title=""
                                                     data-bs-original-title="View detail" aria-label="Views"><i
                                                         class="bi bi-eye-fill"></i></a>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <?php endforeach;?>
                                     <tr>Tổng số lượng sp: <?php echo $sum_sl ?></tr>

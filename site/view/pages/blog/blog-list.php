@@ -9,7 +9,7 @@
                         <ul class="breadcrumb-list">
                             <li><a href="index.html">Home</a></li>
                             <li>Bài viết</li>
-                            <li>Bài viết</li>
+                            <li>Danh sách bài viết</li>
                         </ul>
                     </div>
                 </div>
@@ -115,7 +115,7 @@ foreach ($list_catename_blog as $items) {
                             </div>
                         </div>
                         <!-- Tags -->
-                        <div class="dropdown f-left">
+                        <!-- <div class="dropdown f-left">
                             <button class="option-btn">
                                 Tags
                                 <i class="zmdi zmdi-chevron-down"></i>
@@ -134,7 +134,7 @@ foreach ($list_catename_blog as $items) {
                                     </ul>
                                 </aside>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- blog-option end -->
@@ -172,7 +172,7 @@ foreach ($list_blog as $blog) {
                                         </h5>
                                         <p class="conten_blog">' . $conten . '...</p>
                                         <div class="read-more">
-                                            <a href="index.php?act=blogdetail&id=' . $blog_id . '">Read more</a>
+                                            <a href="index.php?act=blogdetail&id=' . $blog_id . '">Đọc thêm</a>
                                         </div>
                                     </div>
                                 </div>

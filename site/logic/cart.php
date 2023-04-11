@@ -258,6 +258,7 @@ switch ($_GET['act']) {
         break;
     case 'addtocart':
         // if (isset($_SESSION['iduser'])) {
+
         $id = $_POST['id'];
         $product_item = product_select_by_id($id);
         $tendanhmuc = $_POST['danhmuc'];
@@ -357,6 +358,7 @@ switch ($_GET['act']) {
                 // $_SESSION['giohang'][] = $itemsp;
 
                 $_SESSION['giohang'][] = $itemsp;
+
                 echo json_encode(
                     array(
                         "status" => 1,

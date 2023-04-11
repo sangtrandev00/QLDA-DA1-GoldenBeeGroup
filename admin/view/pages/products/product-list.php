@@ -26,14 +26,14 @@ foreach ($cate_list as $cate_item) {
             <div class="col-md-2 col-6">
                 <input type="date" onchange="filterByDate(this)" class="form-control">
             </div>
-            <div class="col-md-2 col-6">
+            <!-- <div class="col-md-2 col-6">
                 <select class="form-select">
                     <option>Status</option>
                     <option>Active</option>
                     <option>Disabled</option>
                     <option>Show all</option>
                 </select>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="card-body">

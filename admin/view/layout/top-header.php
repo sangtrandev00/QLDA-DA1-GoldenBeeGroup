@@ -9,7 +9,7 @@
             <div class="position-absolute top-50 translate-middle-y search-close-icon"><i class="bi bi-x-lg"></i></div>
         </form>
         <div class="top-navbar-right ms-auto">
-            <ul class="navbar-nav align-items-center">
+            <!-- <ul class="navbar-nav align-items-center">
                 <li class="nav-item search-toggle-icon">
                     <a class="nav-link" href="#">
                         <div class="">
@@ -55,16 +55,6 @@
                                     </div>
                                 </a>
                             </div>
-                            <!-- <div class="col">
-                                <a href="component-media-object.html">
-                                    <div class="apps p-2 radius-10 text-center">
-                                        <div class="apps-icon-box mb-1 text-white bg-gradient-danger">
-                                            <i class="bi bi-collection-play-fill"></i>
-                                        </div>
-                                        <p class="mb-0 apps-name">Media</p>
-                                    </div>
-                                </a>
-                            </div> -->
                             <div class="col">
                                 <a href="./index.php?act=my-profile">
                                     <div class="apps p-2 radius-10 text-center">
@@ -95,26 +85,6 @@
                                     </div>
                                 </a>
                             </div>
-                            <!-- <div class="col">
-                                <a href="javascript:;">
-                                    <div class="apps p-2 radius-10 text-center">
-                                        <div class="apps-icon-box mb-1 text-white bg-gradient-desert">
-                                            <i class="bi bi-calendar-check-fill"></i>
-                                        </div>
-                                        <p class="mb-0 apps-name">Events</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="javascript:;">
-                                    <div class="apps p-2 radius-10 text-center">
-                                        <div class="apps-icon-box mb-1 text-white bg-gradient-amour">
-                                            <i class="bi bi-book-half"></i>
-                                        </div>
-                                        <p class="mb-0 apps-name">Story</p>
-                                    </div>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </li>
@@ -298,47 +268,6 @@
                                     </div>
                                 </div>
                             </a>
-                            <!-- <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="notification-box bg-light-success text-success"><i
-                                            class="bi bi-file-earmark-bar-graph-fill"></i></div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">24 PDF File <span
-                                                class="msg-time float-end text-secondary">2
-                                                h</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">The
-                                            pdf files generated</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="notification-box bg-light-orange text-orange"><i
-                                            class="bi bi-collection-play-fill"></i>
-                                    </div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">Time Response <span
-                                                class="msg-time float-end text-secondary">3 h</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">5.1
-                                            min avarage time response</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <div class="d-flex align-items-center">
-                                    <div class="notification-box bg-light-info text-info"><i
-                                            class="bi bi-cursor-fill"></i></div>
-                                    <div class="ms-3 flex-grow-1">
-                                        <h6 class="mb-0 dropdown-msg-user">New Product Approved <span
-                                                class="msg-time float-end text-secondary">1 d</span></h6>
-                                        <small
-                                            class="mb-0 dropdown-msg-text text-secondary d-flex align-items-center">Your
-                                            new product has approved</small>
-                                    </div>
-                                </div>
-                            </a> -->
                             <a class="dropdown-item" href="#">
                                 <div class="d-flex align-items-center">
                                     <div class="notification-box bg-light-pink text-pink"><i
@@ -430,7 +359,7 @@
                         </div>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div class="dropdown dropdown-user-setting">
             <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">

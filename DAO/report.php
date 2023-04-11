@@ -98,8 +98,8 @@ function count_all_reviews_products()
 
 function count_all_customer()
 {
-    // $sql = 'SELECT sum(so_luot_xem) as views from tbl_sanpham ';
-    // return pdo_query_value($sql);
+    $sql = 'SELECT count(*) from tbl_nguoidung where vai_tro = 3';
+    return pdo_query_value($sql);
 }
 
 function count_all_comments_products()
