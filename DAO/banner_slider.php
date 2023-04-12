@@ -35,9 +35,9 @@ function load_all_sp()
     $listsp = pdo_query($sql);
     return $listsp;
 }
-function addbanner($namebanner, $hinh, $idsp, $noidung, $thongtin, $date)
+function addbanner($namebanner, $hinh, $idsp, $noidung, $thongtin, $date, $date_end)
 {
-    $sql = "insert into tbl_banner(name,idsp,images,noi_dung,date_create,info) values('$namebanner','$idsp','$hinh','$noidung','$date','$thongtin')";
+    $sql = "insert into tbl_banner(name,idsp,images,noi_dung,date_create, date_end,info) values('$namebanner','$idsp','$hinh','$noidung','$date', '$date_end','$thongtin')";
     return pdo_execute($sql);
 }
 function banner_select_all()

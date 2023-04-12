@@ -46,6 +46,7 @@ foreach ($cart_list as $cart_item) {
     $total_item = number_format($cart_item['sl'] * $cart_item['don_gia']);
     // echo $cart_item['sl'] * $cart_item['don_gia'];
     $id = $cart_item['id'];
+
     $delcartfunc = "handleDeleteCart($id)";
     $update_cart_func_click = "updateCart('onclick')";
     $update_cart_func_keyup = "updateCart('onkeyup')";

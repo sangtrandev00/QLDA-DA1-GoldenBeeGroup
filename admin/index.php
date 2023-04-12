@@ -1237,6 +1237,7 @@ if (isset($_SESSION['idadmin'])) {
                     $idsp = $_POST['idsp'];
                     $noidung = $_POST['noidung'];
                     $thongtin = $_POST['thongtin'];
+                    $date_end = $_POST['date_end'];
                     date_default_timezone_set('Asia/Ho_Chi_Minh');
                     echo $date = date('Y-m-d H:i:s');
 
@@ -1249,8 +1250,11 @@ if (isset($_SESSION['idadmin'])) {
                     if (strlen($noidung) == 0) {
                         $error['noidung'] = "Không để trống nội dung!";
                     }
+                    if (empty($date_end)) {
+                        $error['date_end'] = "Không để trống ngày kết thúc!";
+                    }
                     if (!$error) {
-                        $is_inserted = addbanner($namebanner, $image_list, $idsp, $noidung, $thongtin, $date);
+                        $is_inserted = addbanner($namebanner, $image_list, $idsp, $noidung, $thongtin, $date, $date_end);
                         if ($is_inserted) {
                             $thongbao = "Thêm Banner Thành Công";
                         }

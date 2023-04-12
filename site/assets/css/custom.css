@@ -70,3 +70,17 @@ table#table-history-order {
 #reviewModal.modal {
   margin-top: 9rem;
 }
+
+.recent-blog {
+
+}
+
+.recent-blog__item {
+
+}
+
+.recent-blog__item img.recent-blog__img-thumb {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+}

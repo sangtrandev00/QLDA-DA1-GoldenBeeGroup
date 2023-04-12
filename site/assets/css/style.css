@@ -1337,7 +1337,7 @@ table {width: 100%}
   text-transform: uppercase;
   /* white-space: nowrap; */
 
-  height:  3.8rem; /* Chiều cao để hiển thị dòng text */
+  height:  3.6rem; /* Chiều cao để hiển thị dòng text */
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

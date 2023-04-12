@@ -70,6 +70,18 @@ if (isset($error['noidung'])) {
 if (isset($error['thongtin'])) {
     echo $error['thongtin'];
 }
+
+?>
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="form-label">Ngày kết thúc</label>
+                            <input type="datetime-local" name="date_end" class="form-control" id="">
+                            <p class="error-message">
+                                <?php
+if (isset($error['date_end'])) {
+    echo $error['date_end'];
+}
 ?>
                             </p>
                         </div>

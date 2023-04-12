@@ -210,7 +210,7 @@ foreach ($get_new_banner_home as $banner) {
 }
 ?>
                 <div class="col-lg-8">
-                    <div class="up-comming-pro gray-bg clearfix">
+                    <div class="up-comming-pro gray-bg clearfix banner-element" banner-id="<?=$banner['id']?>">
                         <div class="up-comming-pro-img f-left">
                             <a href="index.php?act=detailproduct&id=<?=$banner['idsp']?>">
                                 <img src="<?=$thumbnail?>" alt="<?=$alt?>">
@@ -300,6 +300,7 @@ foreach ($product_list as $item) {
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
 
     $avg_stars = avg_star_reviews_of_product($item['masanpham']);
     $result_stars = renderStarRatings(round($avg_stars, 0));
@@ -420,6 +421,7 @@ $_limit = 12;
 $pagination = createDataWithPagination($conn, $sql, $_limit);
 $product_list = $pagination['datalist'];
 // var_dump($productList);
+
 $total_page = $pagination['totalpage'];
 $start = $pagination['start'];
 $current_page = $pagination['current_page'];
@@ -431,7 +433,7 @@ foreach ($product_list as $item) {
 
     #Thumbnail Image
     $image_list = explode(',', $item['images']);
-
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
@@ -702,7 +704,7 @@ foreach ($product_list as $item) {
 
     #Thumbnail Image
     $image_list = explode(',', $item['images']);
-
+    $cate_name = catename_select_by_id($item['ma_danhmuc'])['ten_danhmuc'];
     $price_format = number_format($item['don_gia'] * (1 - $item['giam_gia'] / 100));
     $addcartfunc = "handleAddCart('addtocart', 'addcart')";
     $addwishlistfunc = "handleAddCart('addtowishlist', 'addwishlist')";
