@@ -61,7 +61,110 @@ function deleteCoupon(couponId) {
 
 }
 
+function callAjaxOrders(status) {
+  $.ajax({
+      type: "POST",
+      url: ADMIN_URL+ "/logic/order.php?act=list-orders-by-status",
+      data: {
+        status
+      },
+      // dataType: "dataType",
+      success: function (response) {
+          // console.log('res: ', response);
+              const {order_list} = JSON.parse(response);
+
+              var quickViewTable = new bootstrap.Modal('#quickViewTable');
+              quickViewTable.show();
+              // console.log('list: ', order_list);
+          // const quickViewTable = new 
+              $("#quickViewTable .modal-body").html(`
+                <table id="quick-orders-table" class="table align-middle">
+                  <thead class="table-light">
+                      <tr>
+                          <th>ID</th>
+                          <th>Tên khách hàng</th>
+                          <th>Tổng tiền</th>
+                          <th>Trạng thái đơn hàng</th>
+                          <th>PTTT</th>
+                          <th>Ngày đặt</th>
+                          <th>SL</th>
+                          <th>Hành động</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+              </table>
+              `);
+
+              var tableOrder = $('#quick-orders-table').DataTable({
+                  data: order_list,
+                  retrieve: true,
+                  lengthChange: true,
+                  buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                  "ordering":true,
+                  "pageLength": 8
+              });
+
+              tableOrder.buttons().container()
+              .appendTo( '#quick-orders-table_wrapper .col-md-6:eq(0)' );
+
+              tableOrder.column('5:visible').order('desc').draw();
+
+      }
+  });
+}
+
+function callAjaxProducts() {
+  $.ajax({
+    type: "POST",
+    url: ADMIN_URL+ "/logic/product.php?act=warning-inventory-productlist",
+    // data: "data",
+    // dataType: "dataType",
+    success: function (response) {
+        // console.log('res: ', response);
+            const {product_list} = JSON.parse(response);
+            var quickViewTable = new bootstrap.Modal('#quickViewTable');
+            quickViewTable.show();
+            // console.log('list: ', product_list);
+            $("#quickViewTable .modal-body").html(`
+            <table id="table-warning-inventory-product" class="table align-middle table-striped">
+                <thead>
+                    <th>Id</th>
+                    <th>Hình ảnh/ Tên sản phẩm </th>
+                    <th>SL bán </th>
+                    <th>Giá tiền </th>
+                    <th>Tồn kho </th>
+                    <th>Ngày nhập </th>
+                    <th>Hành động </th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            `);
+            var table = $('#table-warning-inventory-product').DataTable({
+                data: product_list,
+                retrieve: true,
+                // lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                "ordering":true,
+            });
+
+            table.buttons().container()
+                .appendTo( '#table-warning-inventory-product_wrapper .col-md-6:eq(0)' );
+    }
+});
+}
+
+function showOrders(status) {
+  console.log('status: ', status);
+
+  callAjaxOrders(status);
+}
+
 $(document).ready(function () {
     CKEDITOR.replace( 'descriptionProductEditor' );
     CKEDITOR.replace( 'infoProductEditor' );
 });
+

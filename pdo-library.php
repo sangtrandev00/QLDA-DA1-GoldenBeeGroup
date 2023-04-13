@@ -113,12 +113,12 @@ function sendmail($recipient_mail, $title, $message)
         $mail->isSMTP(); // gửi mail SMTP
         $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
         $mail->SMTPAuth = true; // Enable SMTP authentication
-        $mail->Username = 'sangtnps20227@fpt.edu.vn'; // SMTP username
-        $mail->Password = 'phaithanhcong10'; // SMTP password
+        $mail->Username = 'dannnmps25450@fpt.edu.vn'; // SMTP username
+        $mail->Password = 'minhdantt4511'; // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
         $mail->Port = 587; // TCP port to connect to
         //Recipients
-        $mail->setFrom('sangtnps20227@fpt.edu.vn', 'Mailer');
+        $mail->setFrom('dannnmps25450@fpt.edu.vn', 'Mailer');
         $mail->addAddress($recipient_mail, 'Customer'); // Add a recipient
         // $mail->addAddress('ellen@example.com'); // Name is optional
         // $mail->addReplyTo('info@example.com', 'Information');

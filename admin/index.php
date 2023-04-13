@@ -18,7 +18,7 @@ include "../DAO/report.php";
 include "../DAO/blog.php";
 include "../DAO/order.php";
 include "../DAO/banner_slider.php";
-
+include "../DAO/feedback.php";
 // HEADER SECTION
 include "./view/layout/header.php";
 echo '<div class="d-flex">';
@@ -448,6 +448,9 @@ if (isset($_SESSION['idadmin'])) {
                 break;
             case 'reviews-product':
                 include "./view/pages/products/product-reviews.php";
+                break;
+            case 'feedback-list':
+                    include "./view/pages/feedback/feedback-list.php";
                 break;
             case 'reportbycate':
                 include "./view/reports/reportbycate-page.php";

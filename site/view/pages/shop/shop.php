@@ -334,6 +334,32 @@ if ($current_page < $total_page && $total_page > 1) {
                             <button type="submit"><i class="zmdi zmdi-search"></i></button>
                         </form>
                     </aside>
+                    <?php if (isset($_SESSION['iduser'])): ?>
+                    <aside class="widget widget-product box-shadow">
+                        <h6 class="widget-title border-left mb-20 bg-warning p-3 bg-opacity-75">Gợi ý mua hàng</h6>
+                        <!-- product-item start -->
+                        <!-- Chưa đúng làm lại -->
+                        <?php $recommend_products = select_all_recommend_products_by_iduser($_SESSION['iduser'], 3);?>
+                        <?php foreach ($recommend_products as $product): ?>
+                        <div class="product-item product-best-sell">
+                            <div class="product-img">
+                                <a href="index.php?act=detailproduct&id=<?php echo $product['idsanpham'] ?>">
+                                    <img src="../uploads/<?php echo $product['hinhanh'] ?>" alt="">
+                                </a>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="product-title">
+                                    <a
+                                        href="index.php?act=detailproduct&id=<?php echo $product['idsanpham'] ?>"><?php echo $product['tensp'] ?></a>
+                                </h6>
+                                <h3 class="pro-price"><?php echo $product['dongia'] ?> VND</h3>
+                            </div>
+                        </div>
+                        <?php endforeach;?>
+                        <!-- product-item product-best-sell end -->
+                    </aside>
+                    <?php endif?>
+
                     <!-- widget-categories -->
                     <aside class="widget widget-categories box-shadow mb-30">
                         <h6 class="widget-title border-left mb-20">Danh mục</h6>

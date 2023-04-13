@@ -62,6 +62,7 @@ function load_one_sp($id)
     $sp = pdo_query_one($sql);
     return $sp;
 }
+
 function updatebanner($id, $namebanner, $hinh, $idsp, $noidung, $thongtin, $date)
 {
     if ($hinh != "") {

@@ -54,6 +54,18 @@ function product_select_all()
     return pdo_query($sql);
 }
 
+function select_all_recommend_products_by_iduser($iduser, $limit)
+{
+    $sql = "SELECT idsanpham, hinhanh, tensp, dongia,  count(*) as sl_ban from tbl_nguoidung ng inner join tbl_order od on od.iduser = ng.id inner join tbl_order_detail de on de.iddonhang = od.id where iduser = '$iduser' and trangthai = 4   group by idsanpham order by sl_ban desc limit $limit";
+    return pdo_query($sql);
+}
+
+function product_select_all_inventory_less_than($num)
+{
+    $sql = "SELECT * from tbl_sanpham where ton_kho <= '$num';";
+    return pdo_query($sql);
+}
+
 function product_select_12()
 {
     $sql = "SELECT * FROM tbl_sanpham LIMIT 0, 12";

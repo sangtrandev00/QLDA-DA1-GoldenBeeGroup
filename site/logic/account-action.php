@@ -234,6 +234,21 @@ switch ($_GET['act']) {
         // var_dump($_SESSION['madonhang']);
         unset($_SESSION['madonhang']);
         break;
+    case 'reason-destroy':
+        // echo "hihi";
+        if (isset($_POST['id'])) {
+            $is_updated = update_order_reason_destroy($_POST['reason'], $_POST['id']);
+
+            if ($is_updated) {
+                echo json_encode(
+                    array(
+                        "status" => 1,
+                        "content" => "Thêm lý do hủy",
+                    )
+                );
+            }
+        }
+        break;
 
     case 'destroyorder':
         if (isset($_POST['orderid'])) {

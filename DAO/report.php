@@ -54,15 +54,52 @@ function count_all_orders_failed()
     return pdo_query_value($sql);
 }
 
+function sum_money_all_failed_orders_paid()
+{
+    // SELECT DISTINCT sum(tongdonhang) OVER () as sum_all_sales from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 5 and pttt LIKE '%VNpay%' group by de.iddonhang;
+    $sql = 'SELECT DISTINCT sum(tongdonhang) OVER () as sum_all_sales from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 5 and pttt LIKE "%VNpay%" group by de.iddonhang;';
+    return pdo_query_value($sql);
+}
+
+function count_all_shipping_orders()
+{
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 3 group by de.iddonhang';
+    return pdo_query_value($sql);
+}
+
+function sum_all_money_of_shipping_orders()
+{
+    $sql = 'SELECT DISTINCT sum(tongdonhang) OVER () as sum_all_sales from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 3 group by de.iddonhang;';
+    return pdo_query_value($sql);
+}
+
 function count_all_orders_success()
 {
     $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 4 group by de.iddonhang';
     return pdo_query_value($sql);
 }
 
+function count_all_confirmed_orders()
+{
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 2 group by de.iddonhang';
+    return pdo_query_value($sql);
+}
+
+function count_all_unconfirmed_orders()
+{
+    $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 1 group by de.iddonhang';
+    return pdo_query_value($sql);
+}
+
 function count_all_orders_being_destroyed()
 {
     $sql = 'SELECT DISTINCT count(*) OVER () as totalRecord from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 6 group by de.iddonhang';
+    return pdo_query_value($sql);
+}
+
+function sum_money_all_orders_failed_paid()
+{
+    $sql = 'SELECT DISTINCT sum(tongdonhang) OVER () as sum_all_sales from tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = 6 and pttt LIKE "%VNpay%" group by de.iddonhang;';
     return pdo_query_value($sql);
 }
 
@@ -96,15 +133,33 @@ function count_all_reviews_products()
     return pdo_query_value($sql);
 }
 
+function count_all_replied_reviews()
+{
+    $sql = 'SELECT count(*) from tbl_reply_reviews';
+    return pdo_query_value($sql);
+}
+
 function count_all_customer()
 {
     $sql = 'SELECT count(*) from tbl_nguoidung where vai_tro = 3';
     return pdo_query_value($sql);
 }
 
+function count_all_products_inventory_less_than($num)
+{
+    $sql = "SELECT count(*) from tbl_sanpham where ton_kho <= '$num'";
+    return pdo_query_value($sql);
+}
+
 function count_all_comments_products()
 {
     $sql = "SELECT count(*) from tbl_binhluan;";
+    return pdo_query_value($sql);
+}
+
+function count_all_customer_feedbacks()
+{
+    $sql = "SELECT count(*) from tbl_feedback";
     return pdo_query_value($sql);
 }
 

@@ -13,7 +13,7 @@ foreach ($cate_list as $list) {
 ?>
                   </select>
               </div>
-              <div class="col-md-2 col-6">
+              <!-- <div class="col-md-2 col-6">
                   <input type="date" class="form-control">
               </div>
               <div class="col-md-2 col-6">
@@ -23,7 +23,7 @@ foreach ($cate_list as $list) {
                       <option>Disabled</option>
                       <option>Show all</option>
                   </select>
-              </div>
+              </div> -->
           </div>
       </div>
       <div class="card-body">

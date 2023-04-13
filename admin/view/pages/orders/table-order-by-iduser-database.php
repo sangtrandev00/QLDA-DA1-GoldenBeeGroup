@@ -59,10 +59,10 @@ foreach ($order_list as $order) {
     $row[1] = '<a href="./index.php?act=userorders&id=' . $order['iduser'] . '">' . $order['name'] . '</a>';
     $row[2] = $order['tongdonhang'];
     $row[3] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
-    // $row[4] = $thanhtoan;
-    $row[4] = $order['timeorder'];
-    $row[5] = $order['tongsoluong'];
-    $row[6] = '
+    $row[4] = $order['pttt'];
+    $row[5] = $order['timeorder'];
+    $row[6] = $order['tongsoluong'];
+    $row[7] = '
             <div class="d-flex align-items-center gap-3 fs-6">
                 <a href="./index.php?act=orderdetail&iddh=' . $order['id'] . '" class="text-primary" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" title="" data-bs-original-title="View detail"

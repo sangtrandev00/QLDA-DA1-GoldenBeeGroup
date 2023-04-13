@@ -39,6 +39,7 @@ include "../DAO/user.php";
 include "../DAO/comment.php";
 include "../DAO/blog.php";
 include "../DAO/order.php";
+include "../DAO/feedback.php";
 
 // Model to connect database
 include "./models/connectdb.php";
@@ -1059,7 +1060,7 @@ if (isset($_GET['act'])) {
                     // header('location: index.php?act=blogdetail&id='.$idblog.'');
                 } else {
                     // $thongbao = "Đăng Nhập Để Bình Luận";
-                    header('location: ./auth/login.php');                }
+                    header('location: ./auth/login.php');}
             }
             include "./view/pages/blog/blog-detail.php";
             break;
@@ -1075,16 +1076,16 @@ if (isset($_GET['act'])) {
             // include ".";
             break;
         case 'commentproduct':
-            if(isset($_POST['sentcommentproduct']) && ($_POST['sentcommentproduct'])){
+            if (isset($_POST['sentcommentproduct']) && ($_POST['sentcommentproduct'])) {
                 $idproduct = $_GET['id'];
                 $noidung = $_POST['noidung'];
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
                 $date = date('Y-m-d H:m:s');
                 $makh = $_SESSION['iduser'];
                 // $makh = 1;
-                if(isset($_SESSION['iduser'])){
-                    $is_inserted = comment_product($makh,$noidung,$idproduct, $date);
-                }else{
+                if (isset($_SESSION['iduser'])) {
+                    $is_inserted = comment_product($makh, $noidung, $idproduct, $date);
+                } else {
                     header('location: ./auth/login.php');
                 }
             }
@@ -1093,7 +1094,92 @@ if (isset($_GET['act'])) {
         case 'deletecmtproduct':
             $id = $_GET['idproduct'] ? $_GET['idproduct'] : '';
             deletecmtproduct($id);
-            header('location: index.php?act=commentproduct&id='.$_GET['idprofile'].'');
+            header('location: index.php?act=commentproduct&id=' . $_GET['idprofile'] . '');
+            break;
+        case 'feedback':
+
+            if (isset($_POST['guitn']) && $_POST['guitn']) {
+                $error = array();
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $title = $_POST['title'];
+                $content = $_POST['content'];
+                if (empty($name)) {
+                    $error['name'] = "Không để trống tên!";
+                }
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email!";
+                }
+                if (empty($phone)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+                if (empty($title)) {
+                    $error['title'] = "Không để trống chủ đề!";
+                }
+                if (empty($content)) {
+                    $error['content'] = "Không để trống nội dung!";
+                }
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date_create = date('Y-m-d H:i:s', time());
+
+                if (!$error) {
+                    $is_inserted = insert_feedback($name, $email, $phone, $title, $content, $date_create);
+                    if ($is_inserted) {
+                        $_SESSION['alert'] = "Gửi phản hồi thành công! Chúng tôi sẽ liên hệ bạn qua mail một cách sớm nhất!";
+                    } else {
+                        $_SESSION['alert'] = "Gửi phản hồi thất bại!";
+                    }
+                    // header('Location: index.php');
+                } else {
+                    $_SESSION['alert'] = "Gửi phản hồi thất bại!";
+                }
+
+            }
+            include "./view/pages/home/home.php";
+
+            break;
+        case 'feedback-ct':
+
+            if (isset($_POST['guitn']) && $_POST['guitn']) {
+                $error = array();
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $title = $_POST['title'];
+                $phone = $_POST['phone'];
+                $content = $_POST['content'];
+
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $date_create = date('Y-m-d H:i:s', time());
+                if (empty($name)) {
+                    $error['name'] = "Không để trống tên!";
+                }
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email!";
+                }
+                if (empty($phone)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+                if (empty($title)) {
+                    $error['title'] = "Không để trống chủ đề!";
+                }
+                if (empty($content)) {
+                    $error['content'] = "Không để trống nội dung!";
+                }
+                if (!$error) {
+                    $is_inserted = insert_feedback($name, $email, $phone, $title, $content, $date_create);
+                    if ($is_inserted) {
+                        $_SESSION['alert'] = "Gửi phản hồi thành công!, Chúng tôi sẽ liên hệ bạn qua mail một cách sớm nhất";
+
+                    } else {
+                        $_SESSION['alert'] = "Gửi phản hồi thất bại!";
+                    }
+                } else {
+                    $_SESSION['alert'] = "Gửi phản hồi thất bại!";
+                }
+
+            }
+            include "./view/pages/contact/contact.php";
             break;
         default:
             include "./view/component/carousel.php";

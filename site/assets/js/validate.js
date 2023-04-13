@@ -216,6 +216,48 @@ $("#change-pass-form").validate({
     number: "Bắt buộc phải nhập số"
   }
  })
+
+ $("#contact-form").validate({
+  rules:{
+    name: {
+      required: true
+    },
+    email: {
+      required: true,
+      email: true
+    },
+    title: {
+      required: true
+    },
+    phone: {
+      required: true,
+      number: true
+    },
+    content: {
+      required: true
+    }
+
+  },
+  messages: {
+    name:{
+      required: "Tên không được để trống!"
+    },
+    email: {
+      required: "Email không được để trống!",
+      email: "Email không đúng định dạng!"
+    },
+    title: {
+      required: "Chủ đề không được để trống!"
+    },
+    phone: {
+      required: "Số điện thoại không được để trống!",
+      number:"Bạn hãy nhập bằng số!"
+    },
+    content: {
+      required: "Nội dung không được để trống!"
+    }
+  }
+})
   
 
 $.validator.addMethod("validatePassword", function(value, element) {

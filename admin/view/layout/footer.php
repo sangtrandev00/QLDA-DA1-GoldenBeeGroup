@@ -12,6 +12,31 @@
 
 <!-- START QUICKVIEW PRODUCT -->
 <div id="quickview-wrapper">
+    <!-- Button trigger modal -->
+    <button type="button" id="quickViewTableBtn" class="btn btn-primary d-none" data-bs-toggle="modal"
+        data-bs-target="#productsModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="quickViewTable" tabindex="-1" aria-labelledby="quickViewTableLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="quickViewTableLabel">Xem nhanh</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -203,7 +228,9 @@
 <script src="assets/js/app.js"></script>
 <script src="assets/js/index.js"></script>
 <!-- <script src="assets/js/index4.js"></script> -->
+<script src="assets/js/pages/product.js"></script>
 <script src="assets/js/pages/common.js"></script>
+
 <script src="assets/js/pages/validate.js">
 
 </script>
@@ -252,7 +279,7 @@ if (isset($_GET['act'])) {
         case 'deleteproduct':
         case 'reviews-product':
             echo '
-            <script src="assets/js/pages/product.js"></script>
+
         ';
 
             break;

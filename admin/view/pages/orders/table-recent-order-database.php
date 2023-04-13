@@ -9,6 +9,7 @@ include $ROOT_URL . "/admin/models/order.php";
 include $ROOT_URL . "/DAO/product.php";
 include $ROOT_URL . "/DAO/category.php";
 include "$ROOT_URL/global.php";
+
 // PHẦN XỬ LÝ PHP
 // B1: KET NOI CSDL
 // $conn = connectdb();
@@ -61,9 +62,10 @@ foreach ($order_list as $order) {
 
     $row[2] = $order['tongdonhang'];
     $row[3] = '<span class="' . $alert_class . '">' . $trangthai . '</span>';
-    $row[4] = $order['timeorder'];
-    $row[5] = $order['tongsoluong'];
-    $row[6] = '
+    $row[4] = $order['pttt'];
+    $row[5] = $order['timeorder'];
+    $row[6] = $order['tongsoluong'];
+    $row[7] = '
             <div class="d-flex align-items-center gap-3 fs-6">
                 <a href="./index.php?act=orderdetail&iddh=' . $order['id'] . '" class="text-primary" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" title="" data-bs-original-title="View detail"

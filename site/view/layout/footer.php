@@ -456,15 +456,33 @@
                             <div class="single-footer">
                                 <h4 class="footer-title border-left">Liên hệ với chúng tôi</h4>
                                 <div class="footer-message">
-                                    <form action="#">
+                                    <form action="index.php?act=feedback" method="post">
                                         <input type="text" name="name" placeholder="Tên của bạn ...">
+                                        <p class="error-message">
+                                            <?php if (isset($error['name'])) {echo $error['name'];}?></p>
                                         <input type="text" name="email" placeholder="Email của bạn ...">
+                                        <p class="error-message">
+                                            <?php if (isset($error['email'])) {echo $error['email'];}?></p>
+
+                                        </p>
                                         <input type="text" name="phone" placeholder="Điện của bạn ...">
+                                        <p class="error-message">
+                                            <?php if (isset($error['phone'])) {echo $error['phone'];}?></p>
+                                        </p>
+
                                         <input type="text" name="title" placeholder="Chủ đề">
+                                        <p class="error-message">
+                                            <?php if (isset($error['title'])) {echo $error['title'];}?></p>
+                                        </p>
+
                                         <textarea name="content" class="height-80" name="message"
                                             placeholder="Để lại lời nhắn ở đây..."></textarea>
-                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi tin
-                                            nhắn</button>
+                                        <p class="error-message">
+                                            <?php if (isset($error['content'])) {echo $error['content'];}?></p>
+                                        </p>
+
+                                        <input type="submit" name="guitn" value="Gửi tin nhắn"
+                                            class="submit-btn-1 mt-20">
                                     </form>
                                 </div>
                             </div>

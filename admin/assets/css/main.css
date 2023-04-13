@@ -9,3 +9,16 @@
 label.error {
     color: red;
 }
+
+#quickViewTable .modal-dialog {
+    max-width: initial;
+    padding: 3rem;
+}
+
+table#table-warning-inventory-product {
+    width: 100%!important;
+}
+
+table#quick-orders-table {
+    width: 100%!important;
+}

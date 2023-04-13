@@ -197,21 +197,53 @@ function viewGeneralSetting() {
 function destroyOrder(orderId) {
     event.preventDefault();
     console.log("submitted: ", orderId);
-    $.ajax({
-        type: "POST",
-        url: "./logic/account-action.php?act=destroyorder",
-        data: {
-            orderid: orderId
-        },
-        // dataType: "dataType",
-        success: function (response) {
-            const {status, message} = JSON.parse(response);
-                showToast("Hủy đơn hàng #"+orderId , message)
-                $("#orderDetailModalBtn").trigger("click");
-                location.reload();
-                
-        }
-    });
+
+    $("#cartModalBtn").trigger("click");
+    $("#cartModalLabel").text("Lý do hủy đơn hàng");
+    $("#cartModal .modal-body").html(`
+        <form action="" method="post">
+           <div className="form-group">
+                <label htmlFor="" className="form-label">
+                    Nội dung
+                </label>
+                <textarea class="" name="" id="reason-destroy-content" cols="30" rows="5">
+                </textarea>
+           </div>
+        </form>
+    `);
+    $("#cartModal .continue-btn").click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "./logic/account-action.php?act=reason-destroy",
+            data: {
+                reason: $("#reason-destroy-content").val(),
+                id: orderId
+            },
+            // dataType: "dataType",
+            success: function (response) {
+                $.ajax({
+                    type: "POST",
+                    url: "./logic/account-action.php?act=destroyorder",
+                    data: {
+                        orderid: orderId
+                    },
+                    // dataType: "dataType",
+                    success: function (response) {
+                        const {status, message} = JSON.parse(response);
+                            showToast("Hủy đơn hàng #"+orderId , message)
+                            $("#orderDetailModalBtn").trigger("click");
+                            setTimeout(() => {
+                                location.assign("index.php?act=settingaccount&view=history");
+                            }, 2000);
+                            
+                    }
+                });
+            }
+        });
+    })
+  
+   
 }
 
 function confirmOrder(orderId) {

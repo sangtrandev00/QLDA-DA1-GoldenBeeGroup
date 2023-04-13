@@ -84,3 +84,7 @@ table#table-history-order {
   height: 8rem;
   object-fit: cover;
 }
+
+.product-best-sell img {
+  height: 10rem;
+}

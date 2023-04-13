@@ -7,6 +7,14 @@ function updateorderstatus($iddh, $trangthai)
     return true;
 }
 
+function update_order_reason_destroy($reason_content, $iddh)
+{
+    $sql = "UPDATE tbl_order set reason_destroy = ? where id = ?";
+    pdo_execute($sql, $reason_content, $iddh);
+    // echo $mess;
+    return true;
+}
+
 function updatepaymentstatus($iddh, $thanhtoan)
 {
     $sql = "UPDATE tbl_order set thanhtoan = ? where id = ?";
@@ -38,6 +46,12 @@ function select_orderdetail_by_orderid($iddh)
 function select_orders_by_iduser($iduser)
 {
     $sql = "SELECT od.id, madonhang, tongdonhang, pttt, iduser, name, dienThoai, address, ghichu, timeorder, trangthai, thanhtoan, sum(soluong) as tongsoluong FROM tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where iduser = '$iduser' group by iddonhang order by timeorder desc";
+    return pdo_query($sql);
+}
+
+function select_orders_by_status($status_number)
+{
+    $sql = "SELECT od.id, madonhang, tongdonhang, pttt, iduser, name, dienThoai, address, ghichu, timeorder, trangthai, thanhtoan, sum(soluong) as tongsoluong FROM tbl_order od inner join tbl_order_detail de on od.id = de.iddonhang where trangthai = '$status_number' group by iddonhang order by timeorder desc";
     return pdo_query($sql);
 }
 

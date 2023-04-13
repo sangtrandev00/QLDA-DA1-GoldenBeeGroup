@@ -102,6 +102,9 @@ break;
                 <a href="javascript:window.print()" type="button" class="btn btn-secondary"><i
                         class="bi bi-printer-fill"></i> In</a>
             </div>
+            <?php if (isset($order_info['trangthai']) && $order_info['trangthai'] == 6): ?>
+            <p class="fw-bold fs-5">Lý do hủy đơn hàng: <?php echo $order_info['reason_destroy'] ?></p>
+            <?php endif?>
         </div>
     </div>
     <div class="card-body">

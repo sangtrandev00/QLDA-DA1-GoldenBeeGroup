@@ -3,6 +3,7 @@ $(function() {
 
     $(document).ready(function() {
         const url = new URL(location.href);
+        // product list --  database
         $.ajax({
             type: "POST",
             url: ADMIN_URL+ "/view/pages/products/table-product-database.php",
@@ -16,7 +17,8 @@ $(function() {
                         data: product_list,
                         retrieve: true,
                         lengthChange: false,
-                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
                     });
 
                     table.buttons().container()
@@ -24,6 +26,15 @@ $(function() {
             }
         });
 
+
+        // product inventory less than - 10 --- database
+        
+      
+        // Quick view database -- dashboard - number of orders success, failed, confirmed, unconfimed, destroy, shipping
+        
+
+        // Table order database -- dashboard.
+        
         $.ajax({
             type: "POST",
             url: ADMIN_URL+ "/view/pages/orders/table-order-database.php",
@@ -36,18 +47,18 @@ $(function() {
                     var tableOrder = $('#table-order').DataTable({
                         data: order_list,
                         retrieve: true,
-                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                        lengthChange: false,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
                     });
 
                     tableOrder.buttons().container()
                     .appendTo( '#table-order_wrapper .col-md-6:eq(0)' );
 
-                    tableOrder.column('0:visible').order('desc').draw();
+                    tableOrder.column('5:visible').order('desc').draw();
 
             }
         });
-
-        
 
         $.ajax({
             type: "POST",
@@ -63,12 +74,13 @@ $(function() {
                     var tableRecentOrder  = $('#table-recent-order').DataTable({
                         data: order_list,
                         retrieve: true,
-                        "pageLength": 10,
-                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                        lengthChange: false,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
                     });
                     tableRecentOrder.buttons().container()
                     .appendTo( '#table-recent-order_wrapper .col-md-6:eq(0)' );
-                    tableRecentOrder.column('0:visible').order('desc').draw();
+                    tableRecentOrder.column('5:visible').order('desc').draw();
             }
         });
         let iduser = "";
@@ -92,12 +104,13 @@ $(function() {
                     var tableRecentOrder  = $('#table-user-orders').DataTable({
                         data: order_list,
                         retrieve: true,
-                        "pageLength": 10,
-                        buttons: [ 'copy', 'excel', 'pdf', 'print']
+                        lengthChange: false,
+                        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                        "ordering":true,
                     });
                     tableRecentOrder.buttons().container()
                     .appendTo( '#table-user-orders_wrapper .col-md-6:eq(0)' );
-                    tableRecentOrder.column('0:visible').order('desc').draw();
+                    tableRecentOrder.column('5:visible').order('desc').draw();
             }
         });
 

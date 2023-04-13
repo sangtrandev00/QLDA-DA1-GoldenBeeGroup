@@ -12,6 +12,9 @@
                             <h4 class=""><?php echo count_all_orders() ?></h4>
                         </div>
                     </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=orderlist" class="btn btn-outline-dark">Xem</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -19,11 +22,65 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-30 px-3">
                             <p>Đơn hàng đã giao</p>
                             <h4 class=""><?php echo count_all_orders_success() ?></h4>
                         </div>
+                        <div class="w-70">
+                            <p>Tổng doanh thu</p>
+                            <h4 class="mt-3"><?php echo number_format(sum_all_sales()) ?></h4>
+                        </div>
+
                     </div>
+                    <a href="javascript:showOrders(4)" class="btn btn-outline-primary">Xem nhanh</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-30 flex-fill px-3">
+                            <p>Đơn hàng đang giao</p>
+                            <h4 class=""><?php echo count_all_shipping_orders() ?></h4>
+                        </div>
+                        <div class="w-70 flex-fill ">
+                            <p>Tổng tiền đang giao</p>
+                            <h4 class="mt-3">
+                                <?php echo number_format(sum_all_money_of_shipping_orders()); ?>
+                            </h4>
+                        </div>
+                    </div>
+                    <a href="javascript:showOrders(3)" class="btn btn-outline-primary">Xem nhanh</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-100">
+                            <p>Đơn hàng chờ xác nhận</p>
+                            <h4 class=""><?php echo count_all_unconfirmed_orders() ?></h4>
+                        </div>
+                    </div>
+                    <a href="javascript:showOrders(1)" class="btn btn-outline-primary">Xem nhanh</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card overflow-hidden radius-10">
+                <div class="card-body">
+                    <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+                        <div class="w-100">
+                            <p>Đơn hàng đã xác nhận</p>
+                            <h4 class=""><?php echo count_all_confirmed_orders() ?></h4>
+                        </div>
+                    </div>
+                    <a href="javascript:showOrders(2)" class="btn btn-outline-primary">Xem nhanh</a>
+
                 </div>
             </div>
         </div>
@@ -36,9 +93,22 @@
                             <h4 class=""><?php echo count_all_orders_being_destroyed() ?></h4>
                         </div>
                     </div>
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <p>Hoàn tiền (đơn đã thanh toán )</p>
+                            <h4>
+                                <?php
+echo number_format(sum_money_all_orders_failed_paid());
+?>
+                            </h4>
+                        </div>
+                    </div>
+                    <a href="javascript:showOrders(6)" class="btn btn-outline-primary">Xem nhanh</a>
+
                 </div>
             </div>
         </div>
+
         <div class="col">
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
@@ -48,8 +118,16 @@
                             <h4 class=""><?php echo count_all_orders_failed() ?></h4>
                         </div>
                     </div>
+                    <div class="d-flex">
+                        <div class="w-100">
+                            <p>Hoàn tiền (đơn đã thanh toán )</p>
+                            <h4><?php echo number_format(sum_money_all_failed_orders_paid()) ?></h4>
+                        </div>
+                    </div>
+                    <a href="javascript:showOrders(5)" class="btn btn-outline-primary">Xem nhanh</a>
                 </div>
             </div>
+
         </div>
 
         <div class="col">
@@ -72,10 +150,19 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
+
                         <div class="w-100">
-                            <p>Tổng doanh thu</p>
-                            <h4 class=""><?php echo number_format(sum_all_sales()) ?> VND</h4>
+                            <p class="w-100">
+                                Gần hết hàng
+                            </p>
+                            <h4>
+                                <?php echo count_all_products_inventory_less_than(10) ?>
+                            </h4>
                         </div>
+
+                    </div>
+                    <div class="d-flex">
+                        <a href="javascript:callAjaxProducts()" class="btn btn-outline-danger">Nhập thêm</a>
                     </div>
                 </div>
             </div>
@@ -93,6 +180,9 @@
                             <div id="chart4"></div>
                         </div> -->
                     </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=userlist" class="btn btn-outline-dark">Xem</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,15 +191,15 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-100">
                             <p>Số lượng bài viết</p>
                             <h4 class=""><?php echo count_all_posts() ?></h4>
                         </div>
-                        <!-- <div class="w-50">
-                            <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
-                            <div id="chart4"></div>
-                        </div> -->
                     </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=bloglist" class="btn btn-outline-dark">Xem</a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -126,6 +216,10 @@
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
                             <div id="chart4"></div>
                         </div> -->
+
+                    </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=binhluanblog" class="btn btn-outline-dark">Xem</a>
                     </div>
                 </div>
             </div>
@@ -144,6 +238,9 @@
                             <div id="chart4"></div>
                         </div> -->
                     </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=commentproductlist" class="btn btn-outline-dark">Xem</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,12 +251,15 @@
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
                         <div class="w-50">
                             <p>Phản hồi</p>
-                            <h4 class="">0</h4>
+                            <h4 class=""><?php echo count_all_customer_feedbacks() ?></h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
                             <div id="chart4"></div>
                         </div> -->
+                    </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=feedback-list" class="btn btn-outline-dark">Xem</a>
                     </div>
                 </div>
             </div>
@@ -168,14 +268,23 @@
             <div class="card overflow-hidden radius-10">
                 <div class="card-body">
                     <div class="d-flex align-items-stretch justify-content-between overflow-hidden">
-                        <div class="w-50">
+                        <div class="w-50 ">
                             <p>Lượt đánh giá sp</p>
                             <h4 class=""><?php echo count_all_reviews_products() ?></h4>
+                        </div>
+                        <div class="w-50 px-2">
+                            <p>Đã trả lời</p>
+                            <h4>
+                                <?php echo count_all_replied_reviews(); ?>
+                            </h4>
                         </div>
                         <!-- <div class="w-50">
                             <p class="mb-3 float-end text-success">+ 8.2% <i class="bi bi-arrow-up"></i></p>
                             <div id="chart4"></div>
                         </div> -->
+                    </div>
+                    <div class="d-flex">
+                        <a href="./index.php?act=reviews-product" class="btn btn-outline-dark">Xem</a>
                     </div>
                 </div>
             </div>
@@ -755,6 +864,7 @@ $report_products_by_cates = report_products_by_cates();
                                         <th>Khách hàng</th>
                                         <th>Tổng tiền</th>
                                         <th>Trạng thái</th>
+                                        <th>Pttt</th>
                                         <th>Ngày đặt</th>
                                         <th>SL</th>
                                         <th>Hành động</th>

@@ -47,8 +47,18 @@ $message = showStatus($orderInfo['trangthai'])[1];
                 <p>Tên người đặt: <span class="text-warning"><?php echo $orderInfo['name'] ?></span> </p>
                 <p>Số điện thoại liên hệ: <span class="text-warning"><?php echo $orderInfo['dienThoai'] ?></span> </p>
                 <p>Địa chỉ: <span class="text-warning"><?php echo $orderInfo['address'] ?></span> </p>
-                <p>Trạng thái: <span class="text-warning"><?php echo $trangthai ?></span> </p>
+                <p>Trạng thái: <span class="text-warning "><?php echo $trangthai ?></span> </p>
+                <?php if ($orderInfo['trangthai'] == 6) {echo '<p class="text-danger fw-bold">Lý do hủy: ' . $orderInfo['reason_destroy'] . '</p>';}?>
                 <p>Thời gian đặt: <span class="text-warning"><?php echo $orderInfo['timeorder'] ?></span> </p>
+                <?php
+$date = new DateTime($orderInfo['timeorder']);
+$date->modify('+2 day');
+// echo $date->format('Y-m-d H:i:s');
+
+$current_date = date("Y-m-d H:i:s");
+// echo $current_date;
+
+?>
                 <div class="row">
 
                     <?php
@@ -75,7 +85,13 @@ switch ($orderInfo['trangthai']) {
 # code...
         break;
     case '3':
-        if ($orderInfo['thanhtoan'] == 1) {
+        if ($current_date >= $date->format('Y-m-d H:i:s')) {
+            // echo "TRUE";
+        } else {
+            // echo "FALSE";
+        }
+        if ($current_date >= $date->format('Y-m-d H:i:s')) {
+
             ?>
                     <form onsubmit="confirmOrder(<?php echo $_POST['id'] ?>)" id="confirm-order-form" class="col-6"
                         action="<?php echo './index.php?act=updateorder&id=' . $orderInfo['id']; ?>" method="post">
@@ -179,7 +195,7 @@ if (isset($_SESSION['iduser'])) {
             </td>
             ';
         } else {
-            if ($cart_item['trangthai'] == 4 && $cart_item['thanhtoan'] == 1) {
+            if ($cart_item['trangthai'] == 4) {
                 $row_review = '
                 <td>
                     <form onsubmit="reviewProduct(this)" id="re-order-form" class="col-6"

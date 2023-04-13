@@ -67,39 +67,6 @@ foreach ($product_list as $product_item) {
 
     // var_dump($row);
     $result[] = $row;
-    // echo '
-    //                         <tr>
-    //                             <td>
-    //                                 ' . $product_item['masanpham'] . '
-    //                             </td>
-    //                             <td class="productlist">
-    //                                 <a class="d-flex align-items-center gap-2" href="#">
-    //                                     <div class="product-box">
-    //                                         <img src="' . $thumbnail . '" alt="' . $thumbnail . '">
-    //                                     </div>
-    //                                     <div>
-    //                                         <h6 class="mb-0 product-title">' . $product_item['tensp'] . '</h6>
-    //                                     </div>
-    //                                 </a>
-    //                             </td>
-    //                             <td><span>' . $product_item['don_gia'] . ' VND</span></td>
-    //                             <td><span class="badge rounded-pill bg-success">' . $product_item['ton_kho'] . '</span></td>
-    //                             <td><span>' . $product_item['ngay_nhap'] . '</span></td>
-    //                             <td>
-    //                                 <div class="d-flex align-items-center gap-3 fs-6">
-    //                                     <a href="javascript:viewDetail(' . $product_item['masanpham'] . ')" class="text-primary"
-    //                                         title=""
-    //                                         aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-    //                                     <a href="javascript:editProduct(' . $product_item['masanpham'] . ')" class="text-warning" data-bs-toggle="tooltip"
-    //                                         data-bs-placement="bottom" title="" data-bs-original-title="Edit info"
-    //                                         aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-    //                                     <a href="javascript:deleteProduct(this,' . $product_item['masanpham'] . ');" class="text-danger" data-bs-toggle="tooltip"
-    //                                         data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-    //                                         aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-    //                                 </div>
-    //                             </td>
-    //                         </tr>
-    //                         ';
 
 }
 
