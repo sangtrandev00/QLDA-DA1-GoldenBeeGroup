@@ -223,12 +223,45 @@ $.validator.addMethod("validatePassword", function(value, element) {
   // "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số");   
 }, "Hãy nhập password từ 8 đến 16 ký tự bao gồm chữ cái và ít nhất một chữ số")
 
-// $.validator.addMethod("validatePhoneVN", function(value, element)
-// {
-//     // if (preg_match('/^[0-9]{10}+$/', $phone)) {
-//     //     return true;
-//     // } else {
-//     //     return false;
-//     // }
-//     return this.optional(element) || /^[0-9]{10}+$/i.test(value);
-// }, "Hãy nhập đúng định dạng số điện thoại ở Việt Nam")
+$("#contact-form").validate({
+  rules:{
+    name: {
+      required: true
+    },
+    email: {
+      required: true,
+      email: true
+    },
+    title: {
+      required: true
+    },
+    phone: {
+      required: true,
+      number: true
+    },
+    content: {
+      required: true
+    }
+
+  },
+  messages: {
+    name:{
+      required: "Tên không được để trống!"
+    },
+    email: {
+      required: "Email không được để trống!",
+      email: "Email không đúng định dạng!"
+    },
+    title: {
+      required: "Chủ đề không được để trống!"
+    },
+    phone: {
+      required: "Số điện thoại không được để trống!",
+      number:"Bạn hãy nhập bằng số!"
+    },
+    content: {
+      required: "Nội dung không được để trống!"
+    }
+  }
+})
+

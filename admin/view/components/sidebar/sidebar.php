@@ -134,7 +134,7 @@ if (isset($_SESSION['idadmin']) && $_SESSION['role'] == 1) {
         </a>
 
         <ul class="">
-            <li class=""> <a href="index.php?act=feedbacklist"><i class="bi bi-circle"></i>Danh sách phàn hồi</a>
+            <li class=""> <a href="index.php?act=feedback-list"><i class="bi bi-circle"></i>Danh sách phản hồi</a>
             </li>
             <li> <a href="index.php?act=reviews-product"><i class="bi bi-circle"></i>Danh sách đánh giá sp</a>
             </li>

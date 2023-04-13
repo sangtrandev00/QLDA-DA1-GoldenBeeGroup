@@ -450,15 +450,19 @@
                             <div class="single-footer">
                                 <h4 class="footer-title border-left">Liên hệ với chúng tôi</h4>
                                 <div class="footer-message">
-                                    <form action="#">
+                                    <form action="index.php?act=feedback" method="post">
                                         <input type="text" name="name" placeholder="Tên của bạn ...">
+                                        
                                         <input type="text" name="email" placeholder="Email của bạn ...">
+                                        
                                         <input type="text" name="phone" placeholder="Điện của bạn ...">
+                                        
                                         <input type="text" name="title" placeholder="Chủ đề">
-                                        <textarea name="content" class="height-80" name="message"
+                                        
+                                        <textarea name="content" class="height-80"
                                             placeholder="Để lại lời nhắn ở đây..."></textarea>
-                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Gửi tin
-                                            nhắn</button>
+                                        
+                                        <input type="submit" name="guitn" value="Gửi tin nhắn" class="submit-btn-1 mt-20">
                                     </form>
                                 </div>
                             </div>
@@ -584,6 +588,7 @@ $(function() {
 
 });
 </script>
+
 
 <?php
 

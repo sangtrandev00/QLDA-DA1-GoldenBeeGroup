@@ -39,6 +39,7 @@ include "../DAO/user.php";
 include "../DAO/comment.php";
 include "../DAO/blog.php";
 include "../DAO/order.php";
+include "../DAO/feedback.php";
 
 // Model to connect database
 include "./models/connectdb.php";
@@ -1073,6 +1074,71 @@ if (isset($_GET['act'])) {
         case 'vnpaypayment':
             // header("location ")
             // include ".";
+            break;
+        case 'feedback':
+            
+            if(isset($_POST['guitn']) && $_POST['guitn']){
+                $error = array();
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $title = $_POST['title'];
+                $content = $_POST['content'];
+                if (empty($name)) {
+                    $error['name'] = "Không để trống tên!";
+                } 
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email!";
+                } 
+                if (empty($phone)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+                if (empty($title)) {
+                    $error['title'] = "Không để trống chủ đề!";
+                } 
+                if (empty($content)) {
+                    $error['content'] = "Không để trống nội dung!";
+                } 
+                if (!$error) {
+                    $is_inserted = insert_feedback($name,$email,$phone,$title,$content);
+                    header('Location: index.php');
+                }
+            
+            }
+            include "./view/pages/home/home.php";
+                
+            break;
+        case 'feedback-ct':
+        
+            if(isset($_POST['guitn']) && $_POST['guitn']){
+                $error = array();
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $title = $_POST['title'];
+                $phone = $_POST['phone'];
+                $content = $_POST['content'];
+                if (empty($name)) {
+                    $error['name'] = "Không để trống tên!";
+                } 
+                if (empty($email)) {
+                    $error['email'] = "Không để trống email!";
+                } 
+                if (empty($phone)) {
+                    $error['phone'] = "Không để trống số điện thoại!";
+                }
+                if (empty($title)) {
+                    $error['title'] = "Không để trống chủ đề!";
+                } 
+                if (empty($content)) {
+                    $error['content'] = "Không để trống nội dung!";
+                } 
+                if (!$error) {
+                    $is_inserted = insert_feedback($name,$email,$phone,$title,$content);
+                    header('Location: index.php?act=contact');
+                }
+            
+            }
+                include "./view/pages/contact/contact.php";
             break;
 
         default:

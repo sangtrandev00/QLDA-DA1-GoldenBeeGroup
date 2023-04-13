@@ -1,3 +1,8 @@
+<style>
+    .message-box input{
+        margin-bottom: 5px;
+    }
+</style>
 <!-- BREADCRUMBS SETCTION START -->
 <div class="breadcrumbs-section plr-200 mb-80 section">
     <div class="">
@@ -66,29 +71,38 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="message-box box-shadow white-bg">
-                        <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
+                        <form id="contact-form" action="index.php?act=feedback-ct" method="post">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h4 class="blog-section-title border-left mb-30">Liên Lạc</h4>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_name" placeholder="Tên của bạn">
+                                    <input type="text" name="name" placeholder="Tên của bạn">
+                                    <p class="error-message">
+                                                    <?php echo isset($error['name']) ? $error['name'] : ''; ?></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_email" placeholder="Email của bạn">
+                                    <input type="text" name="email" placeholder="Email của bạn">
+                                    <p class="error-message">
+                                                    <?php echo isset($error['email']) ? $error['email'] : ''; ?></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_subject" placeholder="Chủ đề">
+                                    <input type="text" name="title" placeholder="Chủ đề">
+                                    <p class="error-message">
+                                                    <?php echo isset($error['title']) ? $error['title'] : ''; ?></p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="text" name="con_phone" placeholder="Điện thoại của bạn">
+                                    <input type="text" name="phone" placeholder="Điện thoại của bạn">
+                                    <p class="error-message">
+                                                    <?php echo isset($error['phone']) ? $error['phone'] : ''; ?></p>
                                 </div>
                                 <div class="col-lg-12">
-                                    <textarea class="custom-textarea" name="con_message"
+                                    <textarea class="custom-textarea" name="content"
                                         placeholder="Tin nhắn của bạn"></textarea>
-                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">
-                                        gửi tin nhắn</button>
+                                        <p class="error-message">
+                                                    <?php echo isset($error['content']) ? $error['content'] : ''; ?></p>
                                 </div>
+                                <input type="submit" name="guitn" value="Gửi tin nhắn" class="submit-btn-1 mt-30 btn-hover-1">
                             </div>
                             <p class="form-message"></p>
                         </form>
@@ -100,3 +114,15 @@
     <!-- MESSAGE BOX SECTION END -->
 </section>
 <!-- End page content -->
+<!-- Bootstrap bundle JS -->
+<script src="admin/assets/js/bootstrap.bundle.min.js"></script>
+
+<!--plugins-->
+<script src="admin/assets/js/jquery.min.js"></script>
+<script src="admin/assets/js/pace.min.js"></script>
+
+<!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
+<!-- Jquery Validate https://jqueryvalidation.org/documentation/ cdn lib-->
+<script src="site/assets/js/jquery.validate.min.js"></script>
+<script src="site/assets/js/additional-methods.min.js"></script>
+<script src="site/assets/js/validate.js"></script>
