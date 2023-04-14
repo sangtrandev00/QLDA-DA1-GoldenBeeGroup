@@ -18,15 +18,15 @@ foreach ($order_list as $order) {
     $trangthai = showStatus($order['trangthai'])[0];
     $thanhtoan = showPayment($order['thanhtoan']);
 
-    if ($order['trangthai'] == 6) {
-        $delete_action_row = '
-        <a href="javascript:deleteOrder(' . $order['id'] . ')" class="text-danger" data-bs-toggle="tooltip"
-        data-bs-placement="bottom" title="" data-bs-original-title="Delete"
-        aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-    ';
-    } else {
-        $delete_action_row = "";
-    }
+    // if ($order['trangthai'] == 6) {
+    //     $delete_action_row = '
+    //     <a href="javascript:deleteOrder(' . $order['id'] . ')" class="text-danger" data-bs-toggle="tooltip"
+    //     data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+    //     aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
+    // ';
+    // } else {
+    // }
+    $delete_action_row = "";
     switch ($order['trangthai']) {
         case '1':
         case '2':

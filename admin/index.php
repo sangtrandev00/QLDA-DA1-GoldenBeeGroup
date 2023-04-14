@@ -450,7 +450,7 @@ if (isset($_SESSION['idadmin'])) {
                 include "./view/pages/products/product-reviews.php";
                 break;
             case 'feedback-list':
-                    include "./view/pages/feedback/feedback-list.php";
+                include "./view/pages/feedback/feedback-list.php";
                 break;
             case 'reportbycate':
                 include "./view/reports/reportbycate-page.php";
@@ -843,6 +843,7 @@ if (isset($_SESSION['idadmin'])) {
                     $cart_list = getshoworderdetail($iddh);
                     $orderInfo = getorderinfo($iddh);
                     deleteorderdetailbyid($iddh);
+                    // Delete vnpay transaction.
                     $is_deleted = deleteorderbyid($iddh);
 
                     if ($is_deleted) {
