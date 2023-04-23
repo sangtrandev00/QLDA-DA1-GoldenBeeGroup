@@ -1,12 +1,25 @@
 ### Link Website (Client )
-https://thephoner.online
+See more at this website: https://thephoner.online
 
 ### This is project DA1 - from GoldenBeeGroup
-We have 4 member:
-+ Leader: Tran Nhat Sang
-+ Member1: Nguyen Ngoc Minh Dan
-+ Member2: Vong Dinh Lam Phoi
-+ Member3: Nguyen Van Hoang Trung
+
+#### Snapshort at client
+
+![client site thephoner.online](https://trannhatsang.com/wp-content/uploads/2023/04/Screenshot_78.png "thephoner.online client")
+
+#### Snapshort at client
+
+![Admin site thephoner.online/admin](https://trannhatsang.com/wp-content/uploads/2023/04/Screenshot_84.png "thephoner.online client")
+
+### Do you want to read more about this project
+
+Take a look detail understanding about my project at: [Thephoner.online - Document](/PS20227_Tran_Nhat_Sang_BAO_CAO_DA1_FINAL.docx)
+
+#### A short overview Description
+1. At client
+ - 
+3. At Admin
+ - 
 
 ### How to use this project (at localhost ):
 
@@ -19,7 +32,6 @@ at client: localhost:[yourport]/PRO1014_DA1/main-project
 Ex: With me: localhost:8082/PRO1014_DA1/main-project (maybe with you is: localhost/PRO1014_DA1/main-project )
 At Admin: localhost:[yourport]/PRO1014_DA1/main-project/admin
 Ex: With me: localhost:8082/PRO1014_DA1/main-project/admin (maybe with you is: localhost/PRO1014_DA1/main-project/admin )
-
 
 ### Happy Coding
 
