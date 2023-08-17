@@ -1,7 +1,7 @@
-### Link Website (Client )
+## Link Website (Client )
 See more at this website: https://thephoner.online
 
-### This is project DA1 - from GoldenBeeGroup
+## This is project DA1 - from GoldenBeeGroup
 
 #### Snapshort at client
 
@@ -11,9 +11,9 @@ See more at this website: https://thephoner.online
 
 ![Admin site thephoner.online/admin](https://trannhatsang.com/wp-content/uploads/2023/04/Screenshot_84.png "thephoner.online client")
 
-### Do you want to read more about this project
+## Do you want to read more about this project ?
 
-Take a look detail understanding about my project at: [Thephoner.online - Document](/PS20227_Tran_Nhat_Sang_BAO_CAO_DA1_FINAL.docx)
+>_**Take a look detail understanding about my project at: [THEPHONER.ONLINE - DOCUMENT](/PS20227_Tran_Nhat_Sang_BAO_CAO_DA1_FINAL.docx)**_
 
 #### A short overview Description
 1. At client
