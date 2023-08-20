@@ -13,7 +13,7 @@ See more at this website: https://thephoner.online
 
 ## Do you want to read more about this project ?
 
->_**Take a look detail understanding about my project at: [THEPHONER.ONLINE - DOCUMENT](/PS20227_Tran_Nhat_Sang_BAO_CAO_DA1_FINAL.docx)**_
+>_**Take a look detail understanding about my project at: [THEPHONER.ONLINE - DOCUMENT](https://docs.google.com/document/d/1xMd_pej-JVo3TC4pe9iae346PaNzkQGO/edit?usp=sharing&ouid=113091677324325823626&rtpof=true&sd=true)**_
 
 #### A short overview Description
 1. At client
